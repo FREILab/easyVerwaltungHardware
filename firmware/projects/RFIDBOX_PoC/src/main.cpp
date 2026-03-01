@@ -1,15 +1,19 @@
 /**
- * @file RFID_3D_ESP32.cpp
- * @brief ESP32 RFID Login System with Enhanced Logging
+ * @file main.cpp
+ * @brief ESP32 RFID Login System (PoC - PlatformIO Migration)
  *
- * This code initializes an ESP32 to perform RFID-based login operations.
- * It connects to WiFi, initializes an MFRC522 RFID reader, reads RFID cards,
- * and sends HTTP GET requests to a server for login and session extension.
+ * Diese Datei initialisiert einen ESP32 für RFID-basierte Login-Operationen.
+ * Sie verwaltet die WiFi-Verbindung, initialisiert den MFRC522 Reader, liest
+ * RFID-Karten und kommuniziert per HTTP GET mit dem Backend.
  *
- * Wiring details and configuration values (e.g., WiFi credentials, server settings)
- * are provided in "config_3D.h".
+ * Kontext:
+ * - Migriert von Arduino IDE zu PlatformIO.
+ * - Konfiguration und Geheimnisse werden aus "secret.h" geladen.
+ * - Teil der neuen Architektur (Proof of Concept).
+ * - CI/CD Integration via GitHub Actions für automatisierte Builds.
  *
- * This version uses the ArduinoLog library for structured logging.
+ * Hardware: ESP32 Dev1
+ * Bibliotheken: MFRC522, ArduinoLog, HTTPClient, WiFi.
  */
 
 #include <Arduino.h>
