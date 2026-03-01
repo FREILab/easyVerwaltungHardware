@@ -1,0 +1,47 @@
+name: PlatformIO Build RFIDBOX_PoC
+
+on:
+  push:
+    paths:
+      - 'firmware/projects/RFIDBOX_Poc/**'
+      - '.github/workflows/build.yml'
+  pull_request:
+    paths:
+      - 'firmware/projects/RFIDBOX_Poc/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v3
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-platformio
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Reconstruct secret.h
+        run: |
+          mkdir -p firmware/projects/RFIDBOX_Poc/include
+          # Nutzung deines neuen spezifischen Secrets
+          echo "${{ secrets.MY_SECRET_3D_Printer_H }}" > firmware/projects/RFIDBOX_Poc/include/secret.h
+
+      - name: Run PlatformIO Build
+        run: pio run -d firmware/projects/RFIDBOX_Poc
+
+      - name: Upload Binary as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: esp32-rfidbox-poc-firmware
+          path: firmware/projects/RFIDBOX_Poc/.pio/build/esp32dev/firmware.bin
