@@ -11,7 +11,7 @@
  * - Konfiguration und Geheimnisse werden aus "secret.h" geladen.
  * - Teil der neuen Architektur (Proof of Concept).
  * - CI/CD Integration via GitHub Actions für automatisierte Builds.
- * - Tags vorbereitet für zukünftige Releases.
+ * - Tags vorbereitet für zukünftige Releases
  *
  * Hardware: ESP32 Dev1
  * Bibliotheken: MFRC522, ArduinoLog, HTTPClient, WiFi.
