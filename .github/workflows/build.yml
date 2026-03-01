@@ -5,9 +5,14 @@ on:
     paths:
       - 'firmware/projects/RFIDBOX_PoC/**'
       - '.github/workflows/build.yml'
+    tags:
+      - 'v*' # Startet den Workflow bei Tags wie v1.0, v2.1 etc.
   pull_request:
     paths:
       - 'firmware/projects/RFIDBOX_PoC/**'
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -35,9 +40,7 @@ jobs:
         env:
           SECRET_DATA: ${{ secrets.MY_SECRET_3D_Printer_H }}
         run: |
-          # Ordner erstellen, falls nicht vorhanden
           mkdir -p firmware/projects/RFIDBOX_PoC/include
-          # Das Secret sicher in die Datei schreiben
           cat <<EOF > firmware/projects/RFIDBOX_PoC/include/secret.h
           $SECRET_DATA
           EOF
@@ -45,8 +48,13 @@ jobs:
       - name: Run PlatformIO Build
         run: pio run -d firmware/projects/RFIDBOX_PoC
 
-      - name: Upload Binary as Artifact
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
         with:
-          name: esp32-rfidbox-firmware
-          path: firmware/projects/RFIDBOX_PoC/.pio/build/esp32dev/firmware.bin
+          files: firmware/projects/RFIDBOX_PoC/.pio/build/esp32dev/firmware.bin
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
