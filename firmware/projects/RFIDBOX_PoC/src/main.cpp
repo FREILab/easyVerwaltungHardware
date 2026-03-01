@@ -18,11 +18,34 @@
  */
 
 #include <Arduino.h>
-#include "secret.h"
-#include <WiFi.h>
-#include <HTTPClient.h>
+#include "settings.h" // Lokale Maschinen-Konfiguration (ID, Name, Auth-Logik)
+
+// --- GEHEIMNISSE (Secrets) ---
+// 1. Lokale secret.h einbinden, falls vorhanden (für lokales Kompilieren)
+#if __has_include("secret.h")
+  #include "secret.h"
+#endif
+
+// 2. Fallbacks für GitHub-Build-Flags
+// Diese Makros werden auf GitHub direkt vom Compiler injiziert.
+#ifndef WIFI_SSID
+  #define WIFI_SSID "NotSet"
+#endif
+#ifndef WIFI_PASSWORD
+  #define WIFI_PASSWORD "NotSet"
+#endif
+#ifndef SERVER_IP
+  #define SERVER_IP "0.0.0.0"
+#endif
+#ifndef AUTHENTICATION_TOKEN
+  #define AUTHENTICATION_TOKEN "NoToken"
+#endif
+
+// Hier folgen nun deine weiteren Includes
 #include <SPI.h>
-#include "MFRC522.h"
+#include <MFRC522.h>
+#include <HTTPClient.h>
+#include <WiFi.h>
 #include <ArduinoLog.h>
 
 // --- Prototypen (Forward Declarations für C++) ---
