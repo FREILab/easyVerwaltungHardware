@@ -32,10 +32,11 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Reconstruct secret.h
+        env:
+          SECRET_DATA: ${{ secrets.MY_SECRET_3D_Printer_H }}
         run: |
           mkdir -p firmware/projects/RFIDBOX_PoC/include
-          # Nutzung deines neuen spezifischen Secrets
-          echo "${{ secrets.MY_SECRET_3D_Printer_H }}" > firmware/projects/RFIDBOX_PoC/include/secret.h
+          echo "$SECRET_DATA" > firmware/projects/RFIDBOX_PoC/include/secret.h
 
       - name: Run PlatformIO Build
         run: pio run -d firmware/projects/RFIDBOX_PoC
@@ -43,5 +44,5 @@ jobs:
       - name: Upload Binary as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: esp32-rfidbox-poc-firmware
+          name: esp32-rfidbox-firmware
           path: firmware/projects/RFIDBOX_PoC/.pio/build/esp32dev/firmware.bin
