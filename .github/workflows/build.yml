@@ -35,8 +35,12 @@ jobs:
         env:
           SECRET_DATA: ${{ secrets.MY_SECRET_3D_Printer_H }}
         run: |
+          # Ordner erstellen, falls nicht vorhanden
           mkdir -p firmware/projects/RFIDBOX_PoC/include
-          echo "$SECRET_DATA" > firmware/projects/RFIDBOX_PoC/include/secret.h
+          # Das Secret sicher in die Datei schreiben
+          cat <<EOF > firmware/projects/RFIDBOX_PoC/include/secret.h
+          $SECRET_DATA
+          EOF
 
       - name: Run PlatformIO Build
         run: pio run -d firmware/projects/RFIDBOX_PoC
