@@ -3,11 +3,11 @@ name: PlatformIO Build RFIDBOX_PoC
 on:
   push:
     paths:
-      - 'firmware/projects/RFIDBOX_Poc/**'
+      - 'firmware/projects/RFIDBOX_PoC/**'
       - '.github/workflows/build.yml'
   pull_request:
     paths:
-      - 'firmware/projects/RFIDBOX_Poc/**'
+      - 'firmware/projects/RFIDBOX_PoC/**'
 
 jobs:
   build:
@@ -33,15 +33,15 @@ jobs:
 
       - name: Reconstruct secret.h
         run: |
-          mkdir -p firmware/projects/RFIDBOX_Poc/include
+          mkdir -p firmware/projects/RFIDBOX_PoC/include
           # Nutzung deines neuen spezifischen Secrets
-          echo "${{ secrets.MY_SECRET_3D_Printer_H }}" > firmware/projects/RFIDBOX_Poc/include/secret.h
+          echo "${{ secrets.MY_SECRET_3D_Printer_H }}" > firmware/projects/RFIDBOX_PoC/include/secret.h
 
       - name: Run PlatformIO Build
-        run: pio run -d firmware/projects/RFIDBOX_Poc
+        run: pio run -d firmware/projects/RFIDBOX_PoC
 
       - name: Upload Binary as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: esp32-rfidbox-poc-firmware
-          path: firmware/projects/RFIDBOX_Poc/.pio/build/esp32dev/firmware.bin
+          path: firmware/projects/RFIDBOX_PoC/.pio/build/esp32dev/firmware.bin
