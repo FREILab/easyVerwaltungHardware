@@ -1,0 +1,65 @@
+#---------------------------------------------------------------------------
+# PROJECT INFORMATION
+#---------------------------------------------------------------------------
+PROJECT_NAME           = "easyVerwaltung Hardware"
+PROJECT_NUMBER         = "1.0.0"
+PROJECT_BRIEF          = "Unified Documentation for Machine Nodes and Smart Terminals"
+OUTPUT_DIRECTORY       = docs
+CREATE_SUBDIRECTORIES  = NO
+OUTPUT_LANGUAGE        = English
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+
+#---------------------------------------------------------------------------
+# INPUT SOURCE CONFIGURATION
+#---------------------------------------------------------------------------
+# Define the source directories for the multi-device architecture.
+# Includes PoC, production nodes, and shared APIs.
+INPUT                  = README.md \
+                         firmware/projects/RFIDBOX_PoC \
+                         firmware/projects/MachineNodes \
+                         lib/ProjectAPI
+
+# Recursively scan subdirectories for source files
+RECURSIVE              = YES
+
+# Target file extensions for C++, Python, and documentation
+FILE_PATTERNS          = *.cpp *.h *.py *.md
+
+#---------------------------------------------------------------------------
+# LANGUAGE OPTIMIZATION
+#---------------------------------------------------------------------------
+# Optimize for C/C++ (ESP32/Arduino) while maintaining Python support.
+OPTIMIZE_OUTPUT_FOR_C  = YES
+EXTENSION_MAPPING      = py=Python
+
+#---------------------------------------------------------------------------
+# EXTRACTION SETTINGS
+#---------------------------------------------------------------------------
+# Define which elements are included in the generated documentation.
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+
+#---------------------------------------------------------------------------
+# DIAGRAMS AND GRAPHS (Requires Graphviz/dot)
+#---------------------------------------------------------------------------
+# Generates visual call graphs and dependency charts.
+HAVE_DOT               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+GROUP_GRAPHS           = YES
+INCLUDE_GRAPH          = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = NO
+
+#---------------------------------------------------------------------------
+# HTML AND GITHUB PAGES CONFIGURATION
+#---------------------------------------------------------------------------
+# Optimized for deployment on GitHub Pages.
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+# Set the project README.md as the landing page
+USE_MDFILE_AS_MAINPAGE
