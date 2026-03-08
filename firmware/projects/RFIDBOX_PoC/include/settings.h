@@ -5,6 +5,12 @@
  * This file serves as the top-level instance for machine parameters.
  */
 
+/**
+ * @defgroup RFIDBOX_POC Machine Node PoC (ESP32)
+ * @brief Software for the RFID-Box and Power-Switching-Units.
+ * @{ 
+ */
+
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
@@ -40,3 +46,5 @@
 ///@}
 
 #endif // SETTINGS_H
+
+/** @} */

@@ -12,6 +12,12 @@
  * Peripherals: MFRC522 (SPI), Status LEDs, Mechanical Buttons (Simulated Card Slot).
  */
 
+ /**
+ * @defgroup RFIDBOX_POC Machine Node PoC (ESP32)
+ * @brief Software for the RFID-Box and Power-Switching-Units.
+ * @{ 
+ */
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <MFRC522.h>
@@ -372,3 +378,5 @@ String readID() {
   }
   return "0";
 }
+
+/** @} */
