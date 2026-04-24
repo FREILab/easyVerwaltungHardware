@@ -57,6 +57,8 @@ void initRFID();
 bool perform_auth_check();
 int tryLoginID(String uid);
 String readID();
+void blinkGreenSubtleSuccess();
+void blinkYellowShortWarning();
 
 //------------------------------------------------------------------------------
 // State Definitions
@@ -77,6 +79,8 @@ State currentState = STANDBY;
 State nextState = STANDBY;
 bool auth_check = true;
 unsigned long stateChangeTime = 0;
+unsigned long lastContinuousServerCheckMs = 0;
+int continuousServerCheckFailCount = 0;
 
 //------------------------------------------------------------------------------
 // Pin Definitions
@@ -204,6 +208,8 @@ void next_State() {
     case IDENTIFICATION:
       if (perform_auth_check()) {
         // when auth check was successful, start machine
+        continuousServerCheckFailCount = 0;
+        lastContinuousServerCheckMs = millis();
         nextState = RUNNING;
         delay(500); 
       } else {
@@ -216,6 +222,26 @@ void next_State() {
     case RUNNING:
       // Differentiate if the machine needs the RFID card connected constantly
       if (RFIDCARD_AUTH_CONST) {
+        if (CONTINUOUS_SERVER_CHECK && (millis() - lastContinuousServerCheckMs >= 2000)) {
+          lastContinuousServerCheckMs = millis();
+
+          int checkResult = tryLoginID(loggedInID);
+          if (checkResult == 1) {
+            continuousServerCheckFailCount = 0;
+            blinkGreenSubtleSuccess();
+          } else {
+            continuousServerCheckFailCount++;
+            blinkYellowShortWarning();
+            Log.warning("[continuous-auth] Server check failed (%d/40).\n", continuousServerCheckFailCount);
+
+            if (continuousServerCheckFailCount >= 40) {
+              Log.error("[continuous-auth] 40 failed checks reached. Turning relay off.\n");
+              digitalWrite(MACHINE_RELAY_PIN, LOW);
+              nextState = RESET;
+            }
+          }
+        }
+
         // The card has to be connected constantly
         if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
           if (!stopButtonTimerActive) { stopButtonPressTime = millis(); stopButtonTimerActive = true; }
@@ -236,6 +262,7 @@ void next_State() {
       break;
 
     case RESET:
+      continuousServerCheckFailCount = 0;
       if ((digitalRead(BUTTON_RFID) != BUTTON_PRESSED) && (digitalRead(BUTTON_STOP) != BUTTON_PRESSED)) {
         // when both buttons are inactive, change to standby state
         nextState = STANDBY;
@@ -303,7 +330,35 @@ bool perform_auth_check() {
   uid = readID();
   if (uid.equals("0")) return false;
   Log.notice("[auth] Card UID: %s\n", uid.c_str());
-  return tryLoginID(uid);
+  int success = tryLoginID(uid);
+  if (success == 1) {
+    loggedInID = uid;
+  }
+  return success == 1;
+}
+
+/**
+ * @brief Subtle green LED blink pattern on successful continuous auth check.
+ */
+void blinkGreenSubtleSuccess() {
+  digitalWrite(LED_GREEN_PIN, LOW);
+  delay(25);
+  digitalWrite(LED_GREEN_PIN, HIGH);
+  delay(25);
+  digitalWrite(LED_GREEN_PIN, LOW);
+  delay(25);
+  digitalWrite(LED_GREEN_PIN, HIGH);
+}
+
+/**
+ * @brief Short yellow LED blink while green stays on.
+ */
+void blinkYellowShortWarning() {
+  digitalWrite(LED_GREEN_PIN, HIGH);
+  digitalWrite(LED_YELLOW_PIN, HIGH);
+  delay(60);
+  digitalWrite(LED_YELLOW_PIN, LOW);
+  digitalWrite(LED_GREEN_PIN, HIGH);
 }
 
 /**
