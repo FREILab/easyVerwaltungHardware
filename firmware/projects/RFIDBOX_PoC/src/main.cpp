@@ -19,6 +19,7 @@
 
 #include <Arduino.h>
 #include "settings.h" // Lokale Maschinen-Konfiguration (ID, Name, Auth-Logik)
+#include "ota.h"      // OTA update support
 
 // --- GEHEIMNISSE (Secrets) ---
 // 1. Lokale secret.h einbinden, falls vorhanden (für lokales Kompilieren)
@@ -59,6 +60,7 @@ int tryLoginID(String uid);
 String readID();
 void blinkGreenSubtleSuccess();
 void blinkYellowShortWarning();
+void handleOTA();
 
 //------------------------------------------------------------------------------
 // State Definitions
@@ -111,6 +113,7 @@ MFRC522 mfrc522(RFID_SS_PIN, RFID_RST_PIN);  ///< Instance of the RFID module
 String loggedInID = "0";     ///< Currently logged-in RFID card ID
 String uid = "";             ///< UID read from an RFID card
 bool isHttpRequestInProgress = false; ///< Flag to indicate an ongoing HTTP request
+bool rfidAvailable = false;   ///< Flag to track if RFID module is available
 
 //------------------------------------------------------------------------------
 // Setup Function
@@ -146,6 +149,7 @@ void setup() {
 
   connectToWiFi();
   initRFID();
+  initOTA(DEVICE_NAME);  // Initialize OTA with hostname from settings
 
   // indicate successful startup
   setLED_ryg(0, 0, 0); 
@@ -162,6 +166,7 @@ void setup() {
  */
 void loop() {
   checkWiFiConnection();
+  handleOTA();  // Handle incoming OTA requests
 
   // Visual feedback based on state
   switch (currentState) {
@@ -316,9 +321,10 @@ void initRFID() {
   byte version = mfrc522.PCD_ReadRegister(mfrc522.VersionReg);
   if (version == 0x00 || version == 0xFF) {
     Log.error("[initRFID] RFID module not responding! Check wiring.\n");
-    delay(2000);
-    ESP.restart();
+    rfidAvailable = false;
+    Log.warning("[initRFID] Continuing without RFID module...\n");
   } else {
+    rfidAvailable = true;
     Log.notice("[initRFID] Reader initialized. Firmware: 0x%02X\n", version);
   }
 }
@@ -396,6 +402,8 @@ int tryLoginID(String uid) {
  * @return A String representing the UID or "0" if no card is found.
  */
 String readID() {
+  if (!rfidAvailable) return "0";
+  
   for (int attempt = 0; attempt < 3; attempt++) {
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
       String id = "";
