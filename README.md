@@ -1,53 +1,174 @@
-/** @mainpage easyVerwaltung Hardware Documentation */
-
 # 🛠️ easyVerwaltung Hardware
 
-Welcome to the central technical documentation for the **easyVerwaltung** hardware ecosystem. This repository contains the firmware and hardware specifications for the access control units used in the workshop environment.
-
-The system is designed to manage machine permissions, track usage, and ensure safety via RFID-based authentication and physical presence detection.
+Central technical documentation and firmware for the **easyVerwaltung** hardware system.
+The system manages machine access, usage tracking, and safety via RFID authentication and backend validation.
 
 ---
 
 ## 🏗️ System Architecture
 
-The ecosystem is built on a modular "Stack-Design", separating logic from power electronics to ensure safety and maintainability.
+The system follows a modular design:
 
+* **Machine Nodes (ESP32 / Pico W)**
+  Control individual machines (RFID, safety interlocks, power switching)
 
+* **Smart Terminal (Raspberry Pi)**
+  User interface for account management and system status
 
-* **Machine Nodes (ESP32/Pico W):** Distributed controllers connected to machines. They handle RFID input, safety interlocks, and power switching (230V/24V).
-* **Smart Terminal (Raspberry Pi):** Central user interaction point with a touch interface for account management and machine status.
-* **Backend API:** The central "source of truth" that validates permissions and logs activities.
-
-
-
----
-
-## 📁 Project Modules
-
-This documentation is split into several modules based on the device type. You can find detailed API references and state machine logic in the **Modules** tab.
-
-| Module | Description | Tech Stack |
-| :--- | :--- | :--- |
-| **\ref RFIDBOX_POC** | Proof of Concept firmware for machine nodes. | ESP32 / Arduino / C++ |
-| **\ref MachineNodes** | Production-ready firmware for the specialized Node-PCBs. | RP2040 (Pico W) / C++ |
-| **\ref ProjectAPI** | Shared communication library for backend requests. | C++ / JSON API |
+* **easyAPI**
+  Validates permissions and logs machine usage
 
 ---
 
-## 🚀 Getting Started (Development)
+## 📁 Repository Structure
 
-### 1. Prerequisites
-To work with this repository on your MacBook, you need:
-* **VS Code** with the **PlatformIO** extension.
-* **Doxygen** & **Graphviz** (installed via `brew install doxygen graphviz`).
+```text
+firmware/
+  projects/        # Buildable firmware targets
+    RFIDBOX_PoC/   # Working proof of concept
+    MachineNodes/  # Target structure for production nodes
 
-### 2. Configuration (Secrets)
-The firmware requires a `secret.h` file in the `include/` directory. 
-1. Copy `include/secret.example` to `include/secret.h`.
-2. Fill in your WiFi credentials and the Backend API Token.
-3. **Note:** Never commit your `secret.h` to version control.
+  shared/          # Reusable libraries
+    easyAPI/    # Backend communication (HTTP / JSON)
+    drivers/       # Hardware-level drivers (RFID, GPIO, etc.)
+    utils/         # General utilities (logging, helpers)
+```
 
-### 3. Building Documentation
-To update the local HTML documentation, run the following command in the root directory:
+### Structure Principles
+
+* `projects/` contains **complete firmware applications**
+* `shared/` contains **reusable modules used across projects**
+* Each module in `shared/` should follow:
+
+  ```
+  <module>/
+    src/
+    include/
+  ```
+
+---
+
+## 📦 Modules
+
+| Module           | Description                             | TechStack       |
+| :--------------- | :-------------------------------------- |:--------------- |
+| **RFIDBOX_PoC**  | Functional reference implementation     |ESP32 / Arduino / C++ |
+| **MachineNodes** | Intended production firmware structure  |RP2040 (Pico W) / C++ |
+| **easyAPI**   | Shared communication layer with easyVerwaltung |C++ / JSON API |
+
+---
+
+## 🚀 Setup (macOS & Linux)
+
+### Prerequisites
+
+* Git
+* Python ≥ 3.8
+* PlatformIO Core
+
+Install PlatformIO:
+
+```bash
+pip install platformio
+```
+
+---
+
+### Clone Repository
+
+```bash
+git clone <REPO_URL>
+cd <REPO_NAME>
+```
+
+---
+
+### Configuration (Secrets)
+
+For the RFIDBOX project:
+
+```bash
+cd firmware/projects/RFIDBOX_PoC
+cp include/secret.h.example include/secret.h
+```
+
+Edit `include/secret.h` and provide your credentials.
+
+**Important:**
+Do not commit this file.
+
+---
+
+### Build
+
+```bash
+cd firmware/projects/RFIDBOX_PoC
+pio run
+```
+
+---
+
+### Upload (optional)
+
+```bash
+pio run --target upload
+```
+
+---
+
+## 🔗 Using Shared Libraries
+
+In each `platformio.ini`:
+
+```ini
+lib_extra_dirs =
+  ../../shared
+```
+
+Example usage:
+
+```cpp
+#include <ProjectAPI/ApiClient.h>
+#include <utils/Logger.h>
+```
+
+---
+
+## 📚 Documentation
+
+### Requirements
+
+* Doxygen
+* Graphviz
+
+Install:
+
+**macOS**
+
+```bash
+brew install doxygen graphviz
+```
+
+**Linux (Debian/Ubuntu)**
+
+```bash
+sudo apt install doxygen graphviz
+```
+
+---
+
+### Generate Docs
+
 ```bash
 doxygen Doxyfile
+```
+
+---
+
+## ⚠️ Notes
+
+* The repository reflects a **target architecture**, not all modules are fully implemented
+* `RFIDBOX_PoC` is currently the only complete and working reference
+* `MachineNodes` and `ProjectAPI` are structural placeholders for future development
+
+---
