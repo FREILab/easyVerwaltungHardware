@@ -1,3 +1,79 @@
+# =========================
+# Build system (CMake)
+# =========================
+build/
+*/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# =========================
+# Pico SDK / Embedded
+# =========================
+*.elf
+*.bin
+*.uf2
+*.hex
+*.map
+*.dis
+
+# =========================
+# Object / intermediate
+# =========================
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+
+# =========================
+# Test binaries
+# =========================
+easy_api_tests
+example_*
+test_*
+
+# =========================
+# Coverage
+# =========================
+*.gcno
+*.gcda
+*.gcov
+coverage.info
+coverage.filtered.info
+coverage_html/
+
+# =========================
+# Debug / profiling
+# =========================
+*.log
+*.trace
+*.stackdump
+
+# =========================
+# Editors / IDEs
+# =========================
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# OS files
+# =========================
 .DS_Store
-firmware/projects/RFIDBOX_PoC/include/secret.h
-docs/
+Thumbs.db
+
+# =========================
+# Python (falls tooling kommt)
+# =========================
+__pycache__/
+*.pyc
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.swp
+*~
