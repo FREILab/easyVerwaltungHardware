@@ -1,3 +1,6 @@
 .DS_Store
 firmware/projects/RFIDBOX_PoC/include/secret.h
 docs/
+/firmware/projects/MachineNodes/build
+firmware/projects/MachineNodes/include/secret.h
+firmware/projects/RFIDBOX_PoC.zip
