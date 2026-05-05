@@ -51,6 +51,120 @@ Per-Device Overrides:
 - channel override pro device
 - optional hardware binding pro device
 
+## Detaillierte Ablage-Struktur (Server)
+Empfohlener Root auf dem Server:
+- /srv/rfidbox/
+
+Vollstaendige Struktur:
+```text
+/srv/rfidbox/
+	firmware/
+		manifest/
+			manifest.json
+			manifest.schema.json
+			manifest.history/
+				2026-05-05T120000Z-manifest.json
+		esp32/
+			0.1/
+				stable/
+					latest.bin
+					latest.sha256
+					metadata.json
+					archive/
+						1.2.0/
+							firmware.bin
+							firmware.sha256
+							metadata.json
+						1.2.1/
+							firmware.bin
+							firmware.sha256
+							metadata.json
+				beta/
+					latest.bin
+					latest.sha256
+					metadata.json
+					archive/
+						1.3.0-beta.1/
+						1.3.0-beta.2/
+		picow/
+			1.0/
+				stable/
+					latest.bin.gz
+					latest.sha256
+					metadata.json
+					archive/
+						1.2.0/
+							firmware.bin.gz
+							firmware.sha256
+							metadata.json
+				beta/
+					latest.bin.gz
+					latest.sha256
+					metadata.json
+					archive/
+						1.3.0-beta.1/
+			1.1/
+				stable/
+				beta/
+		active/
+			esp32-0.1 -> /srv/rfidbox/firmware/esp32/0.1/stable/
+			picow-1.0 -> /srv/rfidbox/firmware/picow/1.0/stable/
+		fallback/
+			esp32-0.1 -> /srv/rfidbox/firmware/esp32/0.1/archive/1.2.0/
+			picow-1.0 -> /srv/rfidbox/firmware/picow/1.0/archive/1.2.0/
+	uploads/
+		incoming/
+		processing/
+		failed/
+	logs/
+		api/
+		download/
+		upload/
+	backups/
+		daily/
+		weekly/
+```
+
+Dateirollen pro Release-Ordner:
+- firmware.bin oder firmware.bin.gz: eigentliche Firmware
+- firmware.sha256: SHA256 ueber das Firmware-File
+- metadata.json: version, build_time, git_commit, size, compressed, min_bootloader
+
+Beispiel metadata.json:
+```json
+{
+	"platform": "picow",
+	"hardware_version": "1.0",
+	"channel": "stable",
+	"version": "1.2.0",
+	"file": "firmware.bin.gz",
+	"sha256": "...",
+	"size_bytes": 352118,
+	"compressed": true,
+	"build_time_utc": "2026-05-05T09:10:11Z",
+	"git_commit": "abc1234",
+	"min_bootloader": "1.0.0"
+}
+```
+
+Berechtigungsmodell (IT):
+- rfidbox-device-ro: nur Read auf /srv/rfidbox/firmware und /srv/rfidbox/firmware/manifest
+- rfidbox-release-rw: Write auf /srv/rfidbox/uploads/incoming und /srv/rfidbox/firmware/*/beta
+- rfidbox-admin: Write auf stable, active, fallback, manifest
+- Kein Device-Write auf Serverablage
+
+Retention/Archiv-Regeln:
+- stable: immer 1x latest + mindestens 2 vorige Versionen im archive/
+- beta: latest + die letzten 5 Betas
+- manifest.history: jede Aenderung versioniert speichern
+- logs: 30 Tage lokal, danach optional zentrales Logsystem
+
+Freigabe-Workflow (kurz):
+- Upload geht immer zuerst nach beta/archive/{version}
+- Smoke-Test auf Einzelknoten (per override)
+- Danach Promotion durch Kopie/Link auf stable/latest
+- fallback-Link zeigt auf letzte stabile Vorgaengerversion
+
 ## OTA-Strategie
 ESP32:
 - .bin unkomprimiert
