@@ -47,6 +47,9 @@
 #include <HTTPClient.h>
 #include <WiFi.h>
 #include <ArduinoLog.h>
+#ifdef OTA_ENABLED
+  #include <ArduinoOTA.h>
+#endif
 
 // --- Prototypen (Forward Declarations für C++) ---
 void next_State();
@@ -145,6 +148,13 @@ void setup() {
   delay(1000);  // wait for pullups to get active
 
   connectToWiFi();
+
+#ifdef OTA_ENABLED
+  ArduinoOTA.setHostname(OTA_HOSTNAME);
+  ArduinoOTA.begin();
+  Log.notice("[OTA] Ready. Hostname: %s\n", OTA_HOSTNAME);
+#endif
+
   initRFID();
 
   // indicate successful startup
@@ -162,6 +172,9 @@ void setup() {
  */
 void loop() {
   checkWiFiConnection();
+#ifdef OTA_ENABLED
+  ArduinoOTA.handle();
+#endif
 
   // Visual feedback based on state
   switch (currentState) {
