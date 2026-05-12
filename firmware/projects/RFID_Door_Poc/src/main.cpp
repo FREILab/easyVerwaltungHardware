@@ -1,0 +1,385 @@
+/**
+ * @file main.cpp
+ * @brief Arduino Uno RFID Tür-Steuerung (PoC – PlatformIO Migration)
+ *
+ * Migriert von Arduino IDE (Programm.ino) auf PlatformIO.
+ * Hardware und Logik bleiben identisch; Server-IP und Auth-Token
+ * kommen jetzt aus Build-Flags (platformio.secrets.ini) statt
+ * hardcoded im Quellcode zu stehen.
+ *
+ * Hardware:
+ *   Arduino Uno + Ethernet-Shield (W5100)
+ *   MFRC522 RFID-Leser (SPI)
+ *   Schrittmotor-Treiber (A4988/DRV8825) via AccelStepper
+ *   74HC595 Schieberegister (LEDs, Buzzer, Motor-Enable)
+ *
+ * Hinweis – Phase 2:
+ *   OTA und WiFi erfordern einen Hardware-Upgrade auf ESP32.
+ *   Bis dahin: Erstflash per USB, kein Over-the-Air Update.
+ */
+
+#include <Arduino.h>
+#include <SPI.h>
+#include <MFRC522.h>
+#include <AccelStepper.h>
+#include <Ethernet.h>
+#include "settings.h"
+
+// --- Secrets via Build-Flags (platformio.secrets.ini) ---
+#ifndef SERVER_IP
+  #define SERVER_IP "NOT_SET"
+#endif
+#ifndef AUTHENTICATION_TOKEN
+  #define AUTHENTICATION_TOKEN "NoToken"
+#endif
+#ifndef MACHINE_ID
+  #define MACHINE_ID "tuer-01"
+#endif
+#ifndef MACHINE_NAME
+  #define MACHINE_NAME "tuer"
+#endif
+
+//------------------------------------------------------------------------------
+// Pin-Definitionen (unverändert gegenüber Programm.ino)
+//------------------------------------------------------------------------------
+
+#define PIN_STEP          2
+#define PIN_DIR           3
+#define RFID_RST_PIN      5
+#define RFID_SS_PIN       6
+#define PIN_SR_SER        7   ///< Schieberegister Serial Data
+#define PIN_SR_RCLK       8   ///< Schieberegister Latch
+#define PIN_SR_SRCLK      9   ///< Schieberegister Clock
+#define PIN_ENDSCHALTER   A0  ///< Endschalter (Heimposition)
+#define PIN_REED          A1  ///< Reed-Kontakt (Tür offen/zu)
+#define PIN_ABSCHLIESSEN  A2  ///< Manueller Schließ-Taster
+#define PIN_TERASSE       A3  ///< Terrassen-Taster (zukünftig)
+
+//------------------------------------------------------------------------------
+// States
+//------------------------------------------------------------------------------
+
+enum State {
+  STANDBY,        ///< Wartet auf RFID-Karte
+  IDENTIFICATION, ///< Server-Anfrage läuft (LED-Feedback)
+  DOOR_OPEN,      ///< Tür offen, wartet auf Schließ-Befehl
+  CLOSING,        ///< Motor schließt Tür
+  RESET           ///< Abgelehnt/Fehler, 2 s Anzeige
+};
+
+State currentState = STANDBY;
+unsigned long resetEnteredAt = 0;
+
+//------------------------------------------------------------------------------
+// Schieberegister-Zustand (aktiv LOW: true = LED/Motor an)
+//------------------------------------------------------------------------------
+
+bool srRed         = false;
+bool srYellow      = false;
+bool srGreen       = false;
+bool srSummer      = false;
+bool srMotorEnable = false;
+
+//------------------------------------------------------------------------------
+// Globale Instanzen
+//------------------------------------------------------------------------------
+
+byte mac[] = { 0x74, 0xD0, 0x2B, 0x19, 0x0E, 0x48 };  // von Ethernet-Shield-Aufkleber
+IPAddress ip(ETHERNET_FALLBACK_IP);                      // DHCP-Fallback aus settings.h
+EthernetClient client;
+
+MFRC522      mfrc522(RFID_SS_PIN, RFID_RST_PIN);
+AccelStepper stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR);
+
+String lastUid   = "";
+int    retryCount = 0;
+
+//------------------------------------------------------------------------------
+// Forward Declarations
+//------------------------------------------------------------------------------
+
+void updateSR();
+void openDoor(bool forceOpen);
+void closeDoor();
+char checkServer(String rfid);
+String readUID();
+
+//------------------------------------------------------------------------------
+// Setup
+//------------------------------------------------------------------------------
+
+void setup() {
+  pinMode(PIN_SR_SER,      OUTPUT);
+  pinMode(PIN_SR_RCLK,     OUTPUT);
+  pinMode(PIN_SR_SRCLK,    OUTPUT);
+  pinMode(PIN_ENDSCHALTER, INPUT_PULLUP);
+  pinMode(PIN_REED,        INPUT_PULLUP);
+  pinMode(PIN_ABSCHLIESSEN,INPUT_PULLUP);
+
+  srYellow = true;
+  updateSR();
+
+  stepper.setMaxSpeed(STEPPER_SPEED);
+  stepper.setAcceleration(STEPPER_ACCEL);
+
+  Serial.begin(9600);
+  while (!Serial);
+
+  Serial.println(F("Init Ethernet"));
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println(F("DHCP fehlgeschlagen, nutze Fallback-IP"));
+    Ethernet.begin(mac, ip);
+  }
+  delay(1000);
+
+  Serial.println(F("Init RFID"));
+  SPI.begin();
+  mfrc522.PCD_Init();
+
+  srYellow = false;
+  updateSR();
+  Serial.println(F("Bereit."));
+}
+
+//------------------------------------------------------------------------------
+// Loop
+//------------------------------------------------------------------------------
+
+void loop() {
+  Ethernet.maintain();
+
+  // LED-Ausgabe je nach State
+  switch (currentState) {
+    case STANDBY:
+      srRed = false; srYellow = true;  srGreen = false; break;
+    case IDENTIFICATION:
+      srRed = false; srYellow = true;  srGreen = true;  break;
+    case DOOR_OPEN:
+      srRed = false; srYellow = false; srGreen = true;  break;
+    case CLOSING:
+      srRed = true;  srYellow = true;  srGreen = true;  break;
+    case RESET:
+      srRed = true;  srYellow = false; srGreen = false;  break;
+  }
+  updateSR();
+
+  switch (currentState) {
+
+    case STANDBY: {
+      if (digitalRead(PIN_ABSCHLIESSEN) == LOW) {
+        currentState = CLOSING;
+        break;
+      }
+      String uid = readUID();
+      if (uid.length() == 0) {
+        delay(50);
+        break;
+      }
+      // Retry-Logik: gleiche Karte zweimal → Tür force-öffnen
+      if (uid.equals(lastUid)) {
+        retryCount++;
+      } else {
+        retryCount = 0;
+      }
+
+      currentState = IDENTIFICATION;
+      updateSR();
+
+      char result = checkServer(uid);
+      if (result == 1) {
+        openDoor(retryCount >= 2);
+        lastUid = uid;
+        currentState = DOOR_OPEN;
+      } else if (result == 0) {
+        Serial.println(F("Karte abgelehnt."));
+        retryCount = 0;
+        lastUid = "";
+        resetEnteredAt = millis();
+        currentState = RESET;
+      } else {
+        Serial.println(F("Server nicht erreichbar."));
+        resetEnteredAt = millis();
+        currentState = RESET;
+      }
+      break;
+    }
+
+    case DOOR_OPEN:
+      if (digitalRead(PIN_ABSCHLIESSEN) == LOW) {
+        currentState = CLOSING;
+      }
+      delay(50);
+      break;
+
+    case CLOSING:
+      closeDoor();
+      lastUid = "";
+      retryCount = 0;
+      currentState = STANDBY;
+      break;
+
+    case RESET:
+      if (millis() - resetEnteredAt >= 2000) {
+        currentState = STANDBY;
+      }
+      delay(50);
+      break;
+
+    default:
+      break;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Server-Auth
+//------------------------------------------------------------------------------
+
+char checkServer(String rfid) {
+  Serial.println(F("Verbinde mit Server..."));
+  IPAddress serverAddr;
+  serverAddr.fromString(SERVER_IP);
+  if (client.connect(serverAddr, 80)) {
+    Serial.println(F("Verbunden."));
+    client.println("GET /check_key/" + String(AUTHENTICATION_TOKEN) + "/" + rfid + " HTTP/1.1");
+    client.println("Host: " + String(SERVER_IP));
+    client.println(F("Connection: close"));
+    client.println();
+
+    int numCr = 0;
+    String message = "";
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        if (c == '\n') numCr++;
+        if (numCr > 6) message += c;
+      }
+    }
+    client.stop();
+    message.trim();
+    Serial.println("Antwort: " + message);
+    if (message.indexOf("true") >= 0) return 1;
+    return 0;
+  }
+  Serial.println(F("Verbindung fehlgeschlagen."));
+  return -1;
+}
+
+//------------------------------------------------------------------------------
+// RFID-Lesen
+//------------------------------------------------------------------------------
+
+String readUID() {
+  if (!mfrc522.PICC_IsNewCardPresent()) return "";
+  if (!mfrc522.PICC_ReadCardSerial())   return "";
+  String uid = "";
+  for (byte i = 0; i < mfrc522.uid.size; i++) {
+    if (mfrc522.uid.uidByte[i] < 16) uid += "0";
+    uid += String(mfrc522.uid.uidByte[i], 16);
+    if (i < mfrc522.uid.size - 1) uid += ":";
+  }
+  Serial.println("Karte: " + uid);
+  mfrc522.PCD_Init();  // Re-init wie im Original
+  return uid;
+}
+
+//------------------------------------------------------------------------------
+// Tür öffnen
+//------------------------------------------------------------------------------
+
+void openDoor(bool forceOpen) {
+  if (digitalRead(PIN_ENDSCHALTER) == LOW || forceOpen) {
+    srMotorEnable = true;
+    srGreen = true;
+    updateSR();
+
+    stepper.setSpeed(STEPPER_SPEED);
+    while (digitalRead(PIN_ENDSCHALTER) == LOW) {
+      stepper.runSpeed();
+    }
+    long pos = stepper.currentPosition();
+    while (stepper.currentPosition() - pos < STEPS_TO_OPEN) {
+      stepper.runSpeed();
+    }
+    stepper.setSpeed(0);
+
+    srMotorEnable = false;
+    updateSR();
+  }
+
+  srGreen  = true;
+  srSummer = true;
+  updateSR();
+  delay(2000);
+  srGreen  = false;
+  srSummer = false;
+  updateSR();
+}
+
+//------------------------------------------------------------------------------
+// Tür schließen
+//------------------------------------------------------------------------------
+
+void closeDoor() {
+  // Warten bis Tür physisch offen (Reed gibt frei)
+  while (digitalRead(PIN_REED) == HIGH) {
+    delay(50);
+  }
+  delay(2000);
+
+  srMotorEnable = true;
+  updateSR();
+
+  long posStart = stepper.currentPosition();
+  stepper.setSpeed(-STEPPER_SPEED);
+  while (digitalRead(PIN_ENDSCHALTER) == HIGH && (posStart - stepper.currentPosition()) < STEPS_MAX) {
+    stepper.runSpeed();
+  }
+  long pos = stepper.currentPosition();
+  while ((pos - stepper.currentPosition()) < STEPS_TO_CLOSE) {
+    stepper.runSpeed();
+  }
+
+  srMotorEnable = false;
+  updateSR();
+
+  // Visuelles Feedback: 2× alle LEDs blinken
+  for (int i = 0; i < 2; i++) {
+    srRed = true; srYellow = true; srGreen = true;
+    updateSR(); delay(500);
+    srRed = false; srYellow = false; srGreen = false;
+    updateSR(); delay(500);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Schieberegister aktualisieren (74HC595, aktiv LOW)
+// Bit-Reihenfolge (zuletzt geshiftet = Q0):
+//   [0] MotorEnable  [1] Summer  [2] Grün  [3] Gelb  [4] Rot
+//------------------------------------------------------------------------------
+
+void updateSR() {
+  digitalWrite(PIN_SR_RCLK, LOW);
+
+  // Motor Enable: aktiv LOW (invertiert)
+  digitalWrite(PIN_SR_SER, srMotorEnable ? LOW : HIGH);
+  digitalWrite(PIN_SR_SRCLK, HIGH); digitalWrite(PIN_SR_SRCLK, LOW);
+
+  // Summer: aktiv LOW
+  digitalWrite(PIN_SR_SER, srSummer ? LOW : HIGH);
+  digitalWrite(PIN_SR_SRCLK, HIGH); digitalWrite(PIN_SR_SRCLK, LOW);
+
+  // Grün: aktiv LOW
+  digitalWrite(PIN_SR_SER, srGreen ? LOW : HIGH);
+  digitalWrite(PIN_SR_SRCLK, HIGH); digitalWrite(PIN_SR_SRCLK, LOW);
+
+  // Gelb: aktiv LOW
+  digitalWrite(PIN_SR_SER, srYellow ? LOW : HIGH);
+  digitalWrite(PIN_SR_SRCLK, HIGH); digitalWrite(PIN_SR_SRCLK, LOW);
+
+  // Rot: aktiv LOW
+  digitalWrite(PIN_SR_SER, srRed ? LOW : HIGH);
+  digitalWrite(PIN_SR_SRCLK, HIGH); digitalWrite(PIN_SR_SRCLK, LOW);
+
+  digitalWrite(PIN_SR_RCLK, HIGH);
+  digitalWrite(PIN_SR_RCLK, LOW);
+}

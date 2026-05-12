@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "firmware/projects/RFIDBOX_PoC"
+		},
+		{
+			"path": "firmware/projects/RFID_Door_Poc"
 		}
 	],
 	"settings": {}

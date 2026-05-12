@@ -4,3 +4,4 @@ docs/
 /firmware/projects/MachineNodes/build
 firmware/projects/MachineNodes/include/secret.h
 firmware/projects/RFIDBOX_PoC.zip
+firmware/projects/RFID_Door_Poc/platformio.ini
