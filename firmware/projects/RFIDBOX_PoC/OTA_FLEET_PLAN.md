@@ -1,203 +1,190 @@
 # OTA + Fleet Plan
 
-Quelle: Session-Plan fuer RFIDBOX OTA/Fleet Management (ESP32 + Pico W).
-Diese Datei liegt im Projektordner und ist damit in Git sichtbar.
+Quelle: OTA/Fleet-Konzept fuer RFIDBOX_PoC.
 
 ## Workspace-Bezug
 - Workspace-Root: /Users/marius/Github/easyVerwaltungHardware/firmware/projects/RFIDBOX_PoC
 - Hauptdatei derzeit: src/main.cpp
-- Zweck: Plan gilt fuer dieses Firmware-Projekt und dessen Multi-Node-Weiterentwicklung (ESP32 0.1, Pico W 1.0+).
+- Ziel: Einheitliches Fleet-Deployment-Prinzip fuer RFIDBOX-Knoten.
 
 ## Kernziele
-- OTA fuer Mischbetrieb ESP32 + Pico W
-- Onboarding ueber RFID/QR + AP-Webinterface
-- Persistente Config im Onboard-Flash (keine SD-Karte)
-- Discovery + Remote-Verwaltung im lokalen Netzwerk
-- Selektive Updates (einzelne Box auf Beta) + Flottenupdates
-- Direkte Entwicklung aus VS Code ohne Gehaeuse oeffnen
+- Einheitlicher OTA-Workflow fuer alle RFIDBOX-Nodes
+- Per-Device-Config persistent speichern (statt Build-spezifischer Firmware)
+- Einmalig-Provisioning neuer Geraete ueber AP-Webinterface
+- Zentrale Firmware-Ablage mit Versionierung und Kanalmodell (stable/beta)
+- Selektive Updates pro Geraet + Flottenupdate
+- Direkte Entwicklung aus VS Code weiterhin moeglich
 
-## Hardware-Generationen (JSON relevant)
-- Node 0.1: ESP32 (bestehend)
-- Node 1.0: Pico W 230V (in Entwicklung)
-- Node 1.1: Pico W 230V Fixes (zukuenftig)
-- Node 2.0/3.0+: zukuenftig
+## Hardware-Generationen
+- RFIDBOX v0.1: ESP32 (aktuell)
+- RFIDBOX v1.x: zukunftige Revisionen
 
-## Config-Schema (geraeteseitig)
-Pflichtfelder in der lokalen Konfiguration:
-- device_id
+## Aktueller Stand
+- Build aktuell als PlatformIO Environment `esp32dev`
+- Firmware wird lokal gebaut und klassisch deployed
+- Noch kein zentrales Manifest-gesteuertes Pull-OTA aktiv
+
+## Ziel-Config-Schema (geraeteseitig)
+Pflichtfelder in lokaler Config (NVS/Preferences):
+- device_id (z.B. rfidbox-01)
+- device_name
 - machine_id
-- hardware_type: esp32 | picow
-- hardware_version: 0.1 | 1.0 | 1.1 | 2.0 ...
 - wifi.ssid / wifi.password
 - server.url / server.token
 - firmware.channel (stable/beta)
 - firmware.auto_update (bool)
 
+Optionale Felder:
+- firmware.server_url (Override)
+- ota_hostname_prefix
+
+## Migrations-Strategie
+Zwei Phasen fuer die schrittweise Umstellung:
+
+Phase 1 (kurzfristig):
+- Bestehenden Build-/Upload-Workflow beibehalten
+- Server-Ablage und Manifest-Struktur aufsetzen
+- Device-Overrides im Manifest vorbereiten
+
+Phase 2 (mittelfristig):
+- Generische Firmware fuer alle RFIDBOX-Nodes
+- Config aus Build-Parametern in NVS ueberfuehren
+- Bei fehlender Config: AP-Provisioning starten
+- OTA als Pull-Modell via Server-Manifest
+
 ## Server/Manifest-Modell
-Firmware wird nach Plattform + Hardware-Version + Kanal aufgeloest:
+Firmware wird nach Plattform, Hardware-Version und Kanal aufgeloest:
 - /firmware/esp32/0.1/stable/latest.bin
-- /firmware/picow/1.0/stable/latest.bin.gz
-- /firmware/picow/1.1/beta/latest.bin.gz
+- /firmware/esp32/0.1/beta/latest.bin
+- /firmware/esp32/1.0/stable/latest.bin (zukunftig)
 
 Manifest liefert pro Ziel:
 - version
 - url
-- checksum
+- checksum (SHA256)
 - groesse
-- compressed flag
 - release_date
 
-Per-Device Overrides:
-- channel override pro device
-- optional hardware binding pro device
+Per-Device-Overrides:
+- channel override pro device_id
+- optional hardware binding pro device_id
 
 ## Detaillierte Ablage-Struktur (Server)
-Empfohlener Root auf dem Server:
+Empfohlener Root:
 - /srv/rfidbox/
 
 Vollstaendige Struktur:
 ```text
 /srv/rfidbox/
-	firmware/
-		manifest/
-			manifest.json
-			manifest.schema.json
-			manifest.history/
-				2026-05-05T120000Z-manifest.json
-		esp32/
-			0.1/
-				stable/
-					latest.bin
-					latest.sha256
-					metadata.json
-					archive/
-						1.2.0/
-							firmware.bin
-							firmware.sha256
-							metadata.json
-						1.2.1/
-							firmware.bin
-							firmware.sha256
-							metadata.json
-				beta/
-					latest.bin
-					latest.sha256
-					metadata.json
-					archive/
-						1.3.0-beta.1/
-						1.3.0-beta.2/
-		picow/
-			1.0/
-				stable/
-					latest.bin.gz
-					latest.sha256
-					metadata.json
-					archive/
-						1.2.0/
-							firmware.bin.gz
-							firmware.sha256
-							metadata.json
-				beta/
-					latest.bin.gz
-					latest.sha256
-					metadata.json
-					archive/
-						1.3.0-beta.1/
-			1.1/
-				stable/
-				beta/
-		active/
-			esp32-0.1 -> /srv/rfidbox/firmware/esp32/0.1/stable/
-			picow-1.0 -> /srv/rfidbox/firmware/picow/1.0/stable/
-		fallback/
-			esp32-0.1 -> /srv/rfidbox/firmware/esp32/0.1/archive/1.2.0/
-			picow-1.0 -> /srv/rfidbox/firmware/picow/1.0/archive/1.2.0/
-	uploads/
-		incoming/
-		processing/
-		failed/
-	logs/
-		api/
-		download/
-		upload/
-	backups/
-		daily/
-		weekly/
+    firmware/
+        manifest/
+            manifest.json
+            manifest.schema.json
+            manifest.history/
+                2026-05-11T120000Z-manifest.json
+        esp32/
+            0.1/
+                stable/
+                    latest.bin
+                    latest.sha256
+                    metadata.json
+                    archive/
+                        1.0.0/
+                            firmware.bin
+                            firmware.sha256
+                            metadata.json
+                        1.0.1/
+                            firmware.bin
+                            firmware.sha256
+                            metadata.json
+                beta/
+                    latest.bin
+                    latest.sha256
+                    metadata.json
+                    archive/
+                        1.1.0-beta.1/
+                        1.1.0-beta.2/
+        active/
+            esp32-0.1 -> /srv/rfidbox/firmware/esp32/0.1/stable/
+        fallback/
+            esp32-0.1 -> /srv/rfidbox/firmware/esp32/0.1/archive/1.0.0/
+    uploads/
+        incoming/
+        processing/
+        failed/
+    logs/
+        api/
+        download/
+    backups/
+        daily/
+        weekly/
 ```
 
 Dateirollen pro Release-Ordner:
-- firmware.bin oder firmware.bin.gz: eigentliche Firmware
+- firmware.bin: eigentliche Firmware (ESP32 OTA, unkomprimiert)
 - firmware.sha256: SHA256 ueber das Firmware-File
-- metadata.json: version, build_time, git_commit, size, compressed, min_bootloader
+- metadata.json: version, build_time, git_commit, size, hardware_version
 
 Beispiel metadata.json:
 ```json
 {
-	"platform": "picow",
-	"hardware_version": "1.0",
-	"channel": "stable",
-	"version": "1.2.0",
-	"file": "firmware.bin.gz",
-	"sha256": "...",
-	"size_bytes": 352118,
-	"compressed": true,
-	"build_time_utc": "2026-05-05T09:10:11Z",
-	"git_commit": "abc1234",
-	"min_bootloader": "1.0.0"
+    "platform": "esp32",
+    "hardware_version": "0.1",
+    "channel": "stable",
+    "version": "1.0.1",
+    "file": "firmware.bin",
+    "sha256": "...",
+    "size_bytes": 512000,
+    "compressed": false,
+    "build_time_utc": "2026-05-11T09:10:11Z",
+    "git_commit": "abc1234"
 }
 ```
 
-Berechtigungsmodell (IT):
-- rfidbox-device-ro: nur Read auf /srv/rfidbox/firmware und /srv/rfidbox/firmware/manifest
-- rfidbox-release-rw: Write auf /srv/rfidbox/uploads/incoming und /srv/rfidbox/firmware/*/beta
+## Berechtigungsmodell
+- rfidbox-device-ro: nur Read auf /srv/rfidbox/firmware
+- rfidbox-release-rw: Write auf uploads/incoming und firmware/*/beta
 - rfidbox-admin: Write auf stable, active, fallback, manifest
-- Kein Device-Write auf Serverablage
 
-Retention/Archiv-Regeln:
+## Retention/Archiv-Regeln
 - stable: immer 1x latest + mindestens 2 vorige Versionen im archive/
 - beta: latest + die letzten 5 Betas
 - manifest.history: jede Aenderung versioniert speichern
-- logs: 30 Tage lokal, danach optional zentrales Logsystem
 
-Freigabe-Workflow (kurz):
-- Upload geht immer zuerst nach beta/archive/{version}
-- Smoke-Test auf Einzelknoten (per override)
-- Danach Promotion durch Kopie/Link auf stable/latest
+## Freigabe-Workflow
+- Upload immer zuerst nach beta/archive/{version}
+- Test auf einzelnen Devices (per override)
+- Danach Promotion auf stable/latest
 - fallback-Link zeigt auf letzte stabile Vorgaengerversion
 
 ## OTA-Strategie
 ESP32:
 - .bin unkomprimiert
-- A/B-Fallback Schema
+- A/B-Fallback mit OTA-Partitionen (ota_0 / ota_1)
 
-Pico W:
-- .bin.gz (GZIP)
-- Streaming-Dekompression waehrend Download
-- Staging + Recovery
+Betriebsmodi (parallel moeglich):
+- Direktes Dev-OTA aus VS Code (schnelles Testen)
+- Manifest-gesteuertes HTTP Pull-OTA fuer Fleet-Rollout
 
-## API-Richtung
-- GET /api/firmware/manifest?hardware_type=...&hardware_version=...
-- GET /api/firmware/download/{platform}/{hardware_version}/{channel}/{filename}
-- POST /api/firmware/upload/{platform}/{hardware_version}
+## API-Richtung (Server)
+- GET /api/firmware/manifest?hardware_version=0.1&channel=stable
+- GET /api/firmware/manifest?device_id=rfidbox-01
+- GET /api/firmware/download/esp32/{hardware_version}/{channel}/latest.bin
+- POST /api/firmware/upload/esp32/{hardware_version}
 
-## VS Code Entwicklung
-ESP32:
-- PlatformIO OTA (mDNS Hostname)
+## VS Code / PlatformIO Entwicklung
+- Phase 1: bestehendes `esp32dev`-Environment bleibt aktiv
+- Phase 2: generische Firmware + Upload per CI/CD auf Server
+- Direkte OTA-Targets fuer Entwicklung koennen parallel bestehen bleiben
 
-Pico W:
-- GCC/CMake Build
-- Initial einmalig USB UF2 Drag&Drop
-- danach OTA per Python Upload-Script
-
-## Discovery-App
-- mDNS discovery: rfidbox-*.local
-- Status inkl. hardware_type + hardware_version
-- Dashboard-Filter nach Generation (0.1, 1.0, 1.1, ...)
-- Aktionen: einzelnes Update, Kanalwechsel, Flottenupdate
+## Discovery
+- mDNS-Namensschema: rfidbox-{id}.local
+- Kuenftiges Dashboard:
+  - Status: firmware_version, hardware_version, machine_id
+  - Aktionen: channel wechseln, sofortiges Update triggern
 
 ## Entscheidungen
 - Keine SD-Karte
-- Onboard-Flash fuer Config
-- Externer Flash hoechstens spaeter optional
-- GZIP fuer Pico W OTA fix gesetzt
-- Multi-Node-Versionierung fix gesetzt
+- Config persistent in NVS/Onboard-Flash
+- Firmware unkomprimiert fuer ESP32 OTA
+- Fleet-Prinzip gesetzt (Manifest + channels + overrides + promotion)
