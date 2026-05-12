@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../easyVerwaltungHardware.wiki"
+		},
+		{
+			"path": "firmware/projects/RFIDBOX_PoC"
+		}
+	],
+	"settings": {}
+}
