@@ -34,8 +34,8 @@
 #ifndef WIFI_PASSWORD
   #define WIFI_PASSWORD "NotSet"
 #endif
-#ifndef SERVER_IP
-  #define SERVER_IP "0.0.0.0"
+#ifndef SERVER_HOST
+  #define SERVER_HOST "localhost"
 #endif
 #ifndef AUTHENTICATION_TOKEN
   #define AUTHENTICATION_TOKEN "NoToken"
@@ -328,7 +328,10 @@ void initRFID() {
  */
 bool perform_auth_check() {
   uid = readID();
-  if (uid.equals("0")) return false;
+  if (uid.equals("0")) {
+    Log.warning("[auth] No card readable (readID returned 0).\n");
+    return false;
+  }
   Log.notice("[auth] Card UID: %s\n", uid.c_str());
   int success = tryLoginID(uid);
   if (success == 1) {
@@ -365,22 +368,34 @@ void blinkYellowShortWarning() {
  * @brief Attempts to log in using the provided RFID card UID.
  */
 int tryLoginID(String uid) {
-  if (isHttpRequestInProgress || WiFi.status() != WL_CONNECTED) return -1;
+  if (isHttpRequestInProgress) {
+    Log.warning("[tryLoginID] Skipped: request already in progress.\n");
+    return -1;
+  }
+  if (WiFi.status() != WL_CONNECTED) {
+    Log.warning("[tryLoginID] Skipped: WiFi not connected.\n");
+    return -1;
+  }
   isHttpRequestInProgress = true;
 
   HTTPClient http;
   WiFiClient client;
-  String url = "http://" + String(SERVER_IP) + "/machine_try_login/" + AUTHENTICATION_TOKEN + "/" + MACHINE_NAME + "/" + MACHINE_ID + "/" + uid;
+  String url = "http://" + String(SERVER_HOST) + "/machine_try_login/" + AUTHENTICATION_TOKEN + "/" + MACHINE_NAME + "/" + MACHINE_ID + "/" + uid;
+  Log.verbose("[tryLoginID] GET %s\n", url.c_str());
 
   http.begin(client, url);
   int httpCode = http.GET();
+  Log.verbose("[tryLoginID] HTTP response code: %d\n", httpCode);
   int success = 0;
 
   if (httpCode == HTTP_CODE_OK) {
     String payload = http.getString();
+    Log.verbose("[tryLoginID] Payload: %s\n", payload.c_str());
     if (payload.indexOf("true") >= 0) {
       Log.notice("[tryLoginID] Login successful.\n");
       success = 1;
+    } else {
+      Log.warning("[tryLoginID] Login denied (payload does not contain 'true').\n");
     }
   } else {
     Log.error("[tryLoginID] HTTP error: %d\n", httpCode);
@@ -397,17 +412,24 @@ int tryLoginID(String uid) {
  */
 String readID() {
   for (int attempt = 0; attempt < 3; attempt++) {
-    if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
-      String id = "";
-      for (byte i = 0; i < mfrc522.uid.size; i++) {
-        id += (mfrc522.uid.uidByte[i] < 16 ? "0" : "") + String(mfrc522.uid.uidByte[i], 16);
-        if (i < mfrc522.uid.size - 1) id += ":";
+    bool isPresent = mfrc522.PICC_IsNewCardPresent();
+    Log.verbose("[readID] Attempt %d: PICC_IsNewCardPresent=%d\n", attempt + 1, isPresent);
+    if (isPresent) {
+      bool readOk = mfrc522.PICC_ReadCardSerial();
+      Log.verbose("[readID] Attempt %d: PICC_ReadCardSerial=%d\n", attempt + 1, readOk);
+      if (readOk) {
+        String id = "";
+        for (byte i = 0; i < mfrc522.uid.size; i++) {
+          id += (mfrc522.uid.uidByte[i] < 16 ? "0" : "") + String(mfrc522.uid.uidByte[i], 16);
+          if (i < mfrc522.uid.size - 1) id += ":";
+        }
+        mfrc522.PICC_HaltA();
+        mfrc522.PCD_StopCrypto1();
+        return id;
       }
-      mfrc522.PICC_HaltA();
-      mfrc522.PCD_StopCrypto1();
-      return id;
     }
     delay(500);
   }
+  Log.warning("[readID] All attempts failed.\n");
   return "0";
 }
