@@ -14,6 +14,12 @@
 		},
 		{
 			"path": "firmware/projects/DOOR_easyVerwaltung"
+		},
+		{
+			"path": "firmware/projects/LASERSAUR_HMI_legacy"
+		},
+		{
+			"path": "firmware/projects/LASERSAUR_HMI_easyVerwaltung"
 		}
 	],
 	"settings": {}
