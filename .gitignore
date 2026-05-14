@@ -1,7 +1,15 @@
 .DS_Store
-firmware/projects/RFIDBOX_PoC/include/secret.h
-docs/
-/firmware/projects/MachineNodes/build
-firmware/projects/MachineNodes/include/secret.h
-firmware/projects/RFIDBOX_PoC.zip
-firmware/projects/RFID_Door_Poc/platformio.ini
+
+# PlatformIO — Build-Cache und generierte VS-Code-Configs (alle Projekte)
+firmware/projects/*/.pio/
+firmware/projects/*/.vscode/.browse.c_cpp.db*
+firmware/projects/*/.vscode/c_cpp_properties.json
+firmware/projects/*/.vscode/launch.json
+firmware/projects/*/.vscode/ipch
+
+# Secrets — nicht in Git (platformio.secrets.ini.example bleibt getrackt)
+firmware/projects/*/platformio.secrets.ini
+firmware/projects/*/include/secret.h
+
+# MachineNode — CMake Build-Artefakte
+firmware/projects/MachineNode/build/
