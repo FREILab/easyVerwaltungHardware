@@ -4,10 +4,16 @@
 			"path": "../easyVerwaltungHardware.wiki"
 		},
 		{
-			"path": "firmware/projects/RFIDBOX_PoC"
+			"path": "firmware/projects/RFID_BOX_legacy"
 		},
 		{
-			"path": "firmware/projects/RFID_Door_Poc"
+			"path": "firmware/projects/RFID_BOX_easyVerwaltung"
+		},
+		{
+			"path": "firmware/projects/DOOR_legacy"
+		},
+		{
+			"path": "firmware/projects/DOOR_easyVerwaltung"
 		}
 	],
 	"settings": {}
