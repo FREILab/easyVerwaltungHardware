@@ -91,8 +91,9 @@ WiFiClient client;
 MFRC522      mfrc522(RFID_SS_PIN, RFID_RST_PIN);
 AccelStepper stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR);
 
-String lastUid   = "";
-int    retryCount = 0;
+static const uint8_t UID_BUF_LEN = 32;
+char lastUid[UID_BUF_LEN] = "";
+int  retryCount = 0;
 
 //------------------------------------------------------------------------------
 // Forward Declarations
@@ -101,8 +102,8 @@ int    retryCount = 0;
 void updateSR();
 void openDoor(bool forceOpen);
 void closeDoor();
-char checkServer(String rfid);
-String readUID();
+char checkServer(const char* rfid);
+bool readUID(char* buf, uint8_t bufSize);
 
 //------------------------------------------------------------------------------
 // Setup
@@ -153,6 +154,10 @@ void setup() {
              mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
     Serial.print(F("MAC: "));
     Serial.println(macStr);
+    // WDT während OTA am Leben halten: Staging-Erase (~1.5s) und Apply-Erase (~1.5s)
+    // liegen jeweils innerhalb des 4s-Fensters wenn an den richtigen Stellen refreshed wird.
+    ArduinoOTA.onStart([]() { WDT.refresh(); });
+    ArduinoOTA.beforeApply([]() { WDT.refresh(); });
     ArduinoOTA.begin(WiFi.localIP(), OTA_HOSTNAME, "", InternalStorage);
     Serial.print(F("[OTA] Bereit: "));
     Serial.println(OTA_HOSTNAME);
@@ -209,13 +214,13 @@ void loop() {
         currentState = CLOSING;
         break;
       }
-      String uid = readUID();
-      if (uid.length() == 0) {
+      char uid[UID_BUF_LEN];
+      if (!readUID(uid, sizeof(uid))) {
         delay(50);
         break;
       }
       // Retry-Logik: gleiche Karte zweimal → Tür force-öffnen
-      if (uid.equals(lastUid)) {
+      if (strcmp(uid, lastUid) == 0) {
         retryCount++;
       } else {
         retryCount = 0;
@@ -229,12 +234,13 @@ void loop() {
       if (result == 1) {
         openDoor(retryCount >= 2);
         retryCount = 0;
-        lastUid = uid;
+        strncpy(lastUid, uid, UID_BUF_LEN - 1);
+        lastUid[UID_BUF_LEN - 1] = '\0';
         currentState = STANDBY;
       } else if (result == 0) {
         Serial.println(F("Karte abgelehnt."));
         retryCount = 0;
-        lastUid = "";
+        lastUid[0] = '\0';
         resetEnteredAt = millis();
         currentState = RESET;
       } else {
@@ -254,7 +260,7 @@ void loop() {
 
     case CLOSING:
       closeDoor();
-      lastUid = "";
+      lastUid[0] = '\0';
       retryCount = 0;
       currentState = STANDBY;
       break;
@@ -286,7 +292,7 @@ static void blinkGreen() {
   }
 }
 
-char checkServer(String rfid) {
+char checkServer(const char* rfid) {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println(F("Kein WiFi – Server-Check übersprungen."));
     return -1;
@@ -298,56 +304,73 @@ char checkServer(String rfid) {
     return -1;
   }
   blinkGreen();
-  if (client.connect(serverAddr, 80)) {
-    Serial.println(F("Verbunden."));
-    client.println("GET /check_key/" + String(AUTHENTICATION_TOKEN) + "/" + rfid + " HTTP/1.0");
-    client.println("Host: " + String(SERVER_IP));
-    client.println();
-
-    String message = "";
-    bool inBody = false;
-    unsigned long t = millis();
-    while (client.connected() && millis() - t < 5000) {
-      WDT.refresh();
-      blinkGreen();
-      while (client.available()) {
-        String line = client.readStringUntil('\n');
-        if (!inBody) {
-          if (line == "\r") inBody = true;
-        } else {
-          message += line;
-        }
-        t = millis();
-      }
-      if (inBody && message.length() > 0) break;
-    }
+  if (!client.connect(serverAddr, 80)) {
     client.stop();
-    message.trim();
-    Serial.println("Antwort: " + message);
-    if (message.indexOf("true") >= 0) return 1;
-    return 0;
+    Serial.println(F("Verbindung fehlgeschlagen."));
+    return -1;
+  }
+
+  Serial.println(F("Verbunden."));
+  char req[256];
+  snprintf(req, sizeof(req), "GET /check_key/%s/%s HTTP/1.0", AUTHENTICATION_TOKEN, rfid);
+  client.println(req);
+  snprintf(req, sizeof(req), "Host: %s", SERVER_IP);
+  client.println(req);
+  client.println();
+
+  char message[128] = "";
+  uint8_t msgLen = 0;
+  bool inBody = false;
+  char lineBuf[128] = "";
+  uint8_t lineLen = 0;
+  unsigned long t = millis();
+
+  while (client.connected() && millis() - t < 5000) {
+    WDT.refresh();
+    blinkGreen();
+    while (client.available()) {
+      char c = client.read();
+      t = millis();
+      if (!inBody) {
+        if (c == '\n') {
+          // Leerzeile = Ende der HTTP-Header
+          if (lineLen <= 1) inBody = true;
+          lineLen = 0;
+        } else if (lineLen < sizeof(lineBuf) - 1) {
+          lineBuf[lineLen++] = c;
+        }
+      } else {
+        if (msgLen < sizeof(message) - 1) message[msgLen++] = c;
+      }
+    }
+    if (inBody && msgLen > 0) break;
   }
   client.stop();
-  Serial.println(F("Verbindung fehlgeschlagen."));
-  return -1;
+
+  Serial.print(F("Antwort: "));
+  Serial.println(message);
+  if (strstr(message, "true") != nullptr) return 1;
+  return 0;
 }
 
 //------------------------------------------------------------------------------
 // RFID-Lesen
 //------------------------------------------------------------------------------
 
-String readUID() {
-  if (!mfrc522.PICC_IsNewCardPresent()) return "";
-  if (!mfrc522.PICC_ReadCardSerial())   return "";
-  String uid = "";
+bool readUID(char* buf, uint8_t bufSize) {
+  if (!mfrc522.PICC_IsNewCardPresent()) return false;
+  if (!mfrc522.PICC_ReadCardSerial())   return false;
+  buf[0] = '\0';
   for (byte i = 0; i < mfrc522.uid.size; i++) {
-    if (mfrc522.uid.uidByte[i] < 16) uid += "0";
-    uid += String(mfrc522.uid.uidByte[i], 16);
-    if (i < mfrc522.uid.size - 1) uid += ":";
+    char hex[4];
+    snprintf(hex, sizeof(hex), i < mfrc522.uid.size - 1 ? "%02x:" : "%02x",
+             mfrc522.uid.uidByte[i]);
+    strncat(buf, hex, bufSize - strlen(buf) - 1);
   }
-  Serial.println("Karte: " + uid);
+  Serial.print(F("Karte: "));
+  Serial.println(buf);
   mfrc522.PCD_Init();  // Re-init wie im Original
-  return uid;
+  return true;
 }
 
 //------------------------------------------------------------------------------

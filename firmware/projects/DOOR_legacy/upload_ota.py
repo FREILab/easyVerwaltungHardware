@@ -54,15 +54,31 @@ def do_ota_upload(source, target, env):
     try:
         response = b""
         while b"\r\n\r\n" not in response:
-            response += sock.recv(256)
-        status_line = response.split(b"\r\n")[0].decode()
-        print(f"Antwort: {status_line}")
-        if "200" not in status_line:
-            print("Upload fehlgeschlagen.", file=sys.stderr)
+            chunk = sock.recv(256)
+            if not chunk:
+                break  # Verbindung vom Gerät geschlossen
+            response += chunk
+        if b"200" in response:
+            status_line = response.split(b"\r\n")[0].decode()
+            print(f"Antwort: {status_line}")
+        elif sent >= size:
+            # Gerät hat alle Daten erhalten, bootet neu – Antwort ging beim Reset verloren
+            print("Firmware übertragen – Gerät bootet neu (keine HTTP-Antwort).")
+        else:
+            print("Upload fehlgeschlagen: unvollständige Übertragung.", file=sys.stderr)
+            env.Exit(1)
+    except socket.timeout:
+        if sent >= size:
+            print("Firmware übertragen – Gerät bootet neu (Timeout nach 100%).")
+        else:
+            print(f"Keine Antwort: timed out", file=sys.stderr)
             env.Exit(1)
     except Exception as e:
-        print(f"Keine Antwort: {e}", file=sys.stderr)
-        env.Exit(1)
+        if sent >= size:
+            print(f"Firmware übertragen – Gerät bootet neu ({e}).")
+        else:
+            print(f"Keine Antwort: {e}", file=sys.stderr)
+            env.Exit(1)
     finally:
         sock.close()
 
