@@ -14,6 +14,11 @@
 #define STEPS_TO_CLOSE  500   ///< Extra-Schritte über den Endschalter hinaus (Schließen)
 #define STEPS_MAX      2000   ///< Maximale Schritte ohne Endschalter-Bestätigung
 
+// --- Timeouts ---
+#define MOTOR_TIMEOUT_MS          5000   ///< Max. Zeit für eine Motor-Bewegung bis Endschalter
+#define DOOR_REED_TIMEOUT_MS     30000   ///< Max. Wartezeit auf Reed-Freigabe beim Schließen
+#define WIFI_RECONNECT_INTERVAL_MS 15000 ///< Mindestabstand zwischen WiFi-Reconnect-Versuchen
+
 // --- Türlogik ---
 // Wartezeit nach erfolgreichem Öffnen, bevor die Tür wieder gesperrt werden kann
 #define DOOR_OPEN_MIN_HOLD_MS 2000

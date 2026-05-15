@@ -175,6 +175,14 @@ void setup() {
 void loop() {
   ArduinoOTA.poll();
 
+  // WiFi-Reconnect (non-blocking)
+  static unsigned long lastWifiAttempt = 0;
+  if (WiFi.status() != WL_CONNECTED && millis() - lastWifiAttempt >= WIFI_RECONNECT_INTERVAL_MS) {
+    lastWifiAttempt = millis();
+    Serial.println(F("WiFi getrennt – Reconnect..."));
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+  }
+
   // LED-Ausgabe je nach State
   switch (currentState) {
     case STANDBY:
@@ -216,6 +224,7 @@ void loop() {
       char result = checkServer(uid);
       if (result == 1) {
         openDoor(retryCount >= 2);
+        retryCount = 0;
         lastUid = uid;
         currentState = STANDBY;
       } else if (result == 0) {
@@ -274,6 +283,10 @@ static void blinkGreen() {
 }
 
 char checkServer(String rfid) {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println(F("Kein WiFi – Server-Check übersprungen."));
+    return -1;
+  }
   Serial.println(F("Verbinde mit Server..."));
   IPAddress serverAddr;
   if (WiFi.hostByName(SERVER_IP, serverAddr) != 1) {
@@ -309,6 +322,7 @@ char checkServer(String rfid) {
     if (message.indexOf("true") >= 0) return 1;
     return 0;
   }
+  client.stop();
   Serial.println(F("Verbindung fehlgeschlagen."));
   return -1;
 }
@@ -342,11 +356,21 @@ void openDoor(bool forceOpen) {
     updateSR();
 
     stepper.setSpeed(STEPPER_SPEED);
+    unsigned long motorStart = millis();
     while (digitalRead(PIN_ENDSCHALTER) == LOW) {
+      if (millis() - motorStart >= MOTOR_TIMEOUT_MS) {
+        Serial.println(F("openDoor: Endschalter-Timeout – Motor gestoppt."));
+        break;
+      }
       stepper.runSpeed();
     }
     long pos = stepper.currentPosition();
+    motorStart = millis();
     while (stepper.currentPosition() - pos < STEPS_TO_OPEN) {
+      if (millis() - motorStart >= MOTOR_TIMEOUT_MS) {
+        Serial.println(F("openDoor: Extra-Schritte-Timeout – Motor gestoppt."));
+        break;
+      }
       stepper.runSpeed();
     }
     stepper.setSpeed(0);
@@ -370,7 +394,12 @@ void openDoor(bool forceOpen) {
 
 void closeDoor() {
   // Warten bis Tür physisch offen (Reed gibt frei)
+  unsigned long reedWait = millis();
   while (digitalRead(PIN_REED) == HIGH) {
+    if (millis() - reedWait >= DOOR_REED_TIMEOUT_MS) {
+      Serial.println(F("closeDoor: Reed-Timeout – Schließen abgebrochen."));
+      return;
+    }
     delay(50);
   }
   delay(2000);
