@@ -4,6 +4,70 @@
 #include "myFunctions.h"
 #include "ArduinoJson-v5.13.0.h"
 
+#ifdef OTA_ENABLED
+	#include <WiFiEspAT.h>
+	#include <ArduinoOTA.h>
+	#include <InternalStorageAVR.h>
+
+	#ifndef WIFI_SSID
+		#define WIFI_SSID ""
+	#endif
+	#ifndef WIFI_PASSWORD
+		#define WIFI_PASSWORD ""
+	#endif
+	#ifndef OTA_HOSTNAME
+		#define OTA_HOSTNAME "lasersaur-hmi"
+	#endif
+
+	static bool otaStarted = false;
+	static bool otaWifiWasConnected = false;
+	static unsigned long lastOtaConnectAttemptMs = 0;
+
+	static void setupOtaTransport() {
+		// Mega2560+ESP8266 Kombi-Boards verbinden den ESP typischerweise mit Serial3.
+		Serial.begin(115200);
+		Serial.println(F("[OTA] Init transport via ESP8266 (Serial3)"));
+		Serial3.begin(115200);
+		WiFi.init(Serial3);
+		int status = WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+		Serial.print(F("[OTA] WiFi.begin() status: "));
+		Serial.println(status);
+		lastOtaConnectAttemptMs = millis();
+	}
+
+	static void handleOta() {
+		if (WiFi.status() != WL_CONNECTED) {
+			if (otaWifiWasConnected) {
+				otaWifiWasConnected = false;
+				otaStarted = false;
+				Serial.println(F("[OTA] WiFi disconnected, waiting for reconnect..."));
+			}
+			if (millis() - lastOtaConnectAttemptMs > 15000UL) {
+				Serial.println(F("[OTA] Retry WiFi.begin()"));
+				WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+				lastOtaConnectAttemptMs = millis();
+			}
+			return;
+		}
+
+		if (!otaWifiWasConnected) {
+			otaWifiWasConnected = true;
+			Serial.print(F("[OTA] WiFi connected, IP: "));
+			Serial.println(WiFi.localIP());
+		}
+
+		if (!otaStarted) {
+			IPAddress localIp = WiFi.localIP();
+			ArduinoOTA.begin(localIp, OTA_HOSTNAME, "", InternalStorage);
+			otaStarted = true;
+			Serial.print(F("[OTA] Ready on hostname: "));
+			Serial.println(OTA_HOSTNAME);
+		}
+
+		ArduinoOTA.poll();
+	}
+#endif
+
 uint16_t DisplayErrorScreen = 0;
 uint32_t tempTicks = 0;
 
@@ -91,6 +155,10 @@ void setup() {
 	    // try to congifure using IP address instead of DHCP:
 	    Ethernet.begin(mac, ip);
 	  }
+
+#ifdef OTA_ENABLED
+	  setupOtaTransport();
+#endif
 
 }
 
@@ -203,6 +271,10 @@ ISR(TIMER1_OVF_vect)
 
 
 void loop() {
+
+#ifdef OTA_ENABLED
+	handleOta();
+#endif
 
 //	if(digitalRead(PIN_EEPROM_RESET) == LOW)
 //	{
