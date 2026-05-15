@@ -128,11 +128,18 @@ void setup() {
   WiFi.setHostname(OTA_HOSTNAME);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   unsigned long wifiStart = millis();
+  bool ledState = false;
   while (WiFi.status() != WL_CONNECTED && millis() - wifiStart < 15000) {
-    delay(500);
+    ledState = !ledState;
+    srRed = srYellow = srGreen = ledState;
+    updateSR();
+    delay(300);
     Serial.print('.');
   }
   while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - wifiStart < 15000) {
+    ledState = !ledState;
+    srRed = srYellow = srGreen = ledState;
+    updateSR();
     delay(100);
   }
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
@@ -203,6 +210,7 @@ void loop() {
       }
 
       currentState = IDENTIFICATION;
+      srRed = false; srYellow = false; srGreen = true;
       updateSR();
 
       char result = checkServer(uid);
@@ -254,6 +262,17 @@ void loop() {
 // Server-Auth
 //------------------------------------------------------------------------------
 
+static void blinkGreen() {
+  static unsigned long last = 0;
+  static bool state = false;
+  if (millis() - last >= 150) {
+    state = !state;
+    srGreen = state;
+    updateSR();
+    last = millis();
+  }
+}
+
 char checkServer(String rfid) {
   Serial.println(F("Verbinde mit Server..."));
   IPAddress serverAddr;
@@ -261,6 +280,7 @@ char checkServer(String rfid) {
     Serial.println(F("DNS fehlgeschlagen."));
     return -1;
   }
+  blinkGreen();
   if (client.connect(serverAddr, 80)) {
     Serial.println(F("Verbunden."));
     client.println("GET /check_key/" + String(AUTHENTICATION_TOKEN) + "/" + rfid + " HTTP/1.0");
@@ -271,6 +291,7 @@ char checkServer(String rfid) {
     bool inBody = false;
     unsigned long t = millis();
     while (client.connected() && millis() - t < 5000) {
+      blinkGreen();
       while (client.available()) {
         String line = client.readStringUntil('\n');
         if (!inBody) {
