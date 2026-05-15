@@ -209,7 +209,7 @@ void loop() {
       if (result == 1) {
         openDoor(retryCount >= 2);
         lastUid = uid;
-        currentState = DOOR_OPEN;
+        currentState = STANDBY;
       } else if (result == 0) {
         Serial.println(F("Karte abgelehnt."));
         retryCount = 0;
@@ -257,22 +257,30 @@ void loop() {
 char checkServer(String rfid) {
   Serial.println(F("Verbinde mit Server..."));
   IPAddress serverAddr;
-  serverAddr.fromString(SERVER_IP);
+  if (WiFi.hostByName(SERVER_IP, serverAddr) != 1) {
+    Serial.println(F("DNS fehlgeschlagen."));
+    return -1;
+  }
   if (client.connect(serverAddr, 80)) {
     Serial.println(F("Verbunden."));
-    client.println("GET /check_key/" + String(AUTHENTICATION_TOKEN) + "/" + rfid + " HTTP/1.1");
+    client.println("GET /check_key/" + String(AUTHENTICATION_TOKEN) + "/" + rfid + " HTTP/1.0");
     client.println("Host: " + String(SERVER_IP));
-    client.println(F("Connection: close"));
     client.println();
 
-    int numCr = 0;
     String message = "";
-    while (client.connected()) {
-      if (client.available()) {
-        char c = client.read();
-        if (c == '\n') numCr++;
-        if (numCr > 6) message += c;
+    bool inBody = false;
+    unsigned long t = millis();
+    while (client.connected() && millis() - t < 5000) {
+      while (client.available()) {
+        String line = client.readStringUntil('\n');
+        if (!inBody) {
+          if (line == "\r") inBody = true;
+        } else {
+          message += line;
+        }
+        t = millis();
       }
+      if (inBody && message.length() > 0) break;
     }
     client.stop();
     message.trim();
