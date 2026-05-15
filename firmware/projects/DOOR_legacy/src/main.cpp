@@ -15,6 +15,7 @@
 #include <AccelStepper.h>
 #include <WiFiS3.h>
 #include <ArduinoOTA.h>
+#include <WDT.h>
 #include "settings.h"
 
 // --- Secrets via Build-Flags (platformio.secrets.ini) ---
@@ -165,6 +166,8 @@ void setup() {
 
   srYellow = false;
   updateSR();
+
+  WDT.begin(WDT_TIMEOUT_MS);
   Serial.println(F("Bereit."));
 }
 
@@ -173,6 +176,7 @@ void setup() {
 //------------------------------------------------------------------------------
 
 void loop() {
+  WDT.refresh();
   ArduinoOTA.poll();
 
   // WiFi-Reconnect (non-blocking)
@@ -304,6 +308,7 @@ char checkServer(String rfid) {
     bool inBody = false;
     unsigned long t = millis();
     while (client.connected() && millis() - t < 5000) {
+      WDT.refresh();
       blinkGreen();
       while (client.available()) {
         String line = client.readStringUntil('\n');
@@ -362,6 +367,7 @@ void openDoor(bool forceOpen) {
         Serial.println(F("openDoor: Endschalter-Timeout – Motor gestoppt."));
         break;
       }
+      WDT.refresh();
       stepper.runSpeed();
     }
     long pos = stepper.currentPosition();
@@ -371,6 +377,7 @@ void openDoor(bool forceOpen) {
         Serial.println(F("openDoor: Extra-Schritte-Timeout – Motor gestoppt."));
         break;
       }
+      WDT.refresh();
       stepper.runSpeed();
     }
     stepper.setSpeed(0);
@@ -400,6 +407,7 @@ void closeDoor() {
       Serial.println(F("closeDoor: Reed-Timeout – Schließen abgebrochen."));
       return;
     }
+    WDT.refresh();
     delay(50);
   }
   delay(2000);
@@ -410,10 +418,12 @@ void closeDoor() {
   long posStart = stepper.currentPosition();
   stepper.setSpeed(-STEPPER_SPEED);
   while (digitalRead(PIN_ENDSCHALTER) == HIGH && (posStart - stepper.currentPosition()) < STEPS_MAX) {
+    WDT.refresh();
     stepper.runSpeed();
   }
   long pos = stepper.currentPosition();
   while ((pos - stepper.currentPosition()) < STEPS_TO_CLOSE) {
+    WDT.refresh();
     stepper.runSpeed();
   }
 

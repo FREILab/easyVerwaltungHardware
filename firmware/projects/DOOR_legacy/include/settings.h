@@ -18,6 +18,8 @@
 #define MOTOR_TIMEOUT_MS          5000   ///< Max. Zeit für eine Motor-Bewegung bis Endschalter
 #define DOOR_REED_TIMEOUT_MS     30000   ///< Max. Wartezeit auf Reed-Freigabe beim Schließen
 #define WIFI_RECONNECT_INTERVAL_MS 15000 ///< Mindestabstand zwischen WiFi-Reconnect-Versuchen
+// WDT: max ~5600 ms auf UNO R4 WiFi (PCLKB = 24 MHz, PR=8192, RL=16384)
+#define WDT_TIMEOUT_MS            4000   ///< Hardware-Watchdog Timeout
 
 // --- Türlogik ---
 // Wartezeit nach erfolgreichem Öffnen, bevor die Tür wieder gesperrt werden kann
