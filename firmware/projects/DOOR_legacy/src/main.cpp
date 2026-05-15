@@ -34,8 +34,12 @@
 #ifndef WIFI_SSID
   #define WIFI_SSID "NOT_SET"
 #endif
-#ifndef WIFI_PASS
-  #define WIFI_PASS "NOT_SET"
+#ifndef WIFI_PASSWORD
+  #ifdef WIFI_PASS
+    #define WIFI_PASSWORD WIFI_PASS
+  #else
+    #define WIFI_PASSWORD "NOT_SET"
+  #endif
 #endif
 #ifndef OTA_HOSTNAME
   #define OTA_HOSTNAME "tuer"
@@ -128,7 +132,7 @@ void setup() {
 
   Serial.println(F("Init WiFi"));
   WiFi.setHostname(OTA_HOSTNAME);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   unsigned long wifiStart = millis();
   bool ledState = false;
   while (WiFi.status() != WL_CONNECTED && millis() - wifiStart < 15000) {
@@ -189,7 +193,7 @@ void loop() {
   if (WiFi.status() != WL_CONNECTED && millis() - lastWifiAttempt >= WIFI_RECONNECT_INTERVAL_MS) {
     lastWifiAttempt = millis();
     Serial.println(F("WiFi getrennt – Reconnect..."));
-    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   }
 
   // LED-Ausgabe je nach State
