@@ -1,28 +1,20 @@
 /**
  * @file main.cpp
- * @brief Arduino Uno RFID Tür-Steuerung (PoC – PlatformIO Migration)
- *
- * Migriert von Arduino IDE (Programm.ino) auf PlatformIO.
- * Hardware und Logik bleiben identisch; Server-IP und Auth-Token
- * kommen jetzt aus Build-Flags (platformio.secrets.ini) statt
- * hardcoded im Quellcode zu stehen.
+ * @brief Arduino UNO R4 WiFi RFID Tür-Steuerung
  *
  * Hardware:
- *   Arduino Uno + Ethernet-Shield (W5100)
+ *   Arduino UNO R4 WiFi
  *   MFRC522 RFID-Leser (SPI)
  *   Schrittmotor-Treiber (A4988/DRV8825) via AccelStepper
  *   74HC595 Schieberegister (LEDs, Buzzer, Motor-Enable)
- *
- * Hinweis – Phase 2:
- *   OTA und WiFi erfordern einen Hardware-Upgrade auf ESP32.
- *   Bis dahin: Erstflash per USB, kein Over-the-Air Update.
  */
 
 #include <Arduino.h>
 #include <SPI.h>
 #include <MFRC522.h>
 #include <AccelStepper.h>
-#include <Ethernet.h>
+#include <WiFiS3.h>
+#include <ArduinoOTA.h>
 #include "settings.h"
 
 // --- Secrets via Build-Flags (platformio.secrets.ini) ---
@@ -37,6 +29,15 @@
 #endif
 #ifndef MACHINE_NAME
   #define MACHINE_NAME "tuer"
+#endif
+#ifndef WIFI_SSID
+  #define WIFI_SSID "NOT_SET"
+#endif
+#ifndef WIFI_PASS
+  #define WIFI_PASS "NOT_SET"
+#endif
+#ifndef OTA_HOSTNAME
+  #define OTA_HOSTNAME "tuer"
 #endif
 
 //------------------------------------------------------------------------------
@@ -84,9 +85,7 @@ bool srMotorEnable = false;
 // Globale Instanzen
 //------------------------------------------------------------------------------
 
-byte mac[] = { 0x74, 0xD0, 0x2B, 0x19, 0x0E, 0x48 };  // von Ethernet-Shield-Aufkleber
-IPAddress ip(ETHERNET_FALLBACK_IP);                      // DHCP-Fallback aus settings.h
-EthernetClient client;
+WiFiClient client;
 
 MFRC522      mfrc522(RFID_SS_PIN, RFID_RST_PIN);
 AccelStepper stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR);
@@ -123,14 +122,35 @@ void setup() {
   stepper.setAcceleration(STEPPER_ACCEL);
 
   Serial.begin(9600);
-  while (!Serial);
+  { unsigned long t = millis(); while (!Serial && millis() - t < 3000); }
 
-  Serial.println(F("Init Ethernet"));
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println(F("DHCP fehlgeschlagen, nutze Fallback-IP"));
-    Ethernet.begin(mac, ip);
+  Serial.println(F("Init WiFi"));
+  WiFi.setHostname(OTA_HOSTNAME);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  unsigned long wifiStart = millis();
+  while (WiFi.status() != WL_CONNECTED && millis() - wifiStart < 15000) {
+    delay(500);
+    Serial.print('.');
   }
-  delay(1000);
+  while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - wifiStart < 15000) {
+    delay(100);
+  }
+  if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
+    Serial.print(F("\nVerbunden, IP: "));
+    Serial.println(WiFi.localIP());
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+    char macStr[18];
+    snprintf(macStr, sizeof(macStr), "%02X:%02X:%02X:%02X:%02X:%02X",
+             mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
+    Serial.print(F("MAC: "));
+    Serial.println(macStr);
+    ArduinoOTA.begin(WiFi.localIP(), OTA_HOSTNAME, "", InternalStorage);
+    Serial.print(F("[OTA] Bereit: "));
+    Serial.println(OTA_HOSTNAME);
+  } else {
+    Serial.println(F("\nWiFi fehlgeschlagen – weiter ohne Netz"));
+  }
 
   Serial.println(F("Init RFID"));
   SPI.begin();
@@ -146,7 +166,7 @@ void setup() {
 //------------------------------------------------------------------------------
 
 void loop() {
-  Ethernet.maintain();
+  ArduinoOTA.poll();
 
   // LED-Ausgabe je nach State
   switch (currentState) {

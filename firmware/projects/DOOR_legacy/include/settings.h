@@ -7,11 +7,6 @@
  * Fallbacks nur für lokale Entwicklung ohne platformio.secrets.ini.
  */
 
-// --- Netzwerk ---
-// Statische Fallback-IP für das Gerät, falls DHCP fehlschlägt.
-// Format: vier Bytes kommagetrennt (direkt an IPAddress() übergeben).
-#define ETHERNET_FALLBACK_IP 192, 168, 178, 177
-
 // --- Stepper-Motor ---
 #define STEPPER_SPEED  1200   ///< Schritte/Sekunde
 #define STEPPER_ACCEL  2000   ///< Schritte/Sekunde²
