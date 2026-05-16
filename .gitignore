@@ -13,3 +13,7 @@ firmware/projects/*/include/secret.h
 
 # MachineNode — CMake Build-Artefakte
 firmware/projects/MachineNode/build/
+
+# Smart Terminal — lokale Dev-Config (printers.example.json bleibt getrackt)
+software/SmartTerminal_3D_Print/config/printers.dev.json
+software/SmartTerminal_3D_Print/config/terminal.env

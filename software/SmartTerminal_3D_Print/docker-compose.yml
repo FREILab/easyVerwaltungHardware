@@ -1,0 +1,39 @@
+services:
+
+  backend:
+    image: smart-terminal-backend:latest
+    restart: always
+    ports:
+      - "8000:8000"   # interne API + PrusaLink-Emulation
+    env_file: config/terminal.env
+    networks:
+      - internal
+
+  ui:
+    image: smart-terminal-ui:latest
+    restart: always
+    ports:
+      - "80:80"       # Kiosk-Browser öffnet localhost
+    networks:
+      - internal
+
+  device-agent:
+    image: smart-terminal-device-agent:latest
+    restart: always
+    env_file: config/terminal.env
+    devices:
+      - /dev/spidev0.0:/dev/spidev0.0        # RFID-Reader
+      - /dev/gpiochip0:/dev/gpiochip0        # Relais, LEDs, Taster
+      - /dev/i2c-1:/dev/i2c-1                # Sensoren + DSI Touch-Controller
+      - /dev/input/event0:/dev/input/event0  # Touch-Events
+    group_add:
+      - "spi"
+      - "gpio"
+      - "i2c"
+      - "input"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

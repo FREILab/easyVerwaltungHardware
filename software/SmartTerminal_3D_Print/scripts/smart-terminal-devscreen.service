@@ -1,0 +1,17 @@
+[Unit]
+Description=Smart Terminal Dev Boot Screen
+After=network-online.target
+Wants=network-online.target
+# Läuft vor dem Kiosk-Browser — gibt Docker Zeit zum Hochfahren
+Before=smart-terminal-kiosk.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/smart-terminal/dev-boot-screen.py
+RemainAfterExit=no
+User=pi
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+
+[Install]
+WantedBy=graphical.target

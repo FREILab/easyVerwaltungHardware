@@ -1,0 +1,6 @@
+[
+  { "id": "prusa-01", "name": "Prusa MK4 #1", "ip": "192.168.1.101", "token": "REPLACE_ME" },
+  { "id": "prusa-02", "name": "Prusa MK4 #2", "ip": "192.168.1.102", "token": "REPLACE_ME" },
+  { "id": "prusa-03", "name": "Prusa MK4 #3", "ip": "192.168.1.103", "token": "REPLACE_ME" },
+  { "id": "prusa-04", "name": "Prusa MK4 #4", "ip": "192.168.1.104", "token": "REPLACE_ME" }
+]

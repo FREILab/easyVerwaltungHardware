@@ -1,0 +1,78 @@
+name: Smart Terminal 3D-Print — Release
+
+# Benötigte GitHub Secrets (Settings → Secrets and variables → Actions):
+#
+#   PROXMOX_HOST      Hostname oder IP des Proxmox-Servers  (z. B. proxmox.intern)
+#   PROXMOX_USER      SSH-Benutzername auf dem Share-Server  (z. B. share)
+#   PROXMOX_SSH_KEY   Privater SSH-Key für diesen Benutzer   (Ed25519, kein Passwort)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - software/SmartTerminal_3D_Print/**
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version
+        id: version
+        run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build all service images
+        working-directory: software/SmartTerminal_3D_Print
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          docker build -t smart-terminal-backend:${VERSION}      -t smart-terminal-backend:latest      ./services/backend
+          docker build -t smart-terminal-ui:${VERSION}           -t smart-terminal-ui:latest           ./services/ui
+          docker build -t smart-terminal-device-agent:${VERSION} -t smart-terminal-device-agent:latest ./services/device-agent
+
+      - name: Export and checksum image tar
+        working-directory: software/SmartTerminal_3D_Print
+        run: |
+          docker save \
+            smart-terminal-backend:latest \
+            smart-terminal-ui:latest \
+            smart-terminal-device-agent:latest \
+            > image.tar
+          sha256sum image.tar > image.tar.sha256
+
+      - name: Upload to Proxmox share
+        env:
+          PROXMOX_SSH_KEY: ${{ secrets.PROXMOX_SSH_KEY }}
+          PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+          PROXMOX_USER: ${{ secrets.PROXMOX_USER }}
+        working-directory: software/SmartTerminal_3D_Print
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          mkdir -p ~/.ssh
+          echo "$PROXMOX_SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan "$PROXMOX_HOST" >> ~/.ssh/known_hosts
+          ssh "${PROXMOX_USER}@${PROXMOX_HOST}" "mkdir -p /share/terminals/3d-print-server/stable/${VERSION}"
+          scp image.tar        "${PROXMOX_USER}@${PROXMOX_HOST}:/share/terminals/3d-print-server/stable/${VERSION}/image.tar"
+          scp image.tar.sha256 "${PROXMOX_USER}@${PROXMOX_HOST}:/share/terminals/3d-print-server/stable/${VERSION}/image.tar.sha256"
+
+      - name: Update manifest.json
+        env:
+          PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+          PROXMOX_USER: ${{ secrets.PROXMOX_USER }}
+        working-directory: software/SmartTerminal_3D_Print
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          SHA=$(cut -d' ' -f1 image.tar.sha256)
+          ssh "${PROXMOX_USER}@${PROXMOX_HOST}" "cat > /share/terminals/3d-print-server/manifest.json" <<EOF
+          {
+            "stable": {
+              "version": "${VERSION}",
+              "url": "/terminals/3d-print-server/stable/${VERSION}/image.tar",
+              "sha256": "${SHA}"
+            }
+          }
+          EOF

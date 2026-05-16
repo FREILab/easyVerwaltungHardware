@@ -1,0 +1,53 @@
+name: Smart Terminal — SD-Image Build
+
+# Benötigte GitHub Secrets (Settings → Secrets and variables → Actions):
+#
+#   API_URL              URL der easyVerwaltung-API    (z. B. https://dashboard.intern/api)
+#   API_TOKEN            Service-Token                 (geheim)
+#   OTA_MANIFEST_URL     URL des Manifest-Servers      (z. B. http://ota.intern/terminals/3d-print-server/manifest.json)
+#   PROXMOX_HOST         Hostname des Proxmox-Servers
+#   PROXMOX_USER         SSH-Benutzername auf dem Share
+#   PROXMOX_SSH_KEY      Privater SSH-Key (Ed25519)
+
+on:
+  workflow_dispatch:      # manuell ausgelöst — neues Image nur bei Bedarf bauen
+  push:
+    branches: [main]
+    paths:
+      - software/SmartTerminal_3D_Print/scripts/**
+      - software/SmartTerminal_3D_Print/config/**
+
+jobs:
+  build-sd-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write shared config into image stage
+        run: |
+          mkdir -p software/SmartTerminal_3D_Print/image-build/stage-config/rootfs/etc/smart-terminal
+          cat > software/SmartTerminal_3D_Print/image-build/stage-config/rootfs/etc/smart-terminal/base.env <<EOF
+          API_URL=${{ secrets.API_URL }}
+          API_TOKEN=${{ secrets.API_TOKEN }}
+          OTA_MANIFEST_URL=${{ secrets.OTA_MANIFEST_URL }}
+          OTA_CHANNEL=stable
+          EOF
+
+      - name: Build SD image (pi-gen)
+        run: |
+          # pi-gen Build-Schritt — hier vereinfacht dargestellt
+          # Tatsächliche Implementierung: pi-gen als Submodule oder Docker-basiert
+          echo "pi-gen build würde hier laufen"
+          # docker run --rm -v ./image-build:/pi-gen/stage-custom pi-gen-image
+
+      - name: Upload image to Proxmox share
+        env:
+          PROXMOX_SSH_KEY: ${{ secrets.PROXMOX_SSH_KEY }}
+          PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+          PROXMOX_USER: ${{ secrets.PROXMOX_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$PROXMOX_SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan "$PROXMOX_HOST" >> ~/.ssh/known_hosts
+          # scp smart-terminal.img.zst "${PROXMOX_USER}@${PROXMOX_HOST}:/share/images/smart-terminal-latest.img.zst"

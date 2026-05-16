@@ -1,0 +1,3 @@
+config/terminal.env
+*.tar
+*.tar.sha256
