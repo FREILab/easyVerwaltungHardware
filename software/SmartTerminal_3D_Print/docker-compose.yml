@@ -21,6 +21,8 @@ services:
     image: smart-terminal-device-agent:latest
     restart: always
     env_file: config/terminal.env
+    ports:
+      - "8081:8081"   # Hardware-HAL REST/WebSocket (Scaffold)
     devices:
       - /dev/spidev0.0:/dev/spidev0.0        # RFID-Reader
       - /dev/gpiochip0:/dev/gpiochip0        # Relais, LEDs, Taster

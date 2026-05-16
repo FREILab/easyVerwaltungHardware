@@ -1,3 +1,4 @@
 config/terminal.env
+config/printers.dev.json
 *.tar
 *.tar.sha256

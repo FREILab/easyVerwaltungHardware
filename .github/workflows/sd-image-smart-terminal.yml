@@ -10,15 +10,18 @@ name: Smart Terminal — SD-Image Build
 #   PROXMOX_SSH_KEY      Privater SSH-Key (Ed25519)
 
 on:
-  workflow_dispatch:      # manuell ausgelöst — neues Image nur bei Bedarf bauen
-  push:
-    branches: [main]
-    paths:
-      - software/SmartTerminal_3D_Print/scripts/**
-      - software/SmartTerminal_3D_Print/config/**
+  # Deaktiviert: Smart-Terminal-Workflow ist aktuell noch nicht lauffaehig.
+  # workflow_dispatch:      # manuell ausgelöst — neues Image nur bei Bedarf bauen
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - software/SmartTerminal_3D_Print/scripts/**
+  #     - software/SmartTerminal_3D_Print/config/**
+  workflow_dispatch:
 
 jobs:
   build-sd-image:
+    if: false # Temporär deaktiviert
     runs-on: ubuntu-latest
 
     steps:

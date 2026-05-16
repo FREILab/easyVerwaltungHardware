@@ -1,0 +1,8 @@
+[Unit]
+Description=Smart Terminal OTA Update Check
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/smart-terminal/scripts/update-check.sh

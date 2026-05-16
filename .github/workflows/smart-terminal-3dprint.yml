@@ -7,13 +7,16 @@ name: Smart Terminal 3D-Print — Release
 #   PROXMOX_SSH_KEY   Privater SSH-Key für diesen Benutzer   (Ed25519, kein Passwort)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - software/SmartTerminal_3D_Print/**
+  # Deaktiviert: Smart-Terminal-Workflow ist aktuell noch nicht lauffaehig.
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - software/SmartTerminal_3D_Print/**
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
+    if: false # Temporär deaktiviert
     runs-on: ubuntu-latest
 
     steps:
