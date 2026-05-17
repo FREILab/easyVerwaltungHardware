@@ -23,7 +23,7 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico2 CACHE STRING "Board type")
+set(PICO_BOARD pico2_w CACHE STRING "Board type" FORCE)
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -40,9 +40,6 @@ add_executable(MachineNode_legacy MachineNode_legacy.cpp )
 pico_set_program_name(MachineNode_legacy "MachineNode_legacy")
 pico_set_program_version(MachineNode_legacy "0.1")
 
-# Generate PIO header
-pico_generate_pio_header(MachineNode_legacy ${CMAKE_CURRENT_LIST_DIR}/blink.pio)
-
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(MachineNode_legacy 0)
 pico_enable_stdio_usb(MachineNode_legacy 0)
@@ -58,7 +55,7 @@ target_include_directories(MachineNode_legacy PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(MachineNode_legacy 
-        hardware_pio
+    pico_cyw43_arch_none
         )
 
 pico_add_extra_outputs(MachineNode_legacy)
