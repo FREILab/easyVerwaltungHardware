@@ -2,38 +2,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Configure Env: USB",
-            "type": "process",
-            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}",
-                "-B",
-                "${workspaceFolder}/build",
-                "-DENV_PROFILE=machine_dev_usb"
-            ],
-            "problemMatcher": [],
-            "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake.exe"
-            }
-        },
-        {
-            "label": "Configure Env: OTA",
-            "type": "process",
-            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}",
-                "-B",
-                "${workspaceFolder}/build",
-                "-DENV_PROFILE=machine_dev_ota"
-            ],
-            "problemMatcher": [],
-            "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake.exe"
-            }
-        },
-        {
             "label": "Compile Project",
             "type": "process",
             "isBuildCommand": true,
@@ -50,19 +18,13 @@
             }
         },
         {
-            "label": "Compile Env: USB",
-            "type": "shell",
-            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=machine_dev_usb && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build",
+            "label": "Build: Current",
+            "dependsOn": ["Compile Project"],
+            "dependsOrder": "sequence",
             "problemMatcher": []
         },
         {
-            "label": "Compile Env: OTA",
-            "type": "shell",
-            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=machine_dev_ota && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build",
-            "problemMatcher": []
-        },
-        {
-            "label": "Configure Env: Select Profile",
+            "label": "Env: Configure Profile",
             "type": "process",
             "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake",
             "args": [
@@ -78,18 +40,38 @@
             }
         },
         {
-            "label": "Compile Env: Select Profile",
+            "label": "Env: Build Profile",
             "type": "shell",
             "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=${input:envProfile} && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build",
             "problemMatcher": []
         },
         {
-            "label": "Run Project",
+            "label": "Upload: Current",
+            "type": "shell",
+            "command": "${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build && ${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool/picotool load ${workspaceFolder}/build/MachineNode_legacy.elf -fx",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Upload: Profile",
+            "type": "shell",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=${input:envProfile} && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build && ${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool/picotool load ${workspaceFolder}/build/MachineNode_legacy.elf -fx",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Flash: Current Build",
             "type": "process",
             "command": "${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool/picotool",
             "args": [
                 "load",
-                "${command:raspberry-pi-pico.launchTargetPath}",
+                "${workspaceFolder}/build/MachineNode_legacy.elf",
                 "-fx"
             ],
             "presentation": {
@@ -102,62 +84,16 @@
             }
         },
         {
+            "label": "Run Project",
+            "dependsOn": ["Flash: Current Build"],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
             "label": "Flash",
-            "type": "process",
-            "command": "${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool/picotool",
-            "args": [
-                "load",
-                "${command:raspberry-pi-pico.launchTargetPath}",
-                "-fx"
-            ],
-            "problemMatcher": [],
-            "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/picotool/2.2.0-a4/picotool/picotool.exe"
-            }
-        },
-        {
-            "label": "Rescue Reset",
-            "type": "process",
-            "command": "${userHome}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
-            "args": [
-                "-s",
-                "${userHome}/.pico-sdk/openocd/0.12.0+dev/scripts",
-                "-f",
-                "interface/cmsis-dap.cfg",
-                "-f",
-                "target/${command:raspberry-pi-pico.getChip}-rescue.cfg",
-                "-c",
-                "adapter speed 5000; reset halt; exit"
-            ],
-            "problemMatcher": [],
-            "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
-            }
-        },
-        {
-            "label": "RISC-V Reset (RP2350)",
-            "type": "process",
-            "command": "${userHome}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
-            "args": [
-                "-s",
-                "${userHome}/.pico-sdk/openocd/0.12.0+dev/scripts",
-                "-c",
-                "set USE_CORE { rv0 rv1 cm0 cm1 }",
-                "-f",
-                "interface/cmsis-dap.cfg",
-                "-f",
-                "target/rp2350.cfg",
-                "-c",
-                "adapter speed 5000; init;",
-                "-c",
-                "write_memory 0x40120158 8 { 0x3 }; echo [format \"Info : ARCHSEL 0x%02x\" [read_memory 0x40120158 8 1]];",
-                "-c",
-                "reset halt; targets rp2350.rv0; echo [format \"Info : ARCHSEL_STATUS 0x%02x\" [read_memory 0x4012015C 8 1]]; exit"
-            ],
-            "problemMatcher": [],
-            "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
-            }
+            "dependsOn": ["Flash: Current Build"],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
         }
     ],
     "inputs": [

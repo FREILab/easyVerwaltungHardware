@@ -182,7 +182,7 @@ pico_set_program_version(MachineNode_legacy "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(MachineNode_legacy 0)
-pico_enable_stdio_usb(MachineNode_legacy 0)
+pico_enable_stdio_usb(MachineNode_legacy 1)
 
 # Add the standard library to the build
 target_link_libraries(MachineNode_legacy
@@ -196,7 +196,7 @@ target_include_directories(MachineNode_legacy PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(MachineNode_legacy 
-    pico_cyw43_arch_none
+    pico_cyw43_arch_lwip_threadsafe_background
         )
 
 pico_add_extra_outputs(MachineNode_legacy)
