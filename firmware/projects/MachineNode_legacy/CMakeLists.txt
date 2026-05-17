@@ -169,7 +169,10 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(MachineNode_legacy MachineNode_legacy.cpp )
+add_executable(MachineNode_legacy
+    src/main.cpp
+    src/ota.c
+)
 
 configure_file(
     ${CMAKE_CURRENT_LIST_DIR}/firmware_config.h.in
@@ -190,7 +193,7 @@ target_link_libraries(MachineNode_legacy
 
 # Add the standard include files to the build
 target_include_directories(MachineNode_legacy PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
+    ${CMAKE_CURRENT_LIST_DIR}/include
     ${CMAKE_CURRENT_BINARY_DIR}/generated
 )
 
