@@ -31,8 +31,6 @@ void initRFID();
 bool perform_auth_check();
 int tryLoginID(String uid);
 String readID();
-void blinkGreenSubtleSuccess();
-void blinkYellowShortWarning();
 
 //------------------------------------------------------------------------------
 // State Definitions
@@ -47,31 +45,10 @@ enum State {
 
 State currentState = STANDBY;
 State nextState = STANDBY;
-bool auth_check = true;
-unsigned long stateChangeTime = 0;
-unsigned long lastContinuousServerCheckMs = 0;
-int continuousServerCheckFailCount = 0;
-
-//------------------------------------------------------------------------------
-// Pin Definitions
-//------------------------------------------------------------------------------
-
-#define MACHINE_RELAY_PIN 22
-#define BUTTON_RFID 4
-#define BUTTON_STOP 13
-
-#define LED_RED_PIN    32
-#define LED_YELLOW_PIN 33
-#define LED_GREEN_PIN  26
-
-#define BUTTON_PRESSED 0
 
 //------------------------------------------------------------------------------
 // Global Variables
 //------------------------------------------------------------------------------
-
-const int TIME_GLITCH_FILTER_STOP = 100;
-const int TIME_GLITCH_FILTER_RFID = 3000;
 
 Adafruit_PN532 nfc(PN532_SS, &SPI);
 
@@ -90,10 +67,9 @@ void setup() {
   Log.notice("Starting setup ...\n");
 
   pinMode(MACHINE_RELAY_PIN, OUTPUT);
-  pinMode(LED_RED_PIN, OUTPUT);
+  pinMode(LED_RED_PIN,    OUTPUT);
   pinMode(LED_YELLOW_PIN, OUTPUT);
-  pinMode(LED_GREEN_PIN, OUTPUT);
-  pinMode(BUTTON_RFID, INPUT_PULLUP);
+  pinMode(LED_GREEN_PIN,  OUTPUT);
   pinMode(BUTTON_STOP, INPUT_PULLUP);
 
   digitalWrite(MACHINE_RELAY_PIN, LOW);
@@ -131,26 +107,13 @@ void loop() {
 #endif
 
   switch (currentState) {
-    case STANDBY:
-      digitalWrite(MACHINE_RELAY_PIN, LOW);
-      setLED_ryg(0, 1, 0);
-      break;
-    case IDENTIFICATION:
-      digitalWrite(MACHINE_RELAY_PIN, LOW);
-      setLED_ryg(0, 1, 1);
-      break;
-    case RUNNING:
-      digitalWrite(MACHINE_RELAY_PIN, HIGH);
-      setLED_ryg(0, 0, 1);
-      break;
-    case RESET:
-      digitalWrite(MACHINE_RELAY_PIN, LOW);
-      setLED_ryg(1, 0, 0);
-      break;
+    case STANDBY:        digitalWrite(MACHINE_RELAY_PIN, LOW);  setLED_ryg(0, 1, 0); break;
+    case IDENTIFICATION: digitalWrite(MACHINE_RELAY_PIN, LOW);  setLED_ryg(0, 1, 1); break;
+    case RUNNING:        digitalWrite(MACHINE_RELAY_PIN, HIGH); setLED_ryg(0, 0, 1); break;
+    case RESET:          digitalWrite(MACHINE_RELAY_PIN, LOW);  setLED_ryg(1, 0, 0); break;
   }
 
   next_State();
-  delay(100);
 }
 
 //------------------------------------------------------------------------------
@@ -158,72 +121,56 @@ void loop() {
 //------------------------------------------------------------------------------
 
 void next_State() {
-  static unsigned long rfidButtonPressTime = 0;
-  static bool rfidButtonTimerActive = false;
-  static unsigned long stopButtonPressTime = 0;
-  static bool stopButtonTimerActive = false;
+  static unsigned long lastCardPollMs  = 0;
+  static int           cardAbsentCount = 0;
+  static unsigned long resetEnteredMs  = 0;
 
   switch (currentState) {
+
     case STANDBY:
-      if (digitalRead(BUTTON_RFID) == BUTTON_PRESSED) {
-        nextState = IDENTIFICATION;
+      if (millis() - lastCardPollMs >= CARD_POLL_MS) {
+        lastCardPollMs = millis();
+        uid = readID();
+        if (!uid.equals("0")) {
+          nextState = IDENTIFICATION;
+        }
       }
       break;
 
     case IDENTIFICATION:
       if (perform_auth_check()) {
-        continuousServerCheckFailCount = 0;
-        lastContinuousServerCheckMs = millis();
+        cardAbsentCount = 0;
         nextState = RUNNING;
         delay(500);
       } else {
         Log.verbose("[next_State] Identification not successful.\n");
         nextState = RESET;
+        resetEnteredMs = millis();
       }
       break;
 
     case RUNNING:
-      if (RFIDCARD_AUTH_CONST) {
-        if (CONTINUOUS_SERVER_CHECK && (millis() - lastContinuousServerCheckMs >= 2000)) {
-          lastContinuousServerCheckMs = millis();
-
-          int checkResult = tryLoginID(loggedInID);
-          if (checkResult == 1) {
-            continuousServerCheckFailCount = 0;
-            blinkGreenSubtleSuccess();
-          } else {
-            continuousServerCheckFailCount++;
-            blinkYellowShortWarning();
-            Log.warning("[continuous-auth] Server check failed (%d/40).\n", continuousServerCheckFailCount);
-
-            if (continuousServerCheckFailCount >= 40) {
-              Log.error("[continuous-auth] 40 failed checks reached. Turning relay off.\n");
-              digitalWrite(MACHINE_RELAY_PIN, LOW);
-              nextState = RESET;
-            }
-          }
+      if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
+        nextState = RESET;
+        resetEnteredMs = millis();
+        break;
+      }
+      if (RFIDCARD_AUTH_CONST && millis() - lastCardPollMs >= CARD_POLL_MS) {
+        lastCardPollMs = millis();
+        if (readID().equals(loggedInID)) {
+          cardAbsentCount = 0;
+        } else if (++cardAbsentCount >= CARD_ABSENT_RESET) {
+          Log.verbose("[next_State] Card absent %d times. Resetting.\n", cardAbsentCount);
+          nextState = RESET;
+          resetEnteredMs = millis();
         }
-
-        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
-          if (!stopButtonTimerActive) { stopButtonPressTime = millis(); stopButtonTimerActive = true; }
-          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) nextState = RESET;
-        } else { stopButtonTimerActive = false; }
-
-        if (digitalRead(BUTTON_RFID) != BUTTON_PRESSED) {
-          if (!rfidButtonTimerActive) { rfidButtonPressTime = millis(); rfidButtonTimerActive = true; }
-          if (millis() - rfidButtonPressTime >= TIME_GLITCH_FILTER_RFID) {
-            Log.verbose("[next_State] RFID Card pulled.\n");
-            nextState = RESET;
-          }
-        } else { rfidButtonTimerActive = false; }
-      } else {
-        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) nextState = RESET;
       }
       break;
 
     case RESET:
-      continuousServerCheckFailCount = 0;
-      if ((digitalRead(BUTTON_RFID) != BUTTON_PRESSED) && (digitalRead(BUTTON_STOP) != BUTTON_PRESSED)) {
+      uid = "0";
+      loggedInID = "0";
+      if (millis() - resetEnteredMs >= RESET_DISPLAY_MS) {
         nextState = STANDBY;
       }
       break;
@@ -236,9 +183,9 @@ void next_State() {
 //------------------------------------------------------------------------------
 
 void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
-  digitalWrite(LED_RED_PIN, led_red);
+  digitalWrite(LED_RED_PIN,    led_red);
   digitalWrite(LED_YELLOW_PIN, led_yellow);
-  digitalWrite(LED_GREEN_PIN, led_green);
+  digitalWrite(LED_GREEN_PIN,  led_green);
 }
 
 void connectToWiFi() {
@@ -279,9 +226,9 @@ void initRFID() {
 }
 
 bool perform_auth_check() {
-  uid = readID();
+  // uid is already set by STANDBY polling
   if (uid.equals("0")) {
-    Log.warning("[auth] No card readable.\n");
+    Log.warning("[auth] No card UID available.\n");
     return false;
   }
   Log.notice("[auth] Card UID: %s\n", uid.c_str());
@@ -296,21 +243,18 @@ String readID() {
   uint8_t uidBytes[7];
   uint8_t uidLength;
 
-  for (int attempt = 0; attempt < 3; attempt++) {
-    bool found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uidBytes, &uidLength, 500);
-    Log.verbose("[readID] Attempt %d: found=%d\n", attempt + 1, found);
-    if (found) {
-      String id = "";
-      for (uint8_t i = 0; i < uidLength; i++) {
-        if (uidBytes[i] < 16) id += "0";
-        id += String(uidBytes[i], HEX);
-        if (i < uidLength - 1) id += ":";
-      }
-      return id;
-    }
+  // Single attempt with short timeout to keep the loop responsive
+  bool found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uidBytes, &uidLength, 200);
+  if (!found) return "0";
+
+  String id = "";
+  for (uint8_t i = 0; i < uidLength; i++) {
+    if (uidBytes[i] < 16) id += "0";
+    id += String(uidBytes[i], HEX);
+    if (i < uidLength - 1) id += ":";
   }
-  Log.warning("[readID] All attempts failed.\n");
-  return "0";
+  Log.verbose("[readID] UID: %s\n", id.c_str());
+  return id;
 }
 
 int tryLoginID(String uid) {
@@ -331,7 +275,6 @@ int tryLoginID(String uid) {
 
   http.begin(client, url);
   int httpCode = http.GET();
-  Log.verbose("[tryLoginID] HTTP response code: %d\n", httpCode);
   int success = 0;
 
   if (httpCode == HTTP_CODE_OK) {
@@ -352,16 +295,3 @@ int tryLoginID(String uid) {
   return success;
 }
 
-void blinkGreenSubtleSuccess() {
-  digitalWrite(LED_GREEN_PIN, LOW);  delay(25);
-  digitalWrite(LED_GREEN_PIN, HIGH); delay(25);
-  digitalWrite(LED_GREEN_PIN, LOW);  delay(25);
-  digitalWrite(LED_GREEN_PIN, HIGH);
-}
-
-void blinkYellowShortWarning() {
-  digitalWrite(LED_GREEN_PIN, HIGH);
-  digitalWrite(LED_YELLOW_PIN, HIGH); delay(60);
-  digitalWrite(LED_YELLOW_PIN, LOW);
-  digitalWrite(LED_GREEN_PIN, HIGH);
-}
