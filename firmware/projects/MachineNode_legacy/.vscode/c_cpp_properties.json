@@ -502,7 +502,6 @@
                 "AUTHENTICATION_TOKEN=\"21042017freilab1337fooboardasgeht111\"",
                 "OTA_ENABLED=1",
                 "RFIDCARD_AUTH_CONST=true",
-                "CONTINUOUS_SERVER_CHECK=false",
                 "MACHINE_NAME=\"wood-bandsaw\"",
                 "MACHINE_ID=\"wood-bandsaw-01\"",
                 "OTA_HOSTNAME=\"wood-bandsaw-01\"",

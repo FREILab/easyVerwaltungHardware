@@ -121,9 +121,10 @@ void loop() {
 //------------------------------------------------------------------------------
 
 void next_State() {
-  static unsigned long lastCardPollMs  = 0;
-  static int           cardAbsentCount = 0;
-  static unsigned long resetEnteredMs  = 0;
+  static unsigned long lastCardPollMs   = 0;
+  static unsigned long lastServerPingMs = 0;
+  static int           cardAbsentCount  = 0;
+  static unsigned long resetEnteredMs   = 0;
 
   switch (currentState) {
 
@@ -165,6 +166,14 @@ void next_State() {
           resetEnteredMs = millis();
         }
       }
+      // Server keepalive: signals active session every SERVER_PING_MS.
+      // Result is intentionally ignored — WiFi outage must never stop the machine.
+      if (millis() - lastServerPingMs >= SERVER_PING_MS) {
+        lastServerPingMs = millis();
+        int ping = tryLoginID(loggedInID);
+        if (ping < 0) Log.warning("[next_State] Server ping skipped (WiFi unavailable).\n");
+        else if (ping == 0) Log.warning("[next_State] Server ping: session not acknowledged by server.\n");
+      }
       break;
 
     case RESET:
@@ -195,16 +204,40 @@ void connectToWiFi() {
   while (WiFi.status() != WL_CONNECTED && retries < 10) {
     delay(1000);
     retries++;
-    Serial.print(".");
+    Log.verbose("[WiFi] Waiting... (%d/10)\n", retries);
   }
   if (WiFi.status() == WL_CONNECTED) {
-    Log.notice("\n[WiFi] Connected. IP: %s\n", WiFi.localIP().toString().c_str());
+    Log.notice("[WiFi] Connected. IP: %s\n", WiFi.localIP().toString().c_str());
+  } else {
+    Log.error("[WiFi] Connection failed after %d retries. Continuing without network.\n", retries);
   }
 }
 
+// Non-blocking reconnect: checks once per second, never stalls the loop.
 void checkWiFiConnection() {
-  if (WiFi.status() != WL_CONNECTED) {
-    connectToWiFi();
+  static unsigned long lastCheckMs = 0;
+  static int           retries     = 0;
+
+  if (WiFi.status() == WL_CONNECTED) {
+    retries = 0;
+    return;
+  }
+
+  if (millis() - lastCheckMs < 1000) return;
+  lastCheckMs = millis();
+
+  if (retries == 0) {
+    Log.warning("[WiFi] Connection lost. Reconnecting to %s ...\n", WIFI_SSID);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  }
+
+  retries++;
+  Log.verbose("[WiFi] Reconnecting... (%d/10)\n", retries);
+
+  if (retries >= 10) {
+    Log.error("[WiFi] Reconnect failed. Will retry.\n");
+    retries = 0;
+    WiFi.disconnect(true);
   }
 }
 

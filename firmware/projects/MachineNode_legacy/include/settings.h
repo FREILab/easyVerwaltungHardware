@@ -10,10 +10,11 @@
 #define CARD_POLL_MS         500    // card poll interval in STANDBY and RUNNING (ms)
 #define CARD_ABSENT_RESET     10    // consecutive missed reads before relay off (10 × 500ms = 5s)
 #define RESET_DISPLAY_MS    2000    // duration of red LED after reject/logout (ms)
+#define SERVER_PING_MS      2000    // server keepalive interval in RUNNING (ms)
 
 // --- Pin mapping ---
 #define MACHINE_RELAY_PIN   22
-#define BUTTON_STOP         13
+#define BUTTON_STOP         14      // was 13 — conflicts with PN532_MISO
 #define LED_RED_PIN         32
 #define LED_YELLOW_PIN      33
 #define LED_GREEN_PIN       26
