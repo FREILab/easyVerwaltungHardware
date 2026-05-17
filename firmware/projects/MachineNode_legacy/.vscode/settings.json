@@ -1,0 +1,10 @@
+{
+    // CMake Tools: Presets aus CMakePresets.json verwenden
+    "cmake.useCMakePresets": "always",
+    "cmake.sourceDirectory": "${workspaceFolder}",
+
+    // PICO_SDK_PATH — falls nicht als Umgebungsvariable gesetzt, hier eintragen:
+    // "cmake.configureEnvironment": {
+    //     "PICO_SDK_PATH": "/path/to/pico-sdk"
+    // }
+}
