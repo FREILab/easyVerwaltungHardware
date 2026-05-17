@@ -2,6 +2,38 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Configure Env: USB",
+            "type": "process",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}",
+                "-B",
+                "${workspaceFolder}/build",
+                "-DENV_PROFILE=machine_dev_usb"
+            ],
+            "problemMatcher": [],
+            "windows": {
+                "command": "${env:USERPROFILE}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake.exe"
+            }
+        },
+        {
+            "label": "Configure Env: OTA",
+            "type": "process",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}",
+                "-B",
+                "${workspaceFolder}/build",
+                "-DENV_PROFILE=machine_dev_ota"
+            ],
+            "problemMatcher": [],
+            "windows": {
+                "command": "${env:USERPROFILE}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake.exe"
+            }
+        },
+        {
             "label": "Compile Project",
             "type": "process",
             "isBuildCommand": true,
@@ -16,6 +48,40 @@
             "windows": {
                 "command": "${env:USERPROFILE}/.pico-sdk/ninja/v1.12.1/ninja.exe"
             }
+        },
+        {
+            "label": "Compile Env: USB",
+            "type": "shell",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=machine_dev_usb && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Compile Env: OTA",
+            "type": "shell",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=machine_dev_ota && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure Env: Select Profile",
+            "type": "process",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}",
+                "-B",
+                "${workspaceFolder}/build",
+                "-DENV_PROFILE=${input:envProfile}"
+            ],
+            "problemMatcher": [],
+            "windows": {
+                "command": "${env:USERPROFILE}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake.exe"
+            }
+        },
+        {
+            "label": "Compile Env: Select Profile",
+            "type": "shell",
+            "command": "${userHome}/.pico-sdk/cmake/v3.31.5/CMake.app/Contents/bin/cmake -S ${workspaceFolder} -B ${workspaceFolder}/build -DENV_PROFILE=${input:envProfile} && ${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build",
+            "problemMatcher": []
         },
         {
             "label": "Run Project",
@@ -92,6 +158,52 @@
             "windows": {
                 "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
             }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "envProfile",
+            "type": "pickString",
+            "description": "Select ENV_PROFILE",
+            "default": "rfidbox_usb",
+            "options": [
+                "machine_dev_usb",
+                "machine_dev_ota",
+                "rfidbox_usb",
+                "rfidbox_ota",
+                "printer3d_01_usb",
+                "printer3d_01_ota",
+                "printer3d_02_usb",
+                "printer3d_02_ota",
+                "printer3d_03_usb",
+                "printer3d_03_ota",
+                "lathe_01_usb",
+                "lathe_01_ota",
+                "lathe_02_usb",
+                "lathe_02_ota",
+                "metal_mill_01_usb",
+                "metal_mill_01_ota",
+                "metal_mill_02_usb",
+                "metal_mill_02_ota",
+                "embroiderymachine_usb",
+                "embroiderymachine_ota",
+                "cncmill_wood_usb",
+                "cncmill_wood_ota",
+                "cncmill_metal_usb",
+                "cncmill_metal_ota",
+                "printer3d_xl_usb",
+                "printer3d_xl_ota",
+                "panel_saw_usb",
+                "panel_saw_ota",
+                "wood_planer_usb",
+                "wood_planer_ota",
+                "wood_bandsaw_usb",
+                "wood_bandsaw_ota",
+                "miter_saw_usb",
+                "miter_saw_ota",
+                "wood_routertable_usb",
+                "wood_routertable_ota"
+            ]
         }
     ]
 }
