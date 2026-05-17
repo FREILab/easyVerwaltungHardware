@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "firmware/projects/LASERSAUR_HMI_easyVerwaltung"
+		},
+		{
+			"path": "firmware/projects/MachineNode_legacy"
 		}
 	],
 	"settings": {}

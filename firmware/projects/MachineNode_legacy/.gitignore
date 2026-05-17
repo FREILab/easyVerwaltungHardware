@@ -1,3 +1,2 @@
-build
-!.vscode/*
-env.local.cmake
+.pio
+platformio.secrets.ini

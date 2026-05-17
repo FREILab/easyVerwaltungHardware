@@ -1,208 +1,367 @@
-#include <stdio.h>
-#include <string.h>
+#include <Arduino.h>
+#include "settings.h"
 
-#include "pico/stdlib.h"
-#include "firmware_config.h"
-#include "ota.h"
-
-#if defined(CYW43_WL_GPIO_LED_PIN)
-#include "pico/cyw43_arch.h"
+#ifndef WIFI_SSID
+  #define WIFI_SSID "NotSet"
+#endif
+#ifndef WIFI_PASSWORD
+  #define WIFI_PASSWORD "NotSet"
+#endif
+#ifndef SERVER_HOST
+  #define SERVER_HOST "localhost"
+#endif
+#ifndef AUTHENTICATION_TOKEN
+  #define AUTHENTICATION_TOKEN "NoToken"
 #endif
 
-namespace {
-
-bool is_value_set(const char *value) {
-    return value != nullptr && strcmp(value, "") != 0 && strcmp(value, "NotSet") != 0 &&
-           strcmp(value, "NoToken") != 0 && strcmp(value, "localhost") != 0;
-}
-
-void print_boot_info() {
-    printf("\n[BOOT] MachineNode_legacy start\n");
-    printf("[BOOT] ENV_PROFILE=%s\n", FW_ENV_PROFILE);
-    printf("[BOOT] MACHINE=%s (%s)\n", MACHINE_NAME, MACHINE_ID);
-    printf("[BOOT] OTA_HOSTNAME=%s OTA_ENABLED=%d\n", OTA_HOSTNAME, OTA_ENABLED);
-}
-
-void print_ota_help() {
-    printf("\n[OTA] Available commands (via serial):\n");
-    printf("  ota download <url> [crc32]\n");
-    printf("    Download firmware from HTTP URL and activate\n");
-    printf("    Example: ota download http://192.168.1.100:8000/firmware.bin 0x12345678\n");
-    printf("  ota status\n");
-    printf("    Print current OTA metadata\n");
-    printf("  ota rollback\n");
-    printf("    Switch back to previous firmware\n");
-    printf("\n");
-}
-
-void handle_ota_command() {
-    char cmd[256];
-    char arg1[256];
-    char arg2[256];
-    
-    printf("[CMD] Enter OTA command: ");
-    fflush(stdout);
-    
-    if (scanf("%255s", cmd) != 1) return;
-    
-    if (strcmp(cmd, "download") == 0) {
-        if (scanf("%255s %255s", arg1, arg2) < 1) {
-            printf("[CMD] Usage: download <url> [crc32]\n");
-            return;
-        }
-        
-        uint32_t crc32 = 0;
-        if (strlen(arg2) > 0) {
-            crc32 = (uint32_t)strtol(arg2, NULL, 16);
-        }
-        
-        printf("[CMD] Starting OTA download from: %s\n", arg1);
-        if (ota_http_download(arg1, 0, crc32)) {
-            printf("[CMD] Download successful! Activating firmware...\n");
-            ota_activate_and_reboot(0, "1.0.0-ota");
-        } else {
-            printf("[CMD] Download failed. Try again.\n");
-        }
-    } 
-    else if (strcmp(cmd, "status") == 0) {
-        const boot_metadata_t *meta = ota_get_metadata();
-        printf("[CMD] Active partition: 0x%08X\n", meta->active_partition == 0 ? 0x10000000 : 0x101A0000);
-        printf("[CMD] Firmware size: %u\n", meta->firmware_size);
-        printf("[CMD] Version: %s\n", meta->version);
-    }
-    else if (strcmp(cmd, "rollback") == 0) {
-        printf("[CMD] Rolling back...\n");
-        ota_rollback();
-    }
-    else if (strcmp(cmd, "help") == 0) {
-        print_ota_help();
-    }
-    else {
-        printf("[CMD] Unknown command: %s\n", cmd);
-    }
-}
-
-#if defined(CYW43_WL_GPIO_LED_PIN)
-bool connect_wifi() {
-    if (!is_value_set(WIFI_SSID) || !is_value_set(WIFI_PASSWORD)) {
-        printf("[WiFi] Skipped: WIFI_SSID/WIFI_PASSWORD not configured.\n");
-        return false;
-    }
-
-    printf("[WiFi] Connecting to SSID '%s' ...\n", WIFI_SSID);
-    cyw43_arch_enable_sta_mode();
-
-    int result = cyw43_arch_wifi_connect_timeout_ms(
-        WIFI_SSID,
-        WIFI_PASSWORD,
-        CYW43_AUTH_WPA2_AES_PSK,
-        30000
-    );
-
-    if (result != 0) {
-        printf("[WiFi] Connect failed: %d\n", result);
-        return false;
-    }
-
-    printf("[WiFi] Connected successfully.\n");
-    return true;
-}
-
-void run_ota_self_test(bool wifi_connected) {
-    if (!OTA_ENABLED) {
-        printf("[OTA] Disabled for this ENV profile.\n");
-        return;
-    }
-
-    printf("[OTA] Self-test start.\n");
-
-    if (!wifi_connected) {
-        printf("[OTA] FAIL: WiFi not connected.\n");
-        return;
-    }
-
-    if (!is_value_set(SERVER_HOST)) {
-        printf("[OTA] FAIL: SERVER_HOST not configured.\n");
-        return;
-    }
-
-    if (!is_value_set(AUTHENTICATION_TOKEN)) {
-        printf("[OTA] FAIL: AUTHENTICATION_TOKEN not configured.\n");
-        return;
-    }
-
-    printf("[OTA] PASS: Config and WiFi look valid for OTA workflow.\n");
-    printf("[OTA] Type 'help' in serial console for OTA commands.\n");
-}
+#include <SPI.h>
+#include <Adafruit_PN532.h>
+#include <HTTPClient.h>
+#include <WiFi.h>
+#include <ArduinoLog.h>
+#ifdef OTA_ENABLED
+  #include <ArduinoOTA.h>
 #endif
 
-} // namespace
+void next_State();
+void setLED_ryg(bool led_red, bool led_yellow, bool led_green);
+void connectToWiFi();
+void checkWiFiConnection();
+void initRFID();
+bool perform_auth_check();
+int tryLoginID(String uid);
+String readID();
+void blinkGreenSubtleSuccess();
+void blinkYellowShortWarning();
 
-int main() {
-    stdio_init_all();
-    sleep_ms(1500);
-    print_boot_info();
+//------------------------------------------------------------------------------
+// State Definitions
+//------------------------------------------------------------------------------
 
-#if defined(CYW43_WL_GPIO_LED_PIN)
-    if (cyw43_arch_init()) {
-        printf("[WiFi] cyw43_arch_init failed.\n");
-        return 1;
-    }
+enum State {
+  STANDBY,
+  IDENTIFICATION,
+  RUNNING,
+  RESET
+};
 
-    ota_init();
-    bool wifi_connected = connect_wifi();
-    run_ota_self_test(wifi_connected);
-    
-    if (OTA_ENABLED) {
-        print_ota_help();
-    }
+State currentState = STANDBY;
+State nextState = STANDBY;
+bool auth_check = true;
+unsigned long stateChangeTime = 0;
+unsigned long lastContinuousServerCheckMs = 0;
+int continuousServerCheckFailCount = 0;
 
-    const uint32_t blink_ms = wifi_connected ? (OTA_ENABLED ? 150 : 300) : 800;
-    absolute_time_t next_heartbeat = make_timeout_time_ms(5000);
+//------------------------------------------------------------------------------
+// Pin Definitions
+//------------------------------------------------------------------------------
 
-    while (true) {
-        /* Check for serial input (non-blocking) */
-        int c = getchar_timeout_us(100000);  // 100ms timeout
-        if (c != PICO_ERROR_TIMEOUT) {
-            if (c == 'h' || c == '?') {
-                print_ota_help();
-            } else if (c == 'c') {
-                handle_ota_command();
+#define MACHINE_RELAY_PIN 22
+#define BUTTON_RFID 4
+#define BUTTON_STOP 13
+
+#define LED_RED_PIN    32
+#define LED_YELLOW_PIN 33
+#define LED_GREEN_PIN  26
+
+#define BUTTON_PRESSED 0
+
+//------------------------------------------------------------------------------
+// Global Variables
+//------------------------------------------------------------------------------
+
+const int TIME_GLITCH_FILTER_STOP = 100;
+const int TIME_GLITCH_FILTER_RFID = 3000;
+
+Adafruit_PN532 nfc(PN532_SS, &SPI);
+
+String loggedInID = "0";
+String uid = "";
+bool isHttpRequestInProgress = false;
+
+//------------------------------------------------------------------------------
+// Setup
+//------------------------------------------------------------------------------
+
+void setup() {
+  Serial.begin(115200);
+  Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+
+  Log.notice("Starting setup ...\n");
+
+  pinMode(MACHINE_RELAY_PIN, OUTPUT);
+  pinMode(LED_RED_PIN, OUTPUT);
+  pinMode(LED_YELLOW_PIN, OUTPUT);
+  pinMode(LED_GREEN_PIN, OUTPUT);
+  pinMode(BUTTON_RFID, INPUT_PULLUP);
+  pinMode(BUTTON_STOP, INPUT_PULLUP);
+
+  digitalWrite(MACHINE_RELAY_PIN, LOW);
+  setLED_ryg(1, 1, 1);
+
+  delay(1000);
+
+  connectToWiFi();
+
+#ifdef OTA_ENABLED
+  ArduinoOTA.setHostname(OTA_HOSTNAME);
+  ArduinoOTA.begin();
+  Log.notice("[OTA] Ready. Hostname: %s\n", OTA_HOSTNAME);
+#endif
+
+  initRFID();
+
+  setLED_ryg(0, 0, 0);
+  delay(100);
+  setLED_ryg(0, 0, 1);
+  delay(100);
+  setLED_ryg(0, 0, 0);
+
+  Log.notice("Setup complete.\n");
+}
+
+//------------------------------------------------------------------------------
+// Loop
+//------------------------------------------------------------------------------
+
+void loop() {
+  checkWiFiConnection();
+#ifdef OTA_ENABLED
+  ArduinoOTA.handle();
+#endif
+
+  switch (currentState) {
+    case STANDBY:
+      digitalWrite(MACHINE_RELAY_PIN, LOW);
+      setLED_ryg(0, 1, 0);
+      break;
+    case IDENTIFICATION:
+      digitalWrite(MACHINE_RELAY_PIN, LOW);
+      setLED_ryg(0, 1, 1);
+      break;
+    case RUNNING:
+      digitalWrite(MACHINE_RELAY_PIN, HIGH);
+      setLED_ryg(0, 0, 1);
+      break;
+    case RESET:
+      digitalWrite(MACHINE_RELAY_PIN, LOW);
+      setLED_ryg(1, 0, 0);
+      break;
+  }
+
+  next_State();
+  delay(100);
+}
+
+//------------------------------------------------------------------------------
+// State Machine
+//------------------------------------------------------------------------------
+
+void next_State() {
+  static unsigned long rfidButtonPressTime = 0;
+  static bool rfidButtonTimerActive = false;
+  static unsigned long stopButtonPressTime = 0;
+  static bool stopButtonTimerActive = false;
+
+  switch (currentState) {
+    case STANDBY:
+      if (digitalRead(BUTTON_RFID) == BUTTON_PRESSED) {
+        nextState = IDENTIFICATION;
+      }
+      break;
+
+    case IDENTIFICATION:
+      if (perform_auth_check()) {
+        continuousServerCheckFailCount = 0;
+        lastContinuousServerCheckMs = millis();
+        nextState = RUNNING;
+        delay(500);
+      } else {
+        Log.verbose("[next_State] Identification not successful.\n");
+        nextState = RESET;
+      }
+      break;
+
+    case RUNNING:
+      if (RFIDCARD_AUTH_CONST) {
+        if (CONTINUOUS_SERVER_CHECK && (millis() - lastContinuousServerCheckMs >= 2000)) {
+          lastContinuousServerCheckMs = millis();
+
+          int checkResult = tryLoginID(loggedInID);
+          if (checkResult == 1) {
+            continuousServerCheckFailCount = 0;
+            blinkGreenSubtleSuccess();
+          } else {
+            continuousServerCheckFailCount++;
+            blinkYellowShortWarning();
+            Log.warning("[continuous-auth] Server check failed (%d/40).\n", continuousServerCheckFailCount);
+
+            if (continuousServerCheckFailCount >= 40) {
+              Log.error("[continuous-auth] 40 failed checks reached. Turning relay off.\n");
+              digitalWrite(MACHINE_RELAY_PIN, LOW);
+              nextState = RESET;
             }
+          }
         }
-        
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
-        sleep_ms(blink_ms);
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
-        sleep_ms(blink_ms);
 
-        if (absolute_time_diff_us(get_absolute_time(), next_heartbeat) <= 0) {
-            printf("[DBG] Alive. wifi_connected=%d, blink_ms=%lu\n", wifi_connected ? 1 : 0, (unsigned long)blink_ms);
-            next_heartbeat = make_timeout_time_ms(5000);
-        }
+        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
+          if (!stopButtonTimerActive) { stopButtonPressTime = millis(); stopButtonTimerActive = true; }
+          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) nextState = RESET;
+        } else { stopButtonTimerActive = false; }
+
+        if (digitalRead(BUTTON_RFID) != BUTTON_PRESSED) {
+          if (!rfidButtonTimerActive) { rfidButtonPressTime = millis(); rfidButtonTimerActive = true; }
+          if (millis() - rfidButtonPressTime >= TIME_GLITCH_FILTER_RFID) {
+            Log.verbose("[next_State] RFID Card pulled.\n");
+            nextState = RESET;
+          }
+        } else { rfidButtonTimerActive = false; }
+      } else {
+        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) nextState = RESET;
+      }
+      break;
+
+    case RESET:
+      continuousServerCheckFailCount = 0;
+      if ((digitalRead(BUTTON_RFID) != BUTTON_PRESSED) && (digitalRead(BUTTON_STOP) != BUTTON_PRESSED)) {
+        nextState = STANDBY;
+      }
+      break;
+  }
+  currentState = nextState;
+}
+
+//------------------------------------------------------------------------------
+// Hardware Helpers
+//------------------------------------------------------------------------------
+
+void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
+  digitalWrite(LED_RED_PIN, led_red);
+  digitalWrite(LED_YELLOW_PIN, led_yellow);
+  digitalWrite(LED_GREEN_PIN, led_green);
+}
+
+void connectToWiFi() {
+  Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  int retries = 0;
+  while (WiFi.status() != WL_CONNECTED && retries < 10) {
+    delay(1000);
+    retries++;
+    Serial.print(".");
+  }
+  if (WiFi.status() == WL_CONNECTED) {
+    Log.notice("\n[WiFi] Connected. IP: %s\n", WiFi.localIP().toString().c_str());
+  }
+}
+
+void checkWiFiConnection() {
+  if (WiFi.status() != WL_CONNECTED) {
+    connectToWiFi();
+  }
+}
+
+void initRFID() {
+  SPI.begin(PN532_SCK, PN532_MISO, PN532_MOSI, PN532_SS);
+  nfc.begin();
+
+  uint32_t versiondata = nfc.getFirmwareVersion();
+  if (!versiondata) {
+    Log.error("[initRFID] PN532 not found! Check wiring.\n");
+    delay(2000);
+    ESP.restart();
+  }
+  Log.notice("[initRFID] PN532 found. Firmware: %d.%d\n",
+    (versiondata >> 16) & 0xFF,
+    (versiondata >>  8) & 0xFF);
+
+  nfc.SAMConfig();
+}
+
+bool perform_auth_check() {
+  uid = readID();
+  if (uid.equals("0")) {
+    Log.warning("[auth] No card readable.\n");
+    return false;
+  }
+  Log.notice("[auth] Card UID: %s\n", uid.c_str());
+  int success = tryLoginID(uid);
+  if (success == 1) {
+    loggedInID = uid;
+  }
+  return success == 1;
+}
+
+String readID() {
+  uint8_t uidBytes[7];
+  uint8_t uidLength;
+
+  for (int attempt = 0; attempt < 3; attempt++) {
+    bool found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uidBytes, &uidLength, 500);
+    Log.verbose("[readID] Attempt %d: found=%d\n", attempt + 1, found);
+    if (found) {
+      String id = "";
+      for (uint8_t i = 0; i < uidLength; i++) {
+        if (uidBytes[i] < 16) id += "0";
+        id += String(uidBytes[i], HEX);
+        if (i < uidLength - 1) id += ":";
+      }
+      return id;
     }
-#elif defined(PICO_DEFAULT_LED_PIN)
-    gpio_init(PICO_DEFAULT_LED_PIN);
-    gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
+  }
+  Log.warning("[readID] All attempts failed.\n");
+  return "0";
+}
 
-    const uint32_t blink_ms = OTA_ENABLED ? 200 : 500;
-    absolute_time_t next_heartbeat = make_timeout_time_ms(5000);
+int tryLoginID(String uid) {
+  if (isHttpRequestInProgress) {
+    Log.warning("[tryLoginID] Skipped: request already in progress.\n");
+    return -1;
+  }
+  if (WiFi.status() != WL_CONNECTED) {
+    Log.warning("[tryLoginID] Skipped: WiFi not connected.\n");
+    return -1;
+  }
+  isHttpRequestInProgress = true;
 
-    while (true) {
-        gpio_put(PICO_DEFAULT_LED_PIN, 1);
-        sleep_ms(blink_ms);
-        gpio_put(PICO_DEFAULT_LED_PIN, 0);
-        sleep_ms(blink_ms);
+  HTTPClient http;
+  WiFiClient client;
+  String url = "http://" + String(SERVER_HOST) + "/machine_try_login/" + AUTHENTICATION_TOKEN + "/" + MACHINE_NAME + "/" + MACHINE_ID + "/" + uid;
+  Log.verbose("[tryLoginID] GET %s\n", url.c_str());
 
-        if (absolute_time_diff_us(get_absolute_time(), next_heartbeat) <= 0) {
-            printf("[DBG] Alive (GPIO fallback). blink_ms=%lu\n", (unsigned long)blink_ms);
-            next_heartbeat = make_timeout_time_ms(5000);
-        }
+  http.begin(client, url);
+  int httpCode = http.GET();
+  Log.verbose("[tryLoginID] HTTP response code: %d\n", httpCode);
+  int success = 0;
+
+  if (httpCode == HTTP_CODE_OK) {
+    String payload = http.getString();
+    Log.verbose("[tryLoginID] Payload: %s\n", payload.c_str());
+    if (payload.indexOf("true") >= 0) {
+      Log.notice("[tryLoginID] Login successful.\n");
+      success = 1;
+    } else {
+      Log.warning("[tryLoginID] Login denied.\n");
     }
-#else
-    while (true) {
-        printf("[DBG] Alive (no LED pin available).\n");
-        sleep_ms(1000);
-    }
-#endif
+  } else {
+    Log.error("[tryLoginID] HTTP error: %d\n", httpCode);
+  }
+
+  http.end();
+  isHttpRequestInProgress = false;
+  return success;
+}
+
+void blinkGreenSubtleSuccess() {
+  digitalWrite(LED_GREEN_PIN, LOW);  delay(25);
+  digitalWrite(LED_GREEN_PIN, HIGH); delay(25);
+  digitalWrite(LED_GREEN_PIN, LOW);  delay(25);
+  digitalWrite(LED_GREEN_PIN, HIGH);
+}
+
+void blinkYellowShortWarning() {
+  digitalWrite(LED_GREEN_PIN, HIGH);
+  digitalWrite(LED_YELLOW_PIN, HIGH); delay(60);
+  digitalWrite(LED_YELLOW_PIN, LOW);
+  digitalWrite(LED_GREEN_PIN, HIGH);
 }
