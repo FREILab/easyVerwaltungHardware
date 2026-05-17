@@ -23,40 +23,43 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico_w CACHE STRING "Board type")
+set(PICO_BOARD pico2 CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(MachinNode_legacy C CXX ASM)
+project(MachineNode_legacy C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(MachinNode_legacy MachinNode_legacy.cpp )
+add_executable(MachineNode_legacy MachineNode_legacy.cpp )
 
-pico_set_program_name(MachinNode_legacy "MachinNode_legacy")
-pico_set_program_version(MachinNode_legacy "0.1")
+pico_set_program_name(MachineNode_legacy "MachineNode_legacy")
+pico_set_program_version(MachineNode_legacy "0.1")
+
+# Generate PIO header
+pico_generate_pio_header(MachineNode_legacy ${CMAKE_CURRENT_LIST_DIR}/blink.pio)
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(MachinNode_legacy 0)
-pico_enable_stdio_usb(MachinNode_legacy 0)
+pico_enable_stdio_uart(MachineNode_legacy 0)
+pico_enable_stdio_usb(MachineNode_legacy 0)
 
 # Add the standard library to the build
-target_link_libraries(MachinNode_legacy
+target_link_libraries(MachineNode_legacy
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(MachinNode_legacy PRIVATE
+target_include_directories(MachineNode_legacy PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(MachinNode_legacy 
-        pico_cyw43_arch_none
+target_link_libraries(MachineNode_legacy 
+        hardware_pio
         )
 
-pico_add_extra_outputs(MachinNode_legacy)
+pico_add_extra_outputs(MachineNode_legacy)
 

@@ -48,5 +48,17 @@
                 "load \"${command:raspberry-pi-pico.launchTargetPath}\""
             ]
         },
+        {
+            "name": "Compile (Task Button)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "${userHome}/.pico-sdk/ninja/v1.12.1/ninja -C ${workspaceFolder}/build"
+        },
+        {
+            "name": "Flash USB (Task Button)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool/picotool load ${command:raspberry-pi-pico.launchTargetPath} -fx"
+        }
     ]
 }

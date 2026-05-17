@@ -1,21 +1,21 @@
 {
     "cmake.showSystemKits": false,
-    "cmake.options.statusBarVisibility": "visible",
+    "cmake.options.statusBarVisibility": "hidden",
     "cmake.options.advanced": {
         "build": {
-            "statusBarVisibility": "visible"
+            "statusBarVisibility": "hidden"
         },
         "launch": {
-            "statusBarVisibility": "visible"
+            "statusBarVisibility": "hidden"
         },
         "debug": {
-            "statusBarVisibility": "visible"
+            "statusBarVisibility": "hidden"
         },
         "variant": {
-            "statusBarVisibility": "visible",
+            "statusBarVisibility": "hidden",
         },
         "buildTarget": {
-            "statusBarVisibility": "visible",
+            "statusBarVisibility": "hidden",
         }
     },
     "cmake.configureOnEdit": false,
@@ -40,8 +40,7 @@
         "PATH": "${env:HOME}/.pico-sdk/toolchain/14_2_Rel1/bin:${env:HOME}/.pico-sdk/picotool/2.2.0-a4/picotool:${env:HOME}/.pico-sdk/cmake/v3.31.5/bin:${env:HOME}/.pico-sdk/ninja/v1.12.1:${env:PATH}"
     },
     "raspberry-pi-pico.cmakeAutoConfigure": true,
-    "raspberry-pi-pico.useCmakeTools": true,
+    "raspberry-pi-pico.useCmakeTools": false,
     "raspberry-pi-pico.cmakePath": "${HOME}/.pico-sdk/cmake/v3.31.5/bin/cmake",
-    "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
-    "cmake.sourceDirectory": "/Users/marius/Github/easyVerwaltungHardware/firmware/projects/MachineNode_legacy"
+    "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja"
 }
