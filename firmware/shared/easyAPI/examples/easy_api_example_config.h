@@ -1,0 +1,10 @@
+#ifndef EASY_API_EXAMPLE_CONFIG_H
+#define EASY_API_EXAMPLE_CONFIG_H
+
+#define EASY_API_EXAMPLE_BASE_URL "http://localhost:8787"
+#define EASY_API_EXAMPLE_SERVICE_TOKEN "demo-service-token-aa00"
+#define EASY_API_EXAMPLE_SERVICE_ID "svc_inst_001"
+#define EASY_API_EXAMPLE_RFID "CARD-1001"
+#define EASY_API_EXAMPLE_PIN "1234"
+
+#endif

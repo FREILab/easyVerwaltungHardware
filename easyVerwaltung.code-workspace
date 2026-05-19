@@ -26,6 +26,9 @@
 		},
 		{
 			"path": "../easyVerwaltung/docs"
+		},
+		{
+			"path": "firmware/shared/easyAPI"
 		}
 	],
 	"settings": {}

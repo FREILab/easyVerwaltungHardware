@@ -289,6 +289,7 @@ void next_State() {
           int checkResult = tryHeartbeat(loggedInID);
           if (checkResult == 1) {
             continuousServerCheckFailCount = 0;
+            Log.notice("[continuous-auth] Heartbeat OK.\n");
             blinkGreenSubtleSuccess();
           } else {
             continuousServerCheckFailCount++;
@@ -323,12 +324,17 @@ void next_State() {
       break;
 
     case RESET:
+      session_id[0] = '\0';
       continuousServerCheckFailCount = 0;
       if ((digitalRead(BUTTON_RFID) != BUTTON_PRESSED) && (digitalRead(BUTTON_STOP) != BUTTON_PRESSED)) {
         // when both buttons are inactive, change to standby state
         nextState = STANDBY;
       }
       break;
+  }
+  if (nextState != currentState) {
+    static const char *stateNames[] = { "STANDBY", "IDENTIFICATION", "RUNNING", "RESET" };
+    Log.notice("[state] %s -> %s\n", stateNames[currentState], stateNames[nextState]);
   }
   currentState = nextState;
 }
