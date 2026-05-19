@@ -19,10 +19,52 @@ Quelle: OTA/Fleet-Konzept fuer RFIDBOX_PoC.
 - RFIDBOX v0.1: ESP32 (aktuell)
 - RFIDBOX v1.x: zukunftige Revisionen
 
-## Aktueller Stand
-- Build aktuell als PlatformIO Environment `esp32dev`
-- Firmware wird lokal gebaut und klassisch deployed
+## Aktueller Stand (2026-05-19, rfid-box/v0.1.0)
+- easyAPI integriert: Login (single mode), Heartbeat, Health-Check implementiert
+- Erster erfolgreicher Login-Durchlauf auf metal-mill-01 gegen svc_inst_006
+- RFID-Lesen, Relay-Schaltung und Kartenziehen-Abmeldung funktionieren
+- OTA-Infrastruktur vorbereitet (ArduinoOTA, Hostname per Environment)
+- Firmware wird lokal gebaut und per USB/OTA deployed
 - Noch kein zentrales Manifest-gesteuertes Pull-OTA aktiv
+
+Offene Punkte:
+- Health-Check: Server gibt active:false zurueck, serverseitig klaeren (Issue #60)
+- ~~RFID-Karte 63:38:CE:15 im Backend registrieren (Issue #61)~~ — erledigt (Karte war nicht aktiv, serverseitiger Bug)
+- DNS-Eintrag fuer easyverwaltung.intern auf 10.30.0.254 setzen
+
+## Test-Roadmap
+Empfohlene Tests vor Produktiveinsatz, aufsteigend nach Komplexitaet:
+
+### 1. Health-Check (blockiert durch Issue #60)
+- Server-Fix einspielen, Health-Check beim Boot wieder aktivieren
+- Erwartung: active:true, serviceId und serviceName korrekt befuellt
+
+### 2. Karten-Autorisierung
+- Mehrere Karten testen: autorisiert / nicht autorisiert / unbekannt
+- UID-Format pruefen: Gross-/Kleinschreibung, Trennzeichen (aktuell Doppelpunkt)
+
+### 3. Server-Ausfall waehrend Betrieb
+- Server stoppen waehrend Relay aktiv ist
+- Erwartung: Relay bleibt an (fail-open) oder geht aus (fail-closed) — definieren
+- Aktuell: Heartbeat-Modus nicht aktiv, Verhalten bei Ausfall unklar
+
+### 4. Heartbeat-Modus (CONTINUOUS_SERVER_CHECK=true)
+- Environment mit auth_onetime oder CONTINUOUS_SERVER_CHECK=true bauen
+- Karte einlegen, Server-Session serverseitig beenden
+- Erwartung: Relay geht nach Timeout aus
+
+### 5. WiFi-Reconnect
+- Router kurz trennen und wieder verbinden waehrend Relay aktiv
+- Erwartung: Reconnect ohne Reboot, Relay-Zustand bleibt erhalten
+
+### 6. OTA-Update im Feld
+- Geraet per USB flashen, dann OTA-Update via espota einspielen
+- Hostnamen-Aufloesung (metal-mill-01.local) pruefen
+
+### 7. Mehrgeraete-Test
+- Zwei RFID-Boxen gleichzeitig gegen denselben Server
+- Verschiedene service_ids, verschiedene Karten
+- Erwartung: keine gegenseitige Beeinflussung
 
 ## Ziel-Config-Schema (geraeteseitig)
 Pflichtfelder in lokaler Config (NVS/Preferences):
