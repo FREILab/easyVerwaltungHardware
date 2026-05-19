@@ -483,6 +483,10 @@ String readID() {
         }
         mfrc522.PICC_HaltA();
         mfrc522.PCD_StopCrypto1();
+        mfrc522.PCD_AntennaOff();
+        delay(50);
+        mfrc522.PCD_AntennaOn();
+        id.toUpperCase();
         return id;
       }
     }
