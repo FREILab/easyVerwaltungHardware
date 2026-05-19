@@ -250,13 +250,18 @@ easy_api_status_t easy_api_health_check(easy_api_client_t *client, easy_api_heal
         parse_error_info(http_resp.body, http_resp.http_status, &response->error);
         return EASY_API_ERR_HTTP_STATUS;
     }
-    if (!json_get_bool(http_resp.body, "active", &response->active) ||
-        !json_get_string(http_resp.body, "serviceId", response->service_id, sizeof(response->service_id))) {
+    if (!json_get_bool(http_resp.body, "active", &response->active)) {
+        return EASY_API_ERR_JSON_PARSE;
+    }
+    if (!response->active) {
+        (void)json_get_string(http_resp.body, "status", response->status, sizeof(response->status));
+        return EASY_API_ERR_SERVICE_INACTIVE;
+    }
+    if (!json_get_string(http_resp.body, "serviceId", response->service_id, sizeof(response->service_id))) {
         return EASY_API_ERR_JSON_PARSE;
     }
     (void)json_get_string(http_resp.body, "serviceName", response->service_name, sizeof(response->service_name));
     (void)json_get_string(http_resp.body, "status", response->status, sizeof(response->status));
-    return response->active ? EASY_API_OK : EASY_API_ERR_SERVICE_INACTIVE;
 }
 
 easy_api_status_t easy_api_machine_login(easy_api_client_t *client, const char *rfid, easy_api_machine_mode_t mode, const char *pin, easy_api_login_response_t *response) {

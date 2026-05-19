@@ -1,6 +1,7 @@
 #pragma once
 
 #include "easy_api.h"
+#include <ArduinoLog.h>
 #include <HTTPClient.h>
 #include <string.h>
 
@@ -12,6 +13,11 @@ extern "C" easy_api_status_t easy_api_esp32_transport(
     (void)user_context;
     HTTPClient http;
     WiFiClient client;
+
+    Log.verbose("[transport] %s %s\n", request->method, request->url);
+    if (request->body != NULL && request->body_len > 0) {
+        Log.verbose("[transport] Body: %s\n", request->body);
+    }
 
     if (!http.begin(client, String(request->url))) {
         return EASY_API_ERR_NETWORK;
@@ -28,6 +34,8 @@ extern "C" easy_api_status_t easy_api_esp32_transport(
     } else {
         httpCode = http.GET();
     }
+
+    Log.verbose("[transport] HTTP %d\n", httpCode);
 
     if (httpCode < 0) {
         http.end();

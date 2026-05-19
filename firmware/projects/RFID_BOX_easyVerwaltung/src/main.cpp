@@ -178,24 +178,9 @@ void setup() {
     easy_api_init(&api_client, &cfg);
   }
 
-  {
-    Log.notice("[Health] Checking service presence ...\n");
-    easy_api_health_response_t health = {};
-    easy_api_status_t hst = EASY_API_ERR_NETWORK;
-    for (int i = 0; i < 3; i++) {
-      hst = easy_api_health_check(&api_client, &health);
-      if (hst == EASY_API_OK) break;
-      Log.warning("[Health] Attempt %d failed: %s\n", i + 1, easy_api_status_string(hst));
-      if (i < 2) delay(2000);
-    }
-    if (hst != EASY_API_OK) {
-      Log.error("[Health] Service not reachable or inactive. Restarting in 30s.\n");
-      setLED_ryg(1, 0, 0);
-      delay(30000);
-      ESP.restart();
-    }
-    Log.notice("[Health] Active: %s (%s)\n", health.service_id, health.service_name);
-  }
+  // TODO: Health-Check deaktiviert — svc_inst_005 liefert active:false obwohl Service aktiv sein soll.
+  //       Serverseitig klären, siehe https://github.com/FREILab/easyVerwaltung/issues/60
+  Log.warning("[Health] Startup health check skipped (see TODO).\n");
 
 #ifdef OTA_ENABLED
   ArduinoOTA.setHostname(OTA_HOSTNAME);
@@ -369,7 +354,8 @@ void connectToWiFi() {
  * @brief Checks WiFi network connection.
  */
 void checkWiFiConnection() {
-  if (WiFi.status() != WL_CONNECTED) {
+  wl_status_t s = WiFi.status();
+  if (s == WL_DISCONNECTED || s == WL_CONNECT_FAILED || s == WL_CONNECTION_LOST) {
     connectToWiFi();
   }
 }
