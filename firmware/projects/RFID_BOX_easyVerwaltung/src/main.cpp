@@ -126,6 +126,8 @@ static easy_api_client_t api_client;
 static char api_req_buf[512];
 static char api_res_buf[2048];
 static char session_id[EASY_API_MAX_SESSION_ID_LEN];
+static uint32_t heartbeat_interval_ms = 2000;
+static uint32_t heartbeat_fail_limit = 40;
 
 //------------------------------------------------------------------------------
 // Setup Function
@@ -174,6 +176,25 @@ void setup() {
     cfg.transport           = easy_api_esp32_transport;
     cfg.transport_context   = nullptr;
     easy_api_init(&api_client, &cfg);
+  }
+
+  {
+    Log.notice("[Health] Checking service presence ...\n");
+    easy_api_health_response_t health = {};
+    easy_api_status_t hst = EASY_API_ERR_NETWORK;
+    for (int i = 0; i < 3; i++) {
+      hst = easy_api_health_check(&api_client, &health);
+      if (hst == EASY_API_OK) break;
+      Log.warning("[Health] Attempt %d failed: %s\n", i + 1, easy_api_status_string(hst));
+      if (i < 2) delay(2000);
+    }
+    if (hst != EASY_API_OK) {
+      Log.error("[Health] Service not reachable or inactive. Restarting in 30s.\n");
+      setLED_ryg(1, 0, 0);
+      delay(30000);
+      ESP.restart();
+    }
+    Log.notice("[Health] Active: %s (%s)\n", health.service_id, health.service_name);
   }
 
 #ifdef OTA_ENABLED
@@ -262,7 +283,7 @@ void next_State() {
     case RUNNING:
       // Differentiate if the machine needs the RFID card connected constantly
       if (RFIDCARD_AUTH_CONST) {
-        if (CONTINUOUS_SERVER_CHECK && (millis() - lastContinuousServerCheckMs >= 2000)) {
+        if (CONTINUOUS_SERVER_CHECK && (millis() - lastContinuousServerCheckMs >= heartbeat_interval_ms)) {
           lastContinuousServerCheckMs = millis();
 
           int checkResult = tryHeartbeat(loggedInID);
@@ -272,10 +293,10 @@ void next_State() {
           } else {
             continuousServerCheckFailCount++;
             blinkYellowShortWarning();
-            Log.warning("[continuous-auth] Server check failed (%d/40).\n", continuousServerCheckFailCount);
+            Log.warning("[continuous-auth] Server check failed (%d/%u).\n", continuousServerCheckFailCount, heartbeat_fail_limit);
 
-            if (continuousServerCheckFailCount >= 40) {
-              Log.error("[continuous-auth] 40 failed checks reached. Turning relay off.\n");
+            if ((uint32_t)continuousServerCheckFailCount >= heartbeat_fail_limit) {
+              Log.error("[continuous-auth] Timeout reached (%u checks). Turning relay off.\n", heartbeat_fail_limit);
               digitalWrite(MACHINE_RELAY_PIN, LOW);
               nextState = RESET;
             }
@@ -421,7 +442,15 @@ int tryLoginID(String uid) {
     return 0;
   }
   strncpy(session_id, login.session_id, sizeof(session_id) - 1);
-  Log.notice("[tryLoginID] Granted. Session: %s\n", session_id);
+  if (login.heartbeat_interval_seconds > 0) {
+    heartbeat_interval_ms = login.heartbeat_interval_seconds * 1000UL;
+    if (login.session_timeout_seconds > 0) {
+      heartbeat_fail_limit = login.session_timeout_seconds / login.heartbeat_interval_seconds;
+      if (heartbeat_fail_limit == 0) heartbeat_fail_limit = 1;
+    }
+  }
+  Log.notice("[tryLoginID] Granted. Session: %s interval=%us timeout=%us\n",
+             session_id, (unsigned)login.heartbeat_interval_seconds, (unsigned)login.session_timeout_seconds);
   return 1;
 }
 

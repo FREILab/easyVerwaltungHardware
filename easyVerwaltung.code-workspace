@@ -23,6 +23,9 @@
 		},
 		{
 			"path": "firmware/projects/MachineNode_legacy"
+		},
+		{
+			"path": "../easyVerwaltung/docs"
 		}
 	],
 	"settings": {}
