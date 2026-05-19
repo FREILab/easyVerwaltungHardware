@@ -178,8 +178,8 @@ void setup() {
     easy_api_init(&api_client, &cfg);
   }
 
-  // TODO: Health-Check deaktiviert — svc_inst_005 liefert active:false obwohl Service aktiv sein soll.
-  //       Serverseitig klären, siehe https://github.com/FREILab/easyVerwaltung/issues/60
+  // TODO: Health-Check deaktiviert — Server gibt active:false zurück, serverseitig klären.
+  //       Siehe https://github.com/FREILab/easyVerwaltung/issues/60
   Log.warning("[Health] Startup health check skipped (see TODO).\n");
 
 #ifdef OTA_ENABLED
