@@ -11,8 +11,9 @@ firmware/projects/*/.vscode/ipch
 firmware/projects/*/platformio.secrets.ini
 firmware/projects/*/include/secret.h
 
-# MachineNode — CMake Build-Artefakte
+# CMake Build-Artefakte
 firmware/projects/MachineNode/build/
+firmware/projects/RFID_BOX_easyVerwaltung/build/
 
 # Smart Terminal — lokale Dev-Config (printers.example.json bleibt getrackt)
 software/SmartTerminal_3D_Print/config/printers.dev.json
