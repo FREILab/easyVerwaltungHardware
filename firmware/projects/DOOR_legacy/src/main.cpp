@@ -18,6 +18,11 @@
 #include <WDT.h>
 #include "settings.h"
 
+// --- Lokale Secrets (optional) ---
+#if __has_include("secret.h")
+  #include "secret.h"
+#endif
+
 // --- Secrets via Build-Flags (platformio.secrets.ini) ---
 #ifndef SERVER_IP
   #define SERVER_IP "NOT_SET"
@@ -39,6 +44,15 @@
 #endif
 #ifndef OTA_HOSTNAME
   #define OTA_HOSTNAME "tuer"
+#endif
+#ifndef WIFI_LOCAL_IP
+  #define WIFI_LOCAL_IP ""
+#endif
+#ifndef WIFI_GATEWAY
+  #define WIFI_GATEWAY ""
+#endif
+#ifndef WIFI_SUBNET
+  #define WIFI_SUBNET ""
 #endif
 
 //------------------------------------------------------------------------------
@@ -107,6 +121,9 @@ bool readUID(char* buf, uint8_t bufSize);
 const char* wifiStatusToString(int status);
 bool connectWiFiWithTimeout(unsigned long timeoutMs, bool printDots);
 bool waitForDhcpLease(unsigned long timeoutMs, bool printDots);
+bool configureStaticNetworkIfAvailable();
+
+bool useStaticIp = false;
 
 //------------------------------------------------------------------------------
 // Setup
@@ -144,11 +161,12 @@ void setup() {
   Serial.print(F("WiFi MAC: "));
   Serial.println(wifiMacStr);
 
+  useStaticIp = configureStaticNetworkIfAvailable();
   WiFi.setHostname(OTA_HOSTNAME);
   bool connected = connectWiFiWithTimeout(30000, true);
 
-  // WL_CONNECTED kommt oft vor der DHCP-Lease.
-  if (connected && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+  // Nur bei DHCP warten. Bei statischer IP darf es keine Lease-Wartezeit geben.
+  if (!useStaticIp && connected && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
     Serial.print(F("\nDHCP warte auf Lease ... "));
     waitForDhcpLease(30000, true);
     Serial.println();
@@ -207,16 +225,21 @@ void loop() {
     lastWifiAttempt = millis();
 
     if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
-      Serial.println(F("DHCP-Lease fehlt trotz CONNECTED, warte kurz..."));
-      if (!waitForDhcpLease(5000, false)) {
-        Serial.println(F("DHCP weiter 0.0.0.0, starte WiFi neu..."));
+      if (useStaticIp) {
+        Serial.println(F("Statische IP erwartet, aber localIP ist 0.0.0.0. Starte WiFi neu..."));
         connectWiFiWithTimeout(5000, false);
-        if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
-          waitForDhcpLease(5000, false);
+      } else {
+        Serial.println(F("DHCP-Lease fehlt trotz CONNECTED, warte kurz..."));
+        if (!waitForDhcpLease(5000, false)) {
+          Serial.println(F("DHCP weiter 0.0.0.0, starte WiFi neu..."));
+          connectWiFiWithTimeout(5000, false);
+          if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+            waitForDhcpLease(5000, false);
+          }
         }
       }
       if (WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
-        Serial.print(F("DHCP-Lease erhalten: "));
+        Serial.print(useStaticIp ? F("Statische IP aktiv: ") : F("DHCP-Lease erhalten: "));
         Serial.println(WiFi.localIP());
       }
     } else if (WiFi.status() != WL_CONNECTED) {
@@ -226,7 +249,7 @@ void loop() {
       Serial.print(wifiStatusToString(WiFi.status()));
       Serial.println(F(")"));
       connectWiFiWithTimeout(5000, false);
-      if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+      if (!useStaticIp && WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
         waitForDhcpLease(5000, false);
       }
       if (WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
@@ -582,4 +605,25 @@ bool waitForDhcpLease(unsigned long timeoutMs, bool printDots) {
     delay(250);
   }
   return WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0);
+}
+
+bool configureStaticNetworkIfAvailable() {
+  IPAddress localIp;
+  IPAddress gateway;
+  IPAddress subnet;
+
+  if (!localIp.fromString(WIFI_LOCAL_IP) || !gateway.fromString(WIFI_GATEWAY) || !subnet.fromString(WIFI_SUBNET)) {
+    Serial.println(F("WiFi Netzwerkmodus: DHCP"));
+    return false;
+  }
+
+  WiFi.config(localIp, gateway, subnet);
+  Serial.print(F("WiFi Netzwerkmodus: statisch "));
+  Serial.print(localIp);
+  Serial.print(F(" gw "));
+  Serial.print(gateway);
+  Serial.print(F(" mask "));
+  Serial.print(subnet);
+  Serial.println();
+  return true;
 }
