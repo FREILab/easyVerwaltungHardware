@@ -305,7 +305,7 @@ void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
 /**
  * @brief Connects the ESP32 to the WiFi network.
  */
-void connectToWiFi() {
+void connectToWiFi(bool waitForConnection) {
   Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   int retries = 0;
