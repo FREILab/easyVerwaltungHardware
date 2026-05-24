@@ -115,6 +115,22 @@ String loggedInID = "0";     ///< Currently logged-in RFID card ID
 String uid = "";             ///< UID read from an RFID card
 bool isHttpRequestInProgress = false; ///< Flag to indicate an ongoing HTTP request
 
+WiFiServer telnetServer(23);
+WiFiClient telnetClient;
+
+class TeeStream : public Print {
+  size_t write(uint8_t c) override {
+    Serial.write(c);
+    if (telnetClient && telnetClient.connected()) telnetClient.write(c);
+    return 1;
+  }
+  size_t write(const uint8_t* buf, size_t size) override {
+    Serial.write(buf, size);
+    if (telnetClient && telnetClient.connected()) telnetClient.write(buf, size);
+    return size;
+  }
+} teeStream;
+
 //------------------------------------------------------------------------------
 // Setup Function
 //------------------------------------------------------------------------------
@@ -124,7 +140,7 @@ bool isHttpRequestInProgress = false; ///< Flag to indicate an ongoing HTTP requ
  */
 void setup() {
   Serial.begin(115200);
-  Log.begin(LOG_LEVEL_VERBOSE, &Serial); // Initialize logging
+  Log.begin(LOG_LEVEL_VERBOSE, &teeStream);
 
   Log.notice("Starting setup ...\n");
 
@@ -148,6 +164,8 @@ void setup() {
   delay(1000);  // wait for pullups to get active
 
   connectToWiFi();
+  telnetServer.begin();
+  Log.notice("[Telnet] Server started on port 23\n");
 
 #ifdef OTA_ENABLED
   ArduinoOTA.setHostname(OTA_HOSTNAME);
@@ -172,6 +190,11 @@ void setup() {
  */
 void loop() {
   checkWiFiConnection();
+  if (telnetServer.hasClient()) {
+    if (telnetClient) telnetClient.stop();
+    telnetClient = telnetServer.available();
+    Log.notice("[Telnet] Client connected.\n");
+  }
 #ifdef OTA_ENABLED
   ArduinoOTA.handle();
 #endif
@@ -258,19 +281,29 @@ void next_State() {
         // The card has to be connected constantly
         if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
           if (!stopButtonTimerActive) { stopButtonPressTime = millis(); stopButtonTimerActive = true; }
-          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) nextState = RESET;
+          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) {
+            Log.notice("[next_State] Stop button pressed. Switching to RESET.\n");
+            nextState = RESET;
+          }
         } else { stopButtonTimerActive = false; }
 
         if (digitalRead(BUTTON_RFID) != BUTTON_PRESSED) {
-          if (!rfidButtonTimerActive) { rfidButtonPressTime = millis(); rfidButtonTimerActive = true; }
+          if (!rfidButtonTimerActive) {
+            rfidButtonPressTime = millis();
+            rfidButtonTimerActive = true;
+            Log.notice("[next_State] RFID card removed. Waiting %ds before shutdown.\n", TIME_GLITCH_FILTER_RFID / 1000);
+          }
           if (millis() - rfidButtonPressTime >= TIME_GLITCH_FILTER_RFID) {
-            Log.verbose("[next_State] RFID Card pulled.\n");
+            Log.notice("[next_State] RFID card timeout. Switching to RESET.\n");
             nextState = RESET;
           }
         } else { rfidButtonTimerActive = false; }
       } else {
         // Only a single sign-on is necessary
-        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) nextState = RESET;
+        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
+          Log.notice("[next_State] Stop button pressed. Switching to RESET.\n");
+          nextState = RESET;
+        }
       }
       break;
 
