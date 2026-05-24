@@ -155,10 +155,7 @@ void setup() {
 
   delay(1000);  // wait for pullups to get active
 
-  WiFi.mode(WIFI_STA);
-  WiFi.setAutoReconnect(true);
-  WiFi.persistent(false);
-  connectToWiFi(true);
+  connectToWiFi();
 
 #ifdef OTA_ENABLED
   ArduinoOTA.setHostname(OTA_HOSTNAME);
@@ -308,39 +305,18 @@ void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
 /**
  * @brief Connects the ESP32 to the WiFi network.
  */
-void connectToWiFi(bool waitForConnection) {
-  unsigned long now = millis();
-  if (!waitForConnection && (now - lastWiFiReconnectAttemptMs < WIFI_RECONNECT_INTERVAL_MS)) {
-    return;
-  }
-
-  lastWiFiReconnectAttemptMs = now;
-  if (!wifiConnectionStarted) {
-    Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    wifiConnectionStarted = true;
-  } else {
-    Log.notice("[WiFi] Reconnect attempt to %s ...\n", WIFI_SSID);
-    WiFi.reconnect();
-  }
-
-  if (!waitForConnection) {
-    return;
-  }
-
+void connectToWiFi() {
+  Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   int retries = 0;
-  while (WiFi.status() != WL_CONNECTED && retries < 10) {
+  while (WiFi.status() != WL_CONNECTED && retries < 30) {
     delay(1000);
     retries++;
-    Serial.print(".");
+    Log.notice(".[WiFi] status=%d\n", static_cast<int>(WiFi.status()));
   }
 
   if (WiFi.status() == WL_CONNECTED) {
-    wifiWasConnected = true;
     Log.notice("\n[WiFi] Connected. IP: %s\n", WiFi.localIP().toString().c_str());
-  } else {
-    wifiWasConnected = false;
-    Log.warning("\n[WiFi] Initial connect timeout, continuing offline.\n");
   }
 }
 
