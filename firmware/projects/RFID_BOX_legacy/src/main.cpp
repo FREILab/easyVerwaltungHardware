@@ -47,6 +47,7 @@
 #include <HTTPClient.h>
 #include <WiFi.h>
 #include <ArduinoLog.h>
+#include <esp_system.h>
 #ifdef OTA_ENABLED
   #include <ArduinoOTA.h>
 #endif
@@ -54,7 +55,7 @@
 // --- Prototypen (Forward Declarations für C++) ---
 void next_State();
 void setLED_ryg(bool led_red, bool led_yellow, bool led_green);
-void connectToWiFi();
+void connectToWiFi(bool waitForConnection = false);
 void checkWiFiConnection();
 void initRFID();
 bool perform_auth_check();
@@ -62,6 +63,7 @@ int tryLoginID(String uid);
 String readID();
 void blinkGreenSubtleSuccess();
 void blinkYellowShortWarning();
+const char* resetReasonToString(esp_reset_reason_t reason);
 
 //------------------------------------------------------------------------------
 // State Definitions
@@ -84,6 +86,9 @@ bool auth_check = true;
 unsigned long stateChangeTime = 0;
 unsigned long lastContinuousServerCheckMs = 0;
 int continuousServerCheckFailCount = 0;
+unsigned long lastWiFiReconnectAttemptMs = 0;
+bool wifiWasConnected = false;
+bool wifiConnectionStarted = false;
 
 //------------------------------------------------------------------------------
 // Pin Definitions
@@ -108,28 +113,13 @@ int continuousServerCheckFailCount = 0;
 
 const int TIME_GLITCH_FILTER_STOP = 100;  ///< 0.1s button debounce time
 const int TIME_GLITCH_FILTER_RFID = 3000; ///< 3s button debounce time
+const unsigned long WIFI_RECONNECT_INTERVAL_MS = 30000;
 
 MFRC522 mfrc522(RFID_SS_PIN, RFID_RST_PIN);  ///< Instance of the RFID module
 
 String loggedInID = "0";     ///< Currently logged-in RFID card ID
 String uid = "";             ///< UID read from an RFID card
 bool isHttpRequestInProgress = false; ///< Flag to indicate an ongoing HTTP request
-
-WiFiServer telnetServer(23);
-WiFiClient telnetClient;
-
-class TeeStream : public Print {
-  size_t write(uint8_t c) override {
-    Serial.write(c);
-    if (telnetClient && telnetClient.connected()) telnetClient.write(c);
-    return 1;
-  }
-  size_t write(const uint8_t* buf, size_t size) override {
-    Serial.write(buf, size);
-    if (telnetClient && telnetClient.connected()) telnetClient.write(buf, size);
-    return size;
-  }
-} teeStream;
 
 //------------------------------------------------------------------------------
 // Setup Function
@@ -140,9 +130,11 @@ class TeeStream : public Print {
  */
 void setup() {
   Serial.begin(115200);
-  Log.begin(LOG_LEVEL_VERBOSE, &teeStream);
+  Log.begin(LOG_LEVEL_VERBOSE, &Serial); // Initialize logging
 
   Log.notice("Starting setup ...\n");
+  esp_reset_reason_t resetReason = esp_reset_reason();
+  Log.notice("[boot] Reset reason: %d (%s)\n", static_cast<int>(resetReason), resetReasonToString(resetReason));
 
   // Relay control output
   pinMode(MACHINE_RELAY_PIN, OUTPUT);
@@ -163,9 +155,10 @@ void setup() {
 
   delay(1000);  // wait for pullups to get active
 
-  connectToWiFi();
-  telnetServer.begin();
-  Log.notice("[Telnet] Server started on port 23\n");
+  WiFi.mode(WIFI_STA);
+  WiFi.setAutoReconnect(true);
+  WiFi.persistent(false);
+  connectToWiFi(true);
 
 #ifdef OTA_ENABLED
   ArduinoOTA.setHostname(OTA_HOSTNAME);
@@ -190,11 +183,6 @@ void setup() {
  */
 void loop() {
   checkWiFiConnection();
-  if (telnetServer.hasClient()) {
-    if (telnetClient) telnetClient.stop();
-    telnetClient = telnetServer.available();
-    Log.notice("[Telnet] Client connected.\n");
-  }
 #ifdef OTA_ENABLED
   ArduinoOTA.handle();
 #endif
@@ -281,29 +269,19 @@ void next_State() {
         // The card has to be connected constantly
         if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
           if (!stopButtonTimerActive) { stopButtonPressTime = millis(); stopButtonTimerActive = true; }
-          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) {
-            Log.notice("[next_State] Stop button pressed. Switching to RESET.\n");
-            nextState = RESET;
-          }
+          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) nextState = RESET;
         } else { stopButtonTimerActive = false; }
 
         if (digitalRead(BUTTON_RFID) != BUTTON_PRESSED) {
-          if (!rfidButtonTimerActive) {
-            rfidButtonPressTime = millis();
-            rfidButtonTimerActive = true;
-            Log.notice("[next_State] RFID card removed. Waiting %ds before shutdown.\n", TIME_GLITCH_FILTER_RFID / 1000);
-          }
+          if (!rfidButtonTimerActive) { rfidButtonPressTime = millis(); rfidButtonTimerActive = true; }
           if (millis() - rfidButtonPressTime >= TIME_GLITCH_FILTER_RFID) {
-            Log.notice("[next_State] RFID card timeout. Switching to RESET.\n");
+            Log.verbose("[next_State] RFID Card pulled.\n");
             nextState = RESET;
           }
         } else { rfidButtonTimerActive = false; }
       } else {
         // Only a single sign-on is necessary
-        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
-          Log.notice("[next_State] Stop button pressed. Switching to RESET.\n");
-          nextState = RESET;
-        }
+        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) nextState = RESET;
       }
       break;
 
@@ -330,17 +308,39 @@ void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
 /**
  * @brief Connects the ESP32 to the WiFi network.
  */
-void connectToWiFi() {
-  Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+void connectToWiFi(bool waitForConnection) {
+  unsigned long now = millis();
+  if (!waitForConnection && (now - lastWiFiReconnectAttemptMs < WIFI_RECONNECT_INTERVAL_MS)) {
+    return;
+  }
+
+  lastWiFiReconnectAttemptMs = now;
+  if (!wifiConnectionStarted) {
+    Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    wifiConnectionStarted = true;
+  } else {
+    Log.notice("[WiFi] Reconnect attempt to %s ...\n", WIFI_SSID);
+    WiFi.reconnect();
+  }
+
+  if (!waitForConnection) {
+    return;
+  }
+
   int retries = 0;
   while (WiFi.status() != WL_CONNECTED && retries < 10) {
     delay(1000);
     retries++;
     Serial.print(".");
   }
+
   if (WiFi.status() == WL_CONNECTED) {
+    wifiWasConnected = true;
     Log.notice("\n[WiFi] Connected. IP: %s\n", WiFi.localIP().toString().c_str());
+  } else {
+    wifiWasConnected = false;
+    Log.warning("\n[WiFi] Initial connect timeout, continuing offline.\n");
   }
 }
 
@@ -348,9 +348,22 @@ void connectToWiFi() {
  * @brief Checks WiFi network connection.
  */
 void checkWiFiConnection() {
-  if (WiFi.status() != WL_CONNECTED) {
-    connectToWiFi();
+  wl_status_t status = WiFi.status();
+
+  if (status == WL_CONNECTED) {
+    if (!wifiWasConnected) {
+      wifiWasConnected = true;
+      Log.notice("[WiFi] Reconnected. IP: %s\n", WiFi.localIP().toString().c_str());
+    }
+    return;
   }
+
+  if (wifiWasConnected) {
+    wifiWasConnected = false;
+    Log.warning("[WiFi] Connection lost (status=%d). Reconnect every %lu ms.\n", static_cast<int>(status), WIFI_RECONNECT_INTERVAL_MS);
+  }
+
+  connectToWiFi(false);
 }
 
 /**
@@ -478,4 +491,20 @@ String readID() {
   }
   Log.warning("[readID] All attempts failed.\n");
   return "0";
+}
+
+const char* resetReasonToString(esp_reset_reason_t reason) {
+  switch (reason) {
+    case ESP_RST_POWERON: return "POWERON";
+    case ESP_RST_EXT: return "EXT";
+    case ESP_RST_SW: return "SW";
+    case ESP_RST_PANIC: return "PANIC";
+    case ESP_RST_INT_WDT: return "INT_WDT";
+    case ESP_RST_TASK_WDT: return "TASK_WDT";
+    case ESP_RST_WDT: return "WDT";
+    case ESP_RST_DEEPSLEEP: return "DEEPSLEEP";
+    case ESP_RST_BROWNOUT: return "BROWNOUT";
+    case ESP_RST_SDIO: return "SDIO";
+    default: return "UNKNOWN";
+  }
 }

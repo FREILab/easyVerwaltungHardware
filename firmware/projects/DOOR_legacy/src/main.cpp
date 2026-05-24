@@ -104,6 +104,9 @@ void openDoor(bool forceOpen);
 void closeDoor();
 char checkServer(const char* rfid);
 bool readUID(char* buf, uint8_t bufSize);
+const char* wifiStatusToString(int status);
+bool connectWiFiWithTimeout(unsigned long timeoutMs, bool printDots);
+bool waitForDhcpLease(unsigned long timeoutMs, bool printDots);
 
 //------------------------------------------------------------------------------
 // Setup
@@ -127,23 +130,30 @@ void setup() {
   { unsigned long t = millis(); while (!Serial && millis() - t < 3000); }
 
   Serial.println(F("Init WiFi"));
+  Serial.print(F("WiFi SSID: "));
+  Serial.println(WIFI_SSID);
+  Serial.print(F("SSID Laenge: "));
+  Serial.println(strlen(WIFI_SSID));
+  Serial.print(F("WiFi Firmware: "));
+  Serial.println(WiFi.firmwareVersion());
+  uint8_t wifiMac[6];
+  WiFi.macAddress(wifiMac);
+  char wifiMacStr[18];
+  snprintf(wifiMacStr, sizeof(wifiMacStr), "%02X:%02X:%02X:%02X:%02X:%02X",
+           wifiMac[5], wifiMac[4], wifiMac[3], wifiMac[2], wifiMac[1], wifiMac[0]);
+  Serial.print(F("WiFi MAC: "));
+  Serial.println(wifiMacStr);
+
   WiFi.setHostname(OTA_HOSTNAME);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-  unsigned long wifiStart = millis();
-  bool ledState = false;
-  while (WiFi.status() != WL_CONNECTED && millis() - wifiStart < 15000) {
-    ledState = !ledState;
-    srRed = srYellow = srGreen = ledState;
-    updateSR();
-    delay(300);
-    Serial.print('.');
+  bool connected = connectWiFiWithTimeout(30000, true);
+
+  // WL_CONNECTED kommt oft vor der DHCP-Lease.
+  if (connected && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+    Serial.print(F("\nDHCP warte auf Lease ... "));
+    waitForDhcpLease(30000, true);
+    Serial.println();
   }
-  while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - wifiStart < 15000) {
-    ledState = !ledState;
-    srRed = srYellow = srGreen = ledState;
-    updateSR();
-    delay(100);
-  }
+
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
     Serial.print(F("\nVerbunden, IP: "));
     Serial.println(WiFi.localIP());
@@ -162,6 +172,13 @@ void setup() {
     Serial.print(F("[OTA] Bereit: "));
     Serial.println(OTA_HOSTNAME);
   } else {
+    Serial.print(F("WiFi Status: "));
+    Serial.print(WiFi.status());
+    Serial.print(F(" ("));
+    Serial.print(wifiStatusToString(WiFi.status()));
+    Serial.println(F(")"));
+    Serial.print(F("IP: "));
+    Serial.println(WiFi.localIP());
     Serial.println(F("\nWiFi fehlgeschlagen – weiter ohne Netz"));
   }
 
@@ -186,10 +203,37 @@ void loop() {
 
   // WiFi-Reconnect (non-blocking)
   static unsigned long lastWifiAttempt = 0;
-  if (WiFi.status() != WL_CONNECTED && millis() - lastWifiAttempt >= WIFI_RECONNECT_INTERVAL_MS) {
+  if (millis() - lastWifiAttempt >= WIFI_RECONNECT_INTERVAL_MS) {
     lastWifiAttempt = millis();
-    Serial.println(F("WiFi getrennt – Reconnect..."));
-    WiFi.begin(WIFI_SSID, WIFI_PASS);
+
+    if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+      Serial.println(F("DHCP-Lease fehlt trotz CONNECTED, warte kurz..."));
+      if (!waitForDhcpLease(5000, false)) {
+        Serial.println(F("DHCP weiter 0.0.0.0, starte WiFi neu..."));
+        connectWiFiWithTimeout(5000, false);
+        if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+          waitForDhcpLease(5000, false);
+        }
+      }
+      if (WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
+        Serial.print(F("DHCP-Lease erhalten: "));
+        Serial.println(WiFi.localIP());
+      }
+    } else if (WiFi.status() != WL_CONNECTED) {
+      Serial.print(F("WiFi getrennt – Reconnect... Status="));
+      Serial.print(WiFi.status());
+      Serial.print(F(" ("));
+      Serial.print(wifiStatusToString(WiFi.status()));
+      Serial.println(F(")"));
+      connectWiFiWithTimeout(5000, false);
+      if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+        waitForDhcpLease(5000, false);
+      }
+      if (WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
+        Serial.print(F("WiFi online, IP: "));
+        Serial.println(WiFi.localIP());
+      }
+    }
   }
 
   // LED-Ausgabe je nach State
@@ -493,4 +537,49 @@ void updateSR() {
 
   digitalWrite(PIN_SR_RCLK, HIGH);
   digitalWrite(PIN_SR_RCLK, LOW);
+}
+
+const char* wifiStatusToString(int status) {
+  switch (status) {
+    case WL_IDLE_STATUS: return "IDLE";
+    case WL_NO_SSID_AVAIL: return "NO_SSID_AVAIL";
+    case WL_SCAN_COMPLETED: return "SCAN_COMPLETED";
+    case WL_CONNECTED: return "CONNECTED";
+    case WL_CONNECT_FAILED: return "CONNECT_FAILED";
+    case WL_CONNECTION_LOST: return "CONNECTION_LOST";
+    case WL_DISCONNECTED: return "DISCONNECTED";
+    default: return "UNKNOWN";
+  }
+}
+
+bool connectWiFiWithTimeout(unsigned long timeoutMs, bool printDots) {
+  WiFi.disconnect();
+  delay(100);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+
+  unsigned long startMs = millis();
+  bool ledState = false;
+
+  while (WiFi.status() != WL_CONNECTED && millis() - startMs < timeoutMs) {
+    ledState = !ledState;
+    srRed = srYellow = srGreen = ledState;
+    updateSR();
+    if (printDots) {
+      Serial.print('.');
+    }
+    delay(300);
+  }
+
+  return WiFi.status() == WL_CONNECTED;
+}
+
+bool waitForDhcpLease(unsigned long timeoutMs, bool printDots) {
+  unsigned long startMs = millis();
+  while (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - startMs < timeoutMs) {
+    if (printDots) {
+      Serial.print('.');
+    }
+    delay(250);
+  }
+  return WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0);
 }
