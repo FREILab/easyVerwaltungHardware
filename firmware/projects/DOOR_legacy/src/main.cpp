@@ -88,22 +88,6 @@ bool srMotorEnable = false;
 
 WiFiClient client;
 
-WiFiServer telnetServer(23);
-WiFiClient telnetClient;
-
-class TeeStream : public Print {
-  size_t write(uint8_t c) override {
-    Serial.write(c);
-    if (telnetClient && telnetClient.connected()) telnetClient.write(c);
-    return 1;
-  }
-  size_t write(const uint8_t* buf, size_t size) override {
-    Serial.write(buf, size);
-    if (telnetClient && telnetClient.connected()) telnetClient.write(buf, size);
-    return size;
-  }
-} ser;
-
 MFRC522      mfrc522(RFID_SS_PIN, RFID_RST_PIN);
 AccelStepper stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR);
 
@@ -142,7 +126,7 @@ void setup() {
   Serial.begin(9600);
   { unsigned long t = millis(); while (!Serial && millis() - t < 3000); }
 
-  ser.println(F("Init WiFi"));
+  Serial.println(F("Init WiFi"));
   WiFi.setHostname(OTA_HOSTNAME);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   unsigned long wifiStart = millis();
@@ -152,7 +136,7 @@ void setup() {
     srRed = srYellow = srGreen = ledState;
     updateSR();
     delay(300);
-    ser.print('.');
+    Serial.print('.');
   }
   while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - wifiStart < 15000) {
     ledState = !ledState;
@@ -161,29 +145,27 @@ void setup() {
     delay(100);
   }
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
-    ser.print(F("\nVerbunden, IP: "));
-    ser.println(WiFi.localIP());
+    Serial.print(F("\nVerbunden, IP: "));
+    Serial.println(WiFi.localIP());
     uint8_t mac[6];
     WiFi.macAddress(mac);
     char macStr[18];
     snprintf(macStr, sizeof(macStr), "%02X:%02X:%02X:%02X:%02X:%02X",
              mac[5], mac[4], mac[3], mac[2], mac[1], mac[0]);
-    ser.print(F("MAC: "));
-    ser.println(macStr);
+    Serial.print(F("MAC: "));
+    Serial.println(macStr);
     // WDT während OTA am Leben halten: Staging-Erase (~1.5s) und Apply-Erase (~1.5s)
     // liegen jeweils innerhalb des 4s-Fensters wenn an den richtigen Stellen refreshed wird.
     ArduinoOTA.onStart([]() { WDT.refresh(); });
     ArduinoOTA.beforeApply([]() { WDT.refresh(); });
     ArduinoOTA.begin(WiFi.localIP(), OTA_HOSTNAME, "", InternalStorage);
-    ser.print(F("[OTA] Bereit: "));
-    ser.println(OTA_HOSTNAME);
-    telnetServer.begin();
-    ser.println(F("[Telnet] Server auf Port 23."));
+    Serial.print(F("[OTA] Bereit: "));
+    Serial.println(OTA_HOSTNAME);
   } else {
-    ser.println(F("\nWiFi fehlgeschlagen – weiter ohne Netz"));
+    Serial.println(F("\nWiFi fehlgeschlagen – weiter ohne Netz"));
   }
 
-  ser.println(F("Init RFID"));
+  Serial.println(F("Init RFID"));
   SPI.begin();
   mfrc522.PCD_Init();
 
@@ -191,7 +173,7 @@ void setup() {
   updateSR();
 
   WDT.begin(WDT_TIMEOUT_MS);
-  ser.println(F("Bereit."));
+  Serial.println(F("Bereit."));
 }
 
 //------------------------------------------------------------------------------
@@ -201,13 +183,12 @@ void setup() {
 void loop() {
   WDT.refresh();
   ArduinoOTA.poll();
-  { WiFiClient c = telnetServer.available(); if (c) { if (telnetClient) telnetClient.stop(); telnetClient = c; } }
 
   // WiFi-Reconnect (non-blocking)
   static unsigned long lastWifiAttempt = 0;
   if (WiFi.status() != WL_CONNECTED && millis() - lastWifiAttempt >= WIFI_RECONNECT_INTERVAL_MS) {
     lastWifiAttempt = millis();
-    ser.println(F("WiFi getrennt – Reconnect..."));
+    Serial.println(F("WiFi getrennt – Reconnect..."));
     WiFi.begin(WIFI_SSID, WIFI_PASS);
   }
 
@@ -257,13 +238,13 @@ void loop() {
         lastUid[UID_BUF_LEN - 1] = '\0';
         currentState = STANDBY;
       } else if (result == 0) {
-        ser.println(F("Karte abgelehnt."));
+        Serial.println(F("Karte abgelehnt."));
         retryCount = 0;
         lastUid[0] = '\0';
         resetEnteredAt = millis();
         currentState = RESET;
       } else {
-        ser.println(F("Server nicht erreichbar."));
+        Serial.println(F("Server nicht erreichbar."));
         resetEnteredAt = millis();
         currentState = RESET;
       }
@@ -313,23 +294,23 @@ static void blinkGreen() {
 
 char checkServer(const char* rfid) {
   if (WiFi.status() != WL_CONNECTED) {
-    ser.println(F("Kein WiFi – Server-Check übersprungen."));
+    Serial.println(F("Kein WiFi – Server-Check übersprungen."));
     return -1;
   }
-  ser.println(F("Verbinde mit Server..."));
+  Serial.println(F("Verbinde mit Server..."));
   IPAddress serverAddr;
   if (WiFi.hostByName(SERVER_IP, serverAddr) != 1) {
-    ser.println(F("DNS fehlgeschlagen."));
+    Serial.println(F("DNS fehlgeschlagen."));
     return -1;
   }
   blinkGreen();
   if (!client.connect(serverAddr, 80)) {
     client.stop();
-    ser.println(F("Verbindung fehlgeschlagen."));
+    Serial.println(F("Verbindung fehlgeschlagen."));
     return -1;
   }
 
-  ser.println(F("Verbunden."));
+  Serial.println(F("Verbunden."));
   char req[256];
   snprintf(req, sizeof(req), "GET /check_key/%s/%s HTTP/1.0", AUTHENTICATION_TOKEN, rfid);
   client.println(req);
@@ -366,8 +347,8 @@ char checkServer(const char* rfid) {
   }
   client.stop();
 
-  ser.print(F("Antwort: "));
-  ser.println(message);
+  Serial.print(F("Antwort: "));
+  Serial.println(message);
   if (strstr(message, "true") != nullptr) return 1;
   return 0;
 }
@@ -386,8 +367,8 @@ bool readUID(char* buf, uint8_t bufSize) {
              mfrc522.uid.uidByte[i]);
     strncat(buf, hex, bufSize - strlen(buf) - 1);
   }
-  ser.print(F("Karte: "));
-  ser.println(buf);
+  Serial.print(F("Karte: "));
+  Serial.println(buf);
   mfrc522.PCD_Init();  // Re-init wie im Original
   return true;
 }
@@ -406,7 +387,7 @@ void openDoor(bool forceOpen) {
     unsigned long motorStart = millis();
     while (digitalRead(PIN_ENDSCHALTER) == LOW) {
       if (millis() - motorStart >= MOTOR_TIMEOUT_MS) {
-        ser.println(F("openDoor: Endschalter-Timeout – Motor gestoppt."));
+        Serial.println(F("openDoor: Endschalter-Timeout – Motor gestoppt."));
         break;
       }
       WDT.refresh();
@@ -416,7 +397,7 @@ void openDoor(bool forceOpen) {
     motorStart = millis();
     while (stepper.currentPosition() - pos < STEPS_TO_OPEN) {
       if (millis() - motorStart >= MOTOR_TIMEOUT_MS) {
-        ser.println(F("openDoor: Extra-Schritte-Timeout – Motor gestoppt."));
+        Serial.println(F("openDoor: Extra-Schritte-Timeout – Motor gestoppt."));
         break;
       }
       WDT.refresh();
@@ -446,7 +427,7 @@ void closeDoor() {
   unsigned long reedWait = millis();
   while (digitalRead(PIN_REED) == HIGH) {
     if (millis() - reedWait >= DOOR_REED_TIMEOUT_MS) {
-      ser.println(F("closeDoor: Reed-Timeout – Schließen abgebrochen."));
+      Serial.println(F("closeDoor: Reed-Timeout – Schließen abgebrochen."));
       return;
     }
     WDT.refresh();
