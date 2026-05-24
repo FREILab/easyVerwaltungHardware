@@ -6,45 +6,101 @@ Arduino-Firmware für RFID-gesteuerte Türverriegelung mit Schrittmotor und Lega
 
 | Komponente | Detail |
 |---|---|
-| Mikrocontroller | Arduino UNO R4 WiFi |
+| Mikrocontroller | RobotDyn UNO+WiFi R3 (ATmega328P + ESP8266) |
 | RFID-Leser | MFRC522 (SPI) |
 | Antrieb | Schrittmotor via A4988/DRV8825 (AccelStepper) |
 | Shift-Register | 74HC595 — steuert LEDs, Buzzer, Motor-Enable |
 | Sensoren | Reed-Kontakt (Tür offen/zu), Endschalter (Heimposition) |
-| Taster | Schließ-Taster, Terrassen-Taster |
+| Taster | Schließ-Taster |
 
-## Funktion
+## Architektur
 
-Das Gerät liest RFID-Karten, fragt die Legacy-API an und öffnet bei Freigabe die Tür per Schrittmotor. Der Reed-Kontakt meldet den Türzustand zurück, der Endschalter dient als Referenzpunkt beim Homing.
+Zwei Firmwares auf einem Board:
 
-## Abgrenzung
+```
+[Backend] ←HTTP→ [ESP8266] ←UART 9600→ [ATmega328P]
+                     ↑OTA                     ↓
+              tuer-01.local        RFID, Motor, LEDs, Taster
+```
 
-Dieses Projekt nutzt die **alte API**. Die Migration zur easyVerwaltung-API ist in `DOOR_easyVerwaltung` in Arbeit.
+**ATmega328P** (`src_atmega/`) — I/O-Expander: liest RFID-Karten, steuert Schrittmotor und
+Schieberegister, meldet Taster/Reed per UART an den ESP8266. Firmware ist stabil und wird
+nach dem ersten Flash nicht mehr geändert.
+
+**ESP8266** (`src_esp/`) — State Machine + WiFi + OTA: verbindet sich mit dem Backend,
+entscheidet über Türöffnung, sendet Befehle an den ATmega. Alle Ablaufänderungen kommen
+per OTA, kein USB-Zugriff nötig.
+
+## DIP-Schalter (RobotDyn)
+
+| Aktion | SW1 | SW2 | SW3 | SW4 | SW5 | SW6 | SW7 | SW8 |
+|---|---|---|---|---|---|---|---|---|
+| ATmega flashen (1× einmalig) | ON | ON | — | — | — | — | — | — |
+| ESP8266 flashen (1× einmalig) | — | — | ON | ON | ON | ON | — | — |
+| **Normal-Betrieb** | — | — | — | — | — | — | **ON** | **ON** |
 
 ## Konfiguration
 
-Credentials kommen aus `platformio.secrets.ini` (nicht in Git):
+WLAN-Zugangsdaten kommen aus `include/secret.h` (nicht in Git):
+
+```cpp
+#define WIFI_SSID "..."
+#define WIFI_PASS "..."
+```
+
+Weitere Credentials in `platformio.secrets.ini` (nicht in Git):
 
 ```ini
 [secrets]
-wifi_ssid     = ...
-wifi_password = ...
-server_ip     = dashboard.intern
-auth_token    = ...
+server_ip        = dashboard.intern
+auth_token       = ...
+ota_ip_door_01   = 192.168.x.x
+wifi_gateway     = 192.168.x.1
+wifi_subnet      = 255.255.255.0
 ```
 
 ## Flashen
 
-```bash
-# USB
-pio run -t upload
+### Ersteinrichtung (einmalig)
 
-# OTA
-pio run -e <env_ota> -t upload
+```bash
+# 1. ATmega flashen — DIP: SW1+SW2 ON
+pio run -e door_01_atmega_usb --target upload
+
+# 2. ESP8266 flashen — DIP: SW3+SW4+SW5+SW6 ON
+pio run -e door_01_esp_usb --target upload
+
+# 3. DIP auf Normal-Betrieb: SW7+SW8 ON
 ```
+
+### ESP8266 OTA (danach immer so)
+
+```bash
+# Kein USB, kein DIP-Wechsel nötig
+pio run -e door_01_esp_ota --target upload
+```
+
+Für Tür 02 entsprechend `door_02_*` verwenden.
+
+## Serielles Protokoll (ATmega ↔ ESP8266)
+
+| Richtung | Nachricht | Bedeutung |
+|---|---|---|
+| ATmega → ESP | `RFID:aa:bb:cc:dd` | Karte erkannt |
+| ATmega → ESP | `BTN:CLOSE` | Schließ-Taster gedrückt |
+| ATmega → ESP | `REED:1` / `REED:0` | Tür physisch offen/zu |
+| ATmega → ESP | `MOTOR:OK` / `MOTOR:TIMEOUT` | Motor-Status |
+| ESP → ATmega | `LED:RYG` | LEDs setzen (z.B. `LED:010` = Gelb) |
+| ESP → ATmega | `BUZZ:1` / `BUZZ:0` | Buzzer |
+| ESP → ATmega | `MOTOR:OPEN` / `MOTOR:CLOSE` | Motor-Befehl |
+| ESP → ATmega | `MOTOR:FORCE_OPEN` | Öffnen mit Force (Retry) |
 
 ## Abhängigkeiten
 
-- `miguelbalboa/MFRC522`
-- `waspinator/AccelStepper`
-- `thijse/ArduinoLog`
+- `miguelbalboa/MFRC522` (ATmega)
+- `waspinator/AccelStepper` (ATmega)
+- `ESP8266WiFi`, `ESP8266mDNS`, `ArduinoOTA` (ESP8266, im Core enthalten)
+
+## Abgrenzung
+
+Dieses Projekt nutzt die **alte API**. Die Migration zur easyVerwaltung-API ist in `DOOR_easyVerwaltung` in Arbeit.
