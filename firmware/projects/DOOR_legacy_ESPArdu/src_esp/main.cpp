@@ -122,21 +122,19 @@ void setup() {
   }
 
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
-    sendLED(false, false, true);  // grün = online
     Serial.print(F("[WiFi] OK, IP: "));
     Serial.println(WiFi.localIP());
-    delay(500);
     startNetServices();
+    sendLED(false, false, true);  // grün = verbunden
+    delay(500);
+    sendLED(false, true, false);  // gelb = standby
   } else if (WiFi.status() == WL_CONNECTED) {
-    sendLED(false, true, true);  // gelb+grün = kein DHCP, loop übernimmt
+    sendLED(false, true, true);   // gelb+grün = kein DHCP, loop übernimmt
     Serial.println(F("[WiFi] Verbunden, kein DHCP – retry im Loop"));
   } else {
-    sendLED(true, false, false);  // rot = fehlgeschlagen
+    sendLED(true, false, false);  // rot = kein WiFi, bleibt bis Reconnect
     Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
-    delay(1000);
   }
-
-  sendLED(false, true, false);  // Gelb = bereit
   DBG.println(F("[ESP] Bereit"));
 }
 
@@ -450,9 +448,10 @@ void wifiReconnect() {
   if (!connected) {
     DBG.print(F("[WiFi] Verbinde mit: "));    DBG.println(WIFI_SSID);
     Serial.print(F("[WiFi] Verbinde mit: ")); Serial.println(WIFI_SSID);
-    connectWiFi(8000);
+    connectWiFi(8000, true);
     connected = WiFi.status() == WL_CONNECTED;
     if (!connected) {
+      sendLED(true, false, false);  // rot = kein WiFi, bleibt bis Reconnect klappt
       DBG.println(F("[WiFi] FEHLGESCHLAGEN"));
       Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
     }
@@ -472,7 +471,10 @@ void wifiReconnect() {
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
     DBG.print(F("[WiFi] Online: "));    DBG.println(WiFi.localIP());
     Serial.print(F("[WiFi] Online: ")); Serial.println(WiFi.localIP());
+    sendLED(false, false, true);  // grün = online
+    delay(500);
     if (!netStarted) startNetServices();
+    sendLED(false, true, false);  // gelb = standby
   }
 }
 
