@@ -85,8 +85,10 @@ void handleRFID(const char* uid);
 bool connectWiFi(unsigned long timeoutMs);
 bool configureStaticIp();
 void wifiReconnect();
+void startNetServices();
 
 bool useStaticIp = false;
+bool netStarted  = false;
 
 // ─────────────────────────────────────────────────────────
 // Setup
@@ -97,6 +99,7 @@ void setup() {
   // Bei DIP SW5+SW6 ON (ESP Serial Monitor): Serial-Output hier sichtbar
   Serial.begin(9600);
   Serial.println(F("[ESP] Boot"));
+  TelnetStream.begin(23);  // früh starten — safe ohne WiFi, kein Client → Output verworfen
 
   useStaticIp = configureStaticIp();
   Serial.print(F("[WiFi] Verbinde mit: "));
@@ -108,23 +111,7 @@ void setup() {
   if (WiFi.status() == WL_CONNECTED) {
     Serial.print(F("[WiFi] OK, IP: "));
     Serial.println(WiFi.localIP());
-
-    MDNS.begin(OTA_HOSTNAME);
-
-    ArduinoOTA.setHostname(OTA_HOSTNAME);
-    ArduinoOTA.onStart([]()  { ESP.wdtFeed(); });
-    ArduinoOTA.onEnd([]()    { DBG.println(F("[OTA] Fertig")); });
-    ArduinoOTA.onError([](ota_error_t e) {
-      DBG.print(F("[OTA] Fehler ")); DBG.println(e);
-    });
-    ArduinoOTA.begin();
-
-    TelnetStream.begin(23);
-
-    DBG.print(F("[ESP] IP: "));
-    DBG.println(WiFi.localIP());
-    DBG.print(F("[OTA] Bereit: "));
-    DBG.println(OTA_HOSTNAME);
+    startNetServices();
   } else {
     Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
   }
@@ -147,6 +134,20 @@ void loop() {
   if (currentState == RESET && millis() - resetEnteredAt >= RESET_DISPLAY_MS) {
     currentState = STANDBY;
     sendLED(false, true, false);
+  }
+
+  static unsigned long lastHB = 0;
+  if (millis() - lastHB >= HEARTBEAT_INTERVAL_MS) {
+    lastHB = millis();
+    const char* stateStr = currentState == STANDBY        ? "STANDBY"
+                         : currentState == IDENTIFICATION ? "IDENT"
+                                                          : "RESET";
+    DBG.print(F("[HB] up:"));
+    DBG.print(millis() / 1000);
+    DBG.print(F("s WiFi:"));
+    DBG.print(WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString() : "--");
+    DBG.print(F(" State:"));
+    DBG.println(stateStr);
   }
 }
 
@@ -366,6 +367,30 @@ bool connectWiFi(unsigned long timeoutMs) {
 }
 
 // ─────────────────────────────────────────────────────────
+// Netzwerk-Dienste starten (MDNS, OTA) — einmalig nach WiFi-Connect
+// ─────────────────────────────────────────────────────────
+
+void startNetServices() {
+  if (netStarted) return;
+  netStarted = true;
+
+  MDNS.begin(OTA_HOSTNAME);
+
+  ArduinoOTA.setHostname(OTA_HOSTNAME);
+  ArduinoOTA.onStart([]()  { ESP.wdtFeed(); });
+  ArduinoOTA.onEnd([]()    { DBG.println(F("[OTA] Fertig")); });
+  ArduinoOTA.onError([](ota_error_t e) {
+    DBG.print(F("[OTA] Fehler ")); DBG.println(e);
+  });
+  ArduinoOTA.begin();
+
+  DBG.print(F("[ESP] IP: "));
+  DBG.println(WiFi.localIP());
+  DBG.print(F("[OTA] Bereit: "));
+  DBG.println(OTA_HOSTNAME);
+}
+
+// ─────────────────────────────────────────────────────────
 // WiFi Reconnect (non-blocking, wird im Loop aufgerufen)
 // ─────────────────────────────────────────────────────────
 
@@ -380,6 +405,7 @@ void wifiReconnect() {
   if (WiFi.status() == WL_CONNECTED) {
     DBG.print(F("[WiFi] Online: "));
     DBG.println(WiFi.localIP());
+    startNetServices();
   }
 }
 

@@ -3,6 +3,9 @@
 // --- WiFi ---
 #define WIFI_RECONNECT_INTERVAL_MS  15000UL
 
+// --- Heartbeat ---
+#define HEARTBEAT_INTERVAL_MS        5000UL
+
 // --- State Machine ---
 #define RESET_DISPLAY_MS             2000UL   // Wie lange RESET-State angezeigt wird
 #define BUZZ_DURATION_MS             2000UL   // Buzzer nach erfolgreichem Öffnen
