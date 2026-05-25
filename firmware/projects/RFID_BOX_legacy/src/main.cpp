@@ -346,6 +346,7 @@ void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
  */
 void connectToWiFi(bool waitForConnection) {
   Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
+  WiFi.setHostname(OTA_HOSTNAME);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   int retries = 0;
   while (WiFi.status() != WL_CONNECTED && retries < 30) {
