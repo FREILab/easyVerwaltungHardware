@@ -50,6 +50,7 @@
 #include <esp_system.h>
 #ifdef OTA_ENABLED
   #include <ArduinoOTA.h>
+  #include <TelnetStream.h>
 #endif
 
 // --- Prototypen (Forward Declarations für C++) ---
@@ -122,6 +123,26 @@ String uid = "";             ///< UID read from an RFID card
 bool isHttpRequestInProgress = false; ///< Flag to indicate an ongoing HTTP request
 
 //------------------------------------------------------------------------------
+// Telnet Logging (OTA builds only)
+//------------------------------------------------------------------------------
+
+#ifdef OTA_ENABLED
+class MultiPrint : public Print {
+public:
+  size_t write(uint8_t c) override {
+    Serial.write(c);
+    TelnetStream.write(c);
+    return 1;
+  }
+  size_t write(const uint8_t *buf, size_t size) override {
+    Serial.write(buf, size);
+    TelnetStream.write(buf, size);
+    return size;
+  }
+} multiPrint;
+#endif
+
+//------------------------------------------------------------------------------
 // Setup Function
 //------------------------------------------------------------------------------
 
@@ -161,6 +182,9 @@ void setup() {
   ArduinoOTA.setHostname(OTA_HOSTNAME);
   ArduinoOTA.begin();
   Log.notice("[OTA] Ready. Hostname: %s\n", OTA_HOSTNAME);
+  TelnetStream.begin();
+  Log.begin(LOG_LEVEL_VERBOSE, &multiPrint);
+  Log.notice("[Telnet] Server started on port 23. Connect with: telnet %s 23\n", WiFi.localIP().toString().c_str());
 #endif
 
   initRFID();
@@ -185,20 +209,25 @@ void loop() {
 #endif
 
   // Visual feedback based on state
+  static bool relayWasOn = false;
   switch (currentState) {
     case STANDBY:
+      if (relayWasOn) { Log.notice("[loop] Relay OFF (state: STANDBY).\n"); relayWasOn = false; }
       digitalWrite(MACHINE_RELAY_PIN, LOW);
       setLED_ryg(0, 1, 0);
       break;
     case IDENTIFICATION:
+      if (relayWasOn) { Log.notice("[loop] Relay OFF (state: IDENTIFICATION).\n"); relayWasOn = false; }
       digitalWrite(MACHINE_RELAY_PIN, LOW);
       setLED_ryg(0, 1, 1);
       break;
     case RUNNING:
+      if (!relayWasOn) { Log.notice("[loop] Relay ON.\n"); relayWasOn = true; }
       digitalWrite(MACHINE_RELAY_PIN, HIGH);
       setLED_ryg(0, 0, 1);
       break;
     case RESET:
+      if (relayWasOn) { Log.notice("[loop] Relay OFF (state: RESET).\n"); relayWasOn = false; }
       digitalWrite(MACHINE_RELAY_PIN, LOW);
       setLED_ryg(1, 0, 0);
       break;
@@ -221,7 +250,7 @@ void next_State() {
   switch (currentState) {
     case STANDBY:
       if (digitalRead(BUTTON_RFID) == BUTTON_PRESSED) {
-        // when the RFID card is entered, proceed with identification
+        Log.notice("[next_State] RFID card detected, starting identification.\n");
         nextState = IDENTIFICATION;
       }
       break;
@@ -266,19 +295,29 @@ void next_State() {
         // The card has to be connected constantly
         if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
           if (!stopButtonTimerActive) { stopButtonPressTime = millis(); stopButtonTimerActive = true; }
-          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) nextState = RESET;
+          if (millis() - stopButtonPressTime >= TIME_GLITCH_FILTER_STOP) {
+            Log.notice("[next_State] Stop button pressed, switching to RESET.\n");
+            nextState = RESET;
+          }
         } else { stopButtonTimerActive = false; }
 
         if (digitalRead(BUTTON_RFID) != BUTTON_PRESSED) {
-          if (!rfidButtonTimerActive) { rfidButtonPressTime = millis(); rfidButtonTimerActive = true; }
+          if (!rfidButtonTimerActive) {
+            rfidButtonPressTime = millis();
+            rfidButtonTimerActive = true;
+            Log.notice("[next_State] RFID card removed, waiting %ds glitch filter...\n", TIME_GLITCH_FILTER_RFID / 1000);
+          }
           if (millis() - rfidButtonPressTime >= TIME_GLITCH_FILTER_RFID) {
-            Log.verbose("[next_State] RFID Card pulled.\n");
+            Log.notice("[next_State] RFID card pulled, switching to RESET.\n");
             nextState = RESET;
           }
         } else { rfidButtonTimerActive = false; }
       } else {
         // Only a single sign-on is necessary
-        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) nextState = RESET;
+        if (digitalRead(BUTTON_STOP) == BUTTON_PRESSED) {
+          Log.notice("[next_State] Stop button pressed, switching to RESET.\n");
+          nextState = RESET;
+        }
       }
       break;
 
