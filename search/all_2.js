@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['clone_20repository_0',['Clone Repository',['../md_README.html#autotoc_md12',1,'']]],
-  ['configuration_20secrets_1',['Configuration (Secrets)',['../md_README.html#autotoc_md14',1,'']]]
+  ['easyverwaltung_20hardware_0',['easyVerwaltung Hardware',['../md_README.html',1,'']]],
+  ['einrichtung_1',['Einrichtung',['../md_README.html#autotoc_md10',1,'']]]
 ];

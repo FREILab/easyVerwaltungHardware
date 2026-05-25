@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['macos_20linux_0',['🚀 Setup (macOS &amp; Linux)',['../md_README.html#autotoc_md9',1,'']]],
-  ['modules_1',['📦 Modules',['../md_README.html#autotoc_md7',1,'']]]
+  ['steuerung_0',['Tür-Steuerung',['../md_README.html#autotoc_md4',1,'']]],
+  ['struktur_1',['Repository-Struktur',['../md_README.html#autotoc_md8',1,'']]]
 ];

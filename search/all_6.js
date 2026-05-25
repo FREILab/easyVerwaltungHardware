@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hardware_0',['🛠️ easyVerwaltung Hardware',['../md_README.html',1,'']]]
+  ['node_0',['Machine Node',['../md_README.html#autotoc_md6',1,'']]]
 ];

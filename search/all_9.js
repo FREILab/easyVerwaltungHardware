@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notes_0',['⚠️ Notes',['../md_README.html#autotoc_md27',1,'']]]
+  ['tür_20steuerung_0',['Tür-Steuerung',['../md_README.html#autotoc_md4',1,'']]]
 ];

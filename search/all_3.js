@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['docs_0',['Generate Docs',['../md_README.html#autotoc_md25',1,'']]],
-  ['documentation_1',['📚 Documentation',['../md_README.html#autotoc_md22',1,'']]]
+  ['hardware_0',['easyVerwaltung Hardware',['../md_README.html',1,'']]],
+  ['hardware_20übersicht_1',['Hardware-Übersicht',['../md_README.html#autotoc_md2',1,'']]],
+  ['hmi_2',['Lasersaur HMI',['../md_README.html#autotoc_md5',1,'']]]
 ];

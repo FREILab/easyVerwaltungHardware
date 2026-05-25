@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['libraries_0',['🔗 Using Shared Libraries',['../md_README.html#autotoc_md20',1,'']]],
-  ['linux_1',['🚀 Setup (macOS &amp; Linux)',['../md_README.html#autotoc_md9',1,'']]]
+  ['readme_2emd_0',['README.md',['../README_8md.html',1,'']]],
+  ['repository_20struktur_1',['Repository-Struktur',['../md_README.html#autotoc_md8',1,'']]],
+  ['rfid_20box_20—_20maschinenfreigabe_2',['RFID-Box — Maschinenfreigabe',['../md_README.html#autotoc_md3',1,'']]]
 ];

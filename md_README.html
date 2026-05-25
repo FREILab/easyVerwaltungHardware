@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>easyVerwaltung Hardware: 🛠️ easyVerwaltung Hardware</title>
+<title>easyVerwaltung Hardware: easyVerwaltung Hardware</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,126 +70,82 @@ $(function() {
 
 </div><!-- top -->
 <div><div class="header">
-  <div class="headertitle"><div class="title">🛠️ easyVerwaltung Hardware</div></div>
+  <div class="headertitle"><div class="title">easyVerwaltung Hardware</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> Central technical documentation and firmware for the <b>easyVerwaltung</b> hardware system. The system manages machine access, usage tracking, and safety via RFID authentication and backend validation.</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> Firmware und Dokumentation für die <b>easyVerwaltung</b>-Hardware des FREILab. Das System steuert Maschinenzugang, Nutzungsprotokollierung und Sicherheit via RFID-Authentifizierung gegen das easyVerwaltung-Backend.</p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md2"></a>
-🏗️ System Architecture</h1>
-<p>The system follows a modular design:</p>
-<ul>
-<li><b>Machine Nodes (ESP32 / Pico W)</b> Control individual machines (RFID, safety interlocks, power switching)</li>
-<li><b>Smart Terminal (Raspberry Pi)</b> User interface for account management and system status</li>
-<li><b>easyAPI</b> Validates permissions and logs machine usage</li>
-</ul>
-<hr  />
-<h1><a class="anchor" id="autotoc_md4"></a>
-📁 Repository Structure</h1>
-<div class="fragment"><div class="line">firmware/</div>
-<div class="line">  projects/        # Buildable firmware targets</div>
-<div class="line">    RFIDBOX_PoC/   # Working proof of concept</div>
-<div class="line">    MachineNodes/  # Target structure for production nodes</div>
-<div class="line"> </div>
-<div class="line">  shared/          # Reusable libraries</div>
-<div class="line">    easyAPI/    # Backend communication (HTTP / JSON)</div>
-<div class="line">    drivers/       # Hardware-level drivers (RFID, GPIO, etc.)</div>
-<div class="line">    utils/         # General utilities (logging, helpers)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
-Structure Principles</h2>
-<ul>
-<li><code>projects/</code> contains <b>complete firmware applications</b></li>
-<li><code>shared/</code> contains <b>reusable modules used across projects</b></li>
-<li><p class="startli">Each module in <code>shared/</code> should follow:</p>
-<div class="fragment"><div class="line">&lt;module&gt;/</div>
-<div class="line">  src/</div>
-<div class="line">  include/</div>
-</div><!-- fragment --></li>
-</ul>
-<hr  />
-<h1><a class="anchor" id="autotoc_md7"></a>
-📦 Modules</h1>
+Hardware-Übersicht</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+RFID-Box — Maschinenfreigabe</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">Module   </th><th class="markdownTableHeadLeft">Description   </th><th class="markdownTableHeadLeft">TechStack    </th></tr>
+<th class="markdownTableHeadNone">Projekt   </th><th class="markdownTableHeadNone">Hardware   </th><th class="markdownTableHeadNone">API   </th><th class="markdownTableHeadNone">Status    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft"><b>RFIDBOX_PoC</b>   </td><td class="markdownTableBodyLeft">Functional reference implementation   </td><td class="markdownTableBodyLeft">ESP32 / Arduino / C++    </td></tr>
+<td class="markdownTableBodyNone"><a href="firmware/projects/RFID_BOX_legacy/">RFID_BOX_legacy</a>   </td><td class="markdownTableBodyNone">ESP32 Dev1   </td><td class="markdownTableBodyNone">Legacy   </td><td class="markdownTableBodyNone">Stabil — <a href="https://github.com/FREILab/easyVerwaltungHardware/releases/tag/rfid-box-legacy%2Fv1.0.0">v1.0.0</a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft"><b>MachineNodes</b>   </td><td class="markdownTableBodyLeft">Intended production firmware structure   </td><td class="markdownTableBodyLeft">RP2040 (Pico W) / C++    </td></tr>
+<td class="markdownTableBodyNone"><a href="firmware/projects/RFID_BOX_easyVerwaltung/">RFID_BOX_easyVerwaltung</a>   </td><td class="markdownTableBodyNone">ESP32 Dev1   </td><td class="markdownTableBodyNone">easyVerwaltung   </td><td class="markdownTableBodyNone">Getestet — Server noch nicht in Production   </td></tr>
+</table>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Tür-Steuerung</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Projekt   </th><th class="markdownTableHeadNone">Hardware   </th><th class="markdownTableHeadNone">API   </th><th class="markdownTableHeadNone">Status    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft"><b>easyAPI</b>   </td><td class="markdownTableBodyLeft">Shared communication layer with easyVerwaltung   </td><td class="markdownTableBodyLeft">C++ / JSON API   </td></tr>
+<td class="markdownTableBodyNone"><a href="firmware/projects/DOOR_legacy/">DOOR_legacy</a>   </td><td class="markdownTableBodyNone">Arduino UNO R4 WiFi   </td><td class="markdownTableBodyNone">Legacy   </td><td class="markdownTableBodyNone">Scheduled for Deletion    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a href="firmware/projects/DOOR_legacy_ESPArdu/">DOOR_legacy_ESPArdu</a>   </td><td class="markdownTableBodyNone">RobotDyn UNO+WiFi R3 (ATmega328P + ESP8266)   </td><td class="markdownTableBodyNone">Legacy   </td><td class="markdownTableBodyNone">Stabil — <a href="https://github.com/FREILab/easyVerwaltungHardware/releases/tag/door-legacy-espardu%2Fv1.0.0">v1.0.0</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a href="firmware/projects/DOOR_easyVerwaltung/">DOOR_easyVerwaltung</a>   </td><td class="markdownTableBodyNone">Arduino UNO R4 WiFi   </td><td class="markdownTableBodyNone">easyVerwaltung   </td><td class="markdownTableBodyNone">In Entwicklung   </td></tr>
+</table>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Lasersaur HMI</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Projekt   </th><th class="markdownTableHeadNone">Hardware   </th><th class="markdownTableHeadNone">API   </th><th class="markdownTableHeadNone">Status    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a href="firmware/projects/LASERSAUR_HMI_legacy/">LASERSAUR_HMI_legacy</a>   </td><td class="markdownTableBodyNone">Arduino Mega + Ethernet-Shield   </td><td class="markdownTableBodyNone">Legacy   </td><td class="markdownTableBodyNone">Stabil (nicht mit neuem Server getestet) — wird durch ESPArdu ersetzt    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a href="firmware/projects/LASERSAUR_HMI_ESPArdu/">LASERSAUR_HMI_ESPArdu</a>   </td><td class="markdownTableBodyNone">Mega2560 WiFi R3 (ATmega2560 + ESP8266)   </td><td class="markdownTableBodyNone">Legacy   </td><td class="markdownTableBodyNone">Implementiert, noch nicht getestet    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a href="firmware/projects/LASERSAUR_HMI_easyVerwaltung/">LASERSAUR_HMI_easyVerwaltung</a>   </td><td class="markdownTableBodyNone">Arduino Giga R1   </td><td class="markdownTableBodyNone">easyVerwaltung   </td><td class="markdownTableBodyNone">In Entwicklung   </td></tr>
+</table>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Machine Node</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Projekt   </th><th class="markdownTableHeadNone">Hardware   </th><th class="markdownTableHeadNone">API   </th><th class="markdownTableHeadNone">Status    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a href="firmware/projects/MachineNode_legacy/">MachineNode_legacy</a>   </td><td class="markdownTableBodyNone">ESP32-S3-WROOM-1-N16R8   </td><td class="markdownTableBodyNone">Legacy   </td><td class="markdownTableBodyNone">Stabil    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a href="firmware/projects/MachineNode_easyVerwaltung/">MachineNode_easyVerwaltung</a>   </td><td class="markdownTableBodyNone">ESP32-S3-WROOM-1-N16R8   </td><td class="markdownTableBodyNone">easyVerwaltung   </td><td class="markdownTableBodyNone">Geplant   </td></tr>
 </table>
 <hr  />
-<h1><a class="anchor" id="autotoc_md9"></a>
-🚀 Setup (macOS &amp; Linux)</h1>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Prerequisites</h2>
+<h1><a class="anchor" id="autotoc_md8"></a>
+Repository-Struktur</h1>
+<div class="fragment"><div class="line">firmware/</div>
+<div class="line">  projects/          # Firmware-Targets (je ein PlatformIO-Projekt)</div>
+<div class="line">  shared/</div>
+<div class="line">    easyAPI/         # Gemeinsame Backend-Kommunikation (HTTP/JSON)</div>
+</div><!-- fragment --><p>Jedes Projekt in <code>projects/</code> enthält eine eigene <code><a class="el" href="README_8md.html">README.md</a></code> mit Hardware-Details, DIP-Belegung, Flash-Anleitung und Debugging-Hinweisen.</p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md10"></a>
+Einrichtung</h1>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Voraussetzungen</h2>
 <ul>
-<li>Git</li>
 <li>Python ≥ 3.8</li>
-<li>PlatformIO Core</li>
+<li>PlatformIO Core (<code>pip install platformio</code>)</li>
 </ul>
-<p>Install PlatformIO:</p>
-<div class="fragment"><div class="line">pip install platformio</div>
-</div><!-- fragment --><hr  />
 <h2><a class="anchor" id="autotoc_md12"></a>
-Clone Repository</h2>
-<div class="fragment"><div class="line">git clone &lt;REPO_URL&gt;</div>
-<div class="line">cd &lt;REPO_NAME&gt;</div>
-</div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md14"></a>
-Configuration (Secrets)</h2>
-<p>For the RFIDBOX project:</p>
-<div class="fragment"><div class="line">cd firmware/projects/RFIDBOX_PoC</div>
-<div class="line">cp include/secret.h.example include/secret.h</div>
-</div><!-- fragment --><p>Edit <code>include/secret.h</code> and provide your credentials.</p>
-<p><b>Important:</b> Do not commit this file.</p>
-<hr  />
-<h2><a class="anchor" id="autotoc_md16"></a>
-Build</h2>
-<div class="fragment"><div class="line">cd firmware/projects/RFIDBOX_PoC</div>
+Credentials</h2>
+<p>Jedes Projekt benötigt eine <code>platformio.secrets.ini</code> (nicht in Git). Vorlage liegt als <code>.example</code>-Datei bei:</p>
+<div class="fragment"><div class="line">cp platformio.secrets.ini.example platformio.secrets.ini</div>
+<div class="line"># Datei befüllen, dann:</div>
 <div class="line">pio run</div>
-</div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md18"></a>
-Upload (optional)</h2>
-<div class="fragment"><div class="line">pio run --target upload</div>
-</div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md20"></a>
-🔗 Using Shared Libraries</h1>
-<p>In each <code>platformio.ini</code>:</p>
-<div class="fragment"><div class="line">lib_extra_dirs =</div>
-<div class="line">  ../../shared</div>
-</div><!-- fragment --><p>Example usage:</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;ProjectAPI/ApiClient.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;utils/Logger.h&gt;</span></div>
-</div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md22"></a>
-📚 Documentation</h1>
-<h2><a class="anchor" id="autotoc_md23"></a>
-Requirements</h2>
-<ul>
-<li>Doxygen</li>
-<li>Graphviz</li>
-</ul>
-<p>Install:</p>
-<p><b>macOS</b></p>
-<div class="fragment"><div class="line">brew install doxygen graphviz</div>
-</div><!-- fragment --><p><b>Linux (Debian/Ubuntu)</b></p>
-<div class="fragment"><div class="line">sudo apt install doxygen graphviz</div>
-</div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md25"></a>
-Generate Docs</h2>
-<div class="fragment"><div class="line">doxygen Doxyfile</div>
-</div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md27"></a>
-⚠️ Notes</h1>
-<ul>
-<li>The repository reflects a <b>target architecture</b>, not all modules are fully implemented</li>
-<li><code>RFIDBOX_PoC</code> is currently the only complete and working reference</li>
-<li><code>MachineNodes</code> and <code>ProjectAPI</code> are structural placeholders for future development</li>
-</ul>
-<hr  />
- </div></div><!-- contents -->
+</div><!-- fragment --><p>Details zu den Feldern stehen in der jeweiligen Projekt-README. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
