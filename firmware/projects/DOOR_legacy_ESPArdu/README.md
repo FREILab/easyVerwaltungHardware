@@ -52,12 +52,11 @@ Weitere Credentials in `platformio.secrets.ini` (nicht in Git):
 
 ```ini
 [secrets]
-server_ip        = dashboard.intern
-auth_token       = ...
-ota_ip_door_01   = 192.168.x.x
-wifi_gateway     = 192.168.x.1
-wifi_subnet      = 255.255.255.0
+server_ip  = dashboard.intern
+auth_token = ...
 ```
+
+IP-Adresse kommt per DHCP. OTA und Monitor laufen via mDNS-Hostname (`tuer-01.local`).
 
 ## Flashen
 
