@@ -1,174 +1,71 @@
-# 🛠️ easyVerwaltung Hardware
+# easyVerwaltung Hardware
 
-Central technical documentation and firmware for the **easyVerwaltung** hardware system.
-The system manages machine access, usage tracking, and safety via RFID authentication and backend validation.
-
----
-
-## 🏗️ System Architecture
-
-The system follows a modular design:
-
-* **Machine Nodes (ESP32 / Pico W)**
-  Control individual machines (RFID, safety interlocks, power switching)
-
-* **Smart Terminal (Raspberry Pi)**
-  User interface for account management and system status
-
-* **easyAPI**
-  Validates permissions and logs machine usage
+Firmware und Dokumentation für die **easyVerwaltung**-Hardware des FREILab. Das System steuert Maschinenzugang, Nutzungsprotokollierung und Sicherheit via RFID-Authentifizierung gegen das easyVerwaltung-Backend.
 
 ---
 
-## 📁 Repository Structure
+## Hardware-Übersicht
 
-```text
+### RFID-Box — Maschinenfreigabe
+
+| Projekt | Hardware | API | Status |
+|---|---|---|---|
+| [RFID_BOX_legacy](firmware/projects/RFID_BOX_legacy/) | ESP32 Dev1 | Legacy | Stabil — [v1.0.0](https://github.com/FREILab/easyVerwaltungHardware/releases/tag/rfid-box-legacy%2Fv1.0.0) |
+| [RFID_BOX_easyVerwaltung](firmware/projects/RFID_BOX_easyVerwaltung/) | ESP32 Dev1 | easyVerwaltung | Getestet — Server noch nicht in Production |
+
+### Tür-Steuerung
+
+| Projekt | Hardware | API | Status |
+|---|---|---|---|
+| [DOOR_legacy](firmware/projects/DOOR_legacy/) | Arduino UNO R4 WiFi | Legacy | Scheduled for Deletion |
+| [DOOR_legacy_ESPArdu](firmware/projects/DOOR_legacy_ESPArdu/) | RobotDyn UNO+WiFi R3 (ATmega328P + ESP8266) | Legacy | Stabil — [v1.0.0](https://github.com/FREILab/easyVerwaltungHardware/releases/tag/door-legacy-espardu%2Fv1.0.0) |
+| [DOOR_easyVerwaltung](firmware/projects/DOOR_easyVerwaltung/) | Arduino UNO R4 WiFi | easyVerwaltung | In Entwicklung |
+
+### Lasersaur HMI
+
+| Projekt | Hardware | API | Status |
+|---|---|---|---|
+| [LASERSAUR_HMI_legacy](firmware/projects/LASERSAUR_HMI_legacy/) | Arduino Mega + Ethernet-Shield | Legacy | Stabil (nicht mit neuem Server getestet) — wird durch ESPArdu ersetzt |
+| [LASERSAUR_HMI_ESPArdu](firmware/projects/LASERSAUR_HMI_ESPArdu/) | Mega2560 WiFi R3 (ATmega2560 + ESP8266) | Legacy | Implementiert, noch nicht getestet |
+| [LASERSAUR_HMI_easyVerwaltung](firmware/projects/LASERSAUR_HMI_easyVerwaltung/) | Arduino Giga R1 | easyVerwaltung | In Entwicklung |
+
+### Machine Node
+
+| Projekt | Hardware | API | Status |
+|---|---|---|---|
+| [MachineNode_legacy](firmware/projects/MachineNode_legacy/) | ESP32-S3-WROOM-1-N16R8 | Legacy | Stabil |
+| [MachineNode_easyVerwaltung](firmware/projects/MachineNode_easyVerwaltung/) | ESP32-S3-WROOM-1-N16R8 | easyVerwaltung | Geplant |
+
+---
+
+## Repository-Struktur
+
+```
 firmware/
-  projects/        # Buildable firmware targets
-    RFIDBOX_PoC/   # Working proof of concept
-    MachineNodes/  # Target structure for production nodes
-
-  shared/          # Reusable libraries
-    easyAPI/    # Backend communication (HTTP / JSON)
-    drivers/       # Hardware-level drivers (RFID, GPIO, etc.)
-    utils/         # General utilities (logging, helpers)
+  projects/          # Firmware-Targets (je ein PlatformIO-Projekt)
+  shared/
+    easyAPI/         # Gemeinsame Backend-Kommunikation (HTTP/JSON)
 ```
 
-### Structure Principles
-
-* `projects/` contains **complete firmware applications**
-* `shared/` contains **reusable modules used across projects**
-* Each module in `shared/` should follow:
-
-  ```
-  <module>/
-    src/
-    include/
-  ```
+Jedes Projekt in `projects/` enthält eine eigene `README.md` mit Hardware-Details, DIP-Belegung, Flash-Anleitung und Debugging-Hinweisen.
 
 ---
 
-## 📦 Modules
+## Einrichtung
 
-| Module           | Description                             | TechStack       |
-| :--------------- | :-------------------------------------- |:--------------- |
-| **RFIDBOX_PoC**  | Functional reference implementation     |ESP32 / Arduino / C++ |
-| **MachineNodes** | Intended production firmware structure  |RP2040 (Pico W) / C++ |
-| **easyAPI**   | Shared communication layer with easyVerwaltung |C++ / JSON API |
+### Voraussetzungen
 
----
+- Python ≥ 3.8
+- PlatformIO Core (`pip install platformio`)
 
-## 🚀 Setup (macOS & Linux)
+### Credentials
 
-### Prerequisites
-
-* Git
-* Python ≥ 3.8
-* PlatformIO Core
-
-Install PlatformIO:
+Jedes Projekt benötigt eine `platformio.secrets.ini` (nicht in Git). Vorlage liegt als `.example`-Datei bei:
 
 ```bash
-pip install platformio
-```
-
----
-
-### Clone Repository
-
-```bash
-git clone <REPO_URL>
-cd <REPO_NAME>
-```
-
----
-
-### Configuration (Secrets)
-
-For the RFIDBOX project:
-
-```bash
-cd firmware/projects/RFIDBOX_PoC
-cp include/secret.h.example include/secret.h
-```
-
-Edit `include/secret.h` and provide your credentials.
-
-**Important:**
-Do not commit this file.
-
----
-
-### Build
-
-```bash
-cd firmware/projects/RFIDBOX_PoC
+cp platformio.secrets.ini.example platformio.secrets.ini
+# Datei befüllen, dann:
 pio run
 ```
 
----
-
-### Upload (optional)
-
-```bash
-pio run --target upload
-```
-
----
-
-## 🔗 Using Shared Libraries
-
-In each `platformio.ini`:
-
-```ini
-lib_extra_dirs =
-  ../../shared
-```
-
-Example usage:
-
-```cpp
-#include <ProjectAPI/ApiClient.h>
-#include <utils/Logger.h>
-```
-
----
-
-## 📚 Documentation
-
-### Requirements
-
-* Doxygen
-* Graphviz
-
-Install:
-
-**macOS**
-
-```bash
-brew install doxygen graphviz
-```
-
-**Linux (Debian/Ubuntu)**
-
-```bash
-sudo apt install doxygen graphviz
-```
-
----
-
-### Generate Docs
-
-```bash
-doxygen Doxyfile
-```
-
----
-
-## ⚠️ Notes
-
-* The repository reflects a **target architecture**, not all modules are fully implemented
-* `RFIDBOX_PoC` is currently the only complete and working reference
-* `MachineNodes` and `ProjectAPI` are structural placeholders for future development
-
----
+Details zu den Feldern stehen in der jeweiligen Projekt-README.
