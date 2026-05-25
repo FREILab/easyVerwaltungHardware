@@ -1,0 +1,28 @@
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
+/**
+ * TUER-KONFIGURATION
+ * MACHINE_NAME und MACHINE_ID werden per platformio.ini Build-Flag gesetzt.
+ * Fallbacks nur für lokale Entwicklung ohne platformio.secrets.ini.
+ */
+
+// --- Stepper-Motor ---
+#define STEPPER_SPEED  1200   ///< Schritte/Sekunde
+#define STEPPER_ACCEL  2000   ///< Schritte/Sekunde²
+#define STEPS_TO_OPEN   500   ///< Extra-Schritte nach dem Endschalter (Öffnen)
+#define STEPS_TO_CLOSE  500   ///< Extra-Schritte über den Endschalter hinaus (Schließen)
+#define STEPS_MAX      2000   ///< Maximale Schritte ohne Endschalter-Bestätigung
+
+// --- Timeouts ---
+#define MOTOR_TIMEOUT_MS          5000   ///< Max. Zeit für eine Motor-Bewegung bis Endschalter
+#define DOOR_REED_TIMEOUT_MS     30000   ///< Max. Wartezeit auf Reed-Freigabe beim Schließen
+#define WIFI_RECONNECT_INTERVAL_MS 15000 ///< Mindestabstand zwischen WiFi-Reconnect-Versuchen
+// WDT: max ~5600 ms auf UNO R4 WiFi (PCLKB = 24 MHz, PR=8192, RL=16384)
+#define WDT_TIMEOUT_MS            4000   ///< Hardware-Watchdog Timeout
+
+// --- Türlogik ---
+// Wartezeit nach erfolgreichem Öffnen, bevor die Tür wieder gesperrt werden kann
+#define DOOR_OPEN_MIN_HOLD_MS 2000
+
+#endif /* SETTINGS_H */
