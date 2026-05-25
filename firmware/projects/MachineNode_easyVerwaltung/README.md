@@ -11,6 +11,15 @@ ESP32-S3-Firmware für NFC-basierte Maschinenfreigabe mit easyVerwaltung-Backend
 | Mikrocontroller | ESP32-S3-WROOM-1-N16R8 (16 MB Flash) |
 | NFC-Leser | Adafruit PN532 (SPI) |
 | Ausgabe | Relais (Maschinenfreigabe), LEDs |
+| Stromsensor (onboard) | Für kleine Lasten (z.B. 3D-Drucker) — direkt auf der Platine |
+| Stromsensor (extern) | Interface für Remote-Sensor — für 400V-Geräte (Drehstrom) |
+
+### Stromsensor-Varianten
+
+Der Node erfasst Maschinenstunden über Strommessung. Je nach Maschinentyp kommt eine von zwei Varianten zum Einsatz:
+
+- **Onboard** (kleine Lasten, 230V, z.B. 3D-Drucker): Stromsensor direkt auf der Platine integriert.
+- **Extern** (400V-Geräte, Drehstrom): Steckbares Interface für einen externen Stromsensor (z.B. Stromwandler), der an der Maschine montiert wird und per Kabel zum Node führt.
 
 ## Funktion
 
