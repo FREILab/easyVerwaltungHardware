@@ -3,7 +3,7 @@
 Quelle: OTA/Fleet-Konzept fuer RFIDBOX_PoC.
 
 ## Workspace-Bezug
-- Workspace-Root: /Users/marius/Github/easyVerwaltungHardware/firmware/projects/RFIDBOX_PoC
+- Workspace-Root: /Users/marius/Github/easyVerwaltungHardware/firmware/projects/RFID_BOX_legacy
 - Hauptdatei derzeit: src/main.cpp
 - Ziel: Einheitliches Fleet-Deployment-Prinzip fuer RFIDBOX-Knoten.
 
@@ -20,9 +20,10 @@ Quelle: OTA/Fleet-Konzept fuer RFIDBOX_PoC.
 - RFIDBOX v1.x: zukunftige Revisionen
 
 ## Aktueller Stand
-- Build aktuell als PlatformIO Environment `esp32dev`
-- Firmware wird lokal gebaut und klassisch deployed
-- Noch kein zentrales Manifest-gesteuertes Pull-OTA aktiv
+- Alle physischen Nodes laufen auf `RFID_BOX_legacy`-Firmware mit ArduinoOTA + Telnet-Debug (Port 23) — abgeschlossen 2026-05-25
+- Pro Geraet eigenes PlatformIO-Environment (z.B. `lasercutter`, `printer3d_01`, `embroiderymachine`, etc.) mit geraetespezifischem OTA-Hostname
+- Phase 1 abgeschlossen: OTA-Workflow aktiv, alle Nodes erreichbar via `<hostname>.local:23`
+- Noch kein zentrales Manifest-gesteuertes Pull-OTA aktiv (Phase 2, geplant)
 
 ## Ziel-Config-Schema (geraeteseitig)
 Pflichtfelder in lokaler Config (NVS/Preferences):
