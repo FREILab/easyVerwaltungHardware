@@ -126,7 +126,10 @@ void processIncoming() {
       buf[pos] = '\0';
       pos = 0;
 
-      if (strncmp(buf, "LED:", 4) == 0 && strlen(buf) >= 7) {
+      if (strcmp(buf, "PING") == 0) {
+        Serial.println(F("PONG"));
+
+      } else if (strncmp(buf, "LED:", 4) == 0 && strlen(buf) >= 7) {
         srRed    = buf[4] == '1';
         srYellow = buf[5] == '1';
         srGreen  = buf[6] == '1';
@@ -286,6 +289,15 @@ void runCloseDoor() {
 
   srMotorEnable = false;
   updateSR();
+
+  if (!timedOut) {
+    for (int i = 0; i < 2; i++) {
+      srRed = true; srYellow = true; srGreen = true;
+      updateSR(); delay(500);
+      srRed = false; srYellow = false; srGreen = false;
+      updateSR(); delay(500);
+    }
+  }
 
   Serial.println(timedOut ? F("MOTOR:TIMEOUT") : F("MOTOR:OK"));
 }

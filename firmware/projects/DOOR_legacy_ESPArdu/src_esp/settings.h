@@ -15,3 +15,7 @@
 
 // --- Server ---
 #define SERVER_CONNECT_TIMEOUT_MS    5000UL
+
+// --- ATmega Watchdog ---
+// Kein PONG nach N Heartbeats → "DEAD" im Log
+#define ATMEGA_ALIVE_TIMEOUT_MS  (HEARTBEAT_INTERVAL_MS * 3UL)

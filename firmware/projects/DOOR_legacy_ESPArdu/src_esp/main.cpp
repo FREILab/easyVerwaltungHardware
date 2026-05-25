@@ -82,13 +82,14 @@ char checkServer(const char* rfid);
 bool waitMotorOK();
 void processSerial();
 void handleRFID(const char* uid);
-bool connectWiFi(unsigned long timeoutMs);
+bool connectWiFi(unsigned long timeoutMs, bool blinkLed = false);
 bool configureStaticIp();
 void wifiReconnect();
 void startNetServices();
 
 bool useStaticIp = false;
 bool netStarted  = false;
+unsigned long lastPongMs = 0;
 
 // ─────────────────────────────────────────────────────────
 // Setup
@@ -106,14 +107,33 @@ void setup() {
   Serial.println(WIFI_SSID);
 
   WiFi.hostname(OTA_HOSTNAME);
-  connectWiFi(20000);
+  connectWiFi(25000, true);
 
-  if (WiFi.status() == WL_CONNECTED) {
+  if (WiFi.status() == WL_CONNECTED && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+    sendLED(false, true, true);  // gelb+grün = verbunden, warte auf DHCP
+    Serial.print(F("[WiFi] Warte auf DHCP"));
+    unsigned long t = millis();
+    while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - t < 15000UL) {
+      ESP.wdtFeed();
+      Serial.print('.');
+      delay(500);
+    }
+    Serial.println();
+  }
+
+  if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
+    sendLED(false, false, true);  // grün = online
     Serial.print(F("[WiFi] OK, IP: "));
     Serial.println(WiFi.localIP());
+    delay(500);
     startNetServices();
+  } else if (WiFi.status() == WL_CONNECTED) {
+    sendLED(false, true, true);  // gelb+grün = kein DHCP, loop übernimmt
+    Serial.println(F("[WiFi] Verbunden, kein DHCP – retry im Loop"));
   } else {
+    sendLED(true, false, false);  // rot = fehlgeschlagen
     Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
+    delay(1000);
   }
 
   sendLED(false, true, false);  // Gelb = bereit
@@ -142,10 +162,15 @@ void loop() {
     const char* stateStr = currentState == STANDBY        ? "STANDBY"
                          : currentState == IDENTIFICATION ? "IDENT"
                                                           : "RESET";
+    bool atmegaAlive = (lastPongMs > 0) &&
+                       (millis() - lastPongMs < ATMEGA_ALIVE_TIMEOUT_MS);
     DBG.print(F("[HB] WiFi:"));
     DBG.print(WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString() : "--");
     DBG.print(F(" State:"));
-    DBG.println(stateStr);
+    DBG.print(stateStr);
+    DBG.print(F(" ATmega:"));
+    DBG.println(atmegaAlive ? F("OK") : F("DEAD"));
+    Serial.println(F("PING"));
   }
 }
 
@@ -163,7 +188,10 @@ void processSerial() {
       buf[pos] = '\0';
       pos = 0;
 
-      if (strncmp(buf, "RFID:", 5) == 0 && currentState == STANDBY) {
+      if (strcmp(buf, "PONG") == 0) {
+        lastPongMs = millis();
+
+      } else if (strncmp(buf, "RFID:", 5) == 0 && currentState == STANDBY) {
         handleRFID(buf + 5);
 
       } else if (strcmp(buf, "BTN:CLOSE") == 0 && currentState == STANDBY) {
@@ -351,17 +379,35 @@ char checkServer(const char* rfid) {
 // WiFi verbinden (blockierend mit Timeout)
 // ─────────────────────────────────────────────────────────
 
-bool connectWiFi(unsigned long timeoutMs) {
-  WiFi.disconnect();
-  delay(100);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
+bool connectWiFi(unsigned long timeoutMs, bool blinkLed) {
+  unsigned long deadline = millis() + timeoutMs;
+  uint8_t attempt = 0;
 
-  unsigned long start = millis();
-  while (WiFi.status() != WL_CONNECTED && millis() - start < timeoutMs) {
-    ESP.wdtFeed();
-    delay(300);
-  }
-  return WiFi.status() == WL_CONNECTED;
+  do {
+    if (attempt > 0) {
+      Serial.print(F("[WiFi] Retry "));
+      Serial.println(attempt + 1);
+      if (blinkLed) { sendLED(true, false, false); delay(300); }  // kurz rot = Retry
+    }
+    attempt++;
+
+    WiFi.disconnect();
+    delay(200);
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+
+    unsigned long tryEnd = millis() + 8000UL;
+    if (tryEnd > deadline) tryEnd = deadline;
+
+    bool ledState = false;
+    while (millis() < tryEnd) {
+      ESP.wdtFeed();
+      if (WiFi.status() == WL_CONNECTED) return true;
+      if (blinkLed) { ledState = !ledState; sendLED(false, ledState, false); }
+      delay(300);
+    }
+  } while (millis() < deadline);
+
+  return false;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -394,16 +440,39 @@ void startNetServices() {
 
 void wifiReconnect() {
   static unsigned long lastAttempt = 0;
-  if (WiFi.status() == WL_CONNECTED) return;
-  if (millis() - lastAttempt < WIFI_RECONNECT_INTERVAL_MS) return;
+  bool connected = WiFi.status() == WL_CONNECTED;
+  bool hasIp     = WiFi.localIP() != IPAddress(0, 0, 0, 0);
 
+  if (connected && hasIp && netStarted) return;
+  if (millis() - lastAttempt < WIFI_RECONNECT_INTERVAL_MS) return;
   lastAttempt = millis();
-  DBG.println(F("[WiFi] Reconnect..."));
-  connectWiFi(5000);
-  if (WiFi.status() == WL_CONNECTED) {
-    DBG.print(F("[WiFi] Online: "));
-    DBG.println(WiFi.localIP());
-    startNetServices();
+
+  if (!connected) {
+    DBG.print(F("[WiFi] Verbinde mit: "));    DBG.println(WIFI_SSID);
+    Serial.print(F("[WiFi] Verbinde mit: ")); Serial.println(WIFI_SSID);
+    connectWiFi(8000);
+    connected = WiFi.status() == WL_CONNECTED;
+    if (!connected) {
+      DBG.println(F("[WiFi] FEHLGESCHLAGEN"));
+      Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
+    }
+  }
+
+  if (connected && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
+    DBG.println(F("[WiFi] Warte auf DHCP..."));
+    Serial.println(F("[WiFi] Warte auf DHCP..."));
+    unsigned long t = millis();
+    while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - t < 5000UL) {
+      ESP.wdtFeed();
+      delay(300);
+    }
+    lastAttempt = millis();
+  }
+
+  if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
+    DBG.print(F("[WiFi] Online: "));    DBG.println(WiFi.localIP());
+    Serial.print(F("[WiFi] Online: ")); Serial.println(WiFi.localIP());
+    if (!netStarted) startNetServices();
   }
 }
 
