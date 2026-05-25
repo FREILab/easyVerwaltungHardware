@@ -26,6 +26,25 @@ server_ip     = dashboard.intern
 auth_token    = ...
 ```
 
+## Flashen
+
+```bash
+# Erstmaliges Flashen per USB
+pio run -e door_01_usb --target upload
+
+# OTA (danach immer so, kein USB nötig)
+pio run -e door_01_ota --target upload
+```
+
+OTA läuft via mDNS-Hostname `tuer-01.local`. Für Tür 02: `door_02_*`.
+
+## Debugging
+
+```bash
+# Serial Monitor (USB, 115200 Baud)
+pio device monitor -e door_01_usb
+```
+
 ## API
 
 Wird kommunizieren über `shared/easyAPI` mit:

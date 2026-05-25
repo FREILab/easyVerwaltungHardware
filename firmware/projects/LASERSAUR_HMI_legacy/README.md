@@ -17,6 +17,22 @@ Arduino-Firmware für das HMI-Board des Lasersaur-Laserplotters. Liest Sensoren 
 
 Erfasst Temperatur- und Druckwerte aus dem Lasersaur-System (Wasser, Abluft, Kompressor) und überträgt diese periodisch an das Backend. Zeigt Systemstatus auf einem LCD an und stoppt bei Sensor-Ausfall.
 
+## Flashen
+
+```bash
+# Erstmaliges Flashen und Updates per USB (kein OTA — Ethernet-Shield, kein WiFi)
+pio run -e lasersaur_hmi_usb --target upload
+```
+
+## Debugging
+
+```bash
+# Serial Monitor (USB, 115200 Baud)
+pio device monitor -e lasersaur_hmi_usb
+```
+
+Kein Telnet — das Gerät hat kein WiFi.
+
 ## Abgrenzung
 
 Dieses Projekt nutzt die **alte HTTP-POST-API** mit statischer IP-Konfiguration. Die Weiterentwicklung findet in `LASERSAUR_HMI_easyVerwaltung` statt.

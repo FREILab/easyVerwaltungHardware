@@ -32,11 +32,22 @@ auth_token    = ...
 
 ```bash
 # Dev-Kit per USB
-pio run -e machine_dev_usb -t upload
+pio run -e machine_dev_usb --target upload
 
-# Dev-Kit OTA
-pio run -e machine_dev_ota -t upload
+# Dev-Kit OTA (kein USB nötig)
+pio run -e machine_dev_ota --target upload
 ```
+
+OTA läuft via mDNS-Hostname `machine-node-dev.local`. Produktions-Environments: `<machine>_usb` / `<machine>_ota`.
+
+## Debugging
+
+```bash
+# Serial Monitor (USB, 115200 Baud)
+pio device monitor -e machine_dev_usb
+```
+
+Kein Telnet — Serial Monitor nur per USB.
 
 ## Abhängigkeiten
 

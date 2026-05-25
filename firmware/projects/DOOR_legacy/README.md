@@ -1,5 +1,7 @@
 # DOOR — Legacy
 
+> **Scheduled for deletion.** Abgelöst durch `DOOR_legacy_ESPArdu` (RobotDyn) und `DOOR_easyVerwaltung`.
+
 Arduino-Firmware für RFID-gesteuerte Türverriegelung mit Schrittmotor und Legacy-API.
 
 ## Hardware
@@ -36,11 +38,21 @@ auth_token    = ...
 ## Flashen
 
 ```bash
-# USB
-pio run -t upload
+# Erstmaliges Flashen per USB
+pio run -e door_01_usb --target upload
 
-# OTA
-pio run -e <env_ota> -t upload
+# OTA (danach immer so, kein USB nötig)
+# OTA-IP kommt aus platformio.secrets.ini, Upload-Script: upload_ota.py
+pio run -e door_01_ota --target upload
+```
+
+Für Tür 02: `door_02_usb` / `door_02_ota`.
+
+## Debugging
+
+```bash
+# Serial Monitor (USB, 9600 Baud)
+pio device monitor -e door_01_usb
 ```
 
 ## Abhängigkeiten

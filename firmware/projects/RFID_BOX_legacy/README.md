@@ -31,11 +31,28 @@ auth_token    = ...
 
 ```bash
 # Erstmaliges Flashen per USB
-pio run -e xtool_usb -t upload
+pio run -e xtool_usb --target upload
 
-# OTA-Update
-pio run -e xtool_ota -t upload
+# OTA-Update (kein USB nötig)
+pio run -e xtool_ota --target upload
 ```
+
+OTA läuft via mDNS-Hostname (z.B. `xtool-01.local`). Für andere Geräte: `<machine>_usb` / `<machine>_ota`.
+
+## Debugging
+
+**Serial** (USB, 115200 Baud):
+```bash
+pio device monitor -e xtool_usb
+```
+
+**Telnet** (WiFi, kein USB nötig):
+```bash
+# pio verwendet monitor_port = socket://xtool-01.local:23
+pio device monitor -e xtool_ota
+```
+
+Alle OTA-Environments haben `monitor_port` auf den jeweiligen mDNS-Hostnamen vorbelegt.
 
 ## Abhängigkeiten
 

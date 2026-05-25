@@ -36,11 +36,22 @@ Maschinen-ID und -Name werden pro Environment in `platformio.ini` gesetzt.
 
 ```bash
 # Erstmaliges Flashen per USB
-pio run -e xtool_usb -t upload
+pio run -e xtool_usb --target upload
 
-# OTA-Update
-pio run -e xtool_ota -t upload
+# OTA-Update (kein USB nötig)
+pio run -e xtool_ota --target upload
 ```
+
+OTA läuft via mDNS-Hostname (z.B. `xtool-01.local`). Für andere Geräte: `<machine>_usb` / `<machine>_ota`.
+
+## Debugging
+
+```bash
+# Serial Monitor (USB, 115200 Baud)
+pio device monitor -e xtool_usb
+```
+
+Kein Telnet — Serial Monitor nur per USB.
 
 ## API
 

@@ -83,6 +83,26 @@ pio run -e door_01_esp_ota --target upload
 
 Für Tür 02 entsprechend `door_02_*` verwenden.
 
+## Debugging
+
+**ATmega** (USB, DIP SW3+SW4 ON, 9600 Baud):
+```bash
+pio device monitor -e door_01_atmega_usb
+```
+
+**ESP8266** — Telnet über WiFi (kein DIP-Wechsel, kein USB nötig):
+```bash
+# pio verwendet monitor_port = socket://tuer-01.local:23
+pio device monitor -e door_01_esp_ota
+```
+
+Alternativ ESP8266 USB-Serial (DIP SW5+SW6 ON, 9600 Baud):
+```bash
+pio device monitor -e door_01_esp_usb
+```
+
+Für Tür 02: `door_02_*` verwenden.
+
 ## Serielles Protokoll (ATmega ↔ ESP8266)
 
 | Richtung | Nachricht | Bedeutung |
