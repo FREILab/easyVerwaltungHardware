@@ -19,8 +19,8 @@
  *   MOTOR:FORCE_OPEN   Öffnen (Force=true, Retry-Fall)
  *   MOTOR:CLOSE        Schließen
  *
- * DIP für Flash: SW1+SW2 ON, Rest OFF.
- * DIP Normal-Betrieb: SW7+SW8 ON, Rest OFF.
+ * DIP für Flash: SW3+SW4 ON, Rest OFF.
+ * DIP Normal-Betrieb (ATmega↔ESP): SW1+SW2 ON, Rest OFF.
  */
 
 #include <Arduino.h>

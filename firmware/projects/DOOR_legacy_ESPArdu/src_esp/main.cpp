@@ -15,8 +15,8 @@
  *
  * WIFI_SSID / WIFI_PASS kommen aus include/secret.h (nicht in Git).
  *
- * DIP für Flash (einmalig): SW3+SW4+SW5+SW6 ON, Rest OFF.
- * DIP Normal-Betrieb:       SW7+SW8 ON, Rest OFF.
+ * DIP für Flash (einmalig): SW5+SW6+SW7 ON, Rest OFF.
+ * DIP Normal-Betrieb (ATmega↔ESP): SW1+SW2 ON, Rest OFF.
  * OTA danach: pio run -e door_01_esp_ota --target upload
  */
 
@@ -94,13 +94,21 @@ bool useStaticIp = false;
 
 void setup() {
   // Serial0 = UART zum ATmega (Normal-Betrieb DIP 7+8)
+  // Bei DIP SW5+SW6 ON (ESP Serial Monitor): Serial-Output hier sichtbar
   Serial.begin(9600);
+  Serial.println(F("[ESP] Boot"));
 
   useStaticIp = configureStaticIp();
+  Serial.print(F("[WiFi] Verbinde mit: "));
+  Serial.println(WIFI_SSID);
+
   WiFi.hostname(OTA_HOSTNAME);
   connectWiFi(20000);
 
   if (WiFi.status() == WL_CONNECTED) {
+    Serial.print(F("[WiFi] OK, IP: "));
+    Serial.println(WiFi.localIP());
+
     MDNS.begin(OTA_HOSTNAME);
 
     ArduinoOTA.setHostname(OTA_HOSTNAME);
@@ -118,7 +126,7 @@ void setup() {
     DBG.print(F("[OTA] Bereit: "));
     DBG.println(OTA_HOSTNAME);
   } else {
-    // kein WiFi → kein Telnet, stille Weiterarbeit
+    Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
   }
 
   sendLED(false, true, false);  // Gelb = bereit

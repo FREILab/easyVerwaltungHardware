@@ -35,9 +35,10 @@ per OTA, kein USB-Zugriff nötig.
 
 | Aktion | SW1 | SW2 | SW3 | SW4 | SW5 | SW6 | SW7 | SW8 |
 |---|---|---|---|---|---|---|---|---|
-| ATmega flashen (1× einmalig) | ON | ON | — | — | — | — | — | — |
-| ESP8266 flashen (1× einmalig) | — | — | ON | ON | ON | ON | — | — |
-| **Normal-Betrieb** | — | — | — | — | — | — | **ON** | **ON** |
+| ATmega flashen (1× einmalig) | — | — | ON | ON | — | — | — | — |
+| ESP8266 flashen (1× einmalig) | — | — | — | — | ON | ON | ON | — |
+| ESP8266 Serial Monitor | — | — | — | — | ON | ON | — | — |
+| **Normal-Betrieb** (ATmega↔ESP) | **ON** | **ON** | — | — | — | — | — | — |
 
 ## Konfiguration
 
@@ -63,13 +64,14 @@ IP-Adresse kommt per DHCP. OTA und Monitor laufen via mDNS-Hostname (`tuer-01.lo
 ### Ersteinrichtung (einmalig)
 
 ```bash
-# 1. ATmega flashen — DIP: SW1+SW2 ON
+# 1. ATmega flashen — DIP: SW3+SW4 ON
+# Hinweis: RobotDyn liefert Optiboot mit 57600 Baud aus (upload_speed in platformio.ini gesetzt)
 pio run -e door_01_atmega_usb --target upload
 
-# 2. ESP8266 flashen — DIP: SW3+SW4+SW5+SW6 ON
+# 2. ESP8266 flashen — DIP: SW5+SW6+SW7 ON
 pio run -e door_01_esp_usb --target upload
 
-# 3. DIP auf Normal-Betrieb: SW7+SW8 ON
+# 3. DIP auf Normal-Betrieb: SW1+SW2 ON
 ```
 
 ### ESP8266 OTA (danach immer so)
