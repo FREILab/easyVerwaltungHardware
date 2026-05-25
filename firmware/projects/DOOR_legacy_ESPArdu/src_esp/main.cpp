@@ -142,9 +142,7 @@ void loop() {
     const char* stateStr = currentState == STANDBY        ? "STANDBY"
                          : currentState == IDENTIFICATION ? "IDENT"
                                                           : "RESET";
-    DBG.print(F("[HB] up:"));
-    DBG.print(millis() / 1000);
-    DBG.print(F("s WiFi:"));
+    DBG.print(F("[HB] WiFi:"));
     DBG.print(WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString() : "--");
     DBG.print(F(" State:"));
     DBG.println(stateStr);
