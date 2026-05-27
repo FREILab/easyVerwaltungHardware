@@ -140,7 +140,7 @@ void setup() {
   Serial.begin(115200);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial); // Initialize logging
 
-  Log.notice("Starting setup ...\n");
+  Log.notice("Starting setup ...\r\n");
 
   // Relay control output
   pinMode(MACHINE_RELAY_PIN, OUTPUT);
@@ -180,12 +180,12 @@ void setup() {
 
   // TODO: Health-Check deaktiviert — Server gibt active:false zurück, serverseitig klären.
   //       Siehe https://github.com/FREILab/easyVerwaltung/issues/60
-  Log.warning("[Health] Startup health check skipped (see TODO).\n");
+  Log.warning("[Health] Startup health check skipped (see TODO).\r\n");
 
 #ifdef OTA_ENABLED
   ArduinoOTA.setHostname(OTA_HOSTNAME);
   ArduinoOTA.begin();
-  Log.notice("[OTA] Ready. Hostname: %s\n", OTA_HOSTNAME);
+  Log.notice("[OTA] Ready. Hostname: %s\r\n", OTA_HOSTNAME);
 #endif
 
   initRFID();
@@ -197,7 +197,7 @@ void setup() {
   delay(100);
   setLED_ryg(0, 0, 0);
 
-  Log.notice("Setup complete.\n");
+  Log.notice("Setup complete.\r\n");
 }
 
 /**
@@ -260,7 +260,7 @@ void next_State() {
         delay(500); 
       } else {
         // when auth check was not successful, return to reset state
-        Log.verbose("[next_State] Identification not successful.\n");
+        Log.verbose("[next_State] Identification not successful.\r\n");
         nextState = RESET;
       }
       break;
@@ -274,15 +274,15 @@ void next_State() {
           int checkResult = tryHeartbeat(loggedInID);
           if (checkResult == 1) {
             continuousServerCheckFailCount = 0;
-            Log.notice("[continuous-auth] Heartbeat OK.\n");
+            Log.notice("[continuous-auth] Heartbeat OK.\r\n");
             blinkGreenSubtleSuccess();
           } else {
             continuousServerCheckFailCount++;
             blinkYellowShortWarning();
-            Log.warning("[continuous-auth] Server check failed (%d/%u).\n", continuousServerCheckFailCount, heartbeat_fail_limit);
+            Log.warning("[continuous-auth] Server check failed (%d/%u).\r\n", continuousServerCheckFailCount, heartbeat_fail_limit);
 
             if ((uint32_t)continuousServerCheckFailCount >= heartbeat_fail_limit) {
-              Log.error("[continuous-auth] Timeout reached (%u checks). Turning relay off.\n", heartbeat_fail_limit);
+              Log.error("[continuous-auth] Timeout reached (%u checks). Turning relay off.\r\n", heartbeat_fail_limit);
               digitalWrite(MACHINE_RELAY_PIN, LOW);
               nextState = RESET;
             }
@@ -298,7 +298,7 @@ void next_State() {
         if (digitalRead(BUTTON_RFID) != BUTTON_PRESSED) {
           if (!rfidButtonTimerActive) { rfidButtonPressTime = millis(); rfidButtonTimerActive = true; }
           if (millis() - rfidButtonPressTime >= TIME_GLITCH_FILTER_RFID) {
-            Log.verbose("[next_State] RFID Card pulled.\n");
+            Log.verbose("[next_State] RFID Card pulled.\r\n");
             nextState = RESET;
           }
         } else { rfidButtonTimerActive = false; }
@@ -319,7 +319,7 @@ void next_State() {
   }
   if (nextState != currentState) {
     static const char *stateNames[] = { "STANDBY", "IDENTIFICATION", "RUNNING", "RESET" };
-    Log.notice("[state] %s -> %s\n", stateNames[currentState], stateNames[nextState]);
+    Log.notice("[state] %s -> %s\r\n", stateNames[currentState], stateNames[nextState]);
   }
   currentState = nextState;
 }
@@ -337,16 +337,16 @@ void setLED_ryg(bool led_red, bool led_yellow, bool led_green) {
  * @brief Connects the ESP32 to the WiFi network.
  */
 void connectToWiFi() {
-  Log.notice("[WiFi] Connecting to %s ...\n", WIFI_SSID);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Log.notice("[WiFi] Connecting to %s ...\r\n", WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD, 6);
   int retries = 0;
   while (WiFi.status() != WL_CONNECTED && retries < 10) {
     delay(1000);
     retries++;
-    Serial.print(".");
+    Serial.print(".\r");
   }
   if (WiFi.status() == WL_CONNECTED) {
-    Log.notice("\n[WiFi] Connected. IP: %s\n", WiFi.localIP().toString().c_str());
+    Log.notice("\r\n[WiFi] Connected. IP: %s\r\n", WiFi.localIP().toString().c_str());
   }
 }
 
@@ -368,11 +368,11 @@ void initRFID() {
   mfrc522.PCD_Init();
   byte version = mfrc522.PCD_ReadRegister(mfrc522.VersionReg);
   if (version == 0x00 || version == 0xFF) {
-    Log.error("[initRFID] RFID module not responding! Check wiring.\n");
+    Log.error("[initRFID] RFID module not responding! Check wiring.\r\n");
     delay(2000);
     ESP.restart();
   } else {
-    Log.notice("[initRFID] Reader initialized. Firmware: 0x%02X\n", version);
+    Log.notice("[initRFID] Reader initialized. Firmware: 0x%02X\r\n", version);
   }
 }
 
@@ -382,10 +382,10 @@ void initRFID() {
 bool perform_auth_check() {
   uid = readID();
   if (uid.equals("0")) {
-    Log.warning("[auth] No card readable (readID returned 0).\n");
+    Log.warning("[auth] No card readable (readID returned 0).\r\n");
     return false;
   }
-  Log.notice("[auth] Card UID: %s\n", uid.c_str());
+  Log.notice("[auth] Card UID: %s\r\n", uid.c_str());
   int success = tryLoginID(uid);
   if (success == 1) {
     loggedInID = uid;
@@ -430,7 +430,7 @@ int tryLoginID(String uid) {
   isHttpRequestInProgress = false;
 
   if (status != EASY_API_OK || !login.authorized) {
-    Log.warning("[tryLoginID] Denied: %s\n", login.reason[0] ? login.reason : easy_api_status_string(status));
+    Log.warning("[tryLoginID] Denied: %s\r\n", login.reason[0] ? login.reason : easy_api_status_string(status));
     return 0;
   }
   strncpy(session_id, login.session_id, sizeof(session_id) - 1);
@@ -441,7 +441,7 @@ int tryLoginID(String uid) {
       if (heartbeat_fail_limit == 0) heartbeat_fail_limit = 1;
     }
   }
-  Log.notice("[tryLoginID] Granted. Session: %s interval=%us timeout=%us\n",
+  Log.notice("[tryLoginID] Granted. Session: %s interval=%us timeout=%us\r\n",
              session_id, (unsigned)login.heartbeat_interval_seconds, (unsigned)login.session_timeout_seconds);
   return 1;
 }
@@ -458,7 +458,7 @@ int tryHeartbeat(String uid) {
   isHttpRequestInProgress = false;
 
   if (status != EASY_API_OK || !hb.session_active) {
-    Log.warning("[heartbeat] Failed: %s\n", hb.reason[0] ? hb.reason : easy_api_status_string(status));
+    Log.warning("[heartbeat] Failed: %s\r\n", hb.reason[0] ? hb.reason : easy_api_status_string(status));
     return 0;
   }
   return 1;
@@ -471,10 +471,10 @@ int tryHeartbeat(String uid) {
 String readID() {
   for (int attempt = 0; attempt < 3; attempt++) {
     bool isPresent = mfrc522.PICC_IsNewCardPresent();
-    Log.verbose("[readID] Attempt %d: PICC_IsNewCardPresent=%d\n", attempt + 1, isPresent);
+    Log.verbose("[readID] Attempt %d: PICC_IsNewCardPresent=%d\r\n", attempt + 1, isPresent);
     if (isPresent) {
       bool readOk = mfrc522.PICC_ReadCardSerial();
-      Log.verbose("[readID] Attempt %d: PICC_ReadCardSerial=%d\n", attempt + 1, readOk);
+      Log.verbose("[readID] Attempt %d: PICC_ReadCardSerial=%d\r\n", attempt + 1, readOk);
       if (readOk) {
         String id = "";
         for (byte i = 0; i < mfrc522.uid.size; i++) {
@@ -492,6 +492,6 @@ String readID() {
     }
     delay(500);
   }
-  Log.warning("[readID] All attempts failed.\n");
+  Log.warning("[readID] All attempts failed.\r\n");
   return "0";
 }
