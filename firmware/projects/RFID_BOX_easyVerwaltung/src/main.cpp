@@ -130,6 +130,32 @@ static uint32_t heartbeat_interval_ms = 2000;
 static uint32_t heartbeat_fail_limit = 40;
 
 //------------------------------------------------------------------------------
+// Grafana Loki Logging Configuration
+//------------------------------------------------------------------------------
+
+#include <PromLokiTransport.h>
+#include <GrafanaLoki.h>
+
+// Create a transport and client object for sending our data.
+PromLokiTransport transport;
+LokiClient client(transport);
+static char lokiPath[] = LOKI_PATH;
+
+
+// Define stream 1 'uptime' with a batch size of 2, and a max line length of 20 chars and the label set for the stream.
+LokiStream uptime(2, 20, "{job=\"esp32\",type=\"uptime\"}"); // Est bytes for full batch and max length line: (batch*maxLength+labels) 2*20+31 = 71 
+
+// Define stream 2 'logger' with a batch size of 3, and a max line length of 100 chars and the label set for the stream.
+// Note, to store more error messages if your device has enough RAM feel free to increase the batch size!
+LokiStream logger(3, 100, "{job=\"esp32\",type=\"log\"}");  //Est bytes for full batch and max length line: (batch*maxLength+labels) 3*100+28 = 328
+
+// Create a streams object for holding streams, for this example we will make 2 streams, 
+// 71+328 = 399 bytes for payload (plus timestamps), default buffer of 512 bytes should be enough.
+LokiStreams streams(2);
+// For a bigger buffer, See: https://github.com/grafana/loki-arduino#buffers for more info.
+// LokiStreams streams(2,1024);
+
+//------------------------------------------------------------------------------
 // Setup Function
 //------------------------------------------------------------------------------
 
@@ -162,6 +188,22 @@ void setup() {
   delay(1000);  // wait for pullups to get active
 
   connectToWiFi();
+
+  client.setUrl(LOKI_URL);
+  client.setPort(LOKI_PORT);
+  client.setPath(lokiPath);
+  client.setDebug(Serial); // Remove this line to disable debug logging of the client.
+  if (!client.begin()) {
+    Serial.println(client.errmsg);
+  }
+
+  // Add our stream objects to the streams object
+  streams.addStream(uptime);
+  streams.addStream(logger);
+  streams.setDebug(Serial);  // Remove this line to disable debug logging of the write request serialization and compression.
+
+  logger.addEntry(client.getTimeNanos(), "Device started", strlen("Device started"));
+  client.send(streams);
 
   {
     easy_api_config_t cfg = {};
