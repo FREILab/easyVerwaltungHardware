@@ -319,18 +319,35 @@ void sendLED(bool r, bool y, bool g) {
 // ─────────────────────────────────────────────────────────
 
 char checkServer(const char* rfid) {
+  static uint8_t consecutiveFails = 0;
+
+  // WiFi-Stack-Reset nach N aufeinanderfolgenden Netzwerkfehlern.
+  // Deckt den Fall "WL_CONNECTED aber TCP tot" ab, der nur per
+  // Disconnect+Reconnect heilbar ist.
+  auto onNetFail = [&]() {
+    if (++consecutiveFails >= 3) {
+      consecutiveFails = 0;
+      DBG.println(F("[HTTP] WiFi-Stack-Reset nach 3 Fehlern"));
+      WiFi.disconnect();
+    }
+  };
+
   if (WiFi.status() != WL_CONNECTED) return -1;
 
   WiFiClient client;
   IPAddress serverAddr;
+
+  ESP.wdtFeed();
   if (WiFi.hostByName(SERVER_IP, serverAddr) != 1) {
     DBG.println(F("[HTTP] DNS fehlgeschlagen"));
-    return -1;
+    onNetFail(); return -1;
   }
 
+  ESP.wdtFeed();
+  client.setTimeout(3000);
   if (!client.connect(serverAddr, 80)) {
     DBG.println(F("[HTTP] Verbindung fehlgeschlagen"));
-    return -1;
+    onNetFail(); return -1;
   }
 
   char req[256];
@@ -370,6 +387,7 @@ char checkServer(const char* rfid) {
   DBG.print(F("[HTTP] Antwort: "));
   DBG.println(message);
 
+  consecutiveFails = 0;
   return strstr(message, "true") != nullptr ? 1 : 0;
 }
 
@@ -409,27 +427,27 @@ bool connectWiFi(unsigned long timeoutMs, bool blinkLed) {
 }
 
 // ─────────────────────────────────────────────────────────
-// Netzwerk-Dienste starten (MDNS, OTA) — einmalig nach WiFi-Connect
+// Netzwerk-Dienste starten (MDNS, OTA) — nach jedem (Re-)Connect
 // ─────────────────────────────────────────────────────────
 
 void startNetServices() {
-  if (netStarted) return;
-  netStarted = true;
-
+  if (!netStarted) {
+    // Callbacks nur einmalig registrieren
+    ArduinoOTA.setHostname(OTA_HOSTNAME);
+    ArduinoOTA.onStart([]()  { ESP.wdtFeed(); });
+    ArduinoOTA.onEnd([]()    { DBG.println(F("[OTA] Fertig")); });
+    ArduinoOTA.onError([](ota_error_t e) {
+      DBG.print(F("[OTA] Fehler ")); DBG.println(e);
+    });
+    netStarted = true;
+  }
+  // mDNS und OTA bei jedem (Re-)Connect neu starten, sonst
+  // sterben sie nach dem ersten WiFi-Drop dauerhaft.
   MDNS.begin(OTA_HOSTNAME);
-
-  ArduinoOTA.setHostname(OTA_HOSTNAME);
-  ArduinoOTA.onStart([]()  { ESP.wdtFeed(); });
-  ArduinoOTA.onEnd([]()    { DBG.println(F("[OTA] Fertig")); });
-  ArduinoOTA.onError([](ota_error_t e) {
-    DBG.print(F("[OTA] Fehler ")); DBG.println(e);
-  });
   ArduinoOTA.begin();
 
-  DBG.print(F("[ESP] IP: "));
-  DBG.println(WiFi.localIP());
   DBG.print(F("[OTA] Bereit: "));
-  DBG.println(OTA_HOSTNAME);
+  DBG.println(WiFi.localIP());
 }
 
 // ─────────────────────────────────────────────────────────
@@ -473,8 +491,8 @@ void wifiReconnect() {
     Serial.print(F("[WiFi] Online: ")); Serial.println(WiFi.localIP());
     sendLED(false, false, true);  // grün = online
     delay(500);
-    if (!netStarted) startNetServices();
-    sendLED(false, true, false);  // gelb = standby
+    startNetServices();  // immer: mDNS + OTA nach (Re-)Connect neu starten
+    if (currentState == STANDBY) sendLED(false, true, false);
   }
 }
 
