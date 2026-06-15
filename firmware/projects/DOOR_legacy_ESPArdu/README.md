@@ -115,6 +115,24 @@ Für Tür 02: `door_02_*` verwenden.
 | ESP → ATmega | `BUZZ:1` / `BUZZ:0` | Buzzer |
 | ESP → ATmega | `MOTOR:OPEN` / `MOTOR:CLOSE` | Motor-Befehl |
 | ESP → ATmega | `MOTOR:FORCE_OPEN` | Öffnen mit Force (Retry) |
+| ESP → ATmega | `DBG:[<Zeit>] ...` | Debug-Log (siehe unten), vom ATmega ignoriert |
+
+### Debug-Log auf dem Bus
+
+Der ESP spiegelt Diagnose-Meldungen zusätzlich zu Telnet auf den UART-Bus
+(`DBG:`-Prefix, vom ATmega-Parser ignoriert) — so kann ein an den Bus
+angeschlossener Logger eine durchgehende Timeline aufzeichnen, auch wenn
+WiFi/Telnet gerade nicht erreichbar ist oder der ESP zwischendurch neu
+gestartet ist. Zeitstempel ist `HH:MM:SS` (NTP, Router `192.168.178.1`) bzw.
+`+<sek>s` seit Boot, solange NTP noch nicht synchron ist.
+
+| Meldung | Bedeutung |
+|---|---|
+| `BOOT reason=<r> heap=<n>` | Boot/Reset-Ursache (`Power On`, `Software Watchdog`, `Hardware Watchdog`, `Exception`, `Software/System restart`, ...) |
+| `HB up=<s> wifi=<ip\|--> rssi=<dBm> heap=<n> frag=<%> state=<S> atmega=<OK\|DEAD>` | Heartbeat alle 5s |
+| `SLOWLOOP dt=<ms>` | Ein Loop-Durchlauf hat >1s gedauert (Near-Miss vor WDT-Reset) |
+| `[HTTP] connect dt=<ms> ok=<0/1>` | Timing von `client.connect()` zum Backend |
+| `HEALTH connect dt=<ms> ok=<0/1>` / `HEALTH fail x<n>` / `HEALTH restart after <n> fails` | Periodischer Server-Check (unabhängig von RFID-Scans); nach `SERVER_HEALTHCHECK_FAIL_THRESHOLD` Fehlversuchen `ESP.restart()` |
 
 ## Abhängigkeiten
 
