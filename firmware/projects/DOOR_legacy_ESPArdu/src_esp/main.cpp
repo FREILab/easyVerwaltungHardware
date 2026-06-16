@@ -103,13 +103,13 @@ unsigned long lastPongMs = 0;
 // ─────────────────────────────────────────────────────────
 
 void busDbg(const char* fmt, ...) {
-  char msg[80];
+  char msg[96];
   va_list args;
   va_start(args, fmt);
   vsnprintf(msg, sizeof(msg), fmt, args);
   va_end(args);
 
-  char line[104];
+  char line[116];
   time_t now = time(nullptr);
   if (now > 100000) {
     struct tm tmInfo;
