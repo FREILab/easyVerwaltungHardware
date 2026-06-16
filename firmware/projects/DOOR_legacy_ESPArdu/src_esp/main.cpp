@@ -26,6 +26,9 @@
 #include <ArduinoOTA.h>
 #include <WiFiClient.h>
 #include <TelnetStream.h>
+#include <TZ.h>
+#include <time.h>
+#include <cstdarg>
 #include "settings.h"
 
 #define DBG TelnetStream
@@ -79,17 +82,52 @@ int  retryCount = 0;
 
 void sendLED(bool r, bool y, bool g);
 char checkServer(const char* rfid);
-bool waitMotorOK();
+bool waitMotorOK(bool ledR, bool ledY, bool ledG);
 void processSerial();
 void handleRFID(const char* uid);
 bool connectWiFi(unsigned long timeoutMs, bool blinkLed = false);
 bool configureStaticIp();
 void wifiReconnect();
 void startNetServices();
+void busDbg(const char* fmt, ...);
+void syncTime();
+void checkServerHealth();
 
 bool useStaticIp = false;
 bool netStarted  = false;
 unsigned long lastPongMs = 0;
+
+// ─────────────────────────────────────────────────────────
+// Debug-Ausgaben: auf UART-Bus zum ATmega (für angeschlossenen Logger,
+// "DBG:"-Prefix wird vom ATmega-Parser ignoriert) UND auf Telnet spiegeln.
+// ─────────────────────────────────────────────────────────
+
+void busDbg(const char* fmt, ...) {
+  char msg[96];
+  va_list args;
+  va_start(args, fmt);
+  vsnprintf(msg, sizeof(msg), fmt, args);
+  va_end(args);
+
+  char line[116];
+  time_t now = time(nullptr);
+  if (now > 100000) {
+    struct tm tmInfo;
+    localtime_r(&now, &tmInfo);
+    char ts[9];  // "HH:MM:SS\0"
+    strftime(ts, sizeof(ts), "%H:%M:%S", &tmInfo);
+    snprintf(line, sizeof(line), "DBG:[%s] %s", ts, msg);
+  } else {
+    snprintf(line, sizeof(line), "DBG:[+%lus] %s", millis() / 1000, msg);
+  }
+  Serial.println(line);
+  DBG.println(line);
+}
+
+// Uhrzeit per NTP holen (Router laut IT-Team mit aktivem NTP-Server).
+void syncTime() {
+  configTime(TZ_Europe_Berlin, "192.168.178.1", "pool.ntp.org");
+}
 
 // ─────────────────────────────────────────────────────────
 // Setup
@@ -101,6 +139,22 @@ void setup() {
   Serial.begin(9600);
   Serial.println(F("[ESP] Boot"));
   TelnetStream.begin(23);  // früh starten — safe ohne WiFi, kein Client → Output verworfen
+
+  // ESP.getResetReason() — mögliche Werte und Ursachen:
+  //   "Power On"           Stromversorgung an/aus (Power-Cycle)
+  //   "External System"    Reset-Pin/Taster gezogen
+  //   "Hardware Watchdog"  Hardware-WDT: CPU war so eingefroren, dass
+  //                         selbst der periodische Software-WDT-Timer
+  //                         nicht mehr feuern konnte -> harter Hänger
+  //   "Software Watchdog"  Software-WDT: loop()/eine Funktion hat zu lange
+  //                         ohne yield()/ESP.wdtFeed() blockiert
+  //                         (z.B. ein hängender client.connect())
+  //   "Exception"          Fataler Crash (z.B. Stack-Overflow,
+  //                         Out-of-Bounds-Zugriff, "Fatal exception")
+  //   "Software/System restart"  ESP.restart()/ESP.reset() wurde gezielt
+  //                         aufgerufen (z.B. HEALTH-Restart, OTA)
+  //   "Deep-Sleep Wake"    Aufwachen aus Deep-Sleep (hier ungenutzt)
+  busDbg("BOOT reason=%s heap=%u", ESP.getResetReason().c_str(), ESP.getFreeHeap());
 
   useStaticIp = configureStaticIp();
   Serial.print(F("[WiFi] Verbinde mit: "));
@@ -124,6 +178,7 @@ void setup() {
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
     Serial.print(F("[WiFi] OK, IP: "));
     Serial.println(WiFi.localIP());
+    syncTime();
     startNetServices();
     sendLED(false, false, true);  // grün = verbunden
     delay(500);
@@ -148,6 +203,16 @@ void loop() {
   MDNS.update();
   wifiReconnect();
   processSerial();
+  checkServerHealth();
+
+  // Erkennt einzelne Loop-Durchläufe >1s (z.B. hängender client.connect()),
+  // auch wenn es noch nicht zum WDT-Reset kommt — "Near-Miss"-Daten.
+  static unsigned long lastLoopMs = 0;
+  unsigned long nowMs = millis();
+  if (lastLoopMs != 0 && nowMs - lastLoopMs > 1000) {
+    busDbg("SLOWLOOP dt=%lu", nowMs - lastLoopMs);
+  }
+  lastLoopMs = nowMs;
 
   if (currentState == RESET && millis() - resetEnteredAt >= RESET_DISPLAY_MS) {
     currentState = STANDBY;
@@ -162,12 +227,11 @@ void loop() {
                                                           : "RESET";
     bool atmegaAlive = (lastPongMs > 0) &&
                        (millis() - lastPongMs < ATMEGA_ALIVE_TIMEOUT_MS);
-    DBG.print(F("[HB] WiFi:"));
-    DBG.print(WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString() : "--");
-    DBG.print(F(" State:"));
-    DBG.print(stateStr);
-    DBG.print(F(" ATmega:"));
-    DBG.println(atmegaAlive ? F("OK") : F("DEAD"));
+    busDbg("HB up=%lu wifi=%s rssi=%d heap=%u frag=%u%% state=%s atmega=%s",
+           millis() / 1000,
+           WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString().c_str() : "--",
+           WiFi.RSSI(), ESP.getFreeHeap(), ESP.getHeapFragmentation(),
+           stateStr, atmegaAlive ? "OK" : "DEAD");
     Serial.println(F("PING"));
   }
 }
@@ -196,7 +260,7 @@ void processSerial() {
         DBG.println(F("[ESP] Schließen"));
         sendLED(true, true, true);   // alle LEDs = Closing
         Serial.println(F("MOTOR:CLOSE"));
-        waitMotorOK();
+        waitMotorOK(true, true, true);
         retryCount = 0;
         lastUid[0] = '\0';
         sendLED(false, true, false);  // zurück zu Gelb
@@ -214,8 +278,17 @@ void processSerial() {
 // ─────────────────────────────────────────────────────────
 
 void handleRFID(const char* uid) {
-  DBG.print(F("[ESP] RFID: "));
-  DBG.println(uid);
+  busDbg("[ESP] RFID: %s", uid);
+
+  // Gehaltene Karte wird vom ATmega nach PCD_Init() ~1-2s später erneut
+  // erkannt und landet als zweites RFID-Event im ESP-RX-Buffer. Ohne Cooldown
+  // würde processSerial() es noch in derselben while-Iteration verarbeiten
+  // → zweites MOTOR:OPEN. lastGrantedMs wird nach waitMotorOK() gesetzt.
+  static unsigned long lastGrantedMs = 0;
+  if (strcmp(uid, lastUid) == 0 && millis() - lastGrantedMs < RFID_GRANT_COOLDOWN_MS) {
+    busDbg("[ESP] RFID Duplikat, ignoriert");
+    return;
+  }
 
   if (strcmp(uid, lastUid) == 0) {
     retryCount++;
@@ -229,7 +302,7 @@ void handleRFID(const char* uid) {
   char result = checkServer(uid);
 
   if (result == 1) {
-    DBG.println(F("[ESP] Zugang gewährt"));
+    busDbg("[ESP] Zugang gewährt");
     strncpy(lastUid, uid, UID_BUF_LEN - 1);
     lastUid[UID_BUF_LEN - 1] = '\0';
 
@@ -240,18 +313,27 @@ void handleRFID(const char* uid) {
     }
     retryCount = 0;
 
-    waitMotorOK();
+    waitMotorOK(false, false, true);
+    lastGrantedMs = millis();  // Debounce-Fenster ab jetzt (nach Motor, vor Buzzer)
 
-    // Buzzer + Grün für 2s
+    // Buzzer + Grün blinkend für 2s
     Serial.println(F("BUZZ:1"));
-    sendLED(false, false, true);
-
-    unsigned long t = millis();
-    while (millis() - t < BUZZ_DURATION_MS) {
-      ESP.wdtFeed();
-      ArduinoOTA.handle();
-      MDNS.update();
-      delay(20);
+    {
+      bool blinkState = true;
+      unsigned long blinkAt = millis();
+      sendLED(false, false, true);
+      unsigned long buzzStart = millis();
+      while (millis() - buzzStart < BUZZ_DURATION_MS) {
+        ESP.wdtFeed();
+        ArduinoOTA.handle();
+        MDNS.update();
+        if (millis() - blinkAt >= 300) {
+          blinkAt = millis();
+          blinkState = !blinkState;
+          sendLED(false, false, blinkState);
+        }
+        delay(20);
+      }
     }
 
     Serial.println(F("BUZZ:0"));
@@ -260,11 +342,11 @@ void handleRFID(const char* uid) {
 
   } else {
     if (result == 0) {
-      DBG.println(F("[ESP] Karte abgelehnt"));
+      busDbg("[ESP] Karte abgelehnt");
       retryCount = 0;
       lastUid[0] = '\0';
     } else {
-      DBG.println(F("[ESP] Server nicht erreichbar"));
+      busDbg("[ESP] Server nicht erreichbar");
     }
     resetEnteredAt = millis();
     currentState = RESET;
@@ -277,9 +359,13 @@ void handleRFID(const char* uid) {
 // ArduinoOTA und mDNS laufen weiter.
 // ─────────────────────────────────────────────────────────
 
-bool waitMotorOK() {
+bool waitMotorOK(bool ledR, bool ledY, bool ledG) {
   static char buf[20];
   static uint8_t pos = 0;
+
+  bool blinkState = true;
+  unsigned long blinkAt = millis();
+  sendLED(ledR, ledY, ledG);
 
   unsigned long deadline = millis() + MOTOR_WAIT_TIMEOUT_MS;
 
@@ -287,6 +373,14 @@ bool waitMotorOK() {
     ESP.wdtFeed();
     ArduinoOTA.handle();
     MDNS.update();
+
+    if (millis() - blinkAt >= 300) {
+      blinkAt = millis();
+      blinkState = !blinkState;
+      sendLED(blinkState ? ledR : false,
+              blinkState ? ledY : false,
+              blinkState ? ledG : false);
+    }
 
     while (Serial.available()) {
       char c = Serial.read();
@@ -327,7 +421,7 @@ char checkServer(const char* rfid) {
   auto onNetFail = [&]() {
     if (++consecutiveFails >= 3) {
       consecutiveFails = 0;
-      DBG.println(F("[HTTP] WiFi-Stack-Reset nach 3 Fehlern"));
+      busDbg("[HTTP] WiFi-Stack-Reset nach 3 Fehlern");
       WiFi.disconnect();
     }
   };
@@ -339,14 +433,16 @@ char checkServer(const char* rfid) {
 
   ESP.wdtFeed();
   if (WiFi.hostByName(SERVER_IP, serverAddr) != 1) {
-    DBG.println(F("[HTTP] DNS fehlgeschlagen"));
+    busDbg("[HTTP] DNS fehlgeschlagen");
     onNetFail(); return -1;
   }
 
   ESP.wdtFeed();
   client.setTimeout(3000);
-  if (!client.connect(serverAddr, 80)) {
-    DBG.println(F("[HTTP] Verbindung fehlgeschlagen"));
+  unsigned long connStart = millis();
+  bool connOk = client.connect(serverAddr, 80);
+  busDbg("[HTTP] connect dt=%lu ok=%d", millis() - connStart, connOk);
+  if (!connOk) {
     onNetFail(); return -1;
   }
 
@@ -384,11 +480,53 @@ char checkServer(const char* rfid) {
   }
   client.stop();
 
-  DBG.print(F("[HTTP] Antwort: "));
-  DBG.println(message);
+  busDbg("[HTTP] Antwort: %s", message);
 
   consecutiveFails = 0;
   return strstr(message, "true") != nullptr ? 1 : 0;
+}
+
+// ─────────────────────────────────────────────────────────
+// Periodischer Server-Reachability-Check, unabhängig von RFID-Scans.
+// checkServer() (oben) wird nur bei einem Scan aufgerufen — nachts passiert
+// das nicht, d.h. ohne diesen Check gibt es nachts keine Recovery, falls
+// Server/WiFi in einen schlechten Zustand geraten. Nach mehreren
+// aufeinanderfolgenden Fehlversuchen: ESP.restart() (voller Reset von
+// WiFi-Stack/Heap), nur wenn die Tür gerade nicht bedient wird.
+// ─────────────────────────────────────────────────────────
+
+void checkServerHealth() {
+  static unsigned long lastCheck = 0;
+  static uint8_t fails = 0;
+
+  if (millis() - lastCheck < SERVER_HEALTHCHECK_INTERVAL_MS) return;
+  lastCheck = millis();
+  if (WiFi.status() != WL_CONNECTED || currentState != STANDBY) return;
+
+  IPAddress serverAddr;
+  ESP.wdtFeed();
+  bool ok = WiFi.hostByName(SERVER_IP, serverAddr) == 1;
+  if (ok) {
+    WiFiClient client;
+    client.setTimeout(3000);
+    unsigned long t = millis();
+    ok = client.connect(serverAddr, 80);
+    busDbg("HEALTH connect dt=%lu ok=%d", millis() - t, ok);
+    client.stop();
+  } else {
+    busDbg("HEALTH dns fail");
+  }
+
+  if (ok) {
+    fails = 0;
+  } else if (++fails >= SERVER_HEALTHCHECK_FAIL_THRESHOLD) {
+    busDbg("HEALTH restart after %u fails", fails);
+    Serial.flush();
+    delay(100);
+    ESP.restart();
+  } else {
+    busDbg("HEALTH fail x%u", fails);
+  }
 }
 
 // ─────────────────────────────────────────────────────────
@@ -401,8 +539,7 @@ bool connectWiFi(unsigned long timeoutMs, bool blinkLed) {
 
   do {
     if (attempt > 0) {
-      Serial.print(F("[WiFi] Retry "));
-      Serial.println(attempt + 1);
+      busDbg("[WiFi] Retry %d", attempt + 1);
       if (blinkLed) { sendLED(true, false, false); delay(300); }  // kurz rot = Retry
     }
     attempt++;
@@ -435,9 +572,9 @@ void startNetServices() {
     // Callbacks nur einmalig registrieren
     ArduinoOTA.setHostname(OTA_HOSTNAME);
     ArduinoOTA.onStart([]()  { ESP.wdtFeed(); });
-    ArduinoOTA.onEnd([]()    { DBG.println(F("[OTA] Fertig")); });
+    ArduinoOTA.onEnd([]()    { busDbg("[OTA] Fertig"); });
     ArduinoOTA.onError([](ota_error_t e) {
-      DBG.print(F("[OTA] Fehler ")); DBG.println(e);
+      busDbg("[OTA] Fehler %d", e);
     });
     netStarted = true;
   }
@@ -446,8 +583,7 @@ void startNetServices() {
   MDNS.begin(OTA_HOSTNAME);
   ArduinoOTA.begin();
 
-  DBG.print(F("[OTA] Bereit: "));
-  DBG.println(WiFi.localIP());
+  busDbg("[OTA] Bereit: %s", WiFi.localIP().toString().c_str());
 }
 
 // ─────────────────────────────────────────────────────────
@@ -464,20 +600,17 @@ void wifiReconnect() {
   lastAttempt = millis();
 
   if (!connected) {
-    DBG.print(F("[WiFi] Verbinde mit: "));    DBG.println(WIFI_SSID);
-    Serial.print(F("[WiFi] Verbinde mit: ")); Serial.println(WIFI_SSID);
+    busDbg("[WiFi] Verbinde mit: %s", WIFI_SSID);
     connectWiFi(8000, true);
     connected = WiFi.status() == WL_CONNECTED;
     if (!connected) {
       sendLED(true, false, false);  // rot = kein WiFi, bleibt bis Reconnect klappt
-      DBG.println(F("[WiFi] FEHLGESCHLAGEN"));
-      Serial.println(F("[WiFi] FEHLGESCHLAGEN"));
+      busDbg("[WiFi] FEHLGESCHLAGEN");
     }
   }
 
   if (connected && WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
-    DBG.println(F("[WiFi] Warte auf DHCP..."));
-    Serial.println(F("[WiFi] Warte auf DHCP..."));
+    busDbg("[WiFi] Warte auf DHCP...");
     unsigned long t = millis();
     while (WiFi.localIP() == IPAddress(0, 0, 0, 0) && millis() - t < 5000UL) {
       ESP.wdtFeed();
@@ -487,8 +620,8 @@ void wifiReconnect() {
   }
 
   if (WiFi.status() == WL_CONNECTED && WiFi.localIP() != IPAddress(0, 0, 0, 0)) {
-    DBG.print(F("[WiFi] Online: "));    DBG.println(WiFi.localIP());
-    Serial.print(F("[WiFi] Online: ")); Serial.println(WiFi.localIP());
+    busDbg("[WiFi] Online: %s", WiFi.localIP().toString().c_str());
+    syncTime();
     sendLED(false, false, true);  // grün = online
     delay(500);
     startNetServices();  // immer: mDNS + OTA nach (Re-)Connect neu starten
