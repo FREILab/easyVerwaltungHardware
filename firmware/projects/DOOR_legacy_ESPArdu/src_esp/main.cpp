@@ -82,7 +82,7 @@ int  retryCount = 0;
 
 void sendLED(bool r, bool y, bool g);
 char checkServer(const char* rfid);
-bool waitMotorOK();
+bool waitMotorOK(bool ledR, bool ledY, bool ledG);
 void processSerial();
 void handleRFID(const char* uid);
 bool connectWiFi(unsigned long timeoutMs, bool blinkLed = false);
@@ -260,7 +260,7 @@ void processSerial() {
         DBG.println(F("[ESP] Schließen"));
         sendLED(true, true, true);   // alle LEDs = Closing
         Serial.println(F("MOTOR:CLOSE"));
-        waitMotorOK();
+        waitMotorOK(true, true, true);
         retryCount = 0;
         lastUid[0] = '\0';
         sendLED(false, true, false);  // zurück zu Gelb
@@ -279,6 +279,16 @@ void processSerial() {
 
 void handleRFID(const char* uid) {
   busDbg("[ESP] RFID: %s", uid);
+
+  // Gehaltene Karte wird vom ATmega nach PCD_Init() ~1-2s später erneut
+  // erkannt und landet als zweites RFID-Event im ESP-RX-Buffer. Ohne Cooldown
+  // würde processSerial() es noch in derselben while-Iteration verarbeiten
+  // → zweites MOTOR:OPEN. lastGrantedMs wird nach waitMotorOK() gesetzt.
+  static unsigned long lastGrantedMs = 0;
+  if (strcmp(uid, lastUid) == 0 && millis() - lastGrantedMs < RFID_GRANT_COOLDOWN_MS) {
+    busDbg("[ESP] RFID Duplikat, ignoriert");
+    return;
+  }
 
   if (strcmp(uid, lastUid) == 0) {
     retryCount++;
@@ -303,18 +313,27 @@ void handleRFID(const char* uid) {
     }
     retryCount = 0;
 
-    waitMotorOK();
+    waitMotorOK(false, false, true);
+    lastGrantedMs = millis();  // Debounce-Fenster ab jetzt (nach Motor, vor Buzzer)
 
-    // Buzzer + Grün für 2s
+    // Buzzer + Grün blinkend für 2s
     Serial.println(F("BUZZ:1"));
-    sendLED(false, false, true);
-
-    unsigned long t = millis();
-    while (millis() - t < BUZZ_DURATION_MS) {
-      ESP.wdtFeed();
-      ArduinoOTA.handle();
-      MDNS.update();
-      delay(20);
+    {
+      bool blinkState = true;
+      unsigned long blinkAt = millis();
+      sendLED(false, false, true);
+      unsigned long buzzStart = millis();
+      while (millis() - buzzStart < BUZZ_DURATION_MS) {
+        ESP.wdtFeed();
+        ArduinoOTA.handle();
+        MDNS.update();
+        if (millis() - blinkAt >= 300) {
+          blinkAt = millis();
+          blinkState = !blinkState;
+          sendLED(false, false, blinkState);
+        }
+        delay(20);
+      }
     }
 
     Serial.println(F("BUZZ:0"));
@@ -340,9 +359,13 @@ void handleRFID(const char* uid) {
 // ArduinoOTA und mDNS laufen weiter.
 // ─────────────────────────────────────────────────────────
 
-bool waitMotorOK() {
+bool waitMotorOK(bool ledR, bool ledY, bool ledG) {
   static char buf[20];
   static uint8_t pos = 0;
+
+  bool blinkState = true;
+  unsigned long blinkAt = millis();
+  sendLED(ledR, ledY, ledG);
 
   unsigned long deadline = millis() + MOTOR_WAIT_TIMEOUT_MS;
 
@@ -350,6 +373,14 @@ bool waitMotorOK() {
     ESP.wdtFeed();
     ArduinoOTA.handle();
     MDNS.update();
+
+    if (millis() - blinkAt >= 300) {
+      blinkAt = millis();
+      blinkState = !blinkState;
+      sendLED(blinkState ? ledR : false,
+              blinkState ? ledY : false,
+              blinkState ? ledG : false);
+    }
 
     while (Serial.available()) {
       char c = Serial.read();

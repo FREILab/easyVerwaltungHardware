@@ -24,6 +24,12 @@
 // Kein PONG nach N Heartbeats → "DEAD" im Log
 #define ATMEGA_ALIVE_TIMEOUT_MS  (HEARTBEAT_INTERVAL_MS * 3UL)
 
+// --- RFID Debounce ---
+// MFRC522 + ATmega erkennen eine gehaltene Karte nach PCD_Init() ~1-2s erneut.
+// Ohne Cooldown landet ein zweites RFID-Event im ESP-RX-Buffer und löst
+// ein zweites MOTOR:OPEN aus noch während handleRFID() läuft.
+#define RFID_GRANT_COOLDOWN_MS    3000UL
+
 // --- Server-Erreichbarkeits-Check (unabhängig von RFID-Scans) ---
 // Schließt die Lücke, dass checkServer() nachts nie aufgerufen wird,
 // weil dafür ein RFID-Scan nötig ist.
