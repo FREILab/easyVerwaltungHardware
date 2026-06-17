@@ -30,6 +30,9 @@
 #include <avr/wdt.h>
 #include "settings.h"
 
+// Debug-Nachrichten an ESP senden (werden dort per busDbg() an Telnet weitergeleitet)
+#define atmDbg(msg) Serial.println(F("ATMDBG:" msg))
+
 // --- Pin-Definitionen (identisch zum Original) ---
 #define PIN_STEP          2
 #define PIN_DIR           3
@@ -74,6 +77,10 @@ void pollReed();
 // ─────────────────────────────────────────────────────────
 
 void setup() {
+  // MCUSR vor wdt_enable() sichern und direkt löschen (AVR-Pflicht)
+  uint8_t mcusr = MCUSR;
+  MCUSR = 0;
+
   pinMode(PIN_SR_SER,       OUTPUT);
   pinMode(PIN_SR_RCLK,      OUTPUT);
   pinMode(PIN_SR_SRCLK,     OUTPUT);
@@ -93,6 +100,14 @@ void setup() {
 
   // ESP8266 braucht ~2-3s zum Booten — warten damit keine Events verloren gehen
   delay(3000);
+
+  // Boot-Grund aus MCUSR melden (wurde vor wdt_enable gesichert)
+  const char* reason = (mcusr & (1 << WDRF))  ? "WDT"
+                     : (mcusr & (1 << EXTRF)) ? "EXT"
+                     : (mcusr & (1 << BORF))  ? "BOD"
+                                              : "POR";
+  Serial.print(F("ATMDBG:BOOT reason="));
+  Serial.println(reason);
 
   srYellow = false;
   updateSR();
@@ -164,8 +179,18 @@ void processIncoming() {
 // ─────────────────────────────────────────────────────────
 
 void pollRFID() {
+  // Periodisch re-initialisieren: MFRC522 kann lautlos einfrieren
+  static unsigned long lastReinit = 0;
+  if (millis() - lastReinit >= 30000UL) {
+    mfrc522.PCD_Init();
+    lastReinit = millis();
+    atmDbg("RFID reinit");
+  }
+
   char uid[UID_BUF_LEN];
   if (!readUID(uid, sizeof(uid))) return;
+  Serial.print(F("ATMDBG:RFID card="));
+  Serial.println(uid);
   Serial.print(F("RFID:"));
   Serial.println(uid);
 }
@@ -191,6 +216,7 @@ bool readUID(char* buf, uint8_t bufSize) {
 void pollButtons() {
   bool btn = digitalRead(PIN_ABSCHLIESSEN);
   if (lastBtnClose == HIGH && btn == LOW) {
+    atmDbg("BTN:CLOSE");
     Serial.println(F("BTN:CLOSE"));
   }
   lastBtnClose = btn;
@@ -203,6 +229,8 @@ void pollButtons() {
 void pollReed() {
   bool reed = digitalRead(PIN_REED);
   if (reed != lastReed) {
+    Serial.print(F("ATMDBG:REED="));
+    Serial.println(reed == LOW ? '1' : '0');
     Serial.print(F("REED:"));
     Serial.println(reed == LOW ? '1' : '0');
     lastReed = reed;

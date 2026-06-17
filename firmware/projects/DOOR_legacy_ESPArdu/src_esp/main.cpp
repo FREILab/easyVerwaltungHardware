@@ -253,6 +253,9 @@ void processSerial() {
       if (strcmp(buf, "PONG") == 0) {
         lastPongMs = millis();
 
+      } else if (strncmp(buf, "ATMDBG:", 7) == 0) {
+        busDbg("[ATM] %s", buf + 7);
+
       } else if (strncmp(buf, "RFID:", 5) == 0 && currentState == STANDBY) {
         handleRFID(buf + 5);
 
