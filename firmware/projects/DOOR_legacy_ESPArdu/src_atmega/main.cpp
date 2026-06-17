@@ -179,12 +179,14 @@ void processIncoming() {
 // ─────────────────────────────────────────────────────────
 
 void pollRFID() {
-  // Periodisch re-initialisieren: MFRC522 kann lautlos einfrieren
-  static unsigned long lastReinit = 0;
-  if (millis() - lastReinit >= 30000UL) {
-    mfrc522.PCD_Init();
-    lastReinit = millis();
-    atmDbg("RFID reinit");
+  static unsigned long lastHealthCheck = 0;
+  if (millis() - lastHealthCheck >= 5000UL) {
+    lastHealthCheck = millis();
+    byte v = mfrc522.PCD_ReadRegister(MFRC522::VersionReg);
+    if (v == 0x00 || v == 0xFF) {
+      mfrc522.PCD_Init();
+      atmDbg("RFID reinit dead");
+    }
   }
 
   char uid[UID_BUF_LEN];
