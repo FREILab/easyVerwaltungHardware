@@ -18,3 +18,7 @@ firmware/projects/RFID_BOX_easyVerwaltung/build/
 # Smart Terminal — lokale Dev-Config (printers.example.json bleibt getrackt)
 software/SmartTerminal_3D_Print/config/printers.dev.json
 software/SmartTerminal_3D_Print/config/terminal.env
+hardware/projects/RFID_BOX_Legacy/eCAD/fp-info-cache
+hardware/projects/RFID_BOX_Legacy/eCAD/fp-lib-table
+/hardware/projects/RFID_BOX_Legacy/eCAD/production/backups
+/hardware/projects/RFID_BOX_Legacy/eCAD/RFID_Platine-backups
