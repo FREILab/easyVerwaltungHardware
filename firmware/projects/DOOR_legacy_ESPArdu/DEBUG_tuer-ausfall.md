@@ -195,7 +195,15 @@ Im Telnet/SD-Log müssen jetzt regelmäßig `[ATM] ALIVE … ver=91 tx=83`-Zeile
 `ALIVE … FAULT`-Zeile den RC522-Registerzustand direkt — dann wissen wir, ob der
 Hard-Reset das Frontend nicht heilt (→ Hardware/Power) oder ob es an etwas anderem liegt.
 
+### Status
+- **tuer-01: geflasht & verifiziert (2026-07-02)** — Telnet zeigt `[ATM] ALIVE n≈195
+  up=.. ver=92 tx=83` alle 5s, kein FAULT, atmega=OK. RC522 gesund, Heartbeat +
+  10s-Re-Init laufen. Baseline `n≈195` Loops/5s = gesunder Idle.
+- **tuer-02: noch flashen.**
+
 ### Offen / später
+- Bewährungsprobe: ob der Ausfall jetzt ausbleibt. Falls doch → `ALIVE … FAULT`-Zeile
+  im Log zeigt den RC522-Registerzustand direkt.
 - ESP-seitig per OTA: HEALTH-Restart entschärfen (nicht rebooten, wenn nur der Server
   weg ist), WiFi-Signal am Standort verbessern (−78 dBm).
 
