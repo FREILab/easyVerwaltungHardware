@@ -59,6 +59,7 @@ void setLED_ryg(bool led_red, bool led_yellow, bool led_green);
 void connectToWiFi(bool waitForConnection = false);
 void checkWiFiConnection();
 void initRFID();
+void rfidHardReset();
 bool perform_auth_check();
 int tryLoginID(String uid);
 String readID();
@@ -115,6 +116,7 @@ bool wifiConnectionStarted = false;
 const int TIME_GLITCH_FILTER_STOP = 100;  ///< 0.1s button debounce time
 const int TIME_GLITCH_FILTER_RFID = 3000; ///< 3s button debounce time
 const unsigned long WIFI_RECONNECT_INTERVAL_MS = 30000;
+const unsigned long RFID_REINIT_INTERVAL_MS = 10000; ///< Periodic RC522 hard-reset while idle (STANDBY only, never while machine runs)
 
 MFRC522 mfrc522(RFID_SS_PIN, RFID_RST_PIN);  ///< Instance of the RFID module
 
@@ -170,6 +172,10 @@ void setup() {
   // Logout button
   pinMode(BUTTON_STOP, INPUT_PULLUP);
 
+  // RC522 reset pin, needed so rfidHardReset() can drive it directly
+  pinMode(RFID_RST_PIN, OUTPUT);
+  digitalWrite(RFID_RST_PIN, HIGH);
+
   // set initial states
   digitalWrite(MACHINE_RELAY_PIN, LOW);  // Ensure machine is off initially
   setLED_ryg(1, 1, 1); // all LEDs on
@@ -210,11 +216,19 @@ void loop() {
 
   // Visual feedback based on state
   static bool relayWasOn = false;
+  static unsigned long lastRfidReinitMs = 0;
   switch (currentState) {
     case STANDBY:
       if (relayWasOn) { Log.notice("[loop] Relay OFF (state: STANDBY).\n"); relayWasOn = false; }
       digitalWrite(MACHINE_RELAY_PIN, LOW);
       setLED_ryg(0, 1, 0);
+      // Periodic RC522 hard-reset, only while idle: heals a glitched RF frontend
+      // ("alive but not reading") long before someone tries to badge in.
+      // Never runs in IDENTIFICATION/RUNNING/RESET, so an active session is untouched.
+      if (millis() - lastRfidReinitMs >= RFID_REINIT_INTERVAL_MS) {
+        lastRfidReinitMs = millis();
+        rfidHardReset();
+      }
       break;
     case IDENTIFICATION:
       if (relayWasOn) { Log.notice("[loop] Relay OFF (state: IDENTIFICATION).\n"); relayWasOn = false; }
@@ -396,6 +410,24 @@ void initRFID() {
   } else {
     Log.notice("[initRFID] Reader initialized. Firmware: 0x%02X\n", version);
   }
+}
+
+/**
+ * @brief Hard-resets the RC522 (RST pin low->high) and re-initializes it.
+ *
+ * A plain PCD_Init() only soft-resets the chip and can miss the case where
+ * the RC522's RF frontend has glitched (e.g. EMI) while VersionReg still
+ * reads a valid value. Only ever called from STANDBY, never while the
+ * machine is running, so it can't interrupt an active session.
+ */
+void rfidHardReset() {
+  digitalWrite(RFID_RST_PIN, LOW);
+  delayMicroseconds(10);
+  digitalWrite(RFID_RST_PIN, HIGH);
+  delay(50);
+  mfrc522.PCD_Init();
+  byte version = mfrc522.PCD_ReadRegister(mfrc522.VersionReg);
+  Log.verbose("[rfidHardReset] Re-init done. VersionReg=0x%02X\n", version);
 }
 
 /**

@@ -62,6 +62,9 @@ bool lastReed     = HIGH;
 
 static const uint8_t UID_BUF_LEN = 32;
 
+// --- ATmega-Loop-Zähler (für Selbst-Heartbeat) ---
+unsigned long loopCount = 0;
+
 // --- Forward Declarations ---
 void updateSR();
 bool readUID(char* buf, uint8_t bufSize);
@@ -71,6 +74,8 @@ void processIncoming();
 void pollRFID();
 void pollButtons();
 void pollReed();
+void rfidHardReset();
+void sendAtmegaHeartbeat();
 
 // ─────────────────────────────────────────────────────────
 // Setup
@@ -121,10 +126,12 @@ void setup() {
 
 void loop() {
   wdt_reset();
+  loopCount++;
   processIncoming();
   pollRFID();
   pollButtons();
   pollReed();
+  sendAtmegaHeartbeat();
 }
 
 // ─────────────────────────────────────────────────────────
@@ -179,14 +186,15 @@ void processIncoming() {
 // ─────────────────────────────────────────────────────────
 
 void pollRFID() {
-  static unsigned long lastHealthCheck = 0;
-  if (millis() - lastHealthCheck >= 5000UL) {
-    lastHealthCheck = millis();
-    byte v = mfrc522.PCD_ReadRegister(MFRC522::VersionReg);
-    if (v == 0x00 || v == 0xFF) {
-      mfrc522.PCD_Init();
-      atmDbg("RFID reinit dead");
-    }
+  // Unbedingtes volles Re-Init (Hard-Reset via RST-Pin) als Catch-all gegen einen
+  // still weggekippten RC522-Frontend: der Chip antwortet SPI-seitig weiter
+  // (VersionReg bleibt gültig), liest aber keine Karten mehr — genau der Ausfall
+  // vom 2026-06-30, den der alte VersionReg-Check NICHT erkennen konnte.
+  // PCD_Init() schreibt alle Register neu und schaltet die Antenne wieder ein.
+  static unsigned long lastReinit = 0;
+  if (millis() - lastReinit >= RFID_REINIT_INTERVAL_MS) {
+    lastReinit = millis();
+    rfidHardReset();
   }
 
   char uid[UID_BUF_LEN];
@@ -195,6 +203,51 @@ void pollRFID() {
   Serial.println(uid);
   Serial.print(F("RFID:"));
   Serial.println(uid);
+}
+
+// ─────────────────────────────────────────────────────────
+// RC522 Hard-Reset über den RST-Pin (gründlicher als der Soft-Reset, den
+// PCD_Init() im Normalfall macht). Danach volles PCD_Init(): alle Register
+// neu + PCD_AntennaOn(). ~55ms — unkritisch unter dem 4s-WDT.
+// ─────────────────────────────────────────────────────────
+
+void rfidHardReset() {
+  wdt_reset();
+  pinMode(RFID_RST_PIN, OUTPUT);
+  digitalWrite(RFID_RST_PIN, LOW);
+  delayMicroseconds(5);        // Datenblatt 8.8.1: >100ns, großzügig
+  digitalWrite(RFID_RST_PIN, HIGH);
+  delay(50);                   // 8.8.2: Oszillator-Startzeit
+  wdt_reset();
+  mfrc522.PCD_Init();          // Register neu + Antenne an
+}
+
+// ─────────────────────────────────────────────────────────
+// ATmega-Selbst-Heartbeat auf den Bus (vom ESP als DBG:[ATM] ... ins SD-Log
+// gespiegelt): beweist Loop-Liveness UND liefert RC522-Registerdiagnose.
+//   n   = Loop-Durchläufe seit letztem HB (Loop-Rate; Einbruch = blockiert)
+//   ver = VersionReg   (0x91/0x92 = ok, 0x00/0xFF = SPI tot)
+//   tx  = TxControlReg (Bit0/1 gesetzt = Antenne an; sonst Frontend aus)
+//   FAULT = ver/tx zeigen einen erkennbaren Defekt an
+// ─────────────────────────────────────────────────────────
+
+void sendAtmegaHeartbeat() {
+  static unsigned long lastHb = 0;
+  static unsigned long lastCount = 0;
+  if (millis() - lastHb < ATMEGA_HB_INTERVAL_MS) return;
+  lastHb = millis();
+
+  unsigned long d = loopCount - lastCount;
+  lastCount = loopCount;
+
+  byte ver = mfrc522.PCD_ReadRegister(MFRC522::VersionReg);
+  byte tx  = mfrc522.PCD_ReadRegister(MFRC522::TxControlReg);
+  bool faulted = (ver == 0x00 || ver == 0xFF) || ((tx & 0x03) != 0x03);
+
+  char line[72];
+  snprintf(line, sizeof(line), "ATMDBG:ALIVE n=%lu up=%lu ver=%02x tx=%02x%s",
+           d, millis() / 1000UL, ver, tx, faulted ? " FAULT" : "");
+  Serial.println(line);
 }
 
 bool readUID(char* buf, uint8_t bufSize) {
@@ -272,6 +325,8 @@ void runOpenDoor(bool forceOpen) {
   srMotorEnable = false;
   updateSR();
 
+  rfidHardReset();  // Stepper (EMV-Quelle) kann RC522-Frontend glitchen → nach Fahrt neu init
+
   Serial.println(timedOut ? F("MOTOR:TIMEOUT") : F("MOTOR:OK"));
 }
 
@@ -319,6 +374,8 @@ void runCloseDoor() {
 
   srMotorEnable = false;
   updateSR();
+
+  rfidHardReset();  // Stepper (EMV-Quelle) kann RC522-Frontend glitchen → nach Fahrt neu init
 
   if (!timedOut) {
     for (int i = 0; i < 2; i++) {
