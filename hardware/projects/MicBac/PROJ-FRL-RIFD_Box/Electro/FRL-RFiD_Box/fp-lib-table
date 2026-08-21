@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "MOD-DC_DC_Converters") (type "KiCad") (uri "C:/Users/BMB/Documents/MBB-GITHUB_PROJECTS/EasyVerwaltungHardware/easyVerwaltungHardware/hardware/projects/MicBac/PROJ-FRL-RIFD_Box/Electro/Libs/MOD-DC_DC_Converters") (options "") (descr ""))
+)

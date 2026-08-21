@@ -517,7 +517,17 @@
     "meta": {
       "version": 5
     },
-    "net_colors": null,
+    "net_colors": {
+      "+5V Bot": "rgb(255, 178, 0)",
+      "/+24V_RAC05_OUT": "rgb(154, 0, 255)",
+      "/+24V_RS6_+VIN": "rgb(209, 0, 255)",
+      "/230V_AC_FINDER_L (OUT)": "rgb(29, 255, 0)",
+      "/230V_AC_FINDER_N (OUT)": "rgb(0, 255, 30)",
+      "/230V_AC_RAC05_L (IN)": "rgb(202, 255, 0)",
+      "/230V_AC_RAC05_N (IN)": "rgb(220, 255, 0)",
+      "24_GND": "rgb(0, 156, 255)",
+      "GND": "rgb(0, 41, 255)"
+    },
     "netclass_assignments": null,
     "netclass_patterns": []
   },
@@ -661,7 +671,7 @@
         "uuid": "17f715cd-53cb-4c53-8111-8b028134a017"
       }
     ],
-    "used_designators": "",
+    "used_designators": "U2",
     "variants": []
   },
   "sheets": [
