@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Machine Node - Anforderungen</title>
+<style>
+@page { size: A4; margin: 15mm 14mm 16mm; }
+:root { --ink:#202a30; --muted:#637078; --line:#cfd8dc; --accent:#245b70; --head:#edf3f5; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ink); font-family:"Helvetica Neue", Arial, sans-serif; font-size:9pt; line-height:1.32; }
+h1 { margin:0 0 2mm; font-size:23pt; font-weight:700; letter-spacing:-.2px; }
+.subtitle { margin:0 0 7mm; color:var(--muted); font-size:10pt; }
+h2 { margin:8mm 0 3mm; padding-bottom:1.5mm; border-bottom:1.5px solid var(--accent); color:var(--accent); font-size:14pt; page-break-after:avoid; }
+h3 { margin:5mm 0 2mm; color:var(--accent); font-size:10.5pt; page-break-after:avoid; }
+p { margin:2mm 0; }
+ul { margin:2mm 0 3mm 5mm; padding-left:4mm; }
+li { margin:1mm 0; }
+.meta { display:flex; justify-content:space-between; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:2.5mm 0; margin-bottom:7mm; color:var(--muted); font-size:8pt; }
+table { width:100%; border-collapse:collapse; margin:2mm 0 5mm; font-size:8.2pt; page-break-inside:auto; }
+thead { display:table-header-group; }
+tr { page-break-inside:avoid; }
+th { background:var(--head); color:var(--accent); text-align:left; font-weight:700; }
+th, td { padding:2mm 2.2mm; border:1px solid var(--line); vertical-align:top; }
+.req th:first-child, .req td:first-child { width:11mm; }
+.req th:nth-child(2), .req td:nth-child(2) { width:34%; }
+.req td:first-child { color:var(--accent); font-weight:700; }
+.load th:first-child, .load td:first-child { width:38%; font-weight:600; }
+.small { color:var(--muted); font-size:8pt; }
+footer { position:fixed; bottom:-10mm; left:0; right:0; text-align:center; color:var(--muted); font-size:7.5pt; }
+</style>
+</head>
+<body>
+<footer>Machine Node / RFID_BOX · Dokumentrevision 1.0</footer>
+<h1>Machine Node – Anforderungen</h1>
+<p class="subtitle">Blackbox-Spezifikation für eine kompakte RFID-Maschinenfreigabe</p>
+<div class="meta"><span>Dokumentrevision 1.0</span><span>Aktuelle Auslegung</span><span>Stand: Anforderungen</span></div>
+
+<h2>1. Energie und Schalten</h2>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>E1</td><td>Das Gerät wird mit 230 V AC versorgt.</td><td>Eindeutig beschrifteter Netz-Eingang und definierter Startzustand.</td></tr>
+<tr><td>E2</td><td>Das Gerät schaltet einen 230-V-Ausgang aus derselben Versorgung.</td><td>Nach Start, Reset und Fehlerzustand ist der Ausgang AUS. Bei Kommunikationsverlust gilt das konfigurierte Maschinenprofil.</td></tr>
+<tr><td>E3</td><td>Der 230-V-Ausgang ist für eine definierte Last abgesichert.</td><td>Die Auslegung zielt auf 8 A Dauerlast; Sicherung, Lastschalter, Leiterbahnen, Klemmen und Thermik werden gemeinsam geprüft.</td></tr>
+<tr><td>E4</td><td>Potentialfreier Schaltausgang C / NO / NC für 24 V DC / 1 A.</td><td>Extern eingespeistes 24-V-Signal schaltbar; keine interne 24-V-Quelle.</td></tr>
+<tr><td>E5</td><td>Es gibt keinen Not-Aus- oder Not-Halt-Schalter.</td><td>Der Stopp-Taster ist eine normale Bedienfunktion und kein Personenschutz.</td></tr>
+<tr><td>E6</td><td>Ein normaler Stopp beendet die Arbeitsfreigabe und startet bei Bedarf eine Nachlaufsequenz.</td><td>Der Stopp wird sofort angezeigt. Ausgänge können je Maschinenprofil kontrolliert nachlaufen.</td></tr>
+<tr><td>E7</td><td>Kommunikationsverlust hat ein konfigurierbares Verhalten.</td><td>Laufende Freigaben dürfen je nach Profil und Timeout weiterlaufen; neue Freigaben bleiben ohne Serverantwort gesperrt.</td></tr>
+<tr><td>E8</td><td>Zwei galvanisch getrennte, optoisolierte NAMUR-Ausgänge.</td><td>OUT_A+/- und OUT_B+/- arbeiten jeweils als 24-V-DC-/4-mA-Schnittstelle.</td></tr>
+</tbody></table>
+
+<h3>Lastklasse</h3>
+<p>Der direkte 230-V-Ausgang ist auf 8 A Dauerlast bei 230 V AC ausgelegt, ungefähr 1,84 kW. 16 A wird nicht als direkte Dauerlast zugesagt. Bei hohen Motor-Anlaufströmen ist ein externes Schütz vorzusehen.</p>
+<table class="load"><thead><tr><th>Beispiel-Last</th><th>Bewertung</th></tr></thead><tbody>
+<tr><td>3D-Drucker</td><td>Ca. 0,5–2 A, direkt geeignet.</td></tr>
+<tr><td>Desktop-CNC</td><td>Ca. 2–6 A, Anlaufstrom prüfen.</td></tr>
+<tr><td>Standfräse, kleine Drehmaschine, jeweils ca. 800 W</td><td>Ca. 3,5 A Nennstrom, direkte Zielanwendung; Anlaufstrom und Dauerbetrieb prüfen.</td></tr>
+<tr><td>Kleine Bandsäge oder Kreissäge</td><td>Hoher Anlaufstrom, externes Schütz bevorzugt.</td></tr>
+</tbody></table>
+
+<h2>2. Authentifizierung und Bedienung</h2>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>B1</td><td>Nutzer können sich per RFID authentifizieren.</td><td>Gültige Karte wird gelesen, ungültige Karte abgewiesen.</td></tr>
+<tr><td>B2</td><td>Die Freigabe wird gegen ein konfiguriertes Backend bestätigt.</td><td>Während der Übergangsphase sind easyVerwaltung oder Legacy-System möglich. Ohne gültige Antwort keine neue Freigabe.</td></tr>
+<tr><td>B3</td><td>Der Stopp-Taster ist von außen erreichbar.</td><td>Er beendet die Arbeitsfreigabe und löst die konfigurierte Nachlaufsequenz aus.</td></tr>
+<tr><td>B4</td><td>Das Gerät reagiert lokal auch bei Netzwerklast.</td><td>RFID, Stopp und Rückmeldung bleiben bedienbar; Stopp hat Vorrang.</td></tr>
+<tr><td>B5</td><td>Während der Freigabe wird der Name des verantwortlichen Nutzers angezeigt.</td><td>Der Klarname, z. B. „Max Mustermann“, bleibt während Freigabe und Nachlauf sichtbar.</td></tr>
+<tr><td>B6</td><td>Always-on-Modus für eingesteckte RFID-Karten.</td><td>Die Maschine bleibt freigegeben, solange die autorisierte Karte im geschützten Kartenfach erkannt wird.</td></tr>
+<tr><td>B7</td><td>Kartenpräsenz ohne mechanischen Präsenzschalter.</td><td>Die Karte wird zyklisch über RFID geprüft; eine entfernte Karte beendet die Freigabe.</td></tr>
+</tbody></table>
+
+<h3>Nachlaufprofile</h3>
+<table class="load"><thead><tr><th>Anwendung</th><th>Nachlauf</th><th>Anforderung</th></tr></thead><tbody>
+<tr><td>Laser-Abluft</td><td>60 Sekunden</td><td>Unabhängiger Schaltkanal erforderlich.</td></tr>
+<tr><td>Bremse, beide FKS</td><td>10 Sekunden</td><td>Kontrollierter Nachlauf über den vorgesehenen Schaltkanal.</td></tr>
+</tbody></table>
+
+<h2>3. Anzeige und Rückmeldung</h2>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>A1</td><td>LED-Ring mit 12 adressierbaren RGB-LEDs.</td><td>Betrieb, Authentifizierung, Freigabe, Fehler und Stopp sind unterscheidbar.</td></tr>
+<tr><td>A2</td><td>OLED-Anzeige.</td><td>Status, Klarname und Always-on-Zustand bleiben in der Montageorientierung lesbar.</td></tr>
+<tr><td>A3</td><td>Summer.</td><td>Erfolg, Warnung, Fehler und Stopp sind akustisch unterscheidbar.</td></tr>
+<tr><td>A4</td><td>Responsive lokale Rückmeldung.</td><td>Anzeige und Summer reagieren innerhalb von 100 ms.</td></tr>
+<tr><td>A5</td><td>Verantwortlichkeit sichtbar.</td><td>Der Klarname des verantwortlichen Nutzers ist eindeutig dargestellt.</td></tr>
+<tr><td>A6</td><td>Aktive Kartenprüfung im Always-on-Modus.</td><td>Der LED-Ring zeigt ein dynamisches Muster bei wiederholten erfolgreichen Lesungen; ein statisches Freigabe-Licht reicht nicht.</td></tr>
+</tbody></table>
+
+<h2>4. Anschlüsse und optionale Lastmessung</h2>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>I1</td><td>Definierte Kabeldurchführungen für Netz, 230-V-Ausgang und I/O.</td><td>Kabel werden geschützt ins Gehäuse geführt; Terminals sind erst nach dem Öffnen erreichbar.</td></tr>
+<tr><td>I2</td><td>Betätigbare Federklemmen als bevorzugter Feldanschluss.</td><td>Anschluss ohne Spezialwerkzeug mit vorgesehenen Leitern.</td></tr>
+<tr><td>I3</td><td>Schraubklemmen als zweite Anschlussvariante.</td><td>Alternative passt in dasselbe Gehäusekonzept.</td></tr>
+<tr><td>I4</td><td>Optionale einfache Lastmessung.</td><td>Galvanisch getrennter Sensor erkennt LAST_AKTIV und LAST_AUS, keine Energieabrechnung.</td></tr>
+<tr><td>I5</td><td>Zwei optoisolierte NAMUR-Ausgänge.</td><td>OUT_A+/- und OUT_B+/-: jeweils 24 V DC / 4 mA, galvanisch getrennt.</td></tr>
+<tr><td>I6</td><td>Zusätzlicher galvanisch getrennter NAMUR-Eingang.</td><td>IN_NAMUR+/-: potentialfrei nutzbar; genaue NAMUR-Definition vor dem Schaltplan festlegen.</td></tr>
+</tbody></table>
+
+<h2>5. Umwelt und Montage</h2>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>U1</td><td>Grundlegender Schutz gegen Berührung, Fremdkörper und Spritzwasser.</td><td>Zielgehäuse IP34: feste Fremdkörper ab 2,5 mm und Spritzwasser aus allen Richtungen; nicht staubdicht.</td></tr>
+<tr><td>U2</td><td>Montage aufrecht, liegend oder in einem Winkel dazwischen.</td><td>Elektronik funktioniert in jeder vorgesehenen Einbaulage; OLED bleibt lesbar.</td></tr>
+<tr><td>U3</td><td>Kompaktes Gerät aus einem bis drei PCBs.</td><td>PCB-Stack realisierbar; Controller und Front dürfen zusammengelegt werden.</td></tr>
+<tr><td>U4</td><td>Weitgehend schraubenlose interne Montage.</td><td>PCBs, Frontfenster und Führungen werden gesteckt oder geklipst; nur außen wird verschraubt.</td></tr>
+<tr><td>U5</td><td>Eindeutige Sicherheits- und Kennwertbeschriftung.</td><td>Dauerhaft lesbar, von außen sichtbar und ohne Gehäuseöffnung verständlich.</td></tr>
+<tr><td>U6</td><td>IP-geschützte Gehäusevariante für eingesteckte RFID-Karten.</td><td>Karte kann ohne offenen Taster oder ungeschützte Gehäuseöffnung eingeführt und entnommen werden.</td></tr>
+<tr><td>U7</td><td>Befestigung von allen Seiten außer der Display-Front.</td><td>Verschraubung von hinten, seitlich, unten oder oben möglich; Display-Front bleibt frei.</td></tr>
+</tbody></table>
+
+<h2>6. Service und Fertigung</h2>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>S1</td><td>Feldterminals nach Öffnen mit normalem Werkzeug erreichbar.</td><td>Nach Lösen der äußeren Gehäuseschrauben sichtbar und bedienbar, ohne den Stack zu zerlegen.</td></tr>
+<tr><td>S2</td><td>Minimale interne Verdrahtung.</td><td>Keine losen Litzen, Handverkabelung oder handverlöteten Module.</td></tr>
+<tr><td>S3</td><td>Wartbare Power-/Schaltfunktion.</td><td>Power-PCB ohne Löten tauschbar oder wirtschaftlich komplett austauschbar.</td></tr>
+<tr><td>S4</td><td>SMD-fertigungsgerechte Baugruppe.</td><td>Bestückung, Prüfung und Service mit geringem Handarbeitsanteil.</td></tr>
+</tbody></table>
+
+<h3>Verbindliche Gehäusebeschriftung</h3>
+<ul>
+<li>„Bedienung nur nach Einweisung“</li>
+<li>„Achtung: 230 V AC“</li>
+<li>„Direkter 230-V-Ausgang: max. 8 A Dauerlast / ca. 1,84 kW“</li>
+<li>„Potentialfreier Kontakt: max. 24 V DC / 1 A“</li>
+<li>„OUT_A+/- / OUT_B+/-: je 24 V DC / 4 mA, optoisolierte NAMUR-Ausgänge“</li>
+<li>„IN_NAMUR+/-: galvanisch getrennter 24-V-NAMUR-Eingang“</li>
+<li>Hinweis: Der Stopp-Taster ist kein Not-Aus und kein Not-Halt.</li>
+</ul>
+<p class="small">Dokumentrevision 1.0. Sicherheitsabstände, Bauteilauswahl, Schaltvermögen, thermische Auslegung und Schutzmaßnahmen müssen vor dem Netzspannungsbetrieb fachlich geprüft werden.</p>
+</body>
+</html>
