@@ -30,48 +30,95 @@ footer { position:fixed; bottom:-10mm; left:0; right:0; text-align:center; color
 </style>
 </head>
 <body>
-<footer>Machine Node / RFID_BOX · Dokumentrevision 1.0</footer>
+<footer>Machine Node / RFID_BOX · Dokumentrevision 1.1</footer>
 <h1>Machine Node – Anforderungen</h1>
 <p class="subtitle">Blackbox-Spezifikation für eine kompakte RFID-Maschinenfreigabe</p>
-<div class="meta"><span>Dokumentrevision 1.0</span><span>Aktuelle Auslegung</span><span>Stand: Anforderungen</span></div>
+<div class="meta"><span>Dokumentrevision 1.1</span><span>Aktuelle Auslegung</span><span>Stand: Anforderungen</span></div>
+
+<h2>Changelog</h2>
+<ul>
+<li><strong>1.1</strong> – Boards auf MCU/I/O/RFID umbenannt, UI-Peripherie (OLED, LED-Ring, Summer, Stopp-Taster) vom RFID- auf das MCU-Board verlagert; I/O-Board in zwei exklusive Bestückvarianten (230V-Direktschaltung / potentialfrei 24V für externes Schütz) aufgeteilt; NAMUR-I/O als Bestückvariante eines neuen, generischen Extension Boards ausgelagert; Sicherungen auf gesockelte, werkzeuglos tauschbare Bauform umgestellt. Neues, eigenständiges E-Stop Extension Board (optional) ergänzt: einfaches Relais, dessen Kontakt in die Notaus-/Interlock-Schleife bzw. power-to-release-Bremsversorgung einer externen Maschine (z. B. FKS) eingeschleift wird. Q1 (Bestückvariante 230V) als elektromechanisches Relais festgelegt statt SMD-Schalter. Übersichts-Blockdiagramm ergänzt. Zielschutzart von IP34 auf IP64 angehoben (staubdicht, Holzwerkstatt); Kartenkanal mechanisch vom staubdichten Innenraum getrennt. „beide FKS“ auf „FKS“ korrigiert. <strong>Sicherheitsrelevante Korrektur der Stopp-Reihenfolge:</strong> Das E-Stop Extension Board (K3) unterbricht bei Stopp/Kartenentzug immer sofort die Notaus-Schleife der Maschine; die Hauptversorgung (Q1/K2) wird dagegen nie hart und sofort getrennt, sondern immer erst nach Ablauf der Nachlaufzeit abgeschaltet – auch nicht durch den Stopp-Taster. Die vorherige Fassung beschrieb das umgekehrt; dieses Verhalten hat in der Praxis bereits zu einem Maschinenschaden geführt, weil der Maschine die Energie für ihre eigene kontrollierte Bremsung fehlte. K3-Relais mit 24 V DC / 1 A spezifiziert. Programmierweg präzisiert: laufende Firmware-Updates primär per OTA über WLAN, interner USB-C-Anschluss (J4) nur für Erstprogrammierung/Debug.</li>
+<li><strong>1.0</strong> – Erste Fassung: kompakter Machine Node mit PCB-A (Controller), PCB-B (Power, inkl. 230V-Ausgang, potentialfreiem Kontakt und NAMUR-I/O) und PCB-C (RFID/UI) als gemeinsamem Stack.</li>
+</ul>
+
+<h2>Übersicht Boards</h2>
+<p class="small">Zur Orientierung: die Boards, auf die sich die Anforderungen unten beziehen. Gestrichelt = optional.</p>
+<svg viewBox="0 0 600 260" width="100%" style="max-height:70mm; margin:2mm 0 5mm;" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#637078"/>
+    </marker>
+  </defs>
+  <line x1="160" y1="130" x2="220" y2="130" stroke="#637078" stroke-width="1.5"/>
+  <line x1="360" y1="130" x2="420" y2="130" stroke="#637078" stroke-width="1.5"/>
+  <line x1="90" y1="95" x2="90" y2="68" stroke="#637078" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="90" y1="165" x2="90" y2="193" stroke="#637078" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <rect x="20" y="95" width="140" height="70" rx="4" fill="#edf3f5" stroke="#245b70" stroke-width="1.5"/>
+  <text x="90" y="115" text-anchor="middle" font-size="10" font-weight="700" fill="#245b70">I/O-Board</text>
+  <text x="90" y="130" text-anchor="middle" font-size="7.5" fill="#202a30">Netzeingang, Sicherungen,</text>
+  <text x="90" y="141" text-anchor="middle" font-size="7.5" fill="#202a30">230V-Relais 8A/1,84kW ODER</text>
+  <text x="90" y="152" text-anchor="middle" font-size="7.5" fill="#202a30">potentialfrei 24V 1A</text>
+
+  <rect x="220" y="95" width="140" height="70" rx="4" fill="#edf3f5" stroke="#245b70" stroke-width="1.5"/>
+  <text x="290" y="115" text-anchor="middle" font-size="10" font-weight="700" fill="#245b70">MCU-Board</text>
+  <text x="290" y="130" text-anchor="middle" font-size="7.5" fill="#202a30">ESP32-S3, OLED,</text>
+  <text x="290" y="141" text-anchor="middle" font-size="7.5" fill="#202a30">LED-Ring, Stopp-Taster,</text>
+  <text x="290" y="152" text-anchor="middle" font-size="7.5" fill="#202a30">Summer</text>
+
+  <rect x="420" y="95" width="140" height="70" rx="4" fill="#edf3f5" stroke="#245b70" stroke-width="1.5"/>
+  <text x="490" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#245b70">RFID-Board</text>
+  <text x="490" y="140" text-anchor="middle" font-size="7.5" fill="#202a30">PN532, Antenne</text>
+
+  <rect x="20" y="10" width="140" height="55" rx="4" fill="#fff" stroke="#637078" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="90" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="#637078">Extension Board</text>
+  <text x="90" y="39" text-anchor="middle" font-size="7" fill="#637078">(optional)</text>
+  <text x="90" y="50" text-anchor="middle" font-size="7" fill="#637078">NAMUR- ODER I/O (3V3)</text>
+
+  <rect x="20" y="193" width="140" height="55" rx="4" fill="#fff" stroke="#637078" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="90" y="216" text-anchor="middle" font-size="9" font-weight="700" fill="#637078">E-Stop Extension</text>
+  <text x="90" y="227" text-anchor="middle" font-size="7" fill="#637078">Board (optional)</text>
+  <text x="90" y="238" text-anchor="middle" font-size="7" fill="#637078">Notaus-Kontakt 24V 1A</text>
+</svg>
 
 <h2>1. Energie und Schalten</h2>
+<p>Das I/O-Board wird in zwei exklusiven Bestückvarianten gefertigt: entweder <strong>230V</strong> (direkter Lastausgang) oder <strong>24V potentialfrei</strong> (Kontakt für externes Schütz) – nie beide gleichzeitig.</p>
 <table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
-<tr><td>E1</td><td>Das Gerät wird mit 230 V AC versorgt.</td><td>Eindeutig beschrifteter Netz-Eingang und definierter Startzustand.</td></tr>
-<tr><td>E2</td><td>Das Gerät schaltet einen 230-V-Ausgang aus derselben Versorgung.</td><td>Nach Start, Reset und Fehlerzustand ist der Ausgang AUS. Bei Kommunikationsverlust gilt das konfigurierte Maschinenprofil.</td></tr>
-<tr><td>E3</td><td>Der 230-V-Ausgang ist für eine definierte Last abgesichert.</td><td>Die Auslegung zielt auf 8 A Dauerlast; Sicherung, Lastschalter, Leiterbahnen, Klemmen und Thermik werden gemeinsam geprüft.</td></tr>
-<tr><td>E4</td><td>Potentialfreier Schaltausgang C / NO / NC für 24 V DC / 1 A.</td><td>Extern eingespeistes 24-V-Signal schaltbar; keine interne 24-V-Quelle.</td></tr>
+<tr><td>E1</td><td>Das Gerät wird mit 230 V AC versorgt.</td><td>Eindeutig beschrifteter Netz-Eingang und definierter Startzustand, für beide Bestückvarianten.</td></tr>
+<tr><td>E2</td><td>Variante 230V: schaltet einen 230-V-Ausgang aus derselben Versorgung.</td><td>Nach Start, Reset und Fehlerzustand ist der Ausgang AUS. Bei Kommunikationsverlust gilt das konfigurierte Maschinenprofil.</td></tr>
+<tr><td>E3</td><td>Variante 230V: Ausgang ist für eine definierte Last abgesichert.</td><td>Die Auslegung zielt auf 8 A Dauerlast; Sicherung, Lastrelais, Leiterbahnen, Klemmen und Thermik werden gemeinsam geprüft.</td></tr>
+<tr><td>E4</td><td>Variante 24V potentialfrei: potentialfreier Schaltausgang C / NO / NC für 24 V DC / 1 A.</td><td>Extern eingespeistes 24-V-Signal schaltbar; keine interne 24-V-Quelle.</td></tr>
 <tr><td>E5</td><td>Es gibt keinen Not-Aus- oder Not-Halt-Schalter.</td><td>Der Stopp-Taster ist eine normale Bedienfunktion und kein Personenschutz.</td></tr>
-<tr><td>E6</td><td>Ein normaler Stopp beendet die Arbeitsfreigabe und startet bei Bedarf eine Nachlaufsequenz.</td><td>Der Stopp wird sofort angezeigt. Ausgänge können je Maschinenprofil kontrolliert nachlaufen.</td></tr>
+<tr><td>E6</td><td>Ein normaler Stopp beendet die Arbeitsfreigabe und startet bei Bedarf eine Nachlaufsequenz.</td><td>Der Stopp wird sofort als STOPPED angezeigt und löst, falls ein E-Stop Extension Board bestückt ist, sofort dessen Notaus-Kontakt aus. Die Versorgung (Schaltausgang I/O-Board) wird nicht hart sofort getrennt, sondern erst nach Ablauf der Nachlaufzeit — auch nicht durch den Stopp-Taster. Vorzeitiges Trennen kann die Maschine an ihrer eigenen kontrollierten Bremsung hindern und hat bereits zu einem Schaden geführt.</td></tr>
 <tr><td>E7</td><td>Kommunikationsverlust hat ein konfigurierbares Verhalten.</td><td>Laufende Freigaben dürfen je nach Profil und Timeout weiterlaufen; neue Freigaben bleiben ohne Serverantwort gesperrt.</td></tr>
-<tr><td>E8</td><td>Zwei galvanisch getrennte, optoisolierte NAMUR-Ausgänge.</td><td>OUT_A+/- und OUT_B+/- arbeiten jeweils als 24-V-DC-/4-mA-Schnittstelle.</td></tr>
 </tbody></table>
 
-<h3>Lastklasse</h3>
-<p>Der direkte 230-V-Ausgang ist auf 8 A Dauerlast bei 230 V AC ausgelegt, ungefähr 1,84 kW. 16 A wird nicht als direkte Dauerlast zugesagt. Bei hohen Motor-Anlaufströmen ist ein externes Schütz vorzusehen.</p>
+<h3>Lastklasse der Variante 230V</h3>
+<p>Der direkte 230-V-Ausgang ist auf 8 A Dauerlast bei 230 V AC ausgelegt, ungefähr 1,84 kW. 16 A wird nicht als direkte Dauerlast zugesagt. Bei hohen Motor-Anlaufströmen wird die Variante 24V potentialfrei mit externem Schütz bevorzugt.</p>
 <table class="load"><thead><tr><th>Beispiel-Last</th><th>Bewertung</th></tr></thead><tbody>
 <tr><td>3D-Drucker</td><td>Ca. 0,5–2 A, direkt geeignet.</td></tr>
 <tr><td>Desktop-CNC</td><td>Ca. 2–6 A, Anlaufstrom prüfen.</td></tr>
 <tr><td>Standfräse, kleine Drehmaschine, jeweils ca. 800 W</td><td>Ca. 3,5 A Nennstrom, direkte Zielanwendung; Anlaufstrom und Dauerbetrieb prüfen.</td></tr>
-<tr><td>Kleine Bandsäge oder Kreissäge</td><td>Hoher Anlaufstrom, externes Schütz bevorzugt.</td></tr>
+<tr><td>Kleine Bandsäge oder Kreissäge</td><td>Hoher Anlaufstrom, Variante 24V potentialfrei mit externem Schütz bevorzugt.</td></tr>
 </tbody></table>
 
 <h2>2. Authentifizierung und Bedienung</h2>
 <table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
 <tr><td>B1</td><td>Nutzer können sich per RFID authentifizieren.</td><td>Gültige Karte wird gelesen, ungültige Karte abgewiesen.</td></tr>
 <tr><td>B2</td><td>Die Freigabe wird gegen ein konfiguriertes Backend bestätigt.</td><td>Während der Übergangsphase sind easyVerwaltung oder Legacy-System möglich. Ohne gültige Antwort keine neue Freigabe.</td></tr>
-<tr><td>B3</td><td>Der Stopp-Taster ist von außen erreichbar.</td><td>Er beendet die Arbeitsfreigabe und löst die konfigurierte Nachlaufsequenz aus.</td></tr>
+<tr><td>B3</td><td>Der Stopp-Taster ist von außen erreichbar.</td><td>Er beendet die Arbeitsfreigabe sofort (inkl. sofortigem Notaus-Kontakt bei bestücktem E-Stop Extension Board) und löst die Nachlaufsequenz aus, bevor die Versorgung tatsächlich getrennt wird.</td></tr>
 <tr><td>B4</td><td>Das Gerät reagiert lokal auch bei Netzwerklast.</td><td>RFID, Stopp und Rückmeldung bleiben bedienbar; Stopp hat Vorrang.</td></tr>
 <tr><td>B5</td><td>Während der Freigabe wird der Name des verantwortlichen Nutzers angezeigt.</td><td>Der Klarname, z. B. „Max Mustermann“, bleibt während Freigabe und Nachlauf sichtbar.</td></tr>
-<tr><td>B6</td><td>Always-on-Modus für eingesteckte RFID-Karten.</td><td>Die Maschine bleibt freigegeben, solange die autorisierte Karte im geschützten Kartenfach erkannt wird.</td></tr>
-<tr><td>B7</td><td>Kartenpräsenz ohne mechanischen Präsenzschalter.</td><td>Die Karte wird zyklisch über RFID geprüft; eine entfernte Karte beendet die Freigabe.</td></tr>
+<tr><td>B6</td><td>Always-on-Modus für eingesteckte RFID-Karten.</td><td>Die Maschine bleibt freigegeben, solange die autorisierte Karte im Kartenfach erkannt wird.</td></tr>
+<tr><td>B7</td><td>Kartenpräsenz ohne mechanischen Präsenzschalter.</td><td>Die Karte wird zyklisch über RFID geprüft; eine entfernte Karte beendet die Freigabe und folgt derselben Sequenz wie ein Stopp (sofortiger Notaus-Kontakt, Versorgungstrennung erst nach Nachlaufzeit).</td></tr>
 </tbody></table>
 
 <h3>Nachlaufprofile</h3>
 <table class="load"><thead><tr><th>Anwendung</th><th>Nachlauf</th><th>Anforderung</th></tr></thead><tbody>
 <tr><td>Laser-Abluft</td><td>60 Sekunden</td><td>Unabhängiger Schaltkanal erforderlich.</td></tr>
-<tr><td>Bremse, beide FKS</td><td>10 Sekunden</td><td>Kontrollierter Nachlauf über den vorgesehenen Schaltkanal.</td></tr>
+<tr><td>Bremse, FKS</td><td>10 Sekunden</td><td>Kontrollierter Nachlauf über den vorgesehenen Schaltkanal.</td></tr>
 </tbody></table>
+<p class="small"><strong>Wichtig, Reihenfolge bei Stopp/Kartenentzug (z. B. FKS):</strong> Erst öffnet — falls bestückt — sofort und hardwareseitig der Notaus-Kontakt des E-Stop Extension Boards (in die Notaus-/Interlock-Schleife der Maschine eingeschleift). Die Versorgung (I/O-Board-Ausgang, z. B. potentialfreier Kontakt zum externen 400-V-Schütz) bleibt bestehen und wird erst nach Ablauf der Nachlaufzeit abgeschaltet. Diese Reihenfolge gilt bei Stopp-Taster und bei Kartenentzug gleichermaßen. Ein zu frühes, hartes Trennen der Versorgung hat bereits zu einem Maschinenschaden geführt, weil der Maschine die Energie für ihre eigene kontrollierte Bremsung fehlte.</p>
 
 <h2>3. Anzeige und Rückmeldung</h2>
 <table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
@@ -85,22 +132,39 @@ footer { position:fixed; bottom:-10mm; left:0; right:0; text-align:center; color
 
 <h2>4. Anschlüsse und optionale Lastmessung</h2>
 <table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
-<tr><td>I1</td><td>Definierte Kabeldurchführungen für Netz, 230-V-Ausgang und I/O.</td><td>Kabel werden geschützt ins Gehäuse geführt; Terminals sind erst nach dem Öffnen erreichbar.</td></tr>
+<tr><td>I1</td><td>Definierte Kabeldurchführungen für Netz und den bestückten Schaltausgang.</td><td>Kabel werden geschützt ins Gehäuse geführt; Terminals sind erst nach dem Öffnen erreichbar.</td></tr>
 <tr><td>I2</td><td>Betätigbare Federklemmen als bevorzugter Feldanschluss.</td><td>Anschluss ohne Spezialwerkzeug mit vorgesehenen Leitern.</td></tr>
 <tr><td>I3</td><td>Schraubklemmen als zweite Anschlussvariante.</td><td>Alternative passt in dasselbe Gehäusekonzept.</td></tr>
-<tr><td>I4</td><td>Optionale einfache Lastmessung.</td><td>Galvanisch getrennter Sensor erkennt LAST_AKTIV und LAST_AUS, keine Energieabrechnung.</td></tr>
-<tr><td>I5</td><td>Zwei optoisolierte NAMUR-Ausgänge.</td><td>OUT_A+/- und OUT_B+/-: jeweils 24 V DC / 4 mA, galvanisch getrennt.</td></tr>
-<tr><td>I6</td><td>Zusätzlicher galvanisch getrennter NAMUR-Eingang.</td><td>IN_NAMUR+/-: potentialfrei nutzbar; genaue NAMUR-Definition vor dem Schaltplan festlegen.</td></tr>
+<tr><td>I4</td><td>Optionale einfache Lastmessung (nur Variante 230V).</td><td>Galvanisch getrennter Sensor erkennt LAST_AKTIV und LAST_AUS, keine Energieabrechnung.</td></tr>
+</tbody></table>
+<p class="small">Zusätzliche galvanisch getrennte I/O (NAMUR, Digital-I/O) ist kein Bestandteil des I/O-Boards mehr, sondern Bestückvariante des optionalen Extension Boards, siehe unten.</p>
+
+<h2>Extension Board (optional)</h2>
+<p>Steckbares, generisches Zusatzboard auf dem I/O-Board; ein Node trägt höchstens eine Bestückvariante.</p>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>X1</td><td>Steckbares Zusatzboard mit mehreren möglichen Bestückvarianten.</td><td>Identischer Formfaktor/Stecker für alle Varianten; I/O-Board funktioniert ohne Extension Board vollständig.</td></tr>
+<tr><td>X2</td><td>Bestückvariante NAMUR: zwei optoisolierte NAMUR-Ausgänge, ein NAMUR-Eingang.</td><td>OUT_A+/- und OUT_B+/-: je 24 V DC / 4 mA, galvanisch getrennt; IN_NAMUR+/-: potentialfrei nutzbar, galvanisch getrennt.</td></tr>
+<tr><td>X3</td><td>Bestückvariante Digital-I/O: einfache digitale Ein-/Ausgänge ohne NAMUR-Anforderung.</td><td>Beschaltung, Kanalzahl und Pegel werden vor dem zugehörigen Schaltplan festgelegt.</td></tr>
+</tbody></table>
+<p class="small">Die NAMUR-Variante wird für schätzungsweise 2 von 20 Nodes benötigt und ist deshalb bewusst kein Standardbestandteil.</p>
+
+<h2>E-Stop Extension Board (optional)</h2>
+<p>Eigenständiges Zusatzboard mit einfachem Relais (24 V DC / 1 A), dessen Kontakt in die Notaus-/Interlock-Schleife bzw. power-to-release-Bremsversorgung einer externen Maschine (z. B. FKS) eingeschleift wird. Trotz des Namens <strong>kein</strong> zertifiziertes Not-Aus-/Not-Halt-Bauteil.</p>
+<table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
+<tr><td>BR1</td><td>Schaltet ein einfaches Relais (24 V DC / 1 A) in die Notaus-/Interlock-Schleife bzw. Bremsversorgung der externen Maschine.</td><td>Extern eingespeister 24-V-Stromkreis mit max. 1 A schaltbar, galvanisch getrennt von Netz und Gerätesteuerung.</td></tr>
+<tr><td>BR2</td><td>Fail-safe: stromlos = Notaus-Schleife unterbrochen / Bremse aktiv.</td><td>Relais im Ruhezustand offen; erst ein aktives Freigabesignal schließt das Relais.</td></tr>
+<tr><td>BR3</td><td>Das Relais öffnet bei Stopp oder Kartenentzug immer sofort, unabhängig vom Nachlaufprofil.</td><td>Bei Stopp-Taster und bei Kartenentzug öffnet das Relais hardwareseitig sofort (&lt;100 ms). Die Versorgung der Maschine (I/O-Board-Ausgang) folgt dem nicht, sondern bleibt bis zum Ende der Nachlaufzeit bestehen.</td></tr>
+<tr><td>BR4</td><td>Modul ist klar als Nicht-Not-Aus-Bauteil gekennzeichnet.</td><td>Beschriftung und Dokumentation verweisen eindeutig darauf, dass kein Personenschutz-/Not-Halt-Bauteil vorliegt.</td></tr>
 </tbody></table>
 
 <h2>5. Umwelt und Montage</h2>
 <table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
-<tr><td>U1</td><td>Grundlegender Schutz gegen Berührung, Fremdkörper und Spritzwasser.</td><td>Zielgehäuse IP34: feste Fremdkörper ab 2,5 mm und Spritzwasser aus allen Richtungen; nicht staubdicht.</td></tr>
+<tr><td>U1</td><td>Staubdichter Schutz gegen Berührung und Spritzwasser.</td><td>Zielgehäuse IP64: staubdicht (Holzwerkstatt/Sägemehl) und Spritzwasser aus allen Richtungen; nicht strahlwasserdicht.</td></tr>
 <tr><td>U2</td><td>Montage aufrecht, liegend oder in einem Winkel dazwischen.</td><td>Elektronik funktioniert in jeder vorgesehenen Einbaulage; OLED bleibt lesbar.</td></tr>
-<tr><td>U3</td><td>Kompaktes Gerät aus einem bis drei PCBs.</td><td>PCB-Stack realisierbar; Controller und Front dürfen zusammengelegt werden.</td></tr>
+<tr><td>U3</td><td>Kompaktes Gerät aus einem bis vier PCBs (I/O, MCU, RFID, optional Extension Board).</td><td>PCB-Stack realisierbar; MCU- und RFID-Board dürfen zusammengelegt werden.</td></tr>
 <tr><td>U4</td><td>Weitgehend schraubenlose interne Montage.</td><td>PCBs, Frontfenster und Führungen werden gesteckt oder geklipst; nur außen wird verschraubt.</td></tr>
 <tr><td>U5</td><td>Eindeutige Sicherheits- und Kennwertbeschriftung.</td><td>Dauerhaft lesbar, von außen sichtbar und ohne Gehäuseöffnung verständlich.</td></tr>
-<tr><td>U6</td><td>IP-geschützte Gehäusevariante für eingesteckte RFID-Karten.</td><td>Karte kann ohne offenen Taster oder ungeschützte Gehäuseöffnung eingeführt und entnommen werden.</td></tr>
+<tr><td>U6</td><td>Kartenkanal mechanisch vom staubdichten Innenraum getrennt.</td><td>RFID-Erkennung ist berührungslos; eindringender Staub wird nach unten ausgeführt statt in den Elektronikraum zu gelangen.</td></tr>
 <tr><td>U7</td><td>Befestigung von allen Seiten außer der Display-Front.</td><td>Verschraubung von hinten, seitlich, unten oder oben möglich; Display-Front bleibt frei.</td></tr>
 </tbody></table>
 
@@ -108,20 +172,21 @@ footer { position:fixed; bottom:-10mm; left:0; right:0; text-align:center; color
 <table class="req"><thead><tr><th>ID</th><th>Anforderung</th><th>Abnahmekriterium</th></tr></thead><tbody>
 <tr><td>S1</td><td>Feldterminals nach Öffnen mit normalem Werkzeug erreichbar.</td><td>Nach Lösen der äußeren Gehäuseschrauben sichtbar und bedienbar, ohne den Stack zu zerlegen.</td></tr>
 <tr><td>S2</td><td>Minimale interne Verdrahtung.</td><td>Keine losen Litzen, Handverkabelung oder handverlöteten Module.</td></tr>
-<tr><td>S3</td><td>Wartbare Power-/Schaltfunktion.</td><td>Power-PCB ohne Löten tauschbar oder wirtschaftlich komplett austauschbar.</td></tr>
+<tr><td>S3</td><td>Wartbare Schaltfunktion des I/O-Boards.</td><td>I/O-Board ohne Löten tauschbar oder wirtschaftlich komplett austauschbar.</td></tr>
 <tr><td>S4</td><td>SMD-fertigungsgerechte Baugruppe.</td><td>Bestückung, Prüfung und Service mit geringem Handarbeitsanteil.</td></tr>
+<tr><td>S5</td><td>Sicherungen gesockelt und ohne Löten tauschbar.</td><td>F1, F2, F3 stecken in Sicherungshaltern; nach dem Öffnen des Gehäuses mit normalem Werkzeug tauschbar.</td></tr>
 </tbody></table>
 
 <h3>Verbindliche Gehäusebeschriftung</h3>
 <ul>
 <li>„Bedienung nur nach Einweisung“</li>
 <li>„Achtung: 230 V AC“</li>
-<li>„Direkter 230-V-Ausgang: max. 8 A Dauerlast / ca. 1,84 kW“</li>
-<li>„Potentialfreier Kontakt: max. 24 V DC / 1 A“</li>
-<li>„OUT_A+/- / OUT_B+/-: je 24 V DC / 4 mA, optoisolierte NAMUR-Ausgänge“</li>
-<li>„IN_NAMUR+/-: galvanisch getrennter 24-V-NAMUR-Eingang“</li>
+<li>Variante 230V: „Direkter 230-V-Ausgang: max. 8 A Dauerlast / ca. 1,84 kW“</li>
+<li>Variante 24V potentialfrei: „Potentialfreier Kontakt: max. 24 V DC / 1 A“</li>
+<li>Nur bei bestücktem Extension Board (NAMUR): „OUT_A+/- / OUT_B+/-: je 24 V DC / 4 mA, optoisolierte NAMUR-Ausgänge“ und „IN_NAMUR+/-: galvanisch getrennter 24-V-NAMUR-Eingang“</li>
+<li>Nur bei bestücktem E-Stop Extension Board: „J18: max. 24 V DC / 1 A, kein Not-Aus/Not-Halt-Bauteil, unterbricht sofort die Notaus-/Interlock-Schleife bzw. Bremsversorgung der Maschine; die Hauptversorgung trennt erst nach der Nachlaufzeit“</li>
 <li>Hinweis: Der Stopp-Taster ist kein Not-Aus und kein Not-Halt.</li>
 </ul>
-<p class="small">Dokumentrevision 1.0. Sicherheitsabstände, Bauteilauswahl, Schaltvermögen, thermische Auslegung und Schutzmaßnahmen müssen vor dem Netzspannungsbetrieb fachlich geprüft werden.</p>
+<p class="small">Dokumentrevision 1.1. Sicherheitsabstände, Bauteilauswahl, Schaltvermögen, thermische Auslegung und Schutzmaßnahmen müssen vor dem Netzspannungsbetrieb fachlich geprüft werden.</p>
 </body>
 </html>
