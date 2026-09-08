@@ -702,6 +702,8 @@ leistungsmessung hinzufügen.
 entweder einfacher ACS37800 oder günstigere(?) Schaltung mit MCP39F51A; Kostenaufstellung für beide machen inkl. isolierter supply, ziel Korridor 5€↓ bis 7€ pro board bei 30stück
 
 oled beispiel: EA W096016-XBLW (mouser) oder 64128K COG FA BW; am besten vermutlich sparkfun Herst.- Nr.:LCD-24606 - das lässt sich auf den deckel von innen schrauben und per kabel mit derm baord verbinden, kein FPC nötig oder komplexe boost schaltung
+weitere: O128O064DBPP3N0000 von vishay (überragende verfügbarkeit)
+DT010ATFT
 
 ## Nächste Artefakte
 
