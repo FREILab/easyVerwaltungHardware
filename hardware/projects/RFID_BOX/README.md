@@ -464,8 +464,8 @@ flowchart LR
 | NTC1 | Einschaltstrombegrenzung | TDK **B57236S0100M000**, 10 Ohm | 1 | Nur falls Last/Netzteil dies erfordert |
 | U6 | Optotriac | Vishay **VOM1271** | 1 | Galvanisch getrenntes Enable-Signal |
 | Q1 | Lastrelais | Elektromechanisches Relais für mindestens 8 A Dauerlast | 1 | **Bestückvariante 230V.** Konkretes Bauteil erst nach Last-/Thermikprüfung festlegen; Motoren über externes Schütz (Variante 24V potentialfrei) |
-| J1 | Netz-Eingang | WAGO **2060-Serie**, 3-polig, Push-in-Federklemme | 1 | L/N/PE, nur im geöffneten Gehäuse erreichbar; gemeinsam für beide Bestückvarianten |
-| J5 | 230-V-Ausgang | WAGO **2060-Serie**, 3-polig, Push-in-Federklemme | 1 | **Bestückvariante 230V.** Geschaltete Phase, N und PE durchverbunden, Terminal nur im geöffneten Gehäuse erreichbar |
+| J1 | Netz-Eingang | WAGO **2604-1103**, 3-polig, Hebel | 1 | L/N/PE, nur im geöffneten Gehäuse erreichbar; gemeinsam für beide Bestückvarianten |
+| J5 | 230-V-Ausgang | WAGO **2604-1103**, 3-polig, Hebel | 1 | **Bestückvariante 230V.** Geschaltete Phase, und geschaltetes N und PE durchverbunden, Terminal nur im geöffneten Gehäuse erreichbar |
 | K2 | Potentialfreier Kontakt | Omron **G6K-2F-Y-TR DC5** | 1 | **Bestückvariante 24V potentialfrei.** C/NO/NC, galvanisch getrennt, für externe 24-V-DC-Signale bis 1 A |
 | J9 | Kontaktanschluss | WAGO **2060-Serie**, 3-polig, Push-in-Federklemme | 1 | **Bestückvariante 24V potentialfrei.** C/NO/NC, Terminal nur im geöffneten Gehäuse erreichbar, keine interne Verbindung zu Netz |
 | J12 | Schraubklemmen-Alternative | Phönix Contact **1935161**, 3-polig | 1 | Nur verwenden, wenn Federklemmen mechanisch nicht passen |
@@ -696,6 +696,10 @@ gesperrt.
 | T19 | Sicherungstausch prüfen | F1, F2 (nur Variante 230V) und F3 lassen sich nach Öffnen des Gehäuses ohne Löten aus FH1/FH2/FH3 entnehmen und wieder einsetzen; Kontakt und korrekter Sitz werden geprüft. |
 | T20 | E-Stop Extension Board Fail-safe prüfen (nur wenn bestückt) | Bei stromlosem Coil ist K3 offen (Notaus-Schleife unterbrochen / Bremse aktiv); erst ein aktives Freigabesignal schliesst den Kontakt; Relais und Notaus-/Bremskreis bleiben galvanisch von Netz und Steuerung getrennt. |
 | T21 | E-Stop Extension Board Sofortauslösung prüfen (nur wenn bestückt) | Bei Stopp-Taster **und** bei Kartenentzug (Always-on) öffnet K3 hardwareseitig sofort (<100 ms), unabhängig vom Nachlaufprofil. Gleichzeitig bleibt die Hauptversorgung (Q1 bzw. K2 auf dem I/O-Board) bestehen und wird erst nach Ablauf der konfigurierten Nachlaufzeit abgeschaltet — K3 öffnet also deutlich früher als die Hauptversorgung, nie umgekehrt. |
+
+## TBDs:
+leistungsmessung hinzufügen.
+entweder einfacher ACS37800 oder günstigere(?) Schaltung mit MCP39F51A; Kostenaufstellung für beide machen inkl. isolierter supply, ziel Korridor 5€↓ bis 7€ pro board bei 30stück
 
 ## Nächste Artefakte
 
