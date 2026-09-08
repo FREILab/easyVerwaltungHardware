@@ -155,10 +155,12 @@ und teilt sich dort in zwei Pfade:
 - **Lastpfad (nur Variante 230V):** Netz-Eingang → Ausgangssicherung →
   Lastrelais → Lastmessung → Schaltausgang.
 - **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig → isolierender
-  AC/AC-Trafo auf 24 VAC → Gleichrichter mit Regler auf 5 V →
-  Sekundärsicherung. Die 5 V gehen über den Stack an das MCU-Board; dort
-  erzeugt ein Regler die 3,3 V für ESP32 und NFC-Controller. LED-Ring und
-  Buzzer laufen direkt auf 5 V.
+  AC/AC-Trafo auf 24 VAC → Sekundärsicherung → Gleichrichter → DC/DC-Wandler
+  REC6K-4824SAW (24 V, isoliert) → Regler auf 5 V (Modul mit integriertem
+  Überspannungs-/Überlastschutz) → 3,3 V auf dem MCU-Board für ESP32 und
+  NFC-Controller. Die 24-V-Schiene aus dem REC6K-4824SAW versorgt zusätzlich
+  die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V. Ein
+  isolierter 5V→5V-Regler versorgt die Lastmessung galvanisch getrennt.
 
 Die Erweiterungsboards (Extension Board, E-Stop Extension Board) werden über
 den Stack aus dem Steuerpfad versorgt; ihre Feldseite (NAMUR-Kanäle,
@@ -167,54 +169,168 @@ Notaus-Schleife) bleibt galvanisch getrennt und wird extern gespeist.
 Alle Sicherungen sind gesockelt und nach dem Öffnen des Gehäuses ohne Löten
 tauschbar (siehe [Anforderungen.md](Anforderungen.md), S5).
 
+Da das Werkstattnetz und die geschaltete Last (Motoren) elektrisch
+"schmutzig" sein können, sitzen direkt am Netz-Eingang ein EMV-Filter mit
+Überspannungsschutz sowie im Lastpfad eine Einschaltstrombegrenzung und eine
+Kontakt-Schutzbeschaltung am Lastrelais. PE wird unverändert vom
+Netz-Eingang zum Schaltausgang durchgeschleift; da das Gehäuse aus
+Kunststoff besteht, gibt es keine Verbindung zu einer Gehäusemasse.
+
 ```mermaid
-flowchart LR
+flowchart TB
     NETZ([Netz-Eingang<br/>230V 8A])
+    EMV["EMV-Filter +<br/>Überspannungsschutz<br/>Gleichtaktdrossel, X-Kondensator, MOV"]
     FLAST["Ausgangssicherung<br/>230V 8A"]
-    REL["Lastrelais<br/>230V 8A"]
+    NTC[NTC<br/>Einschaltstrombegrenzung]
+    REL["Lastrelais<br/>Spule 24V / Kontakt 230V 8A"]
+    SNUB["RC-Snubber<br/>über Relaiskontakt"]
     MESS[Lastmessung]
     OUT([Schaltausgang <br/>230V 8A])
+    PE([PE / Schutzleiter<br/>durchgeschleift])
 
     FSTEUER[Sicherung<br/>Steuerzweig<br/>230V 200mA]
     TRAFO["Trafo AC/AC<br/>230V → 24VAC, isoliert"]
-    RECT["Gleichrichter +<br/>Regler 5V"]
-    FSEK[Sekundärsicherung 5V]
+    FSEK[Sekundärsicherung<br/>24VAC]
+    GLEICH["Gleichrichter<br/>24VAC → DC, ungeregelt"]
+    DCDC["DC/DC-Wandler<br/>REC6K-4824SAW<br/>→ 24V, isoliert"]
+    REG5V["Regler 5V<br/>(Modul mit ÜS-Schutz)"]
     V5[5V: LED-Ring, Buzzer, Erweiterungsboards]
-    V33[3V3-Regler auf MCU-Board]
+    V33[3V3-Regler]
     LOGIK[ESP32, NFC-Controller]
+    ISO5V["Iso-Regler<br/>5V → 5V, isoliert"]
 
-    NETZ -->|"[PIN]"| FLAST
-    FLAST -->|"[PIN_FUSED]"| REL
+    NETZ -->|"[PIN]"| EMV
+    EMV -->|"[PIN_FILTERED]"| FLAST
+    FLAST -->|"[PIN_FUSED]"| NTC
+    NTC -->|"[PIN_LIMITED]"| REL
     REL -->|"[PIN_SWITCHED]"| MESS
     MESS -->|"[PIN_SWITCHED]"| OUT
-    NETZ -->|"[PIN]"| FSTEUER
+    REL -.- SNUB
+    EMV -->|"[PIN_FILTERED]"| FSTEUER
     FSTEUER -->|"[PIN_CTRL]"| TRAFO
-    TRAFO -->|"[24VAC]"| RECT
-    RECT -->|"[+5V_RAW]"| FSEK
-    FSEK -->|"[+5V]"| V5
-    FSEK -->|"[+5V]"| V33
+    TRAFO -->|"[24VAC]"| FSEK
+    FSEK -->|"[24VAC_FUSED]"| GLEICH
+    GLEICH -->|"[+DC_RAW]"| DCDC
+    DCDC -->|"[+24V]"| REG5V
+    DCDC -->|"[+24V]"| REL
+    REG5V -->|"[+5V]"| V5
+    REG5V -->|"[+5V]"| V33
     V33 -->|"[+3V3]"| LOGIK
+    REG5V -->|"[+5V]"| ISO5V
+    ISO5V -->|"[+5V_ISO]"| MESS
+    NETZ -->|"[PE]"| PE
+    PE -->|"[PE]"| OUT
 
-    linkStyle 0,4 stroke:#b71c1c,stroke-width:2px
-    linkStyle 1 stroke:#e53935,stroke-width:2px
-    linkStyle 2,3 stroke:#fb8c00,stroke-width:2px
-    linkStyle 5 stroke:#f4511e,stroke-width:2px
-    linkStyle 6 stroke:#fbc02d,stroke-width:2px
-    linkStyle 7 stroke:#9ccc65,stroke-width:2px
-    linkStyle 8,9 stroke:#2e7d32,stroke-width:2px
-    linkStyle 10 stroke:#00897b,stroke-width:2px
+    linkStyle 0 stroke:#b71c1c,stroke-width:2px
+    linkStyle 1,7 stroke:#c62828,stroke-width:2px
+    linkStyle 2 stroke:#e53935,stroke-width:2px
+    linkStyle 3 stroke:#fb8c00,stroke-width:2px
+    linkStyle 4,5 stroke:#ef6c00,stroke-width:2px
+    linkStyle 6 stroke:#757575,stroke-width:1.5px,stroke-dasharray:3 3
+    linkStyle 8 stroke:#f4511e,stroke-width:2px
+    linkStyle 9 stroke:#fbc02d,stroke-width:2px
+    linkStyle 10 stroke:#f9a825,stroke-width:2px
+    linkStyle 11 stroke:#ffb300,stroke-width:2px
+    linkStyle 12,13 stroke:#fdd835,stroke-width:2px
+    linkStyle 14,15,17 stroke:#2e7d32,stroke-width:2px
+    linkStyle 16 stroke:#00897b,stroke-width:2px
+    linkStyle 18 stroke:#8e24aa,stroke-width:2px
+    linkStyle 19,20 stroke:#43a047,stroke-width:2px
 
     classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
     classDef part230 fill:#ff9800,color:#000,stroke:#e65100
     classDef partSELV fill:#81c784,color:#000,stroke:#2e7d32
+    classDef pe fill:#e8f5e9,color:#1b5e20,stroke:#43a047
 
     class NETZ,OUT term230
-    class FLAST,REL,MESS,FSTEUER,TRAFO part230
-    class RECT,FSEK,V5,V33,LOGIK partSELV
+    class FLAST,REL,MESS,FSTEUER,TRAFO,EMV,NTC,SNUB part230
+    class GLEICH,DCDC,REG5V,FSEK,V5,V33,LOGIK,ISO5V partSELV
+    class PE pe
 ```
 
-Netze: `[PIN]` = Netzphase ungesichert, `[PIN_FUSED]` = Lastpfad nach
-Ausgangssicherung, `[PIN_SWITCHED]` = geschaltete Phase hinter dem
-Lastrelais, `[PIN_CTRL]` = Steuerzweig nach Sicherung, `[24VAC]` =
-Trafo-Sekundärseite (isoliert), `[+5V_RAW]` = 5 V vor Sekundärsicherung,
-`[+5V]` = abgesicherte 5-V-Schiene, `[+3V3]` = Logikversorgung.
+| Netz | Bedeutung |
+|---|---|
+| `[PIN]` | Netzphase, ungesichert |
+| `[PIN_FILTERED]` | Nach EMV-Filter/Überspannungsschutz |
+| `[PIN_FUSED]` | Lastpfad nach Ausgangssicherung |
+| `[PIN_LIMITED]` | Nach Einschaltstrombegrenzung (NTC) |
+| `[PIN_SWITCHED]` | Geschaltete Phase hinter dem Lastrelais |
+| `[PIN_CTRL]` | Steuerzweig nach Sicherung |
+| `[24VAC]` | Trafo-Sekundärseite, isoliert |
+| `[24VAC_FUSED]` | Trafo-Sekundärseite nach Sicherung |
+| `[+DC_RAW]` | Ungeregelte Gleichspannung nach dem Gleichrichter, Eingang des DC/DC-Wandlers |
+| `[+24V]` | Geregelte 24-V-Schiene aus REC6K-4824SAW, versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
+| `[+5V]` | 5-V-Schiene (Schutz durch integrierten Modulschutz des Reglers) |
+| `[+5V_ISO]` | Isolierte 5-V-Versorgung der Lastmessung |
+| `[+3V3]` | Logikversorgung |
+| `[PE]` | Schutzleiter, unverändert durchgeschleift, kein Bezug zum Kunststoffgehäuse |
+
+Der RC-Snubber (gestrichelt) liegt parallel zum Relaiskontakt und führt
+keinen eigenen Laststrompfad.
+
+## Signalfluss
+
+Analog zur Power Distribution beginnt auch der Signalfluss am Eingang
+(RFID-Karte) und endet am Schaltausgang — hier geht es aber nicht um die
+Leistungs-, sondern um die Steuersignale, die entscheiden, ob der
+Schaltausgang aktiv ist.
+
+Der Stopp-Taster wirkt zweifach: sofort an den ESP32 (Firmware-Status
+`STOPPED`) und zusätzlich als hardwareseitiger Interlock direkt auf den
+Relaistreiber, unabhängig von der Firmware. Enable-Signal und Messsignal
+der Lastmessung queren die Isolationsbarriere jeweils über einen eigenen
+Optokoppler.
+
+```mermaid
+flowchart TB
+    Antenne([RFID-Antenne])
+    NFC["NFC-Controller PN532<br/>[3V3]"]
+    ESP["ESP32<br/>[3V3]"]
+    STOP["Stopp-Taster<br/>[3V3]"]
+    OPTO_EN["Optokoppler Enable<br/>galvanische Trennung"]
+    TREIBER["Relaistreiber<br/>Steuerseite [ISO]"]
+    REL["Lastrelais<br/>Spule [24V] / Kontakt [230V]"]
+    OUT([Terminal: Schaltausgang])
+
+    MESS["Lastmessung<br/>Steuerseite<br/>Signal [5V], isoliert"]
+    OPTO_FB["Optokoppler Messsignal<br/>galvanische Trennung"]
+
+    EXT["Extension Board<br/>[5V]"]
+    ESTOP["E-Stop Relais<br/>[5V]"]
+    OLED["OLED (ggf.)<br/>[3V3]"]
+
+    Antenne -->|RF-Feld| NFC
+    NFC -->|SPI| ESP
+    ESP -->|Enable| OPTO_EN
+    OPTO_EN -->|Enable, isoliert| TREIBER
+    TREIBER -->|Ansteuerung| REL
+    REL --> OUT
+
+    STOP -->|I/O| ESP
+
+    MESS -->|UART| OPTO_FB
+    OPTO_FB -->|UART, isoliert| ESP
+
+    ESP -->|I/O| EXT
+    ESP -->|Enable| ESTOP
+    ESP -->|I2C| OLED
+
+    classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
+    classDef part230 fill:#ff9800,color:#000,stroke:#e65100
+    classDef partSELV fill:#81c784,color:#000,stroke:#2e7d32
+    classDef iso fill:#fff,color:#000,stroke:#6a1b9a,stroke-width:3px
+    classDef touch230 fill:#fdd835,color:#000,stroke:#f57f17
+
+    class OUT term230
+    class REL,TREIBER part230
+    class Antenne,NFC,ESP,STOP,EXT,ESTOP,OLED partSELV
+    class MESS touch230
+    class OPTO_EN,OPTO_FB iso
+```
+
+Formen und Farben wie im Blockdiagramm (abgerundet = Terminal/Eingabe,
+eckig = Funktionsblock); zusätzlich: weiss mit violettem Rahmen =
+Optokoppler / Isolationsbarriere, gelb = Signalpegel isoliert/SELV, aber
+das Bauteil selbst berührt die 230-V-Seite (z.B. Lastmessung). Die
+Spannungsangabe `[…]` in den Blöcken zeigt den jeweiligen Signalpegel,
+analog zu den Netznamen im Power-Distribution-Diagramm.
