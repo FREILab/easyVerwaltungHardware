@@ -136,7 +136,7 @@ flowchart TB
     class NETZ,OUT term230
     class ESTOP_T,IO_T,USB termSELV
     class REL,MESS part230
-    class POTFREI,K3,EXTIO,ESP,PWR,BUZ,STOP,NFC,ANT,DISP,RING partSELV
+    class POTFREI,K3,EXTIO,ESP,BUZ,STOP,NFC,ANT,DISP,RING partSELV
 ```
 
 Die Form kennzeichnet die Art des Elements, die Farbe die Spannungsebene:
@@ -276,9 +276,13 @@ Leistungs-, sondern um die Steuersignale, die entscheiden, ob der
 Schaltausgang aktiv ist.
 
 Der Stopp-Taster wirkt zweifach: sofort an den ESP32 (Firmware-Status
-`STOPPED`) und zusätzlich als hardwareseitiger Interlock direkt auf den
-Relaistreiber, unabhängig von der Firmware. Enable-Signal und Messsignal
-der Lastmessung queren die Isolationsbarriere jeweils über einen eigenen
+`STOPPED`) und — falls bestückt — zusätzlich als hardwareseitiger Interlock
+direkt auf das E-Stop Relais, unabhängig von der Firmware. Der
+Relaistreiber der Hauptversorgung bekommt **keinen** direkten
+Hardware-Interlock vom Stopp-Taster: die Hauptversorgung wird
+ausschliesslich vom ESP32 nach Ablauf der Nachlaufzeit abgeschaltet (siehe
+Power Distribution und Anforderungen.md). Enable-Signal und Messsignal der
+Lastmessung queren die Isolationsbarriere jeweils über einen eigenen
 Optokoppler.
 
 ```mermaid
@@ -306,7 +310,8 @@ flowchart TB
     TREIBER -->|Ansteuerung| REL
     REL --> OUT
 
-    STOP -->|I/O| ESP
+    STOP -->|sofort| ESP
+    STOP -.->|Hardware-Interlock, sofort, ohne Firmware| ESTOP
 
     MESS -->|UART| OPTO_FB
     OPTO_FB -->|UART, isoliert| ESP
@@ -334,3 +339,61 @@ Optokoppler / Isolationsbarriere, gelb = Signalpegel isoliert/SELV, aber
 das Bauteil selbst berührt die 230-V-Seite (z.B. Lastmessung). Die
 Spannungsangabe `[…]` in den Blöcken zeigt den jeweiligen Signalpegel,
 analog zu den Netznamen im Power-Distribution-Diagramm.
+
+## Bauteilauswahl
+
+Bereits festgelegte Bauteile für die in den vorherigen Kapiteln gezeigten
+Funktionsblöcke. Preise sind Einzelstückpreise; wo kein Distributorpreis
+vorliegt, ist der Wert geschätzt (·).
+
+| Funktion | Bauteil | Preis |
+|---|---|---:|
+| Mikrocontroller | ESP32-S3-WROOM-1-N16R8 | ca. 4,50 € · |
+| OLED | DT010ATFT | ca. 18 € · |
+| Leistungsmessung | MCP39F51A | ca. 3,50 € · |
+| RFID-Controller | NXP PN5321A3HN/C100 | ca. 3,50 € · |
+| Iso-Regler 5V → 5V (Lastmessung) | RFB-0505S | ca. 4 € · |
+| DC/DC-Wandler 24V (Relaisspule) | REC6K-4824SAW | ca. 18 € · |
+| Netz-Eingang / Schaltausgang (Terminal) | WAGO 2604-1103 | ca. 1,50 € · |
+| Lastrelais (Q1) | Songle SRD-24VDC-SL-C, 10 A / 250 V, Spule 24V | ca. 0,40 € · |
+| Trafo AC/AC 230V → 24VAC | Printtrafo, 1 VA, 24 V, 42 mA, RM 20 mm | 5,20 € |
+| Gleichrichter | Brückengleichrichter, 80 V, 5 A | 1,16 € |
+| Regler 5V (Steuerpfad) | Diodes AP63203WU-7, Buck 24V→5V, SOT23-6 | ca. 0,50 € · |
+| 3V3-Regler | AMS1117-3.3, LDO, SOT-223 | ca. 0,15 € · |
+| Potentialfreier Kontakt (K2) | Omron G6K-2F-Y-TR DC24, 1A/24V, Spule 24V | ca. 2,50 € · |
+| E-Stop-Relais (K3) | Omron G5V-1 24VDC, 1A/24V, Spule 24V | ca. 1,80 € · |
+| Optokoppler (Enable/Messsignal) | PC817, DIP-4/SMD-4 | ca. 0,08 € · |
+| Relaistreiber | BC847 + Freilaufdiode 1N4148, diskret | ca. 0,10 € · |
+| LED-Ring | Worldsemi WS2812B-2020, 12x | ca. 0,10 € · /Stk |
+| Pegelwandler LED-Ring (3V3→5V) | 74AHCT125, Puffer/Levelshifter | ca. 0,30 € · |
+| Buzzer | TDK PS1240P02BT, SMD-Piezo | ca. 0,60 € · |
+| Stopp-Taster | Panelmontage-Taster, IP65, 12mm | ca. 1,50 € · |
+| USB-C-Buchse (Service) | USB4105-GF-A, THT | ca. 0,30 € · |
+| EMV-Filter/Überspannungsschutz | MOV S10K275 + X2-Kondensator + kleine Gleichtaktdrossel | ca. 1,20 € · |
+| NTC (Einschaltstrombegrenzung) | TDK B57236S0100M000, 10 Ohm | ca. 0,40 € · |
+| RC-Snubber | 100R + 100nF X2, diskret | ca. 0,20 € · |
+| Sicherungen + Sicherungshalter | 5x20mm Print-Sicherungshalter + Feinsicherung | ca. 0,45 € · /Stk |
+| Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | — |
+| **Summe** | 1× je Zeile, ohne Mengen und ohne Extension Board | **ca. 69,95 € ·** |
+
+Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
+Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
+pro Board (z.B. 12× LED, mehrere Sicherungen/Terminals) und ist daher kein
+vollständiger BOM-Preis, sondern ein grober erster Anhaltspunkt.
+
+## TODO
+
+- **REC6K-4824SAW-Eingangsspannung prüfen:** "4824" deutet auf einen
+  48V-nominal-Eingang hin. Der 24VAC-Trafo liefert nach Gleichrichtung aber
+  nur ca. 28-34V DC ungeregelt (Spitzenwert von 24VAC abzüglich
+  Diodenverluste) — das liegt vermutlich unterhalb des zulässigen
+  Eingangsbereichs eines "48"-nominal-Moduls. Entweder einen REC6K-Typ mit
+  passendem Eingangsbereich (z.B. "24xx" für 24V-nominal-Eingang) wählen
+  oder die Trafo-Sekundärspannung erhöhen.
+- **Trafo-Leistung (1 VA) gegen tatsächlichen Lastbedarf prüfen:** Der
+  LED-Ring allein kann bei voller Helligkeit (12× WS2812B, weiss) bis zu
+  ca. 3,6 W bei 5V ziehen, dazu ESP32-WiFi-Sendespitzen (ca. 1,5-2 W bei
+  3,3V), Buzzer und Relaisspule. Das steht in keinem offensichtlichen
+  Verhältnis zu einem 1-VA-Steuerpfad-Trafo. Klären, ob die tatsächliche
+  Spitzenlast niedriger ausfällt (z.B. LED-Ring gedimmt) oder der Trafo
+  grösser dimensioniert werden muss.
