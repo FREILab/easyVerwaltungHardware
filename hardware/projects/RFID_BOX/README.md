@@ -701,6 +701,8 @@ gesperrt.
 leistungsmessung hinzufügen.
 entweder einfacher ACS37800 oder günstigere(?) Schaltung mit MCP39F51A; Kostenaufstellung für beide machen inkl. isolierter supply, ziel Korridor 5€↓ bis 7€ pro board bei 30stück
 
+oled beispiel: EA W096016-XBLW (mouser)
+
 ## Nächste Artefakte
 
 1. `pcb/io-board.kicad_sch` mit den zwei exklusiven Bestückvarianten (230V /
