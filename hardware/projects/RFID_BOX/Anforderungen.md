@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.1**
+**Dokumentrevision: 1.2**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,11 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.2** – I4 (Lastmessung) von optional auf Standard bei der Variante 230V
+  umgestellt, auf Basis von Team-Feedback zur Revision 1.1: schafft die
+  Grundlage für spätere nutzungsbasierte Abrechnung/Limits, macht den
+  tatsächlichen Verbrauch nachvollziehbar und hilft bei der Dimensionierung
+  neuer Standorte.
 - **1.1** – Boards auf MCU/I/O/RFID umbenannt, UI-Peripherie (OLED, LED-Ring,
   Summer, Stopp-Taster) vom RFID- auf das MCU-Board verlagert; I/O-Board in
   zwei exklusive Bestückvarianten (230V-Direktschaltung / potentialfrei 24V
@@ -192,14 +197,19 @@ erfordert zusätzliche Schaltkanäle oder ein externes Nachlaufrelais.
 > Maschinenschaden geführt, weil der Maschine dann die Energie für ihre
 > eigene kontrollierte Bremsung fehlte.
 
-### 4. Anschlüsse und optionale Lastmessung
+### 4. Anschlüsse und Lastmessung
 
 | ID | Muss-Anforderung | Abnahmekriterium |
 |---|---|---|
 | I1 | Netz-Eingang und der jeweils bestückte Schaltausgang (230-V-Ausgang oder potentialfreier Kontakt) besitzen definierte Kabeldurchführungen. | Kabel können durch die geschützten Durchführungen in das Gehäuse geführt werden; die eigentlichen Terminals sind erst nach dem Öffnen erreichbar. |
 | I2 | Federklemmen sind der bevorzugte Feldanschluss. | Betätigbare Push-in-Klemmen können mit vorgesehenen Leitern ohne Spezialwerkzeug angeschlossen werden. |
 | I3 | Schraubklemmen sind als zweite Anschlussvariante möglich. | Die Alternative passt in dasselbe Anschluss- und Gehäusekonzept. |
-| I4 | Eine einfache Lastmessung ist optional vorgesehen. | Ein galvanisch getrennter Sensor erkennt `LAST_AKTIV` und `LAST_AUS`, ohne Energieabrechnung zu versprechen. Nur relevant für die Variante 230V. |
+| I4 | Bei der Variante 230V ist eine einfache Lastmessung standardmäßig vorgesehen (kein optionales Feature mehr). | Ein galvanisch getrennter Sensor erkennt `LAST_AKTIV` und `LAST_AUS`, ohne Energieabrechnung zu versprechen, und ist bei der Variante 230V regulär bestückt. Bei der Variante 24V potentialfrei nicht relevant, da kein Lastkreis über den Node läuft. |
+
+Diese Umstufung von optional auf Standard geht auf Team-Feedback zur
+Revision 1.1 zurück: Lastmessung schafft die Grundlage für spätere
+nutzungsbasierte Abrechnung/Limits, macht den tatsächlichen Verbrauch
+nachvollziehbar und hilft bei der Dimensionierung neuer Standorte.
 
 Die früheren NAMUR-Anforderungen (vormals I5/I6) sind Teil des Extension
 Boards, siehe folgender Abschnitt.
