@@ -348,35 +348,35 @@ geschätzt (·). Lieferant/Bestellnummer sind nur eingetragen, wo bereits
 konkret geprüft; "*offen*" heisst nicht unbekannt/unmöglich, sondern noch
 nicht recherchiert.
 
-| Funktion | Hersteller | Herstellerteilenummer | Beschreibung | Lieferant | Bestellnummer | Preis |
-|---|---|---|---|---|---|---:|
-| Mikrocontroller | Espressif | ESP32-S3-WROOM-1-N16R8 | 16MB Flash, 8MB PSRAM | Mouser | 356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
-| OLED | Displaytech | DT010ATFT | 1" IPS-LCD | Mouser | 758-DT010ATFT | 10,92 € @10 Stk |
-| Leistungsmessung | Microchip | MCP39F51A | Power-Monitoring-IC | Farnell | 2478286 | 3,61 € @25 Stk |
-| RFID-Controller | NXP | PN5321A3HN/C106 | NFC-Controller | Mouser | 771-PN5321A3HN10 | 11,25 € |
-| Iso-Regler 5V → 5V (Lastmessung) | RECOM | RFB-0505S | Iso-DC/DC 1W | Mouser | 919-RFB-0505S | 1,80 € @25 Stk |
-| DC/DC-Wandler 24V (Relaisspule) | RECOM | REC6K-2424SAW | DC/DC 6W, isoliert, Eingang 9-36V (nominal 24V) | Mouser | 919-REC6K-2424SAW | 6,67 € @18 Stk |
-| Netz-Eingang / Schaltausgang (Terminal) | WAGO | 2604-1103 | 3-pol. Hebelklemme | Digikey | 2946-2604-1103-ND | 2,95 € @50 Stk |
-| Lastrelais (Q1) | Finder | 62.22.9.024.4000 | 16A/120A Peak, Motor 0,8kW@230VAC, AgSnO2, PCB-Mount | Reichelt | FIN 62.22.9 24V1 | 12,78 € zzgl. MwSt |
-| Trafo AC/AC 230V → 24VAC | Signal Transformer (Bel Fuse) | 14A-10R-24 | 10 VA, 24V CT @ 0,42A, PCB-Mount, 4000Vrms Isolation | Mouser | 530-14A-10R-24 | 10,83 € @10 Stk |
-| Gleichrichter | *offen* | *offen* | Brückengleichrichter, 80 V, 5 A | Reichelt | *offen* | 1,16 € |
-| Regler 5V (Steuerpfad) | Diodes Inc. | AP63203WU-7 | Buck 24V→5V, SOT23-6 | *offen* | *offen* | ca. 0,50 € · |
-| 3V3-Regler | diverse (z.B. AMS) | AMS1117-3.3 | LDO, SOT-223 | *offen* | *offen* | ca. 0,15 € · |
-| Potentialfreier Kontakt (K2) | Omron | G6K-2F-Y-TR DC24 | 1A/24V, Spule 24V | *offen* | *offen* | ca. 2,50 € · |
-| E-Stop-Relais (K3) | Omron | G5V-1 24VDC | 1A/24V, Spule 24V | *offen* | *offen* | ca. 1,80 € · |
-| Optokoppler (Enable/Messsignal) | diverse | PC817 | DIP-4/SMD-4 | *offen* | *offen* | ca. 0,08 € · |
-| Relaistreiber | diverse | BC847 + 1N4148 | diskreter Treiber + Freilaufdiode | *offen* | *offen* | ca. 0,10 € · |
-| LED-Ring | Worldsemi | WS2812B-2020 | 12x, adressierbar | *offen* | *offen* | ca. 0,10 € · /Stk |
-| Pegelwandler LED-Ring (3V3→5V) | diverse | 74AHCT125 | Puffer/Levelshifter | *offen* | *offen* | ca. 0,30 € · |
-| Buzzer | TDK | PS1240P02BT | SMD-Piezo | *offen* | *offen* | ca. 0,60 € · |
-| Stopp-Taster | *offen* | *offen* | Panelmontage, IP65, 12mm | *offen* | *offen* | ca. 1,50 € · |
-| USB-C-Buchse (Service) | *offen* | USB4105-GF-A | THT | *offen* | *offen* | ca. 0,30 € · |
-| EMV-Filter/Überspannungsschutz | *offen* | *offen* | MOV S10K275 + X2-Kondensator + kleine Gleichtaktdrossel | *offen* | *offen* | ca. 1,20 € · |
-| NTC (Einschaltstrombegrenzung) | TDK | B57236S0100M000 | 10 Ohm | *offen* | *offen* | ca. 0,40 € · |
-| RC-Snubber | *offen* | *offen* | 100R + 100nF X2, diskret | *offen* | *offen* | ca. 0,20 € · |
-| Sicherungen + Sicherungshalter | *offen* | *offen* | 5x20mm Print-Sicherungshalter + Feinsicherung | *offen* | *offen* | ca. 0,45 € · /Stk |
-| Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | | | — |
-| **Summe** | | | 1× je Zeile, ohne Mengen und ohne Extension Board | | | **ca. 76,98 € ·** |
+| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant | Bestellnummer | Preis |
+|---|---|---|---|---|---:|
+| Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | 16MB Flash, 8MB PSRAM | Mouser | 356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
+| OLED | Displaytech<br>DT010ATFT | 1" IPS-LCD | Mouser | 758-DT010ATFT | 10,92 € @10 Stk |
+| Leistungsmessung | Microchip<br>MCP39F51A | Power-Monitoring-IC | Farnell | 2478286 | 3,61 € @25 Stk |
+| RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Controller | Mouser | 771-PN5321A3HN10 | 11,25 € |
+| Iso-Regler 5V → 5V (Lastmessung) | RECOM<br>RFB-0505S | Iso-DC/DC 1W | Mouser | 919-RFB-0505S | 1,80 € @25 Stk |
+| DC/DC-Wandler 24V (Relaisspule) | RECOM<br>REC6K-2424SAW | DC/DC 6W, isoliert, Eingang 9-36V (nominal 24V) | Mouser | 919-REC6K-2424SAW | 6,67 € @18 Stk |
+| Netz-Eingang / Schaltausgang (Terminal) | WAGO<br>2604-1103 | 3-pol. Hebelklemme | Digikey | 2946-2604-1103-ND | 2,95 € @50 Stk |
+| Lastrelais (Q1) | Finder<br>62.22.9.024.4000 | 16A/120A Peak, Motor 0,8kW@230VAC, AgSnO2, PCB-Mount | Reichelt | FIN 62.22.9 24V1 | 12,78 € zzgl. MwSt |
+| Trafo AC/AC 230V → 24VAC | Signal Transformer (Bel Fuse)<br>14A-10R-24 | 10 VA, 24V CT @ 0,42A, PCB-Mount, 4000Vrms Isolation | Mouser | 530-14A-10R-24 | 10,83 € @10 Stk |
+| Gleichrichter | *offen* | Brückengleichrichter, 80 V, 5 A | Reichelt | *offen* | 1,16 € |
+| Regler 5V (Steuerpfad) | Diodes Inc.<br>AP63203WU-7 | Buck 24V→5V, SOT23-6 | *offen* | *offen* | ca. 0,50 € · |
+| 3V3-Regler | diverse (z.B. AMS)<br>AMS1117-3.3 | LDO, SOT-223 | *offen* | *offen* | ca. 0,15 € · |
+| Potentialfreier Kontakt (K2) | Omron<br>G6K-2F-Y-TR DC24 | 1A/24V, Spule 24V | *offen* | *offen* | ca. 2,50 € · |
+| E-Stop-Relais (K3) | Omron<br>G5V-1 24VDC | 1A/24V, Spule 24V | *offen* | *offen* | ca. 1,80 € · |
+| Optokoppler (Enable/Messsignal) | diverse<br>PC817 | DIP-4/SMD-4 | *offen* | *offen* | ca. 0,08 € · |
+| Relaistreiber | diverse<br>BC847 + 1N4148 | diskreter Treiber + Freilaufdiode | *offen* | *offen* | ca. 0,10 € · |
+| LED-Ring | Worldsemi<br>WS2812B-2020 | 12x, adressierbar | *offen* | *offen* | ca. 0,10 € · /Stk |
+| Pegelwandler LED-Ring (3V3→5V) | diverse<br>74AHCT125 | Puffer/Levelshifter | *offen* | *offen* | ca. 0,30 € · |
+| Buzzer | TDK<br>PS1240P02BT | SMD-Piezo | *offen* | *offen* | ca. 0,60 € · |
+| Stopp-Taster | *offen* | Panelmontage, IP65, 12mm | *offen* | *offen* | ca. 1,50 € · |
+| USB-C-Buchse (Service) | *offen*<br>USB4105-GF-A | THT | *offen* | *offen* | ca. 0,30 € · |
+| EMV-Filter/Überspannungsschutz | *offen* | MOV S10K275 + X2-Kondensator + kleine Gleichtaktdrossel | *offen* | *offen* | ca. 1,20 € · |
+| NTC (Einschaltstrombegrenzung) | TDK<br>B57236S0100M000 | 10 Ohm | *offen* | *offen* | ca. 0,40 € · |
+| RC-Snubber | *offen* | 100R + 100nF X2, diskret | *offen* | *offen* | ca. 0,20 € · |
+| Sicherungen + Sicherungshalter | *offen* | 5x20mm Print-Sicherungshalter + Feinsicherung | *offen* | *offen* | ca. 0,45 € · /Stk |
+| Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | | — |
+| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | | **ca. 76,98 € ·** |
 
 Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
 Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
