@@ -62,7 +62,7 @@ werden:
   **NAMUR** (zwei optoisolierte NAMUR-Ausgänge, ein galvanisch getrennter
   NAMUR-Eingang) oder **Digital-I/O** (einfache digitale Ein-/Ausgänge, noch
   nicht spezifiziert). Ein Node trägt höchstens eine Variante.
-- **E-Stop Extension Board:** einfaches Relais (24 V / 1 A), dessen Kontakt
+- **E-Stop Extension Board:** einfaches Relais (24 V / 100 mA), dessen Kontakt
   in die Notaus-/Interlock-Schleife bzw. Bremsversorgung der Maschine
   eingeschleift wird. Fail-safe: stromlos = Notaus-Schleife unterbrochen;
   öffnet bei Stopp/Kartenentzug sofort, während die Hauptversorgung erst
@@ -78,7 +78,7 @@ flowchart TB
         NETZ([Terminal: Netz-Eingang 230V])
         OUT([Terminal: Schaltausgang])
         REL["Lastrelais (Variante 230V)"]
-        POTFREI["Potentialfreier Kontakt 24V 1A<br/>(Variante 24V potentialfrei)"]
+        POTFREI["Potentialfreier Kontakt 24V 100mA<br/>(Variante 24V potentialfrei)"]
         MESS[Lastmessung]
 
         NETZ --> REL --> MESS --> OUT
@@ -86,7 +86,7 @@ flowchart TB
 
         subgraph ESTOP["E-Stop Extension Board (optional)"]
             direction LR
-            K3[Notaus-Kontakt 24V 1A]
+            K3[Notaus-Kontakt 24V 100mA]
             ESTOP_T([Terminal: Notaus-Schleife])
             K3 --- ESTOP_T
         end
@@ -156,8 +156,8 @@ und teilt sich dort in zwei Pfade:
   Lastrelais → Lastmessung → Schaltausgang.
 - **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig → isolierender
   AC/AC-Trafo auf 24 VAC → Sekundärsicherung → Gleichrichter → DC/DC-Wandler
-  REC6K-2424SAW (24 V, isoliert) → Regler auf 5 V (Modul mit integriertem
-  Überspannungs-/Überlastschutz) → 3,3 V auf dem MCU-Board für ESP32 und
+  REC6K-2424SAW (24 V, isoliert) → Regler auf 5 V (Modul mit
+  Unterspannungs- und Kurzschlussschutz) → 3,3 V auf dem MCU-Board für ESP32 und
   NFC-Controller. Die 24-V-Schiene aus dem REC6K-2424SAW versorgt zusätzlich
   die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V. Ein
   isolierter 5V→5V-Regler versorgt die Lastmessung galvanisch getrennt.
@@ -170,16 +170,16 @@ Alle Sicherungen sind gesockelt und nach dem Öffnen des Gehäuses ohne Löten
 tauschbar (siehe [Anforderungen.md](Anforderungen.md), S5).
 
 Da das Werkstattnetz und die geschaltete Last (Motoren) elektrisch
-"schmutzig" sein können, sitzen direkt am Netz-Eingang ein EMV-Filter mit
-Überspannungsschutz sowie im Lastpfad eine Einschaltstrombegrenzung und eine
-Kontakt-Schutzbeschaltung am Lastrelais. PE wird unverändert vom
+"schmutzig" sein können, sitzen direkt am Netz-Eingang EMV-Maßnahmen sowie
+im Lastpfad eine Einschaltstrombegrenzung und eine Kontakt-Schutzbeschaltung
+am Lastrelais. PE wird unverändert vom
 Netz-Eingang zum Schaltausgang durchgeschleift; da das Gehäuse aus
 Kunststoff besteht, gibt es keine Verbindung zu einer Gehäusemasse.
 
 ```mermaid
 flowchart TB
     NETZ([Netz-Eingang<br/>230V 8A])
-    EMV["EMV-Filter +<br/>Überspannungsschutz<br/>Gleichtaktdrossel, X-Kondensator, MOV"]
+    EMV["EMV Maßnahmen"]
     FLAST["Ausgangssicherung<br/>230V 8A"]
     NTC[NTC<br/>Einschaltstrombegrenzung]
     REL["Lastrelais<br/>Spule 24V / Kontakt 230V 8A"]
@@ -193,7 +193,7 @@ flowchart TB
     FSEK[Sekundärsicherung<br/>24VAC]
     GLEICH["Gleichrichter<br/>24VAC → DC, ungeregelt"]
     DCDC["DC/DC-Wandler<br/>REC6K-2424SAW<br/>→ 24V, isoliert"]
-    REG5V["Regler 5V<br/>(Modul mit ÜS-Schutz)"]
+    REG5V["Regler 5V<br/>(Modul mit UV-/Kurzschlussschutz)"]
     V5[5V: LED-Ring, Buzzer, Erweiterungsboards]
     V33[3V3-Regler]
     LOGIK[ESP32, NFC-Controller]
@@ -251,7 +251,7 @@ flowchart TB
 | Netz | Bedeutung |
 |---|---|
 | `[PIN]` | Netzphase, ungesichert |
-| `[PIN_FILTERED]` | Nach EMV-Filter/Überspannungsschutz |
+| `[PIN_FILTERED]` | Nach EMV-Maßnahmen |
 | `[PIN_FUSED]` | Lastpfad nach Ausgangssicherung |
 | `[PIN_LIMITED]` | Nach Einschaltstrombegrenzung (NTC) |
 | `[PIN_SWITCHED]` | Geschaltete Phase hinter dem Lastrelais |
@@ -265,6 +265,10 @@ flowchart TB
 | `[+3V3]` | Logikversorgung |
 | `[PE]` | Schutzleiter, unverändert durchgeschleift, kein Bezug zum Kunststoffgehäuse |
 
+Die EMV-Maßnahmen am Netz-Eingang bestehen aus einer Gleichtaktdrossel und
+einem X2-Kondensator als eigentlichem EMV-Filter sowie einem MOV
+(Metall-Oxid-Varistor) als Überspannungsschutz.
+
 Der RC-Snubber (gestrichelt) liegt parallel zum Relaiskontakt und führt
 keinen eigenen Laststrompfad.
 
@@ -275,10 +279,10 @@ Analog zur Power Distribution beginnt auch der Signalfluss am Eingang
 Leistungs-, sondern um die Steuersignale, die entscheiden, ob der
 Schaltausgang aktiv ist.
 
-Der Stopp-Taster wirkt zweifach: sofort an den ESP32 (Firmware-Status
-`STOPPED`) und — falls bestückt — zusätzlich als hardwareseitiger Interlock
-direkt auf das E-Stop Relais, unabhängig von der Firmware. Der
-Relaistreiber der Hauptversorgung bekommt **keinen** direkten
+Der Stopp-Taster wirkt auf den ESP32 (Firmware-Status `STOPPED`); dieser
+schaltet, falls bestückt, das E-Stop Relais aus. Es gibt keinen separaten
+hardwareseitigen Bypass am E-Stop Relais, der unabhängig von der Firmware
+wirkt. Der Relaistreiber der Hauptversorgung bekommt **keinen** direkten
 Hardware-Interlock vom Stopp-Taster: die Hauptversorgung wird
 ausschliesslich vom ESP32 nach Ablauf der Nachlaufzeit abgeschaltet (siehe
 Power Distribution und Anforderungen.md). Enable-Signal und Messsignal der
@@ -350,33 +354,36 @@ nicht recherchiert.
 
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
-| Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | 16MB Flash, 8MB PSRAM | Mouser<br>356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
-| OLED | Displaytech<br>DT010ATFT | 1" IPS-LCD | Mouser<br>758-DT010ATFT | 10,92 € @10 Stk |
-| Leistungsmessung | Microchip<br>MCP39F51A | Power-Monitoring-IC | Farnell<br>2478286 | 3,61 € @25 Stk |
-| RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Controller | Mouser<br>771-PN5321A3HN10 | 11,25 € |
-| Iso-Regler 5V → 5V (Lastmessung) | RECOM<br>RFB-0505S | Iso-DC/DC 1W | Mouser<br>919-RFB-0505S | 1,80 € @25 Stk |
+| Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | MCU-Modul mit WLAN/BLE, 16MB Flash, 8MB PSRAM | Mouser<br>356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
+| OLED | Displaytech<br>DT010ATFT | 1" IPS-LCD mit integriertem Controller, I2C-Ansteuerung | Mouser<br>758-DT010ATFT | 10,92 € @10 Stk |
+| Leistungsmessung | Microchip<br>MCP39F51A | Single-Phase Energy-Monitoring-IC, UART-Schnittstelle | Farnell<br>2478286 | 3,61 € @25 Stk |
+| Shunt (Leistungsmessung) | Yageo<br>PA1206FRM670R002L | 2mOhm, Strommess-Shunt, 1206 | Mouser<br>603-PA1206FRM670R02L | 0,131 € @25 Stk |
+| RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle | Mouser<br>771-PN5321A3HN10 | 11,25 € @1 Stk |
+| Iso-Regler 5V → 5V (Lastmessung) | RECOM<br>RFB-0505S | Isoliertes DC/DC-Modul, 1W, keine Mindestlast, 500VAC Isolation | Mouser<br>919-RFB-0505S | 1,80 € @25 Stk |
 | DC/DC-Wandler 24V (Relaisspule) | RECOM<br>REC6K-2424SAW | DC/DC 6W, isoliert, Eingang 9-36V (nominal 24V) | Mouser<br>919-REC6K-2424SAW | 6,67 € @18 Stk |
-| Netz-Eingang / Schaltausgang (Terminal) | WAGO<br>2604-1103 | 3-pol. Hebelklemme | Digikey<br>2946-2604-1103-ND | 2,95 € @50 Stk |
-| Lastrelais (Q1) | Finder<br>62.22.9.024.4000 | 16A/120A Peak, Motor 0,8kW@230VAC, AgSnO2, PCB-Mount | Reichelt<br>FIN 62.22.9 24V1 | 12,78 € zzgl. MwSt |
+| Netz-Eingang / Schaltausgang (Terminal) | WAGO<br>2604-1103 | 3-pol. Hebelklemme, Rastermaß 5mm | Digikey<br>2946-2604-1103-ND | 2,95 € @50 Stk |
+| Lastrelais (Q1) | Finder<br>62.22.9.024.4000 | 16A/120A Peak, Motor 0,8kW@230VAC, AgSnO2, Print-Montage (THT) | Reichelt<br>FIN 62.22.9 24V1 | 12,78 € zzgl. MwSt |
 | Trafo AC/AC 230V → 24VAC | Signal Transformer (Bel Fuse)<br>14A-10R-24 | 10 VA, 24V CT @ 0,42A, PCB-Mount, 4000Vrms Isolation | Mouser<br>530-14A-10R-24 | 10,83 € @10 Stk |
-| Gleichrichter | *offen* | Brückengleichrichter, 80 V, 5 A | Reichelt | 1,16 € |
-| Regler 5V (Steuerpfad) | Diodes Inc.<br>AP63203WU-7 | Buck 24V→5V, SOT23-6 | *offen* | ca. 0,50 € · |
-| 3V3-Regler | diverse (z.B. AMS)<br>AMS1117-3.3 | LDO, SOT-223 | *offen* | ca. 0,15 € · |
-| Potentialfreier Kontakt (K2) | Omron<br>G6K-2F-Y-TR DC24 | 1A/24V, Spule 24V | *offen* | ca. 2,50 € · |
-| E-Stop-Relais (K3) | Omron<br>G5V-1 24VDC | 1A/24V, Spule 24V | *offen* | ca. 1,80 € · |
-| Optokoppler (Enable/Messsignal) | diverse<br>PC817 | DIP-4/SMD-4 | *offen* | ca. 0,08 € · |
-| Relaistreiber | diverse<br>BC847 + 1N4148 | diskreter Treiber + Freilaufdiode | *offen* | ca. 0,10 € · |
-| LED-Ring | Worldsemi<br>WS2812B-2020 | 12x, adressierbar | *offen* | ca. 0,10 € · /Stk |
-| Pegelwandler LED-Ring (3V3→5V) | diverse<br>74AHCT125 | Puffer/Levelshifter | *offen* | ca. 0,30 € · |
-| Buzzer | TDK<br>PS1240P02BT | SMD-Piezo | *offen* | ca. 0,60 € · |
+| Gleichrichter | Diodes Inc.<br>RTT410-13 | SMD-Brückengleichrichter, 1000V/4A, Fast Recovery | Mouser<br>621-RTT410-13 | 0,482 € @10 Stk |
+| Regler 5V (Steuerpfad) | RECOM<br>R-78K5.0-2.0 | DC/DC-Wandler 24V→5V, 2A, SIP3/TO-220-kompatibel | Digikey<br>945-R-78K5.0-2.0-ND | 4,71 € @25 Stk |
+| 3V3-Regler | EVVOSEMI<br>AMS1117-3.3 | LDO 1A, SOT-223-3L | Digikey<br>5272-AMS1117-3.3CT-ND | 0,1552 € @25 Stk |
+| Potentialfreier Kontakt (K2) | Omron<br>G5V-1-2 DC24 | 100mA/24V, Spule 24V | Digikey<br>Z11621-ND | 1,9556 € @25 Stk |
+| Polyfuse (K2) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
+| E-Stop-Relais (K3) | Omron<br>G5V-1-2 DC24 | 100mA/24V, Spule 24V | Digikey<br>Z11621-ND | 1,9556 € @25 Stk |
+| Polyfuse (K3) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
+| Optokoppler (Enable/Messsignal) | diverse<br>PC817 | Phototransistor-Optokoppler, DIP-4/SMD-4 | *offen* | ca. 0,08 € · |
+| Relaistreiber | diverse<br>BC847 + 1N4148 | NPN-Transistor-Treiber + Freilaufdiode für Relaisspule | *offen* | ca. 0,10 € · |
+| LED-Ring | Inolux<br>IN-PI20TATPRPGPB | 12x, 2020-Gehäuse, adressierbar über Single-Wire-Protokoll (WS2812B-kompatibel) | Digikey<br>1830-IN-PI20TATPRPGPBCT-ND | 0,2225 € @100 Stk |
+| Pegelwandler LED-Ring (3V3→5V) | diverse<br>74AHCT125 | Quad-Buffer/Levelshifter 3,3V→5V | *offen* | ca. 0,30 € · |
+| Buzzer | TDK<br>PS1240P02BT | Piezo-Buzzer ohne Oszillator, Pin-Terminal (THT), externe Ansteuerung (Resonanz ~4kHz) | Digikey<br>445-2525-1-ND | 0,3844 € @25 Stk |
 | Stopp-Taster | *offen* | Panelmontage, IP65, 12mm | *offen* | ca. 1,50 € · |
 | USB-C-Buchse (Service) | *offen*<br>USB4105-GF-A | THT | *offen* | ca. 0,30 € · |
-| EMV-Filter/Überspannungsschutz | *offen* | MOV S10K275 + X2-Kondensator + kleine Gleichtaktdrossel | *offen* | ca. 1,20 € · |
+| EMV Maßnahmen | *offen* | MOV (Metall-Oxid-Varistor) S10K275 + X2-Kondensator + kleine Gleichtaktdrossel (EMV-Filter) | *offen* | ca. 1,20 € · |
 | NTC (Einschaltstrombegrenzung) | TDK<br>B57236S0100M000 | 10 Ohm | *offen* | ca. 0,40 € · |
 | RC-Snubber | *offen* | 100R + 100nF X2, diskret | *offen* | ca. 0,20 € · |
 | Sicherungen + Sicherungshalter | *offen* | 5x20mm Print-Sicherungshalter + Feinsicherung | *offen* | ca. 0,45 € · /Stk |
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
-| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 76,98 € ·** |
+| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 80,35 € ·** |
 
 Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
 Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
@@ -385,18 +392,8 @@ vollständiger BOM-Preis, sondern ein grober erster Anhaltspunkt.
 
 ## TODO
 
-- ~~REC6K-2424SAW-Eingangsspannung prüfen~~ **erledigt:** REC6K-2424SAW
-  gewählt statt REC6K-4824SAW — nominal 24V, Eingangsbereich 9-36V DC,
-  deckt die ca. 28-34V DC nach Gleichrichtung des 24VAC-Trafos besser ab
-  als der breitere, aber weniger passende 48V-nominal-Typ.
-- ~~Trafo-Leistung gegen tatsächlichen Lastbedarf prüfen~~ **erledigt:**
-  Typische Dauerlast auf der Steuerseite (Q1-Spule 1,3W, LED-Ring gemischt
-  ~1W, ESP32 im Mittel ~0,5W, NFC/OLED/Sonstiges ~0,5W) liegt bei ca. 3,5W;
-  Worst-Case mit allem gleichzeitig am Limit (LED-Ring voll weiss,
-  ESP32-WLAN-Sendespitze) bei ca. 8,5W. Der bisherige 1-VA-Trafo war damit
-  klar unterdimensioniert. Ersetzt durch **Signal Transformer
-  14A-10R-24** (10 VA, 24V CT @ 0,42A, PCB-Mount) — deckt Dauerlast mit
-  Marge ab; kurze Spitzen werden durch Pufferkondensatoren auf den
-  jeweiligen Schienen abgefangen. Empfehlung zusätzlich: LED-Ring-
-  Helligkeit in der Firmware begrenzen (z.B. max. 50%, kein dauerhaftes
-  Vollweiss).
+- E-Stop-Relais (K3) öffnet aktuell ausschliesslich über den ESP32, es
+  gibt keinen von der Firmware unabhängigen Hardware-Bypass (siehe BR3 in
+  Anforderungen.md). Eine latchende/hardwareseitige Lösung für ein höheres
+  Sicherheitsniveau wäre möglich, ist aber mit vertretbarem Aufwand aktuell
+  nicht umsetzbar und daher bewusst zurückgestellt.

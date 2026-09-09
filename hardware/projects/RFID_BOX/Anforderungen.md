@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.2**
+**Dokumentrevision: 1.3**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,19 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.3** – E4 und BR1 von 24 V DC / 1 A auf **24 V DC / 100 mA**
+  reduziert: Die tatsächlich benötigte Kontaktbelastung des potentialfreien
+  Ausgangs (K2) und des E-Stop-Relais (K3) liegt bei ca. 100 mA (Ansteuerung
+  eines externen Schütz- bzw. Relais-Steuereingangs, keine direkte
+  Leistungslast). Die Bauteilauswahl (Relaiswahl, Polyfuse-Dimensionierung)
+  ist entsprechend auf 100 mA statt 1 A ausgelegt. Gehäusebeschriftung
+  entsprechend angepasst. **BR3 präzisiert:** Das E-Stop-Relais öffnet
+  sofort und unabhängig von der konfigurierten Nachlaufzeit, aber über den
+  ESP32 — es gibt aktuell keinen zusätzlichen, von der Firmware
+  unabhängigen Hardware-Bypass. Eine echte hardwareseitige (z.B.
+  latchende) Lösung wäre für ein noch höheres Sicherheitsniveau denkbar,
+  ist aber mit vertretbarem Aufwand aktuell nicht umsetzbar und daher
+  bewusst zurückgestellt.
 - **1.2** – I4 (Lastmessung) von optional auf Standard bei der Variante 230V
   umgestellt, auf Basis von Team-Feedback zur Revision 1.1: schafft die
   Grundlage für spätere nutzungsbasierte Abrechnung/Limits, macht den
@@ -86,7 +99,7 @@ Orientierung vorab die Boards, auf die sich die Anforderungen unten beziehen:
 
 ```mermaid
 flowchart LR
-    IO["I/O-Board<br/>Netzeingang, Sicherungen,<br/>230V-Relais 8A/1,84kW<br/>ODER<br/>potentialfreier Kontakt 24V 1A"]
+    IO["I/O-Board<br/>Netzeingang, Sicherungen,<br/>230V-Relais 8A/1,84kW<br/>ODER<br/>potentialfreier Kontakt 24V 100mA"]
     MCU["MCU-Board<br/>ESP32-S3, OLED, LED-Ring,<br/>Stopp-Taster, Summer"]
     RFID["RFID-Board<br/>PN532, Antenne"]
     EXT["Extension Board (optional)<br/>NAMUR-<br/>ODER<br/>I/O-Board (3V3)"]
@@ -111,7 +124,7 @@ Feldterminals); nur der eigentliche Schaltpfad unterscheidet sich.
 | E1 | Das Gerät wird mit 230 V AC versorgt. | Das Gerät hat einen eindeutig beschrifteten Netz-Eingang und startet nach dem Einschalten definiert. Gilt für beide Bestückvarianten, auch wenn nur die Variante 230V die Netzspannung weiterschaltet. |
 | E2 | **Variante 230V:** Das Gerät schaltet einen 230-V-Ausgang aus derselben Versorgung. | Nach Start, Reset und Fehlerzustand ist der Ausgang AUS. Bei Kommunikationsverlust gilt das konfigurierte Maschinenprofil. |
 | E3 | **Variante 230V:** Der 230-V-Ausgang ist für eine definierte Last abgesichert. | Die aktuelle Auslegung zielt auf 8 A Dauerlast; Sicherung, Lastrelais, Leiterbahnen, Klemmen und Thermik werden gemeinsam am Prototyp geprüft. |
-| E4 | **Variante 24V potentialfrei:** Das Gerät besitzt einen potentialfreien Schaltausgang **C / NO / NC** für **24 V DC / 1 A**. | Ein extern eingespeistes 24-V-Signal kann mit maximal 1 A geschaltet werden, ohne elektrische Verbindung zum Netz oder zur internen Kleinspannung. Der Kontakt erzeugt selbst keine 24-V-Versorgung. |
+| E4 | **Variante 24V potentialfrei:** Das Gerät besitzt einen potentialfreien Schaltausgang **C / NO / NC** für **24 V DC / 100 mA**. | Ein extern eingespeistes 24-V-Signal kann mit maximal 100 mA geschaltet werden, ohne elektrische Verbindung zum Netz oder zur internen Kleinspannung. Der Kontakt erzeugt selbst keine 24-V-Versorgung. |
 | E5 | Es gibt keinen Not-Aus- oder Not-Halt-Schalter am Machine Node. | Der vorhandene Stopp-Taster wird in UI, Firmware und Dokumentation eindeutig als normaler Stopp bezeichnet. |
 | E6 | Ein normaler Stopp beendet die Arbeitsfreigabe und startet bei Bedarf eine Nachlaufsequenz. | Der Stopp wird sofort als `STOPPED` angezeigt und löst, falls ein E-Stop Extension Board bestückt ist, sofort dessen Notaus-Kontakt aus. Die eigentliche Versorgung (Schaltausgang des I/O-Boards) wird **nicht** hart und sofort getrennt, sondern erst nach Ablauf der je Maschinenprofil konfigurierten Nachlaufzeit abgeschaltet — auch nicht durch den Stopp-Taster. Beispiele: Laser-Abluft 60 Sekunden, Bremse 10 Sekunden für FKS. Ein vorzeitiges hartes Abschalten der Versorgung kann die Maschine an einer eigenen kontrollierten Bremsung hindern und zu Schäden führen. |
 | E7 | Kommunikationsverlust hat ein definiertes, konfigurierbares Verhalten. | Eine laufende Freigabe darf je nach Maschinenprofil und Timeout weiterlaufen; eine neue Freigabe ohne Serverbestätigung ist nie möglich. |
@@ -185,7 +198,7 @@ eingeschaltet. Unabhängiger Nachlauf von Abluft, Bremse und Maschine
 erfordert zusätzliche Schaltkanäle oder ein externes Nachlaufrelais.
 
 > **Wichtig, Reihenfolge bei Stopp/Kartenentzug (z.B. FKS):** Erst wird —
-> falls ein E-Stop Extension Board bestückt ist — sofort und hardwareseitig
+> falls ein E-Stop Extension Board bestückt ist — sofort (per Firmware)
 > dessen Notaus-Kontakt geöffnet, der in die Notaus-/Interlock-Schleife der
 > Maschine eingeschleift ist. Die Maschine leitet dadurch ihre eigene
 > kontrollierte Bremsung ein. Die eigentliche Versorgung (Schaltausgang des
@@ -259,9 +272,9 @@ während ihrer eigenen kontrollierten Bremsung noch Energie zur Verfügung.
 
 | ID | Muss-Anforderung | Abnahmekriterium |
 |---|---|---|
-| BR1 | Das E-Stop Extension Board schaltet ein einfaches Relais mit **24 V DC / 1 A** Kontaktbelastung, dessen Kontakt in die Notaus-/Interlock-Schleife bzw. Bremsversorgung der externen Maschine eingeschleift wird. | Ein extern eingespeister 24-V-DC-Stromkreis kann mit maximal 1 A über das Relais durchgeschaltet werden, galvanisch getrennt von Netz und Gerätesteuerung. |
+| BR1 | Das E-Stop Extension Board schaltet ein einfaches Relais mit **24 V DC / 100 mA** Kontaktbelastung, dessen Kontakt in die Notaus-/Interlock-Schleife bzw. Bremsversorgung der externen Maschine eingeschleift wird. | Ein extern eingespeister 24-V-DC-Stromkreis kann mit maximal 100 mA über das Relais durchgeschaltet werden, galvanisch getrennt von Netz und Gerätesteuerung. |
 | BR2 | Die Schaltlogik ist fail-safe: stromlos = Notaus-Schleife unterbrochen / Bremse aktiv. | Das Relais ist im Ruhezustand (Coil stromlos) offen; die Notaus-Schleife ist dann unterbrochen bzw. die Bremse fällt ein. Erst ein aktives Freigabesignal der Steuerung schliesst das Relais. |
-| BR3 | Das Relais öffnet bei Stopp oder Kartenentzug immer sofort, unabhängig vom Nachlaufprofil. | Bei Stopp-Taster **und** bei Kartenentzug im Always-on-Modus öffnet das Relais hardwareseitig sofort (<100 ms), unabhängig von der konfigurierten Nachlaufzeit. Die Versorgung der Maschine (I/O-Board-Ausgang) folgt **nicht** diesem sofortigen Öffnen, sondern bleibt bis zum Ende der Nachlaufzeit bestehen. |
+| BR3 | Das Relais öffnet bei Stopp oder Kartenentzug immer sofort, unabhängig vom Nachlaufprofil. | Bei Stopp-Taster **und** bei Kartenentzug im Always-on-Modus öffnet das Relais sofort (<100 ms) über den ESP32, unabhängig von der konfigurierten Nachlaufzeit. Es gibt aktuell keinen zusätzlichen, von der Firmware unabhängigen Hardware-Bypass. Die Versorgung der Maschine (I/O-Board-Ausgang) folgt **nicht** diesem sofortigen Öffnen, sondern bleibt bis zum Ende der Nachlaufzeit bestehen. |
 | BR4 | Das Modul ist klar als Nicht-Not-Aus-Bauteil gekennzeichnet. | Beschriftung und Dokumentation verweisen eindeutig darauf, dass dieses Relais kein Personenschutz- oder Not-Halt-Bauteil ist. |
 
 ### 5. Umwelt und Montage
@@ -301,11 +314,11 @@ Mindestens erforderlich:
 - **Variante 230V:** „Direkter 230-V-Ausgang: max. 8 A Dauerlast / ca. 1,84 kW“
   und „Motoren und hohe Einschaltströme nur nach Prüfung oder über externes
   Schütz“
-- **Variante 24V potentialfrei:** „Potentialfreier Kontakt: max. 24 V DC / 1 A“
+- **Variante 24V potentialfrei:** „Potentialfreier Kontakt: max. 24 V DC / 100 mA“
 - **Nur wenn Extension Board Variante NAMUR bestückt ist:**
   „OUT_A+/- / OUT_B+/-: je 24 V DC / 4 mA, optoisolierte NAMUR-Ausgänge“ und
   „IN_NAMUR+/-: galvanisch getrennter 24-V-NAMUR-Eingang“
-- **Nur wenn E-Stop Extension Board bestückt ist:** „J18: max. 24 V DC / 1 A,
+- **Nur wenn E-Stop Extension Board bestückt ist:** „J18: max. 24 V DC / 100 mA,
   kein Not-Aus/Not-Halt-Bauteil, unterbricht sofort die Notaus-/Interlock-
   Schleife bzw. Bremsversorgung der Maschine; die Hauptversorgung trennt
   erst nach der konfigurierten Nachlaufzeit“
