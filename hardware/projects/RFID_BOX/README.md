@@ -310,8 +310,7 @@ flowchart TB
     TREIBER -->|Ansteuerung| REL
     REL --> OUT
 
-    STOP -->|sofort| ESP
-    STOP -.->|Hardware-Interlock, sofort, ohne Firmware| ESTOP
+    STOP -->|I/O| ESP
 
     MESS -->|UART| OPTO_FB
     OPTO_FB -->|UART, isoliert| ESP
