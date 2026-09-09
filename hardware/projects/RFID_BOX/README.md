@@ -156,9 +156,9 @@ und teilt sich dort in zwei Pfade:
   Lastrelais → Lastmessung → Schaltausgang.
 - **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig → isolierender
   AC/AC-Trafo auf 24 VAC → Sekundärsicherung → Gleichrichter → DC/DC-Wandler
-  REC6K-4824SAW (24 V, isoliert) → Regler auf 5 V (Modul mit integriertem
+  REC6K-2424SAW (24 V, isoliert) → Regler auf 5 V (Modul mit integriertem
   Überspannungs-/Überlastschutz) → 3,3 V auf dem MCU-Board für ESP32 und
-  NFC-Controller. Die 24-V-Schiene aus dem REC6K-4824SAW versorgt zusätzlich
+  NFC-Controller. Die 24-V-Schiene aus dem REC6K-2424SAW versorgt zusätzlich
   die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V. Ein
   isolierter 5V→5V-Regler versorgt die Lastmessung galvanisch getrennt.
 
@@ -192,7 +192,7 @@ flowchart TB
     TRAFO["Trafo AC/AC<br/>230V → 24VAC, isoliert"]
     FSEK[Sekundärsicherung<br/>24VAC]
     GLEICH["Gleichrichter<br/>24VAC → DC, ungeregelt"]
-    DCDC["DC/DC-Wandler<br/>REC6K-4824SAW<br/>→ 24V, isoliert"]
+    DCDC["DC/DC-Wandler<br/>REC6K-2424SAW<br/>→ 24V, isoliert"]
     REG5V["Regler 5V<br/>(Modul mit ÜS-Schutz)"]
     V5[5V: LED-Ring, Buzzer, Erweiterungsboards]
     V33[3V3-Regler]
@@ -259,7 +259,7 @@ flowchart TB
 | `[24VAC]` | Trafo-Sekundärseite, isoliert |
 | `[24VAC_FUSED]` | Trafo-Sekundärseite nach Sicherung |
 | `[+DC_RAW]` | Ungeregelte Gleichspannung nach dem Gleichrichter, Eingang des DC/DC-Wandlers |
-| `[+24V]` | Geregelte 24-V-Schiene aus REC6K-4824SAW, versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
+| `[+24V]` | Geregelte 24-V-Schiene aus REC6K-2424SAW, versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
 | `[+5V]` | 5-V-Schiene (Schutz durch integrierten Modulschutz des Reglers) |
 | `[+5V_ISO]` | Isolierte 5-V-Versorgung der Lastmessung |
 | `[+3V3]` | Logikversorgung |
@@ -343,38 +343,41 @@ analog zu den Netznamen im Power-Distribution-Diagramm.
 ## Bauteilauswahl
 
 Bereits festgelegte Bauteile für die in den vorherigen Kapiteln gezeigten
-Funktionsblöcke. Preise sind Einzelstückpreise; wo kein Distributorpreis
-vorliegt, ist der Wert geschätzt (·).
+Funktionsblöcke. Preise sind Einzelstückpreise, sofern nicht anders
+angegeben (z.B. "@10 Stk"); wo kein Distributorpreis vorliegt, ist der Wert
+geschätzt (·). Lieferant/Bestellnummer sind nur eingetragen, wo bereits
+konkret geprüft; "*offen*" heisst nicht unbekannt/unmöglich, sondern noch
+nicht recherchiert.
 
-| Funktion | Bauteil | Preis |
-|---|---|---:|
-| Mikrocontroller | ESP32-S3-WROOM-1-N16R8 | ca. 4,50 € · |
-| OLED | DT010ATFT | ca. 18 € · |
-| Leistungsmessung | MCP39F51A | ca. 3,50 € · |
-| RFID-Controller | NXP PN5321A3HN/C100 | ca. 3,50 € · |
-| Iso-Regler 5V → 5V (Lastmessung) | RFB-0505S | ca. 4 € · |
-| DC/DC-Wandler 24V (Relaisspule) | REC6K-4824SAW | ca. 18 € · |
-| Netz-Eingang / Schaltausgang (Terminal) | WAGO 2604-1103 | ca. 1,50 € · |
-| Lastrelais (Q1) | Songle SRD-24VDC-SL-C, 10 A / 250 V, Spule 24V | ca. 0,40 € · |
-| Trafo AC/AC 230V → 24VAC | Printtrafo, 1 VA, 24 V, 42 mA, RM 20 mm | 5,20 € |
-| Gleichrichter | Brückengleichrichter, 80 V, 5 A | 1,16 € |
-| Regler 5V (Steuerpfad) | Diodes AP63203WU-7, Buck 24V→5V, SOT23-6 | ca. 0,50 € · |
-| 3V3-Regler | AMS1117-3.3, LDO, SOT-223 | ca. 0,15 € · |
-| Potentialfreier Kontakt (K2) | Omron G6K-2F-Y-TR DC24, 1A/24V, Spule 24V | ca. 2,50 € · |
-| E-Stop-Relais (K3) | Omron G5V-1 24VDC, 1A/24V, Spule 24V | ca. 1,80 € · |
-| Optokoppler (Enable/Messsignal) | PC817, DIP-4/SMD-4 | ca. 0,08 € · |
-| Relaistreiber | BC847 + Freilaufdiode 1N4148, diskret | ca. 0,10 € · |
-| LED-Ring | Worldsemi WS2812B-2020, 12x | ca. 0,10 € · /Stk |
-| Pegelwandler LED-Ring (3V3→5V) | 74AHCT125, Puffer/Levelshifter | ca. 0,30 € · |
-| Buzzer | TDK PS1240P02BT, SMD-Piezo | ca. 0,60 € · |
-| Stopp-Taster | Panelmontage-Taster, IP65, 12mm | ca. 1,50 € · |
-| USB-C-Buchse (Service) | USB4105-GF-A, THT | ca. 0,30 € · |
-| EMV-Filter/Überspannungsschutz | MOV S10K275 + X2-Kondensator + kleine Gleichtaktdrossel | ca. 1,20 € · |
-| NTC (Einschaltstrombegrenzung) | TDK B57236S0100M000, 10 Ohm | ca. 0,40 € · |
-| RC-Snubber | 100R + 100nF X2, diskret | ca. 0,20 € · |
-| Sicherungen + Sicherungshalter | 5x20mm Print-Sicherungshalter + Feinsicherung | ca. 0,45 € · /Stk |
-| Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | — |
-| **Summe** | 1× je Zeile, ohne Mengen und ohne Extension Board | **ca. 69,95 € ·** |
+| Funktion | Hersteller | Herstellerteilenummer | Beschreibung | Lieferant | Bestellnummer | Preis |
+|---|---|---|---|---|---|---:|
+| Mikrocontroller | Espressif | ESP32-S3-WROOM-1-N16R8 | 16MB Flash, 8MB PSRAM | Mouser | 356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
+| OLED | Displaytech | DT010ATFT | 1" IPS-LCD | Mouser | 758-DT010ATFT | 10,92 € @10 Stk |
+| Leistungsmessung | Microchip | MCP39F51A | Power-Monitoring-IC | Farnell | 2478286 | 3,61 € @25 Stk |
+| RFID-Controller | NXP | PN5321A3HN/C106 | NFC-Controller | Mouser | 771-PN5321A3HN10 | 11,25 € |
+| Iso-Regler 5V → 5V (Lastmessung) | RECOM | RFB-0505S | Iso-DC/DC 1W | Mouser | 919-RFB-0505S | 1,80 € @25 Stk |
+| DC/DC-Wandler 24V (Relaisspule) | RECOM | REC6K-2424SAW | DC/DC 6W, isoliert, Eingang 9-36V (nominal 24V) | Mouser | 919-REC6K-2424SAW | 6,67 € @18 Stk |
+| Netz-Eingang / Schaltausgang (Terminal) | WAGO | 2604-1103 | 3-pol. Hebelklemme | Digikey | 2946-2604-1103-ND | 2,95 € @50 Stk |
+| Lastrelais (Q1) | Finder | 62.22.9.024.4000 | 16A/120A Peak, Motor 0,8kW@230VAC, AgSnO2, PCB-Mount | Reichelt | FIN 62.22.9 24V1 | 12,78 € zzgl. MwSt |
+| Trafo AC/AC 230V → 24VAC | Signal Transformer (Bel Fuse) | 14A-10R-24 | 10 VA, 24V CT @ 0,42A, PCB-Mount, 4000Vrms Isolation | Mouser | 530-14A-10R-24 | 10,83 € @10 Stk |
+| Gleichrichter | *offen* | *offen* | Brückengleichrichter, 80 V, 5 A | Reichelt | *offen* | 1,16 € |
+| Regler 5V (Steuerpfad) | Diodes Inc. | AP63203WU-7 | Buck 24V→5V, SOT23-6 | *offen* | *offen* | ca. 0,50 € · |
+| 3V3-Regler | diverse (z.B. AMS) | AMS1117-3.3 | LDO, SOT-223 | *offen* | *offen* | ca. 0,15 € · |
+| Potentialfreier Kontakt (K2) | Omron | G6K-2F-Y-TR DC24 | 1A/24V, Spule 24V | *offen* | *offen* | ca. 2,50 € · |
+| E-Stop-Relais (K3) | Omron | G5V-1 24VDC | 1A/24V, Spule 24V | *offen* | *offen* | ca. 1,80 € · |
+| Optokoppler (Enable/Messsignal) | diverse | PC817 | DIP-4/SMD-4 | *offen* | *offen* | ca. 0,08 € · |
+| Relaistreiber | diverse | BC847 + 1N4148 | diskreter Treiber + Freilaufdiode | *offen* | *offen* | ca. 0,10 € · |
+| LED-Ring | Worldsemi | WS2812B-2020 | 12x, adressierbar | *offen* | *offen* | ca. 0,10 € · /Stk |
+| Pegelwandler LED-Ring (3V3→5V) | diverse | 74AHCT125 | Puffer/Levelshifter | *offen* | *offen* | ca. 0,30 € · |
+| Buzzer | TDK | PS1240P02BT | SMD-Piezo | *offen* | *offen* | ca. 0,60 € · |
+| Stopp-Taster | *offen* | *offen* | Panelmontage, IP65, 12mm | *offen* | *offen* | ca. 1,50 € · |
+| USB-C-Buchse (Service) | *offen* | USB4105-GF-A | THT | *offen* | *offen* | ca. 0,30 € · |
+| EMV-Filter/Überspannungsschutz | *offen* | *offen* | MOV S10K275 + X2-Kondensator + kleine Gleichtaktdrossel | *offen* | *offen* | ca. 1,20 € · |
+| NTC (Einschaltstrombegrenzung) | TDK | B57236S0100M000 | 10 Ohm | *offen* | *offen* | ca. 0,40 € · |
+| RC-Snubber | *offen* | *offen* | 100R + 100nF X2, diskret | *offen* | *offen* | ca. 0,20 € · |
+| Sicherungen + Sicherungshalter | *offen* | *offen* | 5x20mm Print-Sicherungshalter + Feinsicherung | *offen* | *offen* | ca. 0,45 € · /Stk |
+| Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | | | — |
+| **Summe** | | | 1× je Zeile, ohne Mengen und ohne Extension Board | | | **ca. 76,98 € ·** |
 
 Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
 Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
@@ -383,17 +386,18 @@ vollständiger BOM-Preis, sondern ein grober erster Anhaltspunkt.
 
 ## TODO
 
-- **REC6K-4824SAW-Eingangsspannung prüfen:** "4824" deutet auf einen
-  48V-nominal-Eingang hin. Der 24VAC-Trafo liefert nach Gleichrichtung aber
-  nur ca. 28-34V DC ungeregelt (Spitzenwert von 24VAC abzüglich
-  Diodenverluste) — das liegt vermutlich unterhalb des zulässigen
-  Eingangsbereichs eines "48"-nominal-Moduls. Entweder einen REC6K-Typ mit
-  passendem Eingangsbereich (z.B. "24xx" für 24V-nominal-Eingang) wählen
-  oder die Trafo-Sekundärspannung erhöhen.
-- **Trafo-Leistung (1 VA) gegen tatsächlichen Lastbedarf prüfen:** Der
-  LED-Ring allein kann bei voller Helligkeit (12× WS2812B, weiss) bis zu
-  ca. 3,6 W bei 5V ziehen, dazu ESP32-WiFi-Sendespitzen (ca. 1,5-2 W bei
-  3,3V), Buzzer und Relaisspule. Das steht in keinem offensichtlichen
-  Verhältnis zu einem 1-VA-Steuerpfad-Trafo. Klären, ob die tatsächliche
-  Spitzenlast niedriger ausfällt (z.B. LED-Ring gedimmt) oder der Trafo
-  grösser dimensioniert werden muss.
+- ~~REC6K-2424SAW-Eingangsspannung prüfen~~ **erledigt:** REC6K-2424SAW
+  gewählt statt REC6K-4824SAW — nominal 24V, Eingangsbereich 9-36V DC,
+  deckt die ca. 28-34V DC nach Gleichrichtung des 24VAC-Trafos besser ab
+  als der breitere, aber weniger passende 48V-nominal-Typ.
+- ~~Trafo-Leistung gegen tatsächlichen Lastbedarf prüfen~~ **erledigt:**
+  Typische Dauerlast auf der Steuerseite (Q1-Spule 1,3W, LED-Ring gemischt
+  ~1W, ESP32 im Mittel ~0,5W, NFC/OLED/Sonstiges ~0,5W) liegt bei ca. 3,5W;
+  Worst-Case mit allem gleichzeitig am Limit (LED-Ring voll weiss,
+  ESP32-WLAN-Sendespitze) bei ca. 8,5W. Der bisherige 1-VA-Trafo war damit
+  klar unterdimensioniert. Ersetzt durch **Signal Transformer
+  14A-10R-24** (10 VA, 24V CT @ 0,42A, PCB-Mount) — deckt Dauerlast mit
+  Marge ab; kurze Spitzen werden durch Pufferkondensatoren auf den
+  jeweiligen Schienen abgefangen. Empfehlung zusätzlich: LED-Ring-
+  Helligkeit in der Firmware begrenzen (z.B. max. 50%, kein dauerhaftes
+  Vollweiss).
