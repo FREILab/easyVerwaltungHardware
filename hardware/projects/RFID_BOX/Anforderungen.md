@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.3**
+**Dokumentrevision: 1.4**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,18 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.4** – I/O-Board-Footprint auf 100x100mm optimiert: AC/AC-Trafo
+  (14A-10R-24) + Gleichrichter (RTT410-13) + DC/DC-Wandler (REC6K-2424SAW)
+  durch ein isoliertes AC/DC-Modul (Mean Well IRM-10-24, 10W, 4,2kVac
+  I/P-O/P) ersetzt. Lastrelais Q1 von Finder 62.22 (49mm hoch, einpolig)
+  auf TE Connectivity T92S11D12-24 (30,7mm hoch, 2-polig N+L) gewechselt —
+  adressiert zusätzlich die nicht garantiert eindeutige N/L-Zuordnung an
+  der Werkstatt-Steckdose. **S5 präzisiert:** Nur noch die
+  Lastausgangssicherung F2 ist gesockelt gefordert; die Gerätesicherung F1
+  (1A) ist als dokumentierte Ausnahme fest verlötet, abgesichert durch den
+  vorgelagerten Leitungsschutzschalter im Werkstattverteiler. F3
+  (Sekundärsicherung 24VAC) entfällt komplett, da die Trafo-Sekundärseite
+  mit dem neuen AC/DC-Modul wegfällt.
 - **1.3** – E4 und BR1 von 24 V DC / 1 A auf **24 V DC / 100 mA**
   reduziert: Die tatsächlich benötigte Kontaktbelastung des potentialfreien
   Ausgangs (K2) und des E-Stop-Relais (K3) liegt bei ca. 100 mA (Ansteuerung
@@ -297,7 +309,7 @@ während ihrer eigenen kontrollierten Bremsung noch Energie zur Verfügung.
 | S2 | Die interne Verdrahtung ist minimal. | Keine losen Litzen, keine Handverkabelung und keine handverlöteten Module im Serienaufbau. |
 | S3 | Die Schaltfunktion des I/O-Boards ist wartbar. | Das I/O-Board kann ohne Löten getauscht werden; alternativ ist sein kompletter Austausch wirtschaftlich vorgesehen. |
 | S4 | Die Baugruppe ist für SMD-Fertigung geeignet. | Bestückung, elektrische Prüfung und Service sind mit geringem Handarbeitsanteil möglich. |
-| S5 | Die Sicherungen sind gesockelt und ohne Löten tauschbar. | F1, F2 und F3 stecken in Sicherungshaltern statt fest verlötet zu sein; nach dem Öffnen des Gehäuses lässt sich jede Sicherung mit normalem Werkzeug aus dem Sockel entnehmen und ersetzen. |
+| S5 | Die Lastausgangssicherung ist gesockelt und ohne Löten tauschbar. | F2 steckt in einem Sicherungshalter statt fest verlötet zu sein; nach dem Öffnen des Gehäuses lässt sich F2 mit normalem Werkzeug aus dem Sockel entnehmen und ersetzen, eine Ersatzsicherung wird im Gehäuse mitgeführt. **Dokumentierte Ausnahme:** Die Gerätesicherung F1 (1A, interner Kurzschlussschutz) ist fest verlötet, nicht gesockelt — ein vorgelagerter Leitungsschutzschalter im Werkstattverteiler deckt den Netzkurzschlussfall ab, F1 schützt nur gegen interne Gerätefehler und muss im Feld praktisch nie getauscht werden. |
 
 ### Verbindliche Gehäusebeschriftung
 

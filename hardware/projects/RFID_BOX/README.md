@@ -154,25 +154,29 @@ und teilt sich dort in zwei Pfade:
 
 - **Lastpfad (nur Variante 230V):** Netz-Eingang → Ausgangssicherung →
   Lastrelais → Lastmessung → Schaltausgang.
-- **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig → isolierender
-  AC/AC-Trafo auf 24 VAC → Sekundärsicherung → Gleichrichter → DC/DC-Wandler
-  REC6K-2424SAW (24 V, isoliert) → Regler auf 5 V (Modul mit
-  Unterspannungs- und Kurzschlussschutz) → 3,3 V auf dem MCU-Board für ESP32 und
-  NFC-Controller. Die 24-V-Schiene aus dem REC6K-2424SAW versorgt zusätzlich
-  die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V. Ein
-  isolierter 5V→5V-Regler versorgt die Lastmessung galvanisch getrennt.
+- **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig → isoliertes
+  AC/DC-Wandlermodul Mean Well IRM-10-24 (24 V, isoliert) → Regler auf 5 V
+  (Modul mit Unterspannungs- und Kurzschlussschutz) → 3,3 V auf dem
+  MCU-Board für ESP32 und NFC-Controller. Die 24-V-Schiene aus dem
+  IRM-10-24 versorgt zusätzlich die Lastrelais-Spule. LED-Ring und Buzzer
+  laufen direkt auf 5 V. Ein isolierter 5V→5V-Regler versorgt die
+  Lastmessung galvanisch getrennt.
 
 Die Erweiterungsboards (Extension Board, E-Stop Extension Board) werden über
 den Stack aus dem Steuerpfad versorgt; ihre Feldseite (NAMUR-Kanäle,
 Notaus-Schleife) bleibt galvanisch getrennt und wird extern gespeist.
 
-Alle Sicherungen sind gesockelt und nach dem Öffnen des Gehäuses ohne Löten
-tauschbar (siehe [Anforderungen.md](Anforderungen.md), S5).
+Die Lastausgangssicherung (F2) ist gesockelt und nach dem Öffnen des
+Gehäuses ohne Löten tauschbar; eine Ersatzsicherung wird im Gehäuse
+mitgeführt. Die Gerätesicherung (F1) ist als dokumentierte Ausnahme fest
+verlötet (siehe [Anforderungen.md](Anforderungen.md), S5).
 
 Da das Werkstattnetz und die geschaltete Last (Motoren) elektrisch
 "schmutzig" sein können, sitzen direkt am Netz-Eingang EMV-Maßnahmen sowie
 im Lastpfad eine Einschaltstrombegrenzung und eine Kontakt-Schutzbeschaltung
-am Lastrelais. PE wird unverändert vom
+am Lastrelais. Das Lastrelais trennt L und N gemeinsam (2-polig), da die
+N/L-Zuordnung an der Werkstatt-Steckdose nicht garantiert eindeutig ist.
+PE wird unverändert vom
 Netz-Eingang zum Schaltausgang durchgeschleift; da das Gehäuse aus
 Kunststoff besteht, gibt es keine Verbindung zu einer Gehäusemasse.
 
@@ -189,10 +193,7 @@ flowchart TB
     PE([PE / Schutzleiter<br/>durchgeschleift])
 
     FSTEUER[Sicherung<br/>Steuerzweig<br/>230V 200mA]
-    TRAFO["Trafo AC/AC<br/>230V → 24VAC, isoliert"]
-    FSEK[Sekundärsicherung<br/>24VAC]
-    GLEICH["Gleichrichter<br/>24VAC → DC, ungeregelt"]
-    DCDC["DC/DC-Wandler<br/>REC6K-2424SAW<br/>→ 24V, isoliert"]
+    ACDC["AC/DC-Wandler<br/>Mean Well IRM-10-24<br/>→ 24V, isoliert"]
     REG5V["Regler 5V<br/>(Modul mit UV-/Kurzschlussschutz)"]
     V5[5V: LED-Ring, Buzzer, Erweiterungsboards]
     V33[3V3-Regler]
@@ -207,12 +208,9 @@ flowchart TB
     MESS -->|"[PIN_SWITCHED]"| OUT
     REL -.- SNUB
     EMV -->|"[PIN_FILTERED]"| FSTEUER
-    FSTEUER -->|"[PIN_CTRL]"| TRAFO
-    TRAFO -->|"[24VAC]"| FSEK
-    FSEK -->|"[24VAC_FUSED]"| GLEICH
-    GLEICH -->|"[+DC_RAW]"| DCDC
-    DCDC -->|"[+24V]"| REG5V
-    DCDC -->|"[+24V]"| REL
+    FSTEUER -->|"[PIN_CTRL]"| ACDC
+    ACDC -->|"[+24V]"| REG5V
+    ACDC -->|"[+24V]"| REL
     REG5V -->|"[+5V]"| V5
     REG5V -->|"[+5V]"| V33
     V33 -->|"[+3V3]"| LOGIK
@@ -228,14 +226,11 @@ flowchart TB
     linkStyle 4,5 stroke:#ef6c00,stroke-width:2px
     linkStyle 6 stroke:#757575,stroke-width:1.5px,stroke-dasharray:3 3
     linkStyle 8 stroke:#f4511e,stroke-width:2px
-    linkStyle 9 stroke:#fbc02d,stroke-width:2px
-    linkStyle 10 stroke:#f9a825,stroke-width:2px
-    linkStyle 11 stroke:#ffb300,stroke-width:2px
-    linkStyle 12,13 stroke:#fdd835,stroke-width:2px
-    linkStyle 14,15,17 stroke:#2e7d32,stroke-width:2px
-    linkStyle 16 stroke:#00897b,stroke-width:2px
-    linkStyle 18 stroke:#8e24aa,stroke-width:2px
-    linkStyle 19,20 stroke:#43a047,stroke-width:2px
+    linkStyle 9,10 stroke:#fdd835,stroke-width:2px
+    linkStyle 11,12,14 stroke:#2e7d32,stroke-width:2px
+    linkStyle 13 stroke:#00897b,stroke-width:2px
+    linkStyle 15 stroke:#8e24aa,stroke-width:2px
+    linkStyle 16,17 stroke:#43a047,stroke-width:2px
 
     classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
     classDef part230 fill:#ff9800,color:#000,stroke:#e65100
@@ -243,8 +238,8 @@ flowchart TB
     classDef pe fill:#e8f5e9,color:#1b5e20,stroke:#43a047
 
     class NETZ,OUT term230
-    class FLAST,REL,MESS,FSTEUER,TRAFO,EMV,NTC,SNUB part230
-    class GLEICH,DCDC,REG5V,FSEK,V5,V33,LOGIK,ISO5V partSELV
+    class FLAST,REL,MESS,FSTEUER,EMV,NTC,SNUB part230
+    class ACDC,REG5V,V5,V33,LOGIK,ISO5V partSELV
     class PE pe
 ```
 
@@ -256,10 +251,7 @@ flowchart TB
 | `[PIN_LIMITED]` | Nach Einschaltstrombegrenzung (NTC) |
 | `[PIN_SWITCHED]` | Geschaltete Phase hinter dem Lastrelais |
 | `[PIN_CTRL]` | Steuerzweig nach Sicherung |
-| `[24VAC]` | Trafo-Sekundärseite, isoliert |
-| `[24VAC_FUSED]` | Trafo-Sekundärseite nach Sicherung |
-| `[+DC_RAW]` | Ungeregelte Gleichspannung nach dem Gleichrichter, Eingang des DC/DC-Wandlers |
-| `[+24V]` | Geregelte 24-V-Schiene aus REC6K-2424SAW, versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
+| `[+24V]` | Geregelte 24-V-Schiene aus dem AC/DC-Wandler IRM-10-24, versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
 | `[+5V]` | 5-V-Schiene (Schutz durch integrierten Modulschutz des Reglers) |
 | `[+5V_ISO]` | Isolierte 5-V-Versorgung der Lastmessung |
 | `[+3V3]` | Logikversorgung |
@@ -360,11 +352,9 @@ nicht recherchiert.
 | Shunt (Leistungsmessung) | Yageo<br>PA1206FRM670R002L | 2mOhm, Strommess-Shunt, 1206 | Mouser<br>603-PA1206FRM670R02L | 0,131 € @25 Stk |
 | RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle | Mouser<br>771-PN5321A3HN10 | 11,25 € @1 Stk |
 | Iso-Regler 5V → 5V (Lastmessung) | RECOM<br>RFB-0505S | Isoliertes DC/DC-Modul, 1W, keine Mindestlast, 500VAC Isolation | Mouser<br>919-RFB-0505S | 1,80 € @25 Stk |
-| DC/DC-Wandler 24V (Relaisspule) | RECOM<br>REC6K-2424SAW | DC/DC 6W, isoliert, Eingang 9-36V (nominal 24V) | Mouser<br>919-REC6K-2424SAW | 6,67 € @18 Stk |
 | Netz-Eingang / Schaltausgang (Terminal) | WAGO<br>2604-1103 | 3-pol. Hebelklemme, Rastermaß 5mm | Digikey<br>2946-2604-1103-ND | 2,95 € @50 Stk |
-| Lastrelais (Q1) | Finder<br>62.22.9.024.4000 | 16A/120A Peak, Motor 0,8kW@230VAC, AgSnO2, Print-Montage (THT) | Reichelt<br>FIN 62.22.9 24V1 | 12,78 € zzgl. MwSt |
-| Trafo AC/AC 230V → 24VAC | Signal Transformer (Bel Fuse)<br>14A-10R-24 | 10 VA, 24V CT @ 0,42A, PCB-Mount, 4000Vrms Isolation | Mouser<br>530-14A-10R-24 | 10,83 € @10 Stk |
-| Gleichrichter | Diodes Inc.<br>RTT410-13 | SMD-Brückengleichrichter, 1000V/4A, Fast Recovery | Mouser<br>621-RTT410-13 | 0,482 € @10 Stk |
+| Lastrelais (Q1) | TE Connectivity<br>T92S11D12-24 (9-1393211-0) | 2-polig (N+L), 2 Form C, AgCdO, 30A/40A NO, verstärkte Isolation Spule/Kontakt 8mm/9,5mm/4kVrms, Höhe 30,7mm | Digikey<br>PB352-ND | 27,46 € @30 Stk |
+| AC/DC-Wandler 24V (Steuerpfad) | Mean Well<br>IRM-10-24 | 10W isoliert, 24V/0,42A, 4,2kVac I/P-O/P, Isolationsklasse II, PCB-Mount | Digikey<br>1866-3030-ND | 5,650 € @25 Stk |
 | Regler 5V (Steuerpfad) | RECOM<br>R-78K5.0-2.0 | DC/DC-Wandler 24V→5V, 2A, SIP3/TO-220-kompatibel | Digikey<br>945-R-78K5.0-2.0-ND | 4,71 € @25 Stk |
 | 3V3-Regler | EVVOSEMI<br>AMS1117-3.3 | LDO 1A, SOT-223-3L | Digikey<br>5272-AMS1117-3.3CT-ND | 0,1552 € @25 Stk |
 | Potentialfreier Kontakt (K2) | Omron<br>G5V-1-2 DC24 | 100mA/24V, Spule 24V | Digikey<br>Z11621-ND | 1,9556 € @25 Stk |
@@ -381,9 +371,12 @@ nicht recherchiert.
 | EMV Maßnahmen | *offen* | MOV (Metall-Oxid-Varistor) S10K275 + X2-Kondensator + kleine Gleichtaktdrossel (EMV-Filter) | *offen* | ca. 1,20 € · |
 | NTC (Einschaltstrombegrenzung) | TDK<br>B57236S0100M000 | 10 Ohm | *offen* | ca. 0,40 € · |
 | RC-Snubber | *offen* | 100R + 100nF X2, diskret | *offen* | ca. 0,20 € · |
-| Sicherungen + Sicherungshalter | *offen* | 5x20mm Print-Sicherungshalter + Feinsicherung | *offen* | ca. 0,45 € · /Stk |
+| Gerätesicherung (F1) | Bel Fuse<br>MRT 1-BULK | 1A/250V träge, THT radial, fest verlötet (Abweichung von S5, siehe Anforderungen.md) | Digikey<br>5923-MRT1-BULK-ND | 0,402 € @10 Stk |
+| Lastausgangssicherung (F2) | Schurter<br>0034.3127 (FST 5x20) | 10A/250V träge | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
+| Sicherungshalter (F2) | Würth<br>WR-FSH 696309001002 | VDE 10A, Berührschutz Shocksafe PC2/IP20, THT stehend | Digikey<br>732-11383-ND | 1,30 € @10 Stk |
+| Ersatzsicherung (im Gehäuse) | Schurter<br>0034.3127 (FST 5x20) | Reserve wie F2, im Gehäuse mitgeführt | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
-| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 80,35 € ·** |
+| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 84,77 € ·** |
 
 Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
 Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
@@ -397,3 +390,8 @@ vollständiger BOM-Preis, sondern ein grober erster Anhaltspunkt.
   Anforderungen.md). Eine latchende/hardwareseitige Lösung für ein höheres
   Sicherheitsniveau wäre möglich, ist aber mit vertretbarem Aufwand aktuell
   nicht umsetzbar und daher bewusst zurückgestellt.
+- Lastrelais T92S11D12-24: prüfen, ob die reguläre Wash-tight-Variante
+  (ohne "-00"-Suffix) für den Einsatzzweck ausreicht oder ob explizit die
+  WG-Variante ("-00") bestellt werden muss — das Datenblatt nennt die
+  EN-60335-1-Zulassung nur für die WG-Variante, während die Kernwerte
+  (8mm/9,5mm/4kV) laut Insulation-Data-Tabelle für die ganze Serie gelten.
