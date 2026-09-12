@@ -361,7 +361,7 @@ nicht recherchiert.
 | Polyfuse (K2) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
 | E-Stop-Relais (K3) | Omron<br>G5V-1-2 DC24 | 100mA/24V, Spule 24V | Digikey<br>Z11621-ND | 1,9556 € @25 Stk |
 | Polyfuse (K3) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
-| Optokoppler (Enable/Messsignal) | diverse<br>PC817 | Phototransistor-Optokoppler, DIP-4/SMD-4 | *offen* | ca. 0,08 € · |
+| Optokoppler (Enable/Messsignal) | Vishay<br>VO615A-X017T | Phototransistor-Optokoppler, VDE 0884-5 verstärkte Isolierung, SMD-4, Kriechstrecke ≥7,6mm | Digikey<br>751-VO615A-X017TCT-ND | 0,269 € @10 Stk |
 | Relaistreiber | diverse<br>BC847 + 1N4148 | NPN-Transistor-Treiber + Freilaufdiode für Relaisspule | *offen* | ca. 0,10 € · |
 | LED-Ring | Inolux<br>IN-PI20TATPRPGPB | 12x, 2020-Gehäuse, adressierbar über Single-Wire-Protokoll (WS2812B-kompatibel) | Digikey<br>1830-IN-PI20TATPRPGPBCT-ND | 0,2225 € @100 Stk |
 | Pegelwandler LED-Ring (3V3→5V) | diverse<br>74AHCT125 | Quad-Buffer/Levelshifter 3,3V→5V | *offen* | ca. 0,30 € · |
@@ -378,7 +378,7 @@ nicht recherchiert.
 | Sicherungshalter (F2) | Würth<br>WR-FSH 696309001002 | VDE 10A, Berührschutz Shocksafe PC2/IP20, THT stehend | Digikey<br>732-11383-ND | 1,30 € @10 Stk |
 | Ersatzsicherung (im Gehäuse) | Schurter<br>0034.3127 (FST 5x20) | Reserve wie F2, im Gehäuse mitgeführt | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
-| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 89,53 € ·** |
+| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 89,72 € ·** |
 
 Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
 Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
