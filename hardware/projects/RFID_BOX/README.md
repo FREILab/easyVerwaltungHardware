@@ -368,15 +368,17 @@ nicht recherchiert.
 | Buzzer | TDK<br>PS1240P02BT | Piezo-Buzzer ohne Oszillator, Pin-Terminal (THT), externe Ansteuerung (Resonanz ~4kHz) | Digikey<br>445-2525-1-ND | 0,3844 € @25 Stk |
 | Stopp-Taster | *offen* | Panelmontage, IP65, 12mm | *offen* | ca. 1,50 € · |
 | USB-C-Buchse (Service) | *offen*<br>USB4105-GF-A | THT | *offen* | ca. 0,30 € · |
-| EMV Maßnahmen | *offen* | MOV (Metall-Oxid-Varistor) S10K275 + X2-Kondensator + kleine Gleichtaktdrossel (EMV-Filter) | *offen* | ca. 1,20 € · |
-| NTC (Einschaltstrombegrenzung) | TDK<br>B57236S0100M000 | 10 Ohm | *offen* | ca. 0,40 € · |
+| Überspannungsschutz (EMV) | TDK<br>B72210S0271K101 (SIOV-S10K275) | Metalloxid-Varistor, 275VAC/430V, 2500A Stoßstrom, bedrahtet Ø12,5mm | Digikey<br>495-3786-ND | 0,186 € @25 Stk |
+| X2-Kondensator (EMV) | Würth Elektronik<br>890334023023CS | Funkentstörkondensator X2 (MKP), 100nF, 310VAC/560VDC, Rastermaß 10mm | Digikey<br>732-5733-ND | 0,35 € @1 Stk |
+| Gleichtaktdrossel (EMV) | Würth Elektronik<br>7448258022 | Stromkompensierte Drossel, 2,2mH, 8A, DCR 14mΩ, bedrahtet | Digikey<br>732-1455-ND | 5,067 € @10 Stk |
+| NTC (Einschaltstrombegrenzung) | Bourns<br>BN-LG15Y2R5MYB | Power-NTC, 2,5 Ohm, 8A Dauerstrom, 15mm Scheibe, bedrahtet (kinked) | Digikey<br>118-BN-LG15Y2R5MYB-ND | 0,748 € @10 Stk |
 | RC-Snubber | *offen* | 100R + 100nF X2, diskret | *offen* | ca. 0,20 € · |
 | Gerätesicherung (F1) | Bel Fuse<br>MRT 1-BULK | 1A/250V träge, THT radial, fest verlötet (Abweichung von S5, siehe Anforderungen.md) | Digikey<br>5923-MRT1-BULK-ND | 0,402 € @10 Stk |
 | Lastausgangssicherung (F2) | Schurter<br>0034.3127 (FST 5x20) | 10A/250V träge | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
 | Sicherungshalter (F2) | Würth<br>WR-FSH 696309001002 | VDE 10A, Berührschutz Shocksafe PC2/IP20, THT stehend | Digikey<br>732-11383-ND | 1,30 € @10 Stk |
 | Ersatzsicherung (im Gehäuse) | Schurter<br>0034.3127 (FST 5x20) | Reserve wie F2, im Gehäuse mitgeführt | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
-| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 84,77 € ·** |
+| **Summe** | | 1× je Zeile, ohne Mengen und ohne Extension Board | | **ca. 89,53 € ·** |
 
 Die Summe zählt jede Zeile einfach (auch wo "/Stk" steht, z.B. LED-Ring,
 Sicherungen); sie berücksichtigt keine tatsächlich benötigten Stückzahlen
