@@ -4,7 +4,7 @@
 > schaltet Netzspannung in einer Werkstatt, in der ungeschulte Personen
 > daneben stehen. Wo Ziele kollidieren, gewinnt die Sicherheit.
 >
-> Drei Festlegungen sind bindend und werden nicht aufgeweicht:
+> Vier Festlegungen sind bindend und werden nicht aufgeweicht:
 >
 > - Die Barriere Netz ↔ SELV beträgt **8 mm Luft- und Kriechstrecke** und
 >   wird nicht auf den Normwert von 5 mm reduziert. Maßgeblich sind die
@@ -91,12 +91,18 @@ Das Gerät ist als Platinenstack aufgebaut:
 - **Oberste PCB (RFID-Board):** RFID-Antenne, ggf. Display und LED-Ring.
 - **Mittlere PCB (MCU-Board):** Mikrocontroller (ESP32), Buzzer und
   Peripherie.
-- **Unterste PCB (I/O-Board):** 230-V-Netz und Lastrelais, dazu die
+- **Unterste PCB (I/O-Board):** 230-V-Netz und Schaltausgang, dazu die
   Extension-Header für das E-Stop Extension Board und das Extension Board.
-  Dieses Board gibt es in zwei Bestückvarianten: **Variante 230V** mit
-  Lastrelais und Lastmessung zum direkten Schalten von Lasten, und
-  **Variante 24V potentialfrei** mit potentialfreiem Kontakt für ein
-  externes Schütz.
+  Hiervon gibt es **zwei getrennte Boards mit eigenem Layout**, von denen
+  pro Gerät genau eines bestückt wird:
+  - **I/O-Board 230V** — Lastrelais und Lastmessung zum direkten Schalten
+    von Lasten bis 8 A.
+  - **I/O-Board 24V** — potentialfreier Kontakt für ein externes Schütz.
+    Ohne Lastpfad, Lastmessung und Messnetzteil; dadurch deutlich einfacher,
+    rund 33 € günstiger und ohne Bedarf an 70 µm Kupfer.
+
+  Beide haben denselben Formfaktor und denselben Board-to-Board-Stecker zum
+  MCU-Board.
 
 ## Architektur
 
@@ -119,16 +125,16 @@ werden:
 
 ```mermaid
 flowchart TB
-    subgraph IO["I/O-Board"]
+    subgraph IO["I/O-Board — eines von beiden"]
         direction LR
         NETZ([Terminal: Netz-Eingang 230V])
         OUT([Terminal: Schaltausgang])
-        REL["Lastrelais (Variante 230V)"]
-        POTFREI["Potentialfreier Kontakt 24V 100mA<br/>(Variante 24V potentialfrei)"]
-        MESS[Lastmessung]
+        REL["Lastrelais 8A<br/>(I/O-Board 230V)"]
+        POTFREI["Potentialfreier Kontakt 24V 100mA<br/>(I/O-Board 24V)"]
+        MESS["Lastmessung<br/>(nur I/O-Board 230V)"]
 
         NETZ --> MESS --> REL --> OUT
-        POTFREI --> OUT
+        NETZ --> POTFREI --> OUT
 
         subgraph ESTOP["E-Stop Extension Board (optional)"]
             direction LR
@@ -198,7 +204,7 @@ Die Form kennzeichnet die Art des Elements, die Farbe die Spannungsebene:
 Die gesamte Versorgung kommt aus dem Netz-Eingang 230 V auf dem I/O-Board
 und teilt sich dort in zwei Pfade:
 
-- **Lastpfad (nur Variante 230V):** Netz-Eingang → Ausgangssicherung (F300) →
+- **Lastpfad (nur I/O-Board 230V):** Netz-Eingang → Ausgangssicherung (F300) →
   Lastmessung (R300, U303) → Lastrelais (K300) → Schaltausgang. Die Messung
   sitzt vor dem Relais, damit sie unabhängig vom Schaltzustand versorgt und
   betriebsbereit bleibt.
@@ -397,6 +403,13 @@ geschätzt (·). Lieferant/Bestellnummer sind nur eingetragen, wo bereits
 konkret geprüft; "*offen*" heisst nicht unbekannt/unmöglich, sondern noch
 nicht recherchiert.
 
+Die Liste umfasst beide I/O-Boards. Nur auf dem **I/O-Board 230V** sitzen
+K300, U303, R300, U305, das Messnetzteil (C307, C308, R301–R306, D300–D303,
+U302), F300 mit Halter und Ersatzsicherung sowie der RC-Snubber — zusammen
+rund 36 €. Nur auf dem **I/O-Board 24V** sitzen K2 und seine Polyfuse,
+zusammen rund 2 €. Alles Übrige ist auf beiden Boards identisch oder gehört
+zu MCU- und RFID-Board.
+
 ### ICs & Module
 
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
@@ -492,9 +505,13 @@ ein grober erster Anhaltspunkt.
 
 | Board | Lagen | Kupfer |
 |---|---|---|
-| I/O-Board | 2 | **70 µm (2 oz)** |
+| I/O-Board 230V | 2 | **70 µm (2 oz)** |
+| I/O-Board 24V | 2 | 35 µm |
 | MCU-Board | **4** | 35 µm außen, 17,5 µm innen |
 | RFID-Board | 2 | 35 µm |
+
+Nur das I/O-Board 230V braucht 70 µm: dort läuft der 8-A-Lastpfad. Auf dem
+I/O-Board 24V fliesst nur der Eigenverbrauch des Geräts.
 
 Alle FR4, 1,6 mm. Fertigungsuntergrenzen: 0,2 mm Bahn/Abstand, 0,3 mm
 Bohrung, 0,5 mm Via, 0,5 mm Kupfer zur Boardkante, 1,0 mm Fräsnut.
@@ -526,7 +543,7 @@ Galvanik:
 Stückzahlen in den Tabellen mit Faktor 0,7 für eng gesetzte Via-Felder
 gerechnet.
 
-#### 2.1 I/O-Board — 2 Lagen, 70 µm
+#### 2.1 I/O-Board 230V — 2 Lagen, 70 µm
 
 **P:** = Primärseite, Netzpotential · **S:** = Sekundärseite, SELV. Innerhalb
 jeder Gruppe von hoher zu niedriger Spannung; die ISO-Insel schliesst die
@@ -549,7 +566,29 @@ P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
   schnürt auf ~1,6 mm ein).
 - R300 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads.
 
-#### 2.2 MCU-Board — 4 Lagen, 35 µm außen / 17,5 µm innen
+#### 2.2 I/O-Board 24V — 2 Lagen, 35 µm
+
+Ohne Lastpfad, Lastmessung und Messnetzteil. Der Netz-Eingang speist nur
+noch den Steuerzweig, also den Eigenverbrauch des Geräts — es gibt auf
+diesem Board nirgends 8 A. **F:** = Feldseite, extern gespeist.
+
+| Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
+|---|---|---|---:|---:|---|
+| **P:** 230 V Eingang + Steuerzweig | `PIN_*`, `PIN_FILTERED_*`, `PIN_CTRL_L/N` | ≤ 500 mA (real ~50 mA) | 0,13 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
+| **P:** PE | `PIN_PE` | kein Laststrom, endet am Eingangsterminal | — | **1,0 mm** | — |
+| **S:** 24 V | `+24V` (Spule K2, Eingang U306) | ≤ 500 mA | 0,13 mm | **0,8 mm** | **1 × ⌀0,6 mm** |
+| **S:** 5 V | `+5V` (Erzeugung + Weitergabe in den Stack) | ≤ 2 A | 1,19 mm | **1,3 mm** | **2 × ⌀0,6 mm** |
+| **S:** Signale | Enable zum Relaistreiber, Stack-Signale | < 100 mA | < 0,05 mm | **0,3 mm** | **1 × ⌀0,3 mm** |
+| **S:** GND | `GND` | — | — | Massefläche | Stitching ⌀0,3 mm, Raster ≤ 10 mm |
+| **F:** Kontakt K2 | `C`, `NO`, `NC` zum Feldterminal | ≤ 100 mA, extern gespeist | < 0,05 mm | **0,5 mm** | **1 × ⌀0,3 mm** |
+
+- Die Barriere Netz ↔ SELV gilt unverändert mit 8 mm, auch ohne Lastpfad.
+  Sie verläuft hier nur um den Eingangsbereich und U301 herum.
+- Keine ISO-Insel: `GND_ISO` und die Messdomäne entfallen komplett.
+- Der Relaistreiber ist wie beim I/O-Board 230V redundant aus Q300 und Q301
+  aufgebaut, nur mit der kleineren Spule von K2.
+
+#### 2.3 MCU-Board — 4 Lagen, 35 µm außen / 17,5 µm innen
 
 Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
 **L3** Flächen `+3V3` / `+5V` · **L4** Signal + Stack-Stecker.
@@ -569,7 +608,7 @@ Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
 - USB ist Full Speed, keine Impedanzkontrolle nötig: symmetrisch, < 50 mm,
   durchgehend über L2, keine Stubs.
 
-#### 2.3 RFID-Board — 2 Lagen, 35 µm
+#### 2.4 RFID-Board — 2 Lagen, 35 µm
 
 | Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
 |---|---|---|---:|---:|---|
@@ -698,6 +737,9 @@ Vier Punkte, die sonst schiefgehen:
   (0,68 µF X2, 310 VAC) und C308 (220 µF/16 V, 105 °C, ≥ 10000 h)
   festlegen; die Stromaufnahme von U303 am Prototyp gegen das 12-mA-Budget
   gegenprüfen.
+- Zweites ECAD-Projekt für das I/O-Board 24V anlegen. Das bestehende
+  `ECAD/IO_Board` wird zum I/O-Board 230V; das 24-V-Board bekommt ein
+  eigenes Projekt mit identischem Umriss und identischer Steckerposition.
 - Abdeckplatten für das I/O-Board konstruieren (U8). Offen sind die
   Befestigung am Gehäuseunterteil, die Ausschnitte für Terminals und
   Sicherungshalter sowie die Frage, ob die Platte den Stack-Tausch nach S3

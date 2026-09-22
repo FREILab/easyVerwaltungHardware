@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.6**
+**Dokumentrevision: 1.7**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,15 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.7** – **Die beiden Bestückvarianten des I/O-Boards werden zu zwei
+  getrennten Boards** mit eigenem Layout: **I/O-Board 230V** und
+  **I/O-Board 24V**. Das gemeinsame PCB ist nicht mehr haltbar — der
+  8-A-Lastpfad und die 8-mm-Isolationsbarriere lassen auf 100x100 mm keinen
+  Platz für einen zweiten, im jeweiligen Gerät ungenutzten Schaltpfad. Als
+  eigenes Board kommt das I/O-Board 24V ohne Lastpfad, Lastmessung und
+  Messnetzteil aus, spart rund 33 € Bauteile und braucht statt 70 µm nur
+  35 µm Kupfer. Formfaktor und Board-to-Board-Stecker bleiben bei beiden
+  identisch, damit der Rest des Stacks unverändert bleibt.
 - **1.6** – **U8 (Berührschutz im geöffneten Gerät)** und **U9
   (Schutzlack)** ergänzt. Das Gerät wird im Servicefall geöffnet, während es
   noch am Netz hängen kann; feste Abdeckplatten über dem I/O-Board geben nur
@@ -153,18 +162,25 @@ flowchart LR
 
 ### 1. Energie und Schalten
 
-Das I/O-Board wird in **zwei exklusiven Bestückvarianten** gefertigt: pro
-Gerät wird entweder die Variante **230V** oder die Variante **24V
-potentialfrei** bestückt, nie beide gleichzeitig. Beide Varianten teilen sich
-dasselbe PCB-Layout und dieselben Basisbauteile (Versorgung, Sicherungen,
-Feldterminals); nur der eigentliche Schaltpfad unterscheidet sich.
+Es gibt **zwei getrennte I/O-Boards** mit eigenem Layout: das **I/O-Board
+230V** mit Lastrelais und Lastmessung und das **I/O-Board 24V** mit
+potentialfreiem Kontakt für ein externes Schütz. Pro Gerät ist genau eines
+bestückt. Beide haben denselben Formfaktor, denselben Board-to-Board-Stecker
+zum MCU-Board und dieselbe Versorgung aus dem Netz-Eingang; alles ab dem
+Schaltpfad unterscheidet sich.
+
+Frühere Fassungen sahen ein gemeinsames PCB mit zwei Bestückvarianten vor.
+Das ist aufgegeben: der 8-A-Lastpfad und die 8-mm-Isolationsbarriere lassen
+auf 100x100 mm keinen Platz für einen zweiten, ungenutzten Schaltpfad. Als
+getrenntes Board kommt das I/O-Board 24V ohne Lastpfad, Lastmessung und
+Messnetzteil aus, spart rund 33 € Bauteile und braucht keine 70 µm Kupfer.
 
 | ID | Muss-Anforderung | Abnahmekriterium |
 |---|---|---|
-| E1 | Das Gerät wird mit 230 V AC versorgt. | Das Gerät hat einen eindeutig beschrifteten Netz-Eingang und startet nach dem Einschalten definiert. Gilt für beide Bestückvarianten, auch wenn nur die Variante 230V die Netzspannung weiterschaltet. |
-| E2 | **Variante 230V:** Das Gerät schaltet einen 230-V-Ausgang aus derselben Versorgung. | Nach Start, Reset und Fehlerzustand ist der Ausgang AUS. Bei Kommunikationsverlust gilt das konfigurierte Maschinenprofil. |
-| E3 | **Variante 230V:** Der 230-V-Ausgang ist für eine definierte Last abgesichert. | Die aktuelle Auslegung zielt auf 8 A Dauerlast; Sicherung, Lastrelais, Leiterbahnen, Klemmen und Thermik werden gemeinsam am Prototyp geprüft. |
-| E4 | **Variante 24V potentialfrei:** Das Gerät besitzt einen potentialfreien Schaltausgang **C / NO / NC** für **24 V DC / 100 mA**. | Ein extern eingespeistes 24-V-Signal kann mit maximal 100 mA geschaltet werden, ohne elektrische Verbindung zum Netz oder zur internen Kleinspannung. Der Kontakt erzeugt selbst keine 24-V-Versorgung. |
+| E1 | Das Gerät wird mit 230 V AC versorgt. | Das Gerät hat einen eindeutig beschrifteten Netz-Eingang und startet nach dem Einschalten definiert. Gilt für beide I/O-Boards, auch wenn nur das I/O-Board 230V die Netzspannung weiterschaltet. |
+| E2 | **I/O-Board 230V:** Das Gerät schaltet einen 230-V-Ausgang aus derselben Versorgung. | Nach Start, Reset und Fehlerzustand ist der Ausgang AUS. Bei Kommunikationsverlust gilt das konfigurierte Maschinenprofil. |
+| E3 | **I/O-Board 230V:** Der 230-V-Ausgang ist für eine definierte Last abgesichert. | Die aktuelle Auslegung zielt auf 8 A Dauerlast; Sicherung, Lastrelais, Leiterbahnen, Klemmen und Thermik werden gemeinsam am Prototyp geprüft. |
+| E4 | **I/O-Board 24V:** Das Gerät besitzt einen potentialfreien Schaltausgang **C / NO / NC** für **24 V DC / 100 mA**. | Ein extern eingespeistes 24-V-Signal kann mit maximal 100 mA geschaltet werden, ohne elektrische Verbindung zum Netz oder zur internen Kleinspannung. Der Kontakt erzeugt selbst keine 24-V-Versorgung. |
 | E5 | Es gibt keinen Not-Aus- oder Not-Halt-Schalter am Machine Node. | Der vorhandene Stopp-Taster wird in UI, Firmware und Dokumentation eindeutig als normaler Stopp bezeichnet. |
 | E6 | Ein normaler Stopp beendet die Arbeitsfreigabe und startet bei Bedarf eine Nachlaufsequenz. | Der Stopp wird sofort als `STOPPED` angezeigt und löst, falls ein E-Stop Extension Board bestückt ist, sofort dessen Notaus-Kontakt aus. Die eigentliche Versorgung (Schaltausgang des I/O-Boards) wird **nicht** hart und sofort getrennt, sondern erst nach Ablauf der je Maschinenprofil konfigurierten Nachlaufzeit abgeschaltet — auch nicht durch den Stopp-Taster. Beispiele: Laser-Abluft 60 Sekunden, Bremse 10 Sekunden für FKS. Ein vorzeitiges hartes Abschalten der Versorgung kann die Maschine an einer eigenen kontrollierten Bremsung hindern und zu Schäden führen. |
 | E7 | Kommunikationsverlust hat ein definiertes, konfigurierbares Verhalten. | Eine laufende Freigabe darf je nach Maschinenprofil und Timeout weiterlaufen; eine neue Freigabe ohne Serverbestätigung ist nie möglich. |
@@ -173,7 +189,7 @@ Die früheren NAMUR-Ausgänge (vormals E8) sind kein Bestandteil des I/O-Boards
 mehr; sie sind eine Bestückvariante des optionalen **Extension Board**, siehe
 Abschnitt "Extension Board (optional)".
 
-### Lastklasse der Variante 230V
+### Lastklasse des I/O-Boards 230V
 
 Für den direkten 230-V-Ausgang wird **8 A Dauerlast bei 230 V AC** als
 Auslegungsziel festgelegt. Das entspricht ungefähr 1,84 kW. 16 A ist die
@@ -187,15 +203,15 @@ Mehrfaches ihres Nennstroms ziehen.
 | Desktop-CNC | ca. 2-6 A | Direkt geeignet, Anlaufstrom prüfen |
 | Standfräse, ca. 800 W | ca. 3,5 A Nennstrom, höherer Anlaufstrom | Zielanwendung, Anlaufstrom und Dauerbetrieb prüfen |
 | Kleine Drehmaschine, ca. 800 W | ca. 3,5 A Nennstrom, höherer Anlaufstrom | Zielanwendung, Anlaufstrom und Dauerbetrieb prüfen |
-| Kleine Bandsäge | ca. 4-8 A Nennstrom, deutlich höherer Anlaufstrom | Nur nach Prüfung, besser externes Schütz (Variante 24V potentialfrei) |
-| Kleine Kreissäge | ca. 6-10 A Nennstrom, hoher Anlaufstrom | Nicht direkt zusagen, Variante 24V potentialfrei mit externem Schütz bevorzugt |
+| Kleine Bandsäge | ca. 4-8 A Nennstrom, deutlich höherer Anlaufstrom | Nur nach Prüfung, besser externes Schütz (I/O-Board 24V) |
+| Kleine Kreissäge | ca. 6-10 A Nennstrom, hoher Anlaufstrom | Nicht direkt zusagen, I/O-Board 24V mit externem Schütz bevorzugt |
 
 Die konkrete Lastklasse muss mit Typenschild, Einschaltstrom und thermischer
 Prüfung des fertigen I/O-Boards bestätigt werden. Standfräsen und kleine
 Drehmaschinen bis etwa 800 W sind ausdrücklich als direkte Zielanwendungen
-der Variante 230V vorgesehen, sofern ihr Anlaufstrom innerhalb der geprüften
+des I/O-Boards 230V vorgesehen, sofern ihr Anlaufstrom innerhalb der geprüften
 Schaltgrenze liegt. Für Lasten bis 16 A oder für Motoren mit höherem
-Anlaufstrom wird die Variante 24V potentialfrei bestückt: der Node schaltet
+Anlaufstrom wird die I/O-Board 24V bestückt: der Node schaltet
 dann nur das Steuersignal eines externen, passend dimensionierten Schützes.
 
 ### 2. Authentifizierung und Bedienung
@@ -257,7 +273,7 @@ erfordert zusätzliche Schaltkanäle oder ein externes Nachlaufrelais.
 | I1 | Netz-Eingang und der jeweils bestückte Schaltausgang (230-V-Ausgang oder potentialfreier Kontakt) besitzen definierte Kabeldurchführungen. | Kabel können durch die geschützten Durchführungen in das Gehäuse geführt werden; die eigentlichen Terminals sind erst nach dem Öffnen erreichbar. |
 | I2 | Federklemmen sind der bevorzugte Feldanschluss. | Betätigbare Push-in-Klemmen können mit vorgesehenen Leitern ohne Spezialwerkzeug angeschlossen werden. |
 | I3 | Schraubklemmen sind als zweite Anschlussvariante möglich. | Die Alternative passt in dasselbe Anschluss- und Gehäusekonzept. |
-| I4 | Bei der Variante 230V ist eine einfache Lastmessung standardmäßig vorgesehen (kein optionales Feature mehr). | Ein galvanisch getrennter Sensor erkennt `LAST_AKTIV` und `LAST_AUS`, ohne Energieabrechnung zu versprechen, und ist bei der Variante 230V regulär bestückt. Bei der Variante 24V potentialfrei nicht relevant, da kein Lastkreis über den Node läuft. |
+| I4 | Bei des I/O-Boards 230V ist eine einfache Lastmessung standardmäßig vorgesehen (kein optionales Feature mehr). | Ein galvanisch getrennter Sensor erkennt `LAST_AKTIV` und `LAST_AUS`, ohne Energieabrechnung zu versprechen, und ist bei des I/O-Boards 230V regulär bestückt. Bei der I/O-Board 24V nicht relevant, da kein Lastkreis über den Node läuft. |
 
 Diese Umstufung von optional auf Standard geht auf Team-Feedback zur
 Revision 1.1 zurück: Lastmessung schafft die Grundlage für spätere
@@ -353,10 +369,10 @@ Mindestens erforderlich:
 
 - **„Bedienung nur nach Einweisung“**
 - **„Achtung: 230 V AC“**
-- **Variante 230V:** „Direkter 230-V-Ausgang: max. 8 A Dauerlast / ca. 1,84 kW“
+- **I/O-Board 230V:** „Direkter 230-V-Ausgang: max. 8 A Dauerlast / ca. 1,84 kW“
   und „Motoren und hohe Einschaltströme nur nach Prüfung oder über externes
   Schütz“
-- **Variante 24V potentialfrei:** „Potentialfreier Kontakt: max. 24 V DC / 100 mA“
+- **I/O-Board 24V:** „Potentialfreier Kontakt: max. 24 V DC / 100 mA“
 - **Nur wenn Extension Board Variante NAMUR bestückt ist:**
   „OUT_A+/- / OUT_B+/-: je 24 V DC / 4 mA, optoisolierte NAMUR-Ausgänge“ und
   „IN_NAMUR+/-: galvanisch getrennter 24-V-NAMUR-Eingang“
@@ -381,5 +397,5 @@ Maschine liegen ausserhalb dieses Geräts und müssen separat gelöst werden.
 > **Sicherheit:** Netzspannung darf nur von qualifizierten Personen geplant,
 > aufgebaut, gemessen und in Betrieb genommen werden. Für Motoren,
 > Frequenzumrichter oder Drehstrom ist eine externe Schütz-/Sensorlösung
-> vorzusehen (Variante 24V potentialfrei). Das Lastrelais auf der Platine
+> vorzusehen (I/O-Board 24V). Das Lastrelais auf der Platine
 > ist kein universeller Motorschalter und keine Personenschutzfunktion.
