@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.5**
+**Dokumentrevision: 1.6**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,14 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.6** – **U8 (Berührschutz im geöffneten Gerät)** und **U9
+  (Schutzlack)** ergänzt. Das Gerät wird im Servicefall geöffnet, während es
+  noch am Netz hängen kann; feste Abdeckplatten über dem I/O-Board geben nur
+  die berührsicheren Feldterminals und den Sicherungshalter frei. Dass MCU-
+  und RFID-Board kein 230 V führen, ist damit eine bindende Randbedingung
+  und keine Momentaufnahme mehr. Der Schutzlack stützt den IP-Schutz
+  langfristig, wird aber ausdrücklich nicht auf Kriech- und Luftstrecken
+  angerechnet (dafür wäre eine Qualifizierung nach IEC 60664-3 nötig).
 - **1.5** – Vier Korrekturen am I/O-Board, entstanden beim Durchrechnen von
   Thermik und Isolationsbarriere für die Layout-Regeln (neues Kapitel
   „Leiterbahnbreiten und Abstände" in [README.md](README.md)). **NTC zur
@@ -320,6 +328,8 @@ während ihrer eigenen kontrollierten Bremsung noch Energie zur Verfügung.
 | U5 | Das Gehäuse trägt eindeutige Sicherheitshinweise und elektrische Kennwerte. | Die Hinweise sind dauerhaft lesbar, von aussen sichtbar und ohne Gehäuseöffnung verständlich. |
 | U6 | Der Kartenkanal für eingesteckte RFID-Karten ist mechanisch vom staubdichten Geräteinnenraum getrennt. | Da die RFID-Erkennung berührungslos erfolgt, muss der Kartenkanal nicht selbst staubdicht sein: Staub/Sägemehl darf in den Kanal eindringen, wird aber nach unten ausgeführt (Drainage) statt sich anzusammeln oder in den Elektronikraum vorzudringen. Die Karte kann eingeführt und entnommen werden, ohne einen offenen Taster oder eine Öffnung in den staubdichten Innenraum zu benötigen. |
 | U7 | Das Gehäuse muss von allen Seiten ausser der Display-Front befestigbar sein. | Je nach Einbausituation ist eine Verschraubung von hinten, seitlich, unten oder oben möglich, ohne den PCB-Stack zu verändern oder die Display-Front zu verdecken. |
+| U8 | Im geöffneten Gerät ist kein netzführendes Teil berührbar. | Fest installierte, nur mit Werkzeug lösbare Abdeckplatten über dem I/O-Board geben ausschliesslich die Feldterminals und den Sicherungshalter frei; beide sind berührsichere Bauformen. MCU- und RFID-Board führen kein 230 V und dürfen berührt werden. Gilt auch dann, wenn das Gerät beim Öffnen noch am Netz hängt. |
+| U9 | Die Boards sind gegen Staub und Feuchtigkeit beschichtet. | Alle Boards sind lackiert; Feldterminals, Sicherungskontakte und Board-to-Board-Stecker bleiben ausgespart. Der Lack stützt den IP-Schutz über die Lebensdauer, wird aber nicht auf Kriech- und Luftstrecken angerechnet. |
 
 ### 6. Service und Fertigung
 

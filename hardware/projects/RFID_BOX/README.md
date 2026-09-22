@@ -1,5 +1,27 @@
 # Machine Node / RFID_BOX
 
+> **Sicherheit geht vor Kosten, Baugröße und Bauteilzahl.** Das Gerät
+> schaltet Netzspannung in einer Werkstatt, in der ungeschulte Personen
+> daneben stehen. Wo Ziele kollidieren, gewinnt die Sicherheit.
+>
+> Drei Festlegungen sind bindend und werden nicht aufgeweicht:
+>
+> - Die Barriere Netz ↔ SELV beträgt **8 mm Luft- und Kriechstrecke** und
+>   wird nicht auf den Normwert von 5 mm reduziert. Maßgeblich sind die
+>   Bauteile, die sie queren, nicht das Minimum der Norm.
+> - Bauteile über der Barriere brauchen **verstärkte oder doppelte
+>   Isolierung** bei 250 V Arbeitsspannung. Eine hohe Prüfspannung in kV
+>   allein genügt nicht — sie sagt über die Isolationsklasse nichts aus.
+> - **Ein Einzelfehler darf nicht nach außen wirken.** Neue Schaltungsteile
+>   werden gegen die [FMEA](#fmea) geprüft, bevor sie ins Layout gehen.
+> - **Beim geöffneten Gerät ist nichts Netzführendes berührbar.** Feste
+>   Abdeckplatten über dem I/O-Board geben nur die Feldterminals und den
+>   Sicherungshalter frei. MCU- und RFID-Board führen kein 230 V und dürfen
+>   angefasst werden. Siehe [Aufbau](#aufbau).
+>
+> Die Auslegung dazu steht in
+> [Leiterbahnbreiten und Abstände](#leiterbahnbreiten-und-abstände).
+
 ## Einleitung
 
 Dies ist der **RFID Node**: ein kompaktes Steuergerät, das elektrische
@@ -37,6 +59,30 @@ Nicht verwendete Durchführungen werden verschlossen.
 
 Die Boards werden über Board-to-Board-Stecker als Stack gesteckt und
 geklipst — keine Kabelverbindungen zwischen den Platinen.
+
+### Berührschutz
+
+Das Gerät wird im Servicefall geöffnet, während es unter Umständen noch am
+Netz hängt. Deshalb:
+
+- Über dem I/O-Board sitzen **fest installierte, 3D-gedruckte
+  Abdeckplatten**. Sie geben nur die Feldterminals und den Sicherungshalter
+  frei — beide sind berührsichere Bauformen (WAGO Hebelklemme, WR-FSH mit
+  Shocksafe PC2/IP20). Alles andere Netzführende bleibt abgedeckt.
+- Die Platten sind kein Deckel, der beim Öffnen mitkommt: sie bleiben am
+  Board bzw. am Gehäuseunterteil und lassen sich nur mit Werkzeug lösen.
+- **MCU- und RFID-Board führen kein 230 V** und dürfen im geöffneten Zustand
+  berührt werden. Das ist eine bindende Randbedingung, keine Momentaufnahme
+  — es darf kein netzführendes Netz auf diese Boards wandern.
+
+Zusätzlich werden alle Boards **lackiert** (Schutzlack), um den IP-Schutz
+über die Lebensdauer zu stützen: Sägemehl und Feuchtigkeit sollen auf
+Dauer keine Kriechpfade bilden. Vom Lack ausgenommen bleiben Feldterminals,
+Sicherungskontakte und die Board-to-Board-Stecker.
+
+Der Lack ersetzt keine Abstände: Kriech- und Luftstrecken werden weiterhin
+nach [Leiterbahnbreiten und Abstände](#leiterbahnbreiten-und-abstände)
+bemessen, als wäre kein Lack vorhanden.
 
 ## Elektronik
 
@@ -577,7 +623,9 @@ Abstandsmatrix (Luft- **und** Kriechstrecke, Designwerte):
   nur 3,3 V liegen.
 - Netzkupfer inkl. ISO-Insel ≥ 2,0 mm zu Kante, Bohrungen, Fräsungen;
   SELV ≥ 0,5 mm.
-- Lötstopplack und Bestückungsdruck zählen nicht zur Kriechstrecke.
+- Lötstopplack, Bestückungsdruck und Schutzlack zählen nicht zur
+  Kriechstrecke. Der Schutzlack würde erst nach einer Qualifizierung gemäß
+  IEC 60664-3 anrechenbar; die ist hier nicht vorgesehen.
 - Fräsnuten ≥ 1,0 mm breit, sonst bei Verschmutzungsgrad 2 als überbrückt
   gewertet.
 - Keine Vias in der Barriere — die 8 mm gelten auf beiden Lagen.
@@ -650,6 +698,10 @@ Vier Punkte, die sonst schiefgehen:
   (0,68 µF X2, 310 VAC) und C308 (220 µF/16 V, 105 °C, ≥ 10000 h)
   festlegen; die Stromaufnahme von U303 am Prototyp gegen das 12-mA-Budget
   gegenprüfen.
+- Abdeckplatten für das I/O-Board konstruieren (U8). Offen sind die
+  Befestigung am Gehäuseunterteil, die Ausschnitte für Terminals und
+  Sicherungshalter sowie die Frage, ob die Platte den Stack-Tausch nach S3
+  behindert.
 - Spannungsteiler für die Netzspannungsmessung fehlt in der BOM. Der
   MCP39F51A (U303) braucht neben dem Shunt einen hochohmigen Teiler auf den
   Spannungseingang. Layoutrelevant: mindestens zwei Widerstände in Reihe, je
