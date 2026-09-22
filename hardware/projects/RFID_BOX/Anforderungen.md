@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.4**
+**Dokumentrevision: 1.5**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,26 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.5** – Vier Korrekturen am I/O-Board, entstanden beim Durchrechnen von
+  Thermik und Isolationsbarriere für die Layout-Regeln (neues Kapitel
+  „Leiterbahnbreiten und Abstände" in [README.md](README.md)). **NTC zur
+  Einschaltstrombegrenzung (RT300) entfällt ersatzlos:** er lag dauerhaft im
+  8-A-Lastpfad, setzte dort rund 3 W um und wurde damit zum heissesten
+  Bauteil im unbelüfteten IP64-Gehäuse; begrenzt hätte er ohnehin nur kalt,
+  beim schnellen Wiedereinschalten also praktisch nicht. Den Anlauf tragen
+  die träge F300 und das Einschaltvermögen von K300 (30 A, AgCdO).
+  **Lastmessung sitzt jetzt vor dem Relais** statt dahinter, damit sie
+  unabhängig vom Schaltzustand versorgt bleibt und `LAST_AUS` gemessen statt
+  aus dem Relaiszustand gefolgert wird. **Versorgung der Messinsel auf ein
+  netzseitiges Kondensatornetzteil umgestellt:** die isolierten Regler U302
+  (RFB-0505S) und U300 entfallen. Der RFB-0505S war mit 500 VAC nur
+  funktional isoliert und damit das schwächste Glied einer sonst verstärkt
+  isolierten Barriere; verstärkt isolierte 1-W-Module kosten ~16 € gegen
+  ~1,50 € für das Kondensatornetzteil. **Optokoppler U304 entfällt:** die
+  Relaisspule hängt an der 24-V-Schiene aus dem isolierten IRM-10-24, liegt
+  also auf SELV — U304 hätte zwei SELV-Domänen getrennt. Der Relaistreiber
+  wird ein Logic-Level-NMOS mit Gate-Pulldown (E2: Ausgang nach Reset AUS).
+  Über die Isolationsbarriere quert damit nur noch U305.
 - **1.4** – I/O-Board-Footprint auf 100x100mm optimiert: AC/AC-Trafo
   (14A-10R-24) + Gleichrichter (RTT410-13) + DC/DC-Wandler (REC6K-2424SAW)
   durch ein isoliertes AC/DC-Modul (Mean Well IRM-10-24, 10W, 4,2kVac
