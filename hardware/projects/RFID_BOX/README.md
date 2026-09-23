@@ -774,6 +774,12 @@ CISPR 32 / EN 55032 Class B gilt nur bei eingehaltenen Layoutvorgaben.
   Inselseite.
 - Serienferrite in den Zuleitungen VIO und VDD von U300 fehlen noch, ebenso
   deren Versorgungsanschluss.
+- **Anzeige-LEDs für die Versorgungspotentiale** vorsehen. Auf der ISO-Insel
+  geht der LED-Strom vom 60-mA-Budget des Isolators ab.
+- **Auftrennbare Netzbrücken** an ausgewählten Stellen der Niederspannung
+  vorsehen, damit sich Zweige zur Inbetriebnahme einzeln zuschalten lassen.
+- **Testpunkte** für die Inbetriebnahme vorsehen. In der Netzdomäne und auf
+  der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
 
 ## FMEA
 
