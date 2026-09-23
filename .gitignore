@@ -26,3 +26,7 @@ hardware/projects/RFID_BOX_Legacy/eCAD/fp-lib-table
 /hardware/projects/RFID_BOX/ECAD/IO_Board/IO_Board-backups
 /hardware/projects/RFID_BOX/ECAD/MCU_Board/MCU_Board-backups
 /hardware/projects/MicBac/PROJ-FRL-RIFD_Box/Electro/FRL-RFiD_Box/FRL-RFiD_Box-backups
+
+# KiCad — Lock- und Autosave-Dateien offener Sitzungen
+~*.lck
+_autosave-*
