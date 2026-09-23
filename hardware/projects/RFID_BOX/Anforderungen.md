@@ -1,6 +1,6 @@
 # Machine Node / RFID_BOX – Anforderungen
 
-**Dokumentrevision: 1.7**
+**Dokumentrevision: 1.8**
 
 Arbeitsplanung für den kompakten Machine Node. Dieses Dokument ist die
 Anforderungsbasis, aus der Schaltplan, PCB-Stack, Gehäuse und erste
@@ -11,6 +11,11 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
 
 ## Changelog
 
+- **1.8** – **Gerätesicherung F1 von 1 A auf 500 mA träge** reduziert. Das
+  EMV-Filter sitzt jetzt im Steuerzweig statt am Netzeingang; F1 ist auf
+  die dortige Gleichtaktdrossel gestaffelt, die bei 60 °C 0,87 A trägt.
+  Ausserdem ist das SMD-Zielbild aufgeweicht: THT wird eingesetzt, wo die
+  Bauteile es erfordern.
 - **1.7** – **Die beiden Bestückvarianten des I/O-Boards werden zu zwei
   getrennten Boards** mit eigenem Layout: **I/O-Board 230V** und
   **I/O-Board 24V**. Das gemeinsame PCB ist nicht mehr haltbar — der
@@ -133,7 +138,9 @@ und den Zustand der Last an die easyVerwaltung meldet.
 - Erkennung, ob die Maschine tatsächlich läuft
 - definierter Aus-Zustand bei Reset oder Firmware-Fehler; Verhalten bei
   Kommunikationsverlust ist pro Maschinenprofil festgelegt
-- durchgehend SMD-bestückte Funktionsboards
+- möglichst weitgehend SMD-bestückte Funktionsboards, damit eine externe
+  Bestückung einfach bleibt; THT wird dort eingesetzt, wo es die Bauteile
+  erfordern
 - keine interne Handverkabelung und keine handverlöteten Module
 - einheitliche Board-to-Board-Stecker zwischen den Boards
 - gemeinsamer Grundaufbau (I/O-Board) für zwei exklusive Schaltvarianten
@@ -355,7 +362,7 @@ während ihrer eigenen kontrollierten Bremsung noch Energie zur Verfügung.
 | S2 | Die interne Verdrahtung ist minimal. | Keine losen Litzen, keine Handverkabelung und keine handverlöteten Module im Serienaufbau. |
 | S3 | Die Schaltfunktion des I/O-Boards ist wartbar. | Das I/O-Board kann ohne Löten getauscht werden; alternativ ist sein kompletter Austausch wirtschaftlich vorgesehen. |
 | S4 | Die Baugruppe ist für SMD-Fertigung geeignet. | Bestückung, elektrische Prüfung und Service sind mit geringem Handarbeitsanteil möglich. |
-| S5 | Die Lastausgangssicherung ist gesockelt und ohne Löten tauschbar. | F2 steckt in einem Sicherungshalter statt fest verlötet zu sein; nach dem Öffnen des Gehäuses lässt sich F2 mit normalem Werkzeug aus dem Sockel entnehmen und ersetzen, eine Ersatzsicherung wird im Gehäuse mitgeführt. **Dokumentierte Ausnahme:** Die Gerätesicherung F1 (1A, interner Kurzschlussschutz) ist fest verlötet, nicht gesockelt — ein vorgelagerter Leitungsschutzschalter im Werkstattverteiler deckt den Netzkurzschlussfall ab, F1 schützt nur gegen interne Gerätefehler und muss im Feld praktisch nie getauscht werden. |
+| S5 | Die Lastausgangssicherung ist gesockelt und ohne Löten tauschbar. | F2 steckt in einem Sicherungshalter statt fest verlötet zu sein; nach dem Öffnen des Gehäuses lässt sich F2 mit normalem Werkzeug aus dem Sockel entnehmen und ersetzen, eine Ersatzsicherung wird im Gehäuse mitgeführt. **Dokumentierte Ausnahme:** Die Gerätesicherung F1 (500mA träge, interner Kurzschlussschutz) ist fest verlötet, nicht gesockelt — ein vorgelagerter Leitungsschutzschalter im Werkstattverteiler deckt den Netzkurzschlussfall ab, F1 schützt nur gegen interne Gerätefehler und muss im Feld praktisch nie getauscht werden. |
 
 ### Verbindliche Gehäusebeschriftung
 

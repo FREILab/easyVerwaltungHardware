@@ -208,12 +208,13 @@ und teilt sich dort in zwei Pfade:
   Lastmessung (R300, U303) → Lastrelais (K300) → Schaltausgang. Die Messung
   sitzt vor dem Relais, damit sie unabhängig vom Schaltzustand versorgt und
   betriebsbereit bleibt.
-- **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig (F302) → isoliertes
-  AC/DC-Wandlermodul Mean Well IRM-10-24 (U301, 24 V, isoliert) → Regler auf
-  5 V (U306, Modul mit Unterspannungs- und Kurzschlussschutz) → 3,3 V auf
-  dem MCU-Board für ESP32 und NFC-Controller. Die 24-V-Schiene aus dem
-  IRM-10-24 versorgt zusätzlich die Lastrelais-Spule. LED-Ring und Buzzer
-  laufen direkt auf 5 V.
+- **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig (F302) →
+  Gleichtaktdrossel (L300) → Y-Kondensatorpaar (C309, C310, Mittelabgriff
+  an PE) → isoliertes AC/DC-Wandlermodul Mean Well IRM-10-24 (U301, 24 V,
+  isoliert) → Regler auf 5 V (U306, Modul mit Unterspannungs- und
+  Kurzschlussschutz) → 3,3 V auf dem MCU-Board für ESP32 und
+  NFC-Controller. Die 24-V-Schiene aus dem IRM-10-24 versorgt zusätzlich
+  die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V.
 - **Messnetzteil:** Die Lastmessung liegt auf Netzpotential und wird
   netzseitig aus einem Kondensatornetzteil (U302) versorgt, nicht über die
   Isolationsbarriere hinweg. Details siehe
@@ -228,66 +229,74 @@ Gehäuses ohne Löten tauschbar; eine Ersatzsicherung wird im Gehäuse
 mitgeführt. Die Gerätesicherung (F302) ist als dokumentierte Ausnahme fest
 verlötet (siehe [Anforderungen.md](Anforderungen.md), S5).
 
-Da das Werkstattnetz und die geschaltete Last (Motoren) elektrisch
-"schmutzig" sein können, sitzen direkt am Netz-Eingang EMV-Maßnahmen (RV300,
-C300, L300) sowie eine Kontakt-Schutzbeschaltung am Lastrelais. Eine
+Am Netz-Eingang liegen RV300 als Überspannungsschutz und C300 als
+X2-Kondensator, beide als Parallelelemente gegen den Netzknoten. Das
+Gleichtaktfilter aus L300 und C309/C310 sitzt im Steuerzweig direkt vor
+U301, also an der Störquelle; damit sind Netz-Eingang und Schaltausgang
+gleichermaßen abgedeckt. Der Lastpfad trägt kein Filterbauteil.
+
+Eine Kontakt-Schutzbeschaltung sitzt am Lastrelais. Eine
 Einschaltstrombegrenzung im Lastpfad gibt es bewusst nicht: den Anlauf
 tragen die träge Ausgangssicherung F300 und das Einschaltvermögen von K300
 (30 A, AgCdO-Kontakte). Das Lastrelais (K300) trennt L und
 N gemeinsam (2-polig), da die
 N/L-Zuordnung an der Werkstatt-Steckdose nicht garantiert eindeutig ist.
 PE wird unverändert vom
-Netz-Eingang zum Schaltausgang durchgeschleift; da das Gehäuse aus
-Kunststoff besteht, gibt es keine Verbindung zu einer Gehäusemasse.
+Netz-Eingang zum Schaltausgang durchgeschleift und trägt zusätzlich den
+Mittelabgriff von C309/C310; da das Gehäuse aus Kunststoff besteht, gibt es
+keine Verbindung zu einer Gehäusemasse.
 
 ```mermaid
 flowchart TB
     NETZ([Netz-Eingang<br/>230V 8A])
-    EMV["EMV Maßnahmen<br/>RV300 · C300 · L300"]
-    FLAST["Ausgangssicherung F300<br/>230V 8A"]
-    MESS["Lastmessung<br/>R300, U303"]
-    REL["Lastrelais K300<br/>Spule 24V / Kontakt 230V 8A"]
+    EMV["EMV-Maßnahmen<br/>Überspannungsschutz + X2-Kondensator"]
+    FLAST["Ausgangssicherung F300<br/>230V 10A träge"]
+    MESS[Lastmessung]
+    REL["Lastrelais<br/>Spule 24V / Kontakt 230V 8A"]
     SNUB["RC-Snubber<br/>über Relaiskontakt"]
     OUT([Schaltausgang <br/>230V 8A])
     PE([PE / Schutzleiter<br/>durchgeschleift])
 
-    FSTEUER["Sicherung F302<br/>Steuerzweig<br/>230V 200mA"]
-    ACDC["AC/DC-Wandler U301<br/>Mean Well IRM-10-24<br/>→ 24V, isoliert"]
-    REG5V["Regler 5V U306<br/>(Modul mit UV-/Kurzschlussschutz)"]
+    FSTEUER["Sicherung F302<br/>Steuerzweig<br/>230V 500mA"]
+    FILT["EMV-Filter<br/>Gleichtaktdrossel + Y-Kondensatoren"]
+    ACDC["AC/DC-Wandler<br/>Mean Well IRM-10-24<br/>→ 24V, isoliert"]
+    REG5V["Regler 5V<br/>(Modul mit UV-/Kurzschlussschutz)"]
     V5[5V: LED-Ring, Buzzer, Erweiterungsboards]
     V33[3V3-Regler]
     LOGIK[ESP32, NFC-Controller]
-    DROP["Messnetzteil U302<br/>Kondensatornetzteil + LDO<br/>→ 3V3, netzbezogen"]
+    DROP["Messnetzteil<br/>Kondensatornetzteil + LDO<br/>→ 3V3, netzbezogen"]
 
     NETZ -->|"[PIN]"| EMV
-    EMV -->|"[PIN_FILTERED]"| FLAST
+    EMV -->|"[PIN]"| FLAST
     FLAST -->|"[PIN_FUSED]"| MESS
     MESS -->|"[PIN_FUSED]"| REL
     REL -->|"[PIN_SWITCHED]"| OUT
     REL -.- SNUB
-    EMV -->|"[PIN_FILTERED]"| FSTEUER
-    FSTEUER -->|"[PIN_CTRL]"| ACDC
+    FLAST -->|"[PIN_FUSED]"| DROP
+    DROP -->|"[+3V3_ISO]"| MESS
+    EMV -->|"[PIN]"| FSTEUER
+    FSTEUER -->|"[PIN_CTRL]"| FILT
+    FILT -->|"[PIN_CTRL_FILTERED]"| ACDC
+    FILT -.- PE
     ACDC -->|"[+24V]"| REG5V
     ACDC -->|"[+24V]"| REL
     REG5V -->|"[+5V]"| V5
     REG5V -->|"[+5V]"| V33
     V33 -->|"[+3V3]"| LOGIK
-    FLAST -->|"[PIN_FUSED]"| DROP
-    DROP -->|"[+3V3_ISO]"| MESS
     NETZ -->|"[PE]"| PE
     PE -->|"[PE]"| OUT
 
-    linkStyle 0 stroke:#b71c1c,stroke-width:2px
-    linkStyle 1,6 stroke:#c62828,stroke-width:2px
-    linkStyle 2,3,13 stroke:#e53935,stroke-width:2px
+    linkStyle 0,1,8 stroke:#b71c1c,stroke-width:2px
+    linkStyle 2,3,6 stroke:#e53935,stroke-width:2px
     linkStyle 4 stroke:#ef6c00,stroke-width:2px
-    linkStyle 5 stroke:#757575,stroke-width:1.5px,stroke-dasharray:3 3
-    linkStyle 7 stroke:#f4511e,stroke-width:2px
-    linkStyle 8,9 stroke:#fdd835,stroke-width:2px
-    linkStyle 10,11 stroke:#2e7d32,stroke-width:2px
-    linkStyle 12 stroke:#00897b,stroke-width:2px
-    linkStyle 14 stroke:#8e24aa,stroke-width:2px
-    linkStyle 15,16 stroke:#43a047,stroke-width:2px
+    linkStyle 5,11 stroke:#757575,stroke-width:1.5px,stroke-dasharray:3 3
+    linkStyle 7 stroke:#8e24aa,stroke-width:2px
+    linkStyle 9 stroke:#f4511e,stroke-width:2px
+    linkStyle 10 stroke:#c62828,stroke-width:2px
+    linkStyle 12,13 stroke:#fdd835,stroke-width:2px
+    linkStyle 14,15 stroke:#2e7d32,stroke-width:2px
+    linkStyle 16 stroke:#00897b,stroke-width:2px
+    linkStyle 17,18 stroke:#43a047,stroke-width:2px
 
     classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
     classDef part230 fill:#ff9800,color:#000,stroke:#e65100
@@ -295,27 +304,39 @@ flowchart TB
     classDef pe fill:#e8f5e9,color:#1b5e20,stroke:#43a047
 
     class NETZ,OUT term230
-    class FLAST,MESS,REL,FSTEUER,EMV,SNUB,DROP part230
+    class EMV,FLAST,MESS,REL,FSTEUER,FILT,SNUB,DROP part230
     class ACDC,REG5V,V5,V33,LOGIK partSELV
     class PE pe
 ```
 
 | Netz | Bedeutung |
 |---|---|
-| `[PIN]` | Netzphase, ungesichert |
-| `[PIN_FILTERED]` | Nach EMV-Maßnahmen |
+| `[PIN]` | Netzknoten, ungesichert; hier liegen RV300 und C300 parallel |
 | `[PIN_FUSED]` | Lastpfad nach Ausgangssicherung, speist Lastmessung und Messnetzteil |
 | `[PIN_SWITCHED]` | Geschaltete Phase hinter dem Lastrelais |
-| `[PIN_CTRL]` | Steuerzweig nach Sicherung |
+| `[PIN_CTRL]` | Steuerzweig nach Sicherung, bis zur Gleichtaktdrossel |
+| `[PIN_CTRL_FILTERED]` | Steuerzweig nach L300, speist U301; hier liegt das Y-Paar C309/C310 gegen PE |
 | `[+24V]` | Geregelte 24-V-Schiene aus dem AC/DC-Wandler IRM-10-24 (U301), versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
 | `[+5V]` | 5-V-Schiene (Schutz durch integrierten Modulschutz des Reglers) |
 | `[+3V3_ISO]` | Netzbezogene 3,3-V-Versorgung der Lastmessung (U303) aus dem Messnetzteil (U302) |
 | `[+3V3]` | Logikversorgung |
-| `[PE]` | Schutzleiter, unverändert durchgeschleift, kein Bezug zum Kunststoffgehäuse |
+| `[PE]` | Schutzleiter, unverändert durchgeschleift, trägt den Mittelabgriff von C309/C310, kein Bezug zum Kunststoffgehäuse |
 
-Die EMV-Maßnahmen am Netz-Eingang bestehen aus einer Gleichtaktdrossel
-(L300) und einem X2-Kondensator (C300) als eigentlichem EMV-Filter sowie
-einem MOV (RV300, Metall-Oxid-Varistor) als Überspannungsschutz.
+Bemessung des Gleichtaktfilters: im Gleichtakt liegen die Y-Kondensatoren
+parallel, `C_CM = 2 · Cy`, und mit `f₀ = 1 / (2π · √(L · C))` steigt die
+Dämpfung oberhalb f₀ mit 40 dB/Dekade. Auslegungspunkt ist 150 kHz, Ziel
+20 dB. Gerechnet wird mit dem Toleranz-Worst-Case der Drossel (−30 %) und
+dem Temperaturgang des Y5U-Dielektrikums, nicht mit den Nennwerten.
+
+Drei Grenzen der Auslegung:
+
+- Der Mittelabgriff nach PE ist zwingend — ohne ihn hat der
+  Gleichtaktstrom im Kunststoffgehäuse keinen Rückweg, und die Drossel
+  wirkt nur noch über ihre Streuinduktivität.
+- Cy ist nach oben durch den Ableitstrom begrenzt; mehrere Nodes hängen am
+  selben FI-Kreis.
+- L nominal im Fenster 3–10 mH: nach unten setzt die Eckfrequenz die
+  Grenze, nach oben die Eigenresonanz der Drossel.
 
 Der RC-Snubber (gestrichelt) liegt parallel zum Relaiskontakt und führt
 keinen eigenen Laststrompfad.
@@ -348,12 +369,12 @@ flowchart TB
     NFC["NFC-Controller PN532<br/>[3V3]"]
     ESP["ESP32<br/>[3V3]"]
     STOP["Stopp-Taster<br/>[3V3]"]
-    TREIBER["Relaistreiber Q300 + Q301<br/>Low-Side NMOS + High-Side PMOS<br/>Gate [3V3] / Spule [24V]"]
-    REL["Lastrelais K300<br/>Spule [24V] / Kontakt [230V]"]
+    TREIBER["Relaistreiber<br/>Low-Side NMOS + High-Side PMOS<br/>Gate [3V3] / Spule [24V]"]
+    REL["Lastrelais<br/>Spule [24V] / Kontakt [230V]"]
     OUT([Terminal: Schaltausgang])
 
-    MESS["Lastmessung U303<br/>Steuerseite<br/>Signal [3V3], isoliert"]
-    OPTO_FB["Optokoppler Messsignal U305<br/>galvanische Trennung"]
+    MESS["Lastmessung<br/>Steuerseite<br/>Signal [3V3], isoliert"]
+    OPTO_FB["Optokoppler Messsignal<br/>galvanische Trennung"]
 
     EXT["Extension Board<br/>[5V]"]
     ESTOP["E-Stop Relais<br/>[5V]"]
@@ -440,6 +461,7 @@ zu MCU- und RFID-Board.
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
 | X2-Kondensator (EMV, C300) | Würth Elektronik<br>890334023023CS | Funkentstörkondensator X2 (MKP), 100nF, 310VAC/560VDC, Rastermaß 10mm | Digikey<br>732-5733-ND | 0,35 € @1 Stk |
+| Y-Kondensatoren (EMV, C309/C310) | Vishay BCcomponents<br>VY2472M49Y5US63L7 | Funkentstörkondensator Y2 (Keramikscheibe), 4,7nF ±20%, X1 440VAC / Y2 300VAC, Y5U, ⌀12,5×5,0mm, Rastermaß 7,5mm, IEC 60384-14 / VDE / UL, 2× je Board | Digikey<br>VY2472M49Y5US63L7-ND | 0,208 € @50 Stk |
 | X2-Kondensator (Messnetzteil, C307) | *offen* | Funkentstörkondensator X2 (MKP), 680nF, 310VAC — setzt den Strom des Messnetzteils auf 22mA | *offen* | ca. 0,70 € · |
 | Puffer-Elko (Messnetzteil, C308) | *offen* | 220µF/16V, 105°C, ≥10000h Lebensdauer (z.B. Panasonic FR, Nichicon PW) | *offen* | ca. 0,30 € · |
 | Ausgangs-Stützkondensator (U301) | Murata<br>GCM155R71H104KE02J | 100nF/50V, 0805 (C301) | Mouser<br>81-GCM155R71H104KE2J | 0,021 € @10 Stk |
@@ -451,7 +473,7 @@ zu MCU- und RFID-Board.
 
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
-| Gleichtaktdrossel (EMV, L300) | Würth Elektronik<br>7448258022 | Stromkompensierte Drossel, 2,2mH, 8A, DCR 14mΩ, bedrahtet | Digikey<br>732-1455-ND | 5,067 € @10 Stk |
+| Gleichtaktdrossel (EMV, L300) | TE Connectivity Schaffner<br>RN102-1-02-3M0 | Stromkompensierte Drossel, 3,0mH, 1A @40°C, 300VAC, DCR 210mΩ, Hipot 1500VAC/60s, IEC/EN 60938-1 + UL 1283, ENEC/VDE, UL 94 V-0, Körper 10×10×9mm, Rastermaß 4mm, bedrahtet | Digikey<br>817-2084-ND | 1,662 € @10 Stk |
 
 ### Relais & Schutzbeschaltung
 
@@ -465,7 +487,7 @@ zu MCU- und RFID-Board.
 | Überspannungsschutz (EMV, RV300) | TDK<br>B72210S0271K101 (SIOV-S10K275) | Metalloxid-Varistor, 275VAC/430V, 2500A Stoßstrom, bedrahtet Ø12,5mm | Digikey<br>495-3786-ND | 0,186 € @25 Stk |
 | Gleichrichter + Rückflussdiode (Messnetzteil, D300/D301) | *offen* | 2× 1000V/1A, SMA; D301 antiparallel zu D300 | *offen* | ca. 0,06 € · |
 | Z-Diode (Messnetzteil, D302, D303) | *offen* | 2× 5,6V, 0,5W, SOD-123 — parallel, redundant gegen Ausfall offen (siehe FMEA) | *offen* | ca. 0,10 € · |
-| Gerätesicherung (F302) | Bel Fuse<br>MRT 1-BULK | 1A/250V träge, THT radial, fest verlötet (Abweichung von S5, siehe Anforderungen.md) | Digikey<br>5923-MRT1-BULK-ND | 0,402 € @10 Stk |
+| Gerätesicherung (F302) | Bel Fuse<br>MRT 500-BULK | 500mA/250VAC träge, IEC 60127-3 Sheet 4, Schmelz-I²t 1,5A²s, ENEC/cULus/CCC, THT radial RM 5,08mm, fest verlötet (Abweichung von S5, siehe Anforderungen.md) | Digikey<br>5923-MRT500-BULK-ND | 0,402 € @10 Stk |
 | Lastausgangssicherung (F300) | Schurter<br>0034.3127 (FST 5x20) | 10A/250V träge | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
 | Sicherungshalter (F300) | Würth<br>WR-FSH 696309001002 | VDE 10A, Berührschutz Shocksafe PC2/IP20, THT stehend | Digikey<br>732-11383-ND | 1,30 € @10 Stk |
 | Ersatzsicherung (im Gehäuse) | Schurter<br>0034.3127 (FST 5x20) | Reserve wie F300, im Gehäuse mitgeführt | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
@@ -492,7 +514,7 @@ zu MCU- und RFID-Board.
 |---|---|---|---|---:|
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
 
-**Summe: ca. 89,38 €** (1× je Zeile über alle Kategorien, ohne Mengen und
+**Summe: ca. 86,18 €** (1× je Zeile über alle Kategorien, ohne Mengen und
 ohne Extension Board). Die Summe zählt jede Zeile einfach (auch wo "/Stk"
 steht, z.B. LED-Ring, Sicherungen); sie berücksichtigt keine tatsächlich
 benötigten Stückzahlen pro Board (z.B. 12× LED, mehrere
@@ -551,9 +573,9 @@ P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
 
 | Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
 |---|---|---|---:|---:|---|
-| **P:** 230 V Lastpfad | `PIN_*`, `PIN_FILTERED_*`, `PIN_FUSED_L`, `PIN_SWITCHED_*` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** / Polygon | kein Lagenwechsel; unvermeidbar: **5 × ⌀1,0 mm** oder **8 × ⌀0,6 mm** |
-| **P:** PE | `PIN_PE` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** | wie Lastpfad |
-| **P:** 230 V Steuerzweig | `PIN_CTRL_L/N` (F302 → U301), Netzseite des Messnetzteils U302 | ≤ 500 mA (real ~50 mA + ~50 mA) | 0,09 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
+| **P:** 230 V Lastpfad | `PIN_*`, `PIN_FUSED_L`, `PIN_SWITCHED_*` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** / Polygon | kein Lagenwechsel; unvermeidbar: **5 × ⌀1,0 mm** oder **8 × ⌀0,6 mm** |
+| **P:** PE | `PIN_PE` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** | wie Lastpfad; die Stichleitung zum Y-Paar ist kurz und direkt zum PE-Terminal zu führen, nicht über den Lastpfad |
+| **P:** 230 V Steuerzweig | `PIN_CTRL_L/N` (F302 → L300), `PIN_CTRL_FILTERED_L/N` (L300 → U301, mit C309/C310 gegen PE), Netzseite des Messnetzteils U302 | ≤ 500 mA (F302; real ~50 mA + ~50 mA) | 0,09 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
 | **P:** Signale ISO-Insel | `+3V3_ISO` (U302 → U303), UART U303 ↔ U305, Shunt-Sense von R300 | ≤ 20 mA | < 0,05 mm | **0,4 mm** | **1 × ⌀0,2 mm** |
 | **P:** GND ISO-Insel | `GND_ISO` | — | — | eigene Massefläche | Stitching ⌀0,2 mm |
 | **S:** 24 V | `+24V` (Spule K300, Eingang U306) | ≤ 500 mA | 0,09 mm | **0,8 mm** | **1 × ⌀0,6 mm** |
@@ -570,12 +592,14 @@ P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
 
 Ohne Lastpfad, Lastmessung und Messnetzteil. Der Netz-Eingang speist nur
 noch den Steuerzweig, also den Eigenverbrauch des Geräts — es gibt auf
-diesem Board nirgends 8 A. **F:** = Feldseite, extern gespeist.
+diesem Board nirgends 8 A. Das EMV-Filter aus L300 und C309/C310 sitzt wie
+beim I/O-Board 230V vor U301 und wird unverändert übernommen; RV300 und
+C300 bleiben am Eingang. **F:** = Feldseite, extern gespeist.
 
 | Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
 |---|---|---|---:|---:|---|
-| **P:** 230 V Eingang + Steuerzweig | `PIN_*`, `PIN_FILTERED_*`, `PIN_CTRL_L/N` | ≤ 500 mA (real ~50 mA) | 0,13 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
-| **P:** PE | `PIN_PE` | kein Laststrom, endet am Eingangsterminal | — | **1,0 mm** | — |
+| **P:** 230 V Eingang + Steuerzweig | `PIN_*`, `PIN_CTRL_L/N`, `PIN_CTRL_FILTERED_L/N` | ≤ 500 mA (F302; real ~50 mA) | 0,13 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
+| **P:** PE | `PIN_PE` | kein Laststrom, endet am Eingangsterminal, trägt den Mittelabgriff von C309/C310 | — | **1,0 mm** | — |
 | **S:** 24 V | `+24V` (Spule K2, Eingang U306) | ≤ 500 mA | 0,13 mm | **0,8 mm** | **1 × ⌀0,6 mm** |
 | **S:** 5 V | `+5V` (Erzeugung + Weitergabe in den Stack) | ≤ 2 A | 1,19 mm | **1,3 mm** | **2 × ⌀0,6 mm** |
 | **S:** Signale | Enable zum Relaistreiber, Stack-Signale | < 100 mA | < 0,05 mm | **0,3 mm** | **1 × ⌀0,3 mm** |
@@ -630,6 +654,9 @@ Betrifft nur das I/O-Board; MCU- und RFID-Board liegen vollständig in SELV
 (0,2 mm durchgehend). Vier Domänen:
 
 - **NETZ** — alles vor/hinter dem Relais auf Netzpotential (beide Pole, PE).
+  PE ist über die Y-Kondensatoren C309/C310 gewollt mit dem Steuerzweig
+  gekoppelt; die Kondensatoren tragen als einzige Bauteile Netzpotential
+  gegen PE und sind deshalb zwingend Y2-Klasse.
 - **ISO-Insel** — `+3V3_ISO`, `GND_ISO`, die UART zu U305, der Shunt-Sense
   und das Messnetzteil. „ISO" heisst isoliert **gegen SELV**, nicht
   berührsicher: die Insel hängt über R300 am Lastpfad und bekommt deshalb
@@ -655,6 +682,9 @@ Abstandsmatrix (Luft- **und** Kriechstrecke, Designwerte):
 - Die 8,0 mm liegen bewusst über der Norm (3,0 / 5,0 mm) und kommen von den
   Bauteilen: K300 8 mm / 9,5 mm / 4 kVrms, VO615A-X017T ≥ 7,6 mm. Nicht auf
   5 mm reduzieren.
+- L300 trennt die beiden Wicklungen bauteilseitig nur über das Rastermaß
+  von 4,0 mm ±0,5. Das erfüllt die 3,0 mm für NETZ Gegenpol, lässt aber
+  wenig Spielraum — bei einem Typwechsel gegenprüfen.
 - `GND_ISO` und `GND` sind getrennte Flächen; ihre gegenüberliegenden Kanten
   sind die längste Strecke der Barriere und brauchen einen definierten
   Umriss statt freier Füllung.
@@ -725,25 +755,11 @@ Vier Punkte, die sonst schiefgehen:
   WG-Variante ("-00") bestellt werden muss — das Datenblatt nennt die
   EN-60335-1-Zulassung nur für die WG-Variante, während die Kernwerte
   (8mm/9,5mm/4kV) laut Insulation-Data-Tabelle für die ganze Serie gelten.
-- Anlaufstrom der Zielmaschinen am Prototyp messen. Mit dem Wegfall der
-  Einschaltstrombegrenzung tragen F300 und K300 den Anlauf allein. Mit
-  Stromzange an Standfräse und Drehmaschine (je ~800 W) prüfen, dass der
-  Spitzenstrom unter dem Einschaltvermögen von K300 (30 A) bleibt und F300
-  nicht anspricht.
-- Messnetzteil in den Schaltplan übernehmen. Die Auslegung steht im Kapitel
-  [Leiterbahnbreiten und Abstände](#4-messnetzteil), im ECAD ist sie noch
-  nicht umgesetzt. Zu tun: C307, R301–R304, D300–D302, C308 und U302
-  ergänzen; die LED von U305 low-aktiv beschalten; Bestellnummern für C307
-  (0,68 µF X2, 310 VAC) und C308 (220 µF/16 V, 105 °C, ≥ 10000 h)
-  festlegen; die Stromaufnahme von U303 am Prototyp gegen das 12-mA-Budget
-  gegenprüfen.
-- Zweites ECAD-Projekt für das I/O-Board 24V anlegen. Das bestehende
-  `ECAD/IO_Board` wird zum I/O-Board 230V; das 24-V-Board bekommt ein
-  eigenes Projekt mit identischem Umriss und identischer Steckerposition.
-- Abdeckplatten für das I/O-Board konstruieren (U8). Offen sind die
-  Befestigung am Gehäuseunterteil, die Ausschnitte für Terminals und
-  Sicherungshalter sowie die Frage, ob die Platte den Stack-Tausch nach S3
-  behindert.
+- RV300 liegt vor F300 und F302 und ist damit ungesichert. Ein Varistor am
+  Lebensdauerende versagt niederohmig; vorgelagert wirkt nur der
+  Leitungsschutzschalter im Werkstattverteiler. Thermisch geschützten
+  Varistor (ThermoFuse) prüfen. Vorbestehend, nicht durch die Verlegung des
+  EMV-Filters verursacht.
 - Spannungsteiler für die Netzspannungsmessung fehlt in der BOM. Der
   MCP39F51A (U303) braucht neben dem Shunt einen hochohmigen Teiler auf den
   Spannungseingang. Layoutrelevant: mindestens zwei Widerstände in Reihe, je
@@ -759,6 +775,7 @@ aufgeführt.
 | Bauteil | Fehlerart | Auswirkung ohne Maßnahme | Maßnahme |
 |---|---|---|---|
 | C307 (X2) | Kurzschluss | 230 V über R301/R302 → ~2,4 A, ~560 W in den Widerständen → Brand | X2-Klasse (versagt bauartbedingt offen) **und** R301/R302 als flammfeste Sicherungswiderstände, in Reihe |
+| C309/C310 (Y2) | Kurzschluss | Netzspannung auf PE → FI löst aus, Gerät und Maschine sind freigeschaltet | Y2-Klasse: für Netz gegen PE zugelassen (IEC 60384-14) und bauartbedingt offen versagend. Keine berührbaren Teile betroffen, da PE geerdet ist |
 | R301/R302 | einer kurzgeschlossen | Strombegrenzung halbiert, Schutz aber noch vorhanden | Aufdopplung: zwei in Reihe statt einem |
 | D302 (Z-Diode) | **offen** | Kondensatornetzteil ist eine Stromquelle: Rail steigt mit 100 V/s, überschreitet nach ~0,16 s die 16 V von C308 und U302 → Folgeschaden, im Grenzfall Durchschlag auf die 3,3-V-Insel | **Zweite Z-Diode parallel (D303)** |
 | D302 | Kurzschluss | Insel unversorgt, Messung fällt aus | keine — Funktionsverlust ohne Gefährdung |
