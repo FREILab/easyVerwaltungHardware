@@ -446,18 +446,20 @@ zu MCU- und RFID-Board.
 | RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle | Mouser<br>771-PN5321A3HN10 | 11,25 € @1 Stk |
 | AC/DC-Wandler 24V (Steuerpfad, U301) | Mean Well<br>IRM-10-24 | 10W isoliert, 24V/0,42A, 4,2kVac I/P-O/P, Isolationsklasse II, PCB-Mount | Digikey<br>1866-3030-ND | 5,650 € @25 Stk |
 | Regler 5V (Steuerpfad, U306) | RECOM<br>R-78K5.0-2.0 | DC/DC-Wandler 24V→5V, 2A, SIP3/TO-220-kompatibel | Digikey<br>945-R-78K5.0-2.0-ND | 4,71 € @25 Stk |
-| 3V3-Regler (nicht isoliert, ESP32/NFC) | EVVOSEMI<br>AMS1117-3.3 | LDO 1A, SOT-223-3L | Digikey<br>5272-AMS1117-3.3CT-ND | 0,1552 € @25 Stk |
+| 3V3-Regler (nicht isoliert, ESP32/NFC) | Diodes<br>AP2114H-3.3TRG1 | LDO 3,3V/1A, SOT-223-3, Ruhestrom 65µA, Dropout 450mV @1A, PSRR 65dB, Fold-back-Strombegrenzung, θJA 128°C/W | Digikey<br>AP2114H-3.3TRG1DICT-ND | 0,1652 € @25 Stk |
 | Digitalisolator + isolierter DC-DC (U300) | Texas Instruments<br>ISOW7721DFMR | 2 Kanäle (1 hin, 1 zurück), integrierter DC-DC 3,3V/60mA, verstärkte Isolierung VDE 0884-17, Luft-/Kriechstrecke >8mm, SOIC-20 wide | Digikey<br>296-ISOW7721DFMRCT-ND | 5,4308 € @25 Stk |
-| Relaistreiber Low-Side (Q300) | *offen* | Logic-Level-NMOS, Gate-Ansteuerung mit 3,3 V, Gate-Pulldown | *offen* | ca. 0,10 € · |
-| Relaistreiber High-Side (Q301) | *offen* | PMOS ≥ 40V in der 24V-Zuleitung der Spule, mit NPN-Pegelwandler, Gate-Pull-up und Vgs-Klemmung — redundanter zweiter Schalter (siehe FMEA) | *offen* | ca. 0,25 € · |
-| Freilaufdiode Relaisspule (D305) | *offen* | über der Spule, wirkt unabhängig davon welcher Schalter öffnet | *offen* | ca. 0,03 € · |
+| Relaistreiber Low-Side (Q300) | Nexperia<br>2N7002NXAKR | NMOS 60V/190mA, SOT-23, Rds(on) 4,5Ω max @Vgs 10V; in der Spulenrückleitung nach GND | Digikey<br>1727-8643-1-ND | 0,0522 € @50 Stk |
+| Relaistreiber High-Side (Q301) | Nexperia<br>BSS84AK,215 | PMOS 50V/180mA, SOT-23, Rds(on) 7,5Ω max @Vgs −10V, Vgs ±20V; in der 24V-Zuleitung der Spule — redundanter zweiter Schalter (siehe FMEA) | Digikey<br>1727-1144-1-ND | 0,063 € @50 Stk |
+| Pegelwandler High-Side (Q302) | Nexperia<br>2N7002NXAKR | zieht den Fusspunkt des Gate-Teilers von Q301 nach GND, Drain sieht 24V | Digikey<br>1727-8643-1-ND | 0,0522 € @50 Stk |
+| Freilaufdiode Relaisspule (D305) | onsemi<br>BAS16LT1G | 100V/200mA, SOT-23, VF ~1,1V @76mA; über der Spule, wirkt unabhängig davon welcher Schalter öffnet | Digikey<br>BAS16LT1GOSCT-ND | 0,0408 € @50 Stk |
 | Pegelwandler LED-Ring (3V3→5V) | diverse<br>74AHCT125 | Quad-Buffer/Levelshifter 3,3V→5V | *offen* | ca. 0,30 € · |
 
 ### Widerstände
 
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
-| Shunt (Leistungsmessung, R300) | Yageo<br>PA1206FRM670R002L | 2mOhm, Strommess-Shunt, 1206 | Mouser<br>603-PA1206FRM670R02L | 0,131 € @25 Stk |
+| Shunt (Leistungsmessung, R300) | Bourns<br>CRF2010-FZ-R002ELF | 2mOhm ±1%, ±50ppm/°C, 1,5W, 2010, Metallband, therm. EMK <3µV/°C, <5nH | Mouser<br>652-CRF2010FZR002ELF | 0,28 € @25 Stk |
+| Relaistreiber (R312–R317) | *offen* | 0603, 1%: R313/R314 je 47k (Gate-Teiler Q301), R312/R315 je 1k (Gate-Vorwiderstände), R316 47k und R317 100k (Gate-Pulldowns Q300 und Q302) | *offen* | ca. 0,06 € · |
 
 ### Kondensatoren
 
@@ -467,7 +469,7 @@ zu MCU- und RFID-Board.
 | Y-Kondensatoren (EMV, C309/C310) | Vishay BCcomponents<br>VY2472M49Y5US63L7 | Funkentstörkondensator Y2 (Keramikscheibe), 4,7nF ±20%, X1 440VAC / Y2 300VAC, Y5U, ⌀12,5×5,0mm, Rastermaß 7,5mm, IEC 60384-14 / VDE / UL, 2× je Board | Digikey<br>VY2472M49Y5US63L7-ND | 0,208 € @50 Stk |
 | Ausgangs-Stützkondensator (U301) | Murata<br>GCM155R71H104KE02J | 100nF/50V, 0805 (C301) | Mouser<br>81-GCM155R71H104KE2J | 0,021 € @10 Stk |
 | Ausgangs-Elko (U301) | Würth Elektronik<br>860010673012 | 47µF/50V (C302) | Mouser<br>710-860010673012 | 0,129 € @1 Stk |
-| Ausgangs-MLCC (U306) | Murata<br>GRM21BR71A106KA73K | 10µF/10V, 0805 (C303) | Mouser<br>81-GRM21BR71A106KA3K | 0,04 € @10 Stk |
+| Ausgangs-MLCC (U306) | Murata<br>GRM21BR71A106KA73K | 10µF/10V, 0805 (C303); derselbe Typ auch als Ein- und Ausgangskondensator des 3V3-Reglers (min. 4,7µF gefordert, Derating bei 5V prüfen) | Mouser<br>81-GRM21BR71A106KA3K | 0,04 € @10 Stk |
 | Abblockung Isolator (C304–C308, C311–C317) | *offen* | je Versorgungspin 10nF + 1µF + 10µF, vier Gruppen für VIO, VDD, VISOIN, VISOOUT; die 10nF als 0402 und < 1mm vom Pin | *offen* | ca. 0,30 € · |
 | RC-Snubber | *offen* | 100R + 100nF X2, diskret | *offen* | ca. 0,20 € · |
 
@@ -515,7 +517,7 @@ zu MCU- und RFID-Board.
 |---|---|---|---|---:|
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
 
-**Summe: ca. 89,95 €** (1× je Zeile über alle Kategorien, ohne Mengen und
+**Summe: ca. 90,00 €** (1× je Zeile über alle Kategorien, ohne Mengen und
 ohne Extension Board). Die Summe zählt jede Zeile einfach (auch wo "/Stk"
 steht, z.B. LED-Ring, Sicherungen); sie berücksichtigt keine tatsächlich
 benötigten Stückzahlen pro Board (z.B. 12× LED, mehrere
@@ -585,8 +587,8 @@ P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
 | **S:** GND | `GND` | — | — | Massefläche | Stitching ⌀0,3 mm, Raster ≤ 10 mm |
 
 - Lastpfad als Polygon, ohne Lagenwechsel. Untergrenze an unvermeidbaren
-  Engstellen 2,65 mm (ΔT 10 K); Bauteilpads ausgenommen (R300 als 1206
-  schnürt auf ~1,6 mm ein).
+  Engstellen 2,65 mm (ΔT 10 K); Bauteilpads ausgenommen (R300 als 2010
+  schnürt auf ~2,5 mm ein und liegt damit auf der 10-K-Schwelle).
 - R300 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads.
 
 #### 2.2 I/O-Board 24V — 2 Lagen, 35 µm
@@ -621,7 +623,7 @@ Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
 | Klasse | Netze | Bemessung | Rechnerisch (L1/L4) | Breite | Vias |
 |---|---|---|---:|---:|---|
 | 5 V | `+5V` (LED-Ring, Buzzer, Weitergabe) | ≤ 2 A | 1,19 mm | **1,3 mm** | **2 × ⌀0,6 mm** |
-| 3,3 V | `+3V3` (ESP32-S3, OLED, PN532 über Stack) | ≤ 1 A | 0,46 mm | **0,5 mm** | **2 × ⌀0,3 mm** |
+| 3,3 V | `+3V3` (ESP32-S3, OLED, PN532 über Stack, U300) | ~285 mA Mittel, ~630 mA Spitze | 0,46 mm | **0,5 mm** | **2 × ⌀0,3 mm** |
 | LED-Daten | Single-Wire nach 74AHCT125, 5 V | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
 | Signale | SPI, I2C, UART, GPIO, Stopp-Taster | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
 | USB D+/D− | Service-Buchse J4 | Full Speed | impedanzbestimmt | **0,25 mm**, eng gekoppelt | **keine** im Paar |
@@ -630,6 +632,20 @@ Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
 - Strom auf L2/L3 nur als Fläche, nie als Bahn (2 A bräuchten dort 6,2 mm).
 - L2 nicht aufschneiden; Signalwechsel L1↔L4 mit GND-Via daneben.
 - Antennen-Keepout des WROOM-Moduls gilt auf **allen vier** Lagen.
+- **Kupferfläche am Tab des 3V3-Reglers**, mindestens 100 mm². Der Tab liegt
+  auf VOUT, die Fläche ist also die 3,3-V-Fläche. Ohne sie erreicht die
+  Sperrschicht bei Lastspitzen die Abschaltschwelle.
+
+Stromabschätzung der 3,3-V-Schiene — Grundlage für die Bemessung oben:
+
+| Verbraucher | Mittel | Spitze | Grundlage |
+|---|---:|---:|---|
+| ESP32-S3-WROOM-1 | 120 mA | 400 mA | Schätzung, WLAN assoziiert / TX-Burst |
+| PN5321 inkl. Antennentreiber | 80 mA | 120 mA | Schätzung, hängt an der Antennengüte |
+| OLED inkl. Backlight | 30 mA | 30 mA | Schätzung |
+| ISOW7721 (U300) | 44 mA | 67 mA | Datenblatt 5.10, interpoliert für 17 mA Insellast |
+| Pull-ups, Sonstiges | 10 mA | 10 mA | Schätzung |
+| **Summe** | **~285 mA** | **~630 mA** | |
 - USB ist Full Speed, keine Impedanzkontrolle nötig: symmetrisch, < 50 mm,
   durchgehend über L2, keine Stubs.
 
@@ -706,76 +722,25 @@ Abstandsmatrix (Luft- **und** Kriechstrecke, Designwerte):
 - Die 8 mm gelten auch vertikal gegen die Unterseite des MCU-Boards:
   entweder Stackhöhe ≥ 8 mm oder Netzzone dort kupferfrei. Randbedingung für
   den Board-to-Board-Stecker.
-
-### 4. Versorgung und Isolation der Messinsel
-
-Die ISO-Insel wird nicht netzseitig gespeist. Der Digitalisolator **U300
-(ISOW7721)** mit integriertem DC-DC-Wandler versorgt sie aus der SELV-Seite
-und führt zugleich die UART zu U303 über die Barriere.
-
-| | |
-|---|---|
-| Betriebspunkt | VDD = VIO = 3,3 V, VSEL an `GND_ISO2` → 3,3 V, bis 60 mA |
-| Last | U303 13 mA, Isolatorkanäle ~4 mA |
-| Kanäle | 1 hin, 1 zurück |
-| Variante | **ohne F-Suffix** — Default-Ausgang High, der Ruhepegel einer UART |
-| EN | fest auf VIO |
-| LF | auf GND, Einzelbetrieb |
-
-`+3V3_ISO` wird hinter dem Ferrit am VISOIN abgegriffen.
-
-**Massen.** `GND_ISO2` ist der Rückweg des Wandlers, `GND_ISO` die
-Messreferenz; ein Ferrit trennt beide, damit der getaktete Wandlerstrom
-nicht über die Referenz des 2-mΩ-Shunts läuft.
-
-- `GND_ISO` hart am Shunt-Knoten, in Kelvin-Anbindung.
-- **Der Shunt liegt in N.** Die Stromkanaleingänge von U303 vertragen
-  absolut ±2 V gegen ihre Masse.
-
-**Layout, aus dem Datenblatt:**
-
-- Kein Kupfer im Umkreis von **4 mm** um VISOOUT und GND2.
-- 10-nF-Kondensatoren als **0402**, < 1 mm vom Pin; Bulk ≥ 10 µF an VDD
-  und VISOOUT.
-- VDD/GND1 und VISOOUT/GND2 symmetrisch bis zu den Abblockkondensatoren.
-- **GND1 und GNDIO verbinden**, nicht über Ferrit trennen — die
-  Ferrit-Option gilt nur für GND2/GISOIN.
-- Kein Thermal Pad: Wärmeabfuhr über die GND-Pins, dort Kupfer vorsehen.
-
-CISPR 32 / EN 55032 Class B gilt nur bei eingehaltenen Layoutvorgaben.
+- **Kein Kupfer im Umkreis von 4 mm um VISOOUT und GND2 von U300** (Vorgabe
+  des Datenblatts, Bedingung für CISPR 32 Class B).
+- `GND_ISO2` (Rückweg des Wandlers) und `GND_ISO` (Messreferenz) über einen
+  Ferrit trennen, damit der getaktete Strom nicht über die Referenz des
+  2-mΩ-Shunts läuft; `GND_ISO` in Kelvin-Anbindung hart am Shunt-Knoten.
 
 ## TODO
 
-- E-Stop-Relais (K3) öffnet aktuell ausschliesslich über den ESP32, es
-  gibt keinen von der Firmware unabhängigen Hardware-Bypass (siehe BR3 in
-  Anforderungen.md). Eine latchende/hardwareseitige Lösung für ein höheres
-  Sicherheitsniveau wäre möglich, ist aber mit vertretbarem Aufwand aktuell
-  nicht umsetzbar und daher bewusst zurückgestellt.
-- Lastrelais T92S11D12-24: prüfen, ob die reguläre Wash-tight-Variante
-  (ohne "-00"-Suffix) für den Einsatzzweck ausreicht oder ob explizit die
-  WG-Variante ("-00") bestellt werden muss — das Datenblatt nennt die
-  EN-60335-1-Zulassung nur für die WG-Variante, während die Kernwerte
-  (8mm/9,5mm/4kV) laut Insulation-Data-Tabelle für die ganze Serie gelten.
 - RV300 liegt vor F300 und F302 und ist damit ungesichert. Ein Varistor am
   Lebensdauerende versagt niederohmig; vorgelagert wirkt nur der
   Leitungsschutzschalter im Werkstattverteiler. Thermisch geschützten
   Varistor (ThermoFuse) prüfen. Vorbestehend, nicht durch die Verlegung des
   EMV-Filters verursacht.
-- **Messeingänge von U303 sind noch unbeschaltet.** V1+ hängt über einen
-  Ferrit direkt am Netzknoten, I1− ebenso am Relaisknoten. Die Eingänge
-  vertragen absolut ±2 V gegen AGND. Es fehlen der hochohmige Teiler
-  (2 × 499 kΩ) auf V1+ und die 1-kΩ-Vorwiderstände auf I1+/I1−; die
-  Ferrite FB300–FB302 stehen dort als Platzhalter. Layoutrelevant: die
-  Teilerwiderstände in Reihe, je ≥ 1 mm Kriechstrecke über dem Bauteil,
-  vollständig in der ISO-Insel.
 - **GND1 und GNDIO von U300 sind über einen Ferrit getrennt.** Das
   Datenblatt fordert sie in der Pintabelle zweimal ausdrücklich als
   verbunden; die Ferrit-Option gilt nur für GND2/GISOIN auf der
   Inselseite.
 - Serienferrite in den Zuleitungen VIO und VDD von U300 fehlen noch, ebenso
   deren Versorgungsanschluss.
-- **Anzeige-LEDs für die Versorgungspotentiale** vorsehen. Auf der ISO-Insel
-  geht der LED-Strom vom 60-mA-Budget des Isolators ab.
 - **Auftrennbare Netzbrücken** an ausgewählten Stellen der Niederspannung
   vorsehen, damit sich Zweige zur Inbetriebnahme einzeln zuschalten lassen.
 - **Testpunkte** für die Inbetriebnahme vorsehen. In der Netzdomäne und auf
@@ -795,7 +760,7 @@ aufgeführt.
 | Relaistreiber | ein Schalter durchlegiert | Relais dauerhaft angezogen, Firmware kann nicht mehr abschalten | **Zwei Schalter in Reihe in der Spule:** High-Side-PMOS (Q301) und Low-Side-NMOS (Q300), an getrennten GPIOs. Ein durchlegierter Schalter lässt sich über den anderen abschalten |
 | Relaistreiber | beide Schalter durchlegiert | wie oben | Doppelfehler, nicht abgedeckt — Erkennung über die Lastmessung |
 | K300 | Kontakt verschweisst | Schaltausgang bleibt aktiv | Lastmessung als Plausibilitätsprüfung: Strom bei kommandiertem AUS ist ein Fehler. Abschalten nicht möglich, siehe unten |
-| Gate-Pulldown/Pull-up | offen | Gate floatet bei Reset/Boot, Relaiszustand undefiniert | Pulldown an Q300, Pull-up an Q301, beide nahe am Gate; Prüfpunkt im Abnahmetest |
+| Gate-Pulldown/Pull-up | offen | Gate floatet bei Reset/Boot, Relaiszustand undefiniert | Pulldown R316 an Q300 und R317 an Q302, Pull-up R313 an Q301, alle nahe am Gate; Prüfpunkt im Abnahmetest |
 
 Die Erkennung über die Lastmessung funktioniert, weil R300 **vor** dem
 Relais sitzt und in Reihe dazu liegt: bei offenem Relais fliesst kein Strom.
