@@ -321,7 +321,7 @@ flowchart TB
 | `[PIN_CTRL_FILTERED]` | Steuerzweig nach L300, speist U301; hier liegt das Y-Paar C309/C310 gegen PE |
 | `[+24V]` | Geregelte 24-V-Schiene aus dem AC/DC-Wandler IRM-10-24 (U301), versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
 | `[+5V]` | 5-V-Schiene (Schutz durch integrierten Modulschutz des Reglers) |
-| `[+3V3_ISO]` | Netzbezogene 3,3-V-Versorgung der Lastmessung (U303) aus dem Digitalisolator (U300) |
+| `[+3V3_ISO]` | Netzbezogene 3,3-V-Versorgung der Lastmessung (U302) aus dem Digitalisolator (U300) |
 | `[GND_ISO]` | Messreferenz der ISO-Insel, hart am Shunt-Knoten |
 | `[GND_ISO2]` | Rückweg des isolierten DC-DC-Wandlers, von `GND_ISO` durch einen Ferrit getrennt |
 | `[+3V3]` | Logikversorgung |
@@ -431,7 +431,7 @@ konkret geprüft; "*offen*" heisst nicht unbekannt/unmöglich, sondern noch
 nicht recherchiert.
 
 Die Liste umfasst beide I/O-Boards. Nur auf dem **I/O-Board 230V** sitzen
-K300, U303, R300, der Digitalisolator U300 mit seinen Ferriten und
+K300, U302, R300, der Digitalisolator U300 mit seinen Ferriten und
 Abblockkondensatoren, F300 mit Halter und Ersatzsicherung sowie der
 RC-Snubber — zusammen rund 40 €. Nur auf dem **I/O-Board 24V** sitzen K2 und seine Polyfuse,
 zusammen rund 2 €. Alles Übrige ist auf beiden Boards identisch oder gehört
@@ -442,7 +442,7 @@ zu MCU- und RFID-Board.
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
 | Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | MCU-Modul mit WLAN/BLE, 16MB Flash, 8MB PSRAM | Mouser<br>356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
-| Leistungsmessung (U303) | Microchip<br>MCP39F511A-E/MQ | AC/DC-Energiemess-IC, UART-Schnittstelle, 28-QFN | *offen* | ca. 3,61 € · |
+| Leistungsmessung (U302) | Microchip<br>MCP39F511A-E/MQ | AC/DC-Energiemess-IC, UART-Schnittstelle, 28-QFN | Digikey<br>MCP39F511A-E/MQ-ND | 2,5684 € @25 Stk |
 | RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle | Mouser<br>771-PN5321A3HN10 | 11,25 € @1 Stk |
 | AC/DC-Wandler 24V (Steuerpfad, U301) | Mean Well<br>IRM-10-24 | 10W isoliert, 24V/0,42A, 4,2kVac I/P-O/P, Isolationsklasse II, PCB-Mount | Digikey<br>1866-3030-ND | 5,650 € @25 Stk |
 | Regler 5V (Steuerpfad, U306) | RECOM<br>R-78K5.0-2.0 | DC/DC-Wandler 24V→5V, 2A, SIP3/TO-220-kompatibel | Digikey<br>945-R-78K5.0-2.0-ND | 4,71 € @25 Stk |
@@ -517,7 +517,7 @@ zu MCU- und RFID-Board.
 |---|---|---|---|---:|
 | Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
 
-**Summe: ca. 90,00 €** (1× je Zeile über alle Kategorien, ohne Mengen und
+**Summe: ca. 89,00 €** (1× je Zeile über alle Kategorien, ohne Mengen und
 ohne Extension Board). Die Summe zählt jede Zeile einfach (auch wo "/Stk"
 steht, z.B. LED-Ring, Sicherungen); sie berücksichtigt keine tatsächlich
 benötigten Stückzahlen pro Board (z.B. 12× LED, mehrere
@@ -579,7 +579,7 @@ P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
 | **P:** 230 V Lastpfad | `PIN_*`, `PIN_FUSED_L`, `PIN_SWITCHED_*` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** / Polygon | kein Lagenwechsel; unvermeidbar: **5 × ⌀1,0 mm** oder **8 × ⌀0,6 mm** |
 | **P:** PE | `PIN_PE` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** | wie Lastpfad; die Stichleitung zum Y-Paar ist kurz und direkt zum PE-Terminal zu führen, nicht über den Lastpfad |
 | **P:** 230 V Steuerzweig | `PIN_CTRL_L/N` (F302 → L300), `PIN_CTRL_FILTERED_L/N` (L300 → U301, mit C309/C310 gegen PE) | ≤ 500 mA (F302; real ~50 mA) | 0,09 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
-| **P:** Signale ISO-Insel | `+3V3_ISO` (U300 → U303), `GND_ISO`, `GND_ISO2`, UART U303 ↔ U300, Shunt-Sense von R300 | ≤ 20 mA | < 0,05 mm | **0,4 mm** | **1 × ⌀0,2 mm** |
+| **P:** Signale ISO-Insel | `+3V3_ISO` (U300 → U302), `GND_ISO`, `GND_ISO2`, UART U302 ↔ U300, Shunt-Sense von R300 | ≤ 20 mA | < 0,05 mm | **0,4 mm** | **1 × ⌀0,2 mm** |
 | **P:** GND ISO-Insel | `GND_ISO` | — | — | eigene Massefläche | Stitching ⌀0,2 mm |
 | **S:** 24 V | `+24V` (Spule K300, Eingang U306) | ≤ 500 mA | 0,09 mm | **0,8 mm** | **1 × ⌀0,6 mm** |
 | **S:** 5 V | `+5V` (Erzeugung + Weitergabe in den Stack) | ≤ 2 A | 0,59 mm | **1,0 mm** | **2 × ⌀0,6 mm** |
