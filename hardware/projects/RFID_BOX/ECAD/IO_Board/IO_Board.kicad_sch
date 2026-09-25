@@ -5,6 +5,515 @@
 	(uuid "925169fe-6f55-4c58-8867-9e65957475e7")
 	(paper "A3")
 	(lib_symbols
+		(symbol "Connector:Conn_01x10_Pin"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 12.7 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x10_Pin"
+				(at 0 -15.24 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x10, script generated"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Conn_01x10_Pin_1_1"
+				(rectangle
+					(start 0.8636 10.287)
+					(end 0 10.033)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 7.747)
+					(end 0 7.493)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 5.207)
+					(end 0 4.953)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -7.493)
+					(end 0 -7.747)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -10.033)
+					(end 0 -10.287)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -12.573)
+					(end 0 -12.827)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 10.16) (xy 0.8636 10.16)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 7.62) (xy 0.8636 7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 5.08) (xy 0.8636 5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 0.8636 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 0.8636 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -7.62) (xy 0.8636 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -10.16) (xy 0.8636 -10.16)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -12.7) (xy 0.8636 -12.7)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 5.08 10.16 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 7.62 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 5.08 180)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -5.08 180)
+					(length 3.81)
+					(name "Pin_7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -7.62 180)
+					(length 3.81)
+					(name "Pin_8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -10.16 180)
+					(length 3.81)
+					(name "Pin_9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -12.7 180)
+					(length 3.81)
+					(name "Pin_10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -661,7 +1170,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Wurth Elektronik"
+			(property "Manufacturer" "Wurth Elektronik"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -694,7 +1203,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "710-860010673012 "
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -716,7 +1225,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*732-8664-1-ND"
+			(property "Distributor 2 Order Number" "732-8664-1-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -905,7 +1414,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Wurth Elektronik"
+			(property "Manufacturer" "Wurth Elektronik"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -916,7 +1425,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*890334023023CS"
+			(property "Manufacturer Part Number" "890334023023CS"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -938,7 +1447,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "710-890334023023CS "
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -960,7 +1469,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*732-5733-ND"
+			(property "Distributor 2 Order Number" "732-5733-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1147,7 +1656,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Vishay BC Components"
+			(property "Manufacturer" "Vishay BC Components"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1158,7 +1667,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*VY2472M49Y5US63L7"
+			(property "Manufacturer Part Number" "VY2472M49Y5US63L7"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1180,7 +1689,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "72-VY2472M49Y5US63L7"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1202,7 +1711,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*VY2472M49Y5US63L7-ND"
+			(property "Distributor 2 Order Number" "VY2472M49Y5US63L7-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1344,7 +1853,7 @@
 					)
 				)
 			)
-			(property "Value" "D_BAS16LT1G"
+			(property "Value" "BAS16LT1G"
 				(at 0 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1377,6 +1886,72 @@
 				)
 			)
 			(property "Description" "Diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "onsemi"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "BAS16LT1G"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "863-BAS16LT1G"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "BAS16LT1GOSCT-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1608,7 +2183,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "710-696309001002"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1630,7 +2205,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*732-11383-ND"
+			(property "Distributor 2 Order Number" "732-11383-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1901,7 +2476,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Bel Fuse"
+			(property "Manufacturer" "Bel Fuse"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1912,7 +2487,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*MRT 500-BULK"
+			(property "Manufacturer Part Number" "MRT 500-BULK"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1934,7 +2509,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "530-MRT500BULKSHORT"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1956,7 +2531,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*5923-MRT500-BULK-ND"
+			(property "Distributor 2 Order Number" "5923-MRT500-BULK-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2153,7 +2728,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "621-AP2114H-3.3TRG1"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2316,7 +2891,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*MEAN WELL"
+			(property "Manufacturer" "MEAN WELL"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2327,7 +2902,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*IRM-10-24"
+			(property "Manufacturer Part Number" "IRM-10-24"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2349,7 +2924,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "709-IRM10-24"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2371,7 +2946,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*1866-3030-ND"
+			(property "Distributor 2 Order Number" "1866-3030-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2642,7 +3217,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "IC_ISOW7721DFMR"
+			(property "Value" "ISOW7721DFMR"
 				(at 3.81 19.05 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2687,7 +3262,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Texas Instruments"
+			(property "Manufacturer" "Texas Instruments"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2698,7 +3273,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*ISOW7721DFMR"
+			(property "Manufacturer Part Number" "ISOW7721DFMR"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2720,7 +3295,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "595-ISOW7721DFMR"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2742,7 +3317,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*296-ISOW7721DFMRCT-ND"
+			(property "Distributor 2 Order Number" "296-ISOW7721DFMRCT-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3396,7 +3971,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Microchip Technology"
+			(property "Manufacturer" "Microchip Technology"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3407,7 +3982,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*MCP39F511A-E/MQ"
+			(property "Manufacturer Part Number" "MCP39F511A-E/MQ"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3429,7 +4004,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "579-MCP39F511AE/MQ"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3451,7 +4026,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*MCP39F511A-E/MQ-ND"
+			(property "Distributor 2 Order Number" "MCP39F511A-E/MQ-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4124,7 +4699,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "919-R-78K5.0-2.0"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4146,7 +4721,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*945-R-78K5.0-2.0-ND"
+			(property "Distributor 2 Order Number" "945-R-78K5.0-2.0-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4301,7 +4876,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*WAGO"
+			(property "Manufacturer" "WAGO"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4312,7 +4887,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*2604-1103"
+			(property "Manufacturer Part Number" "2604-1103"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4334,7 +4909,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "n/A"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4356,7 +4931,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*2946-2604-1103-ND"
+			(property "Distributor 2 Order Number" "2946-2604-1103-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4620,6 +5195,461 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "aa_MyParts:K_T92S11D12-24"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "K"
+				(at 6.35 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "T92S11D12-24"
+				(at 6.35 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "aa_MyParts:K_T92S11D12-24"
+				(at 6.35 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "TE Connectivity Potter & Brumfield"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "T92S11D12-24"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "655-T92S11D12-24"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "PB352-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "RELAY GEN PURPOSE DPDT 30A 24V"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "K_T92S11D12-24_1_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -3.175 1.905)
+					(end 3.175 -1.905)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.905) (xy 2.54 1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 5.08) (xy 0 1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -5.08) (xy 0 -1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "K_T92S11D12-24_2_1"
+				(polyline
+					(pts
+						(xy -2.54 5.08) (xy -2.54 2.54) (xy -1.905 3.175) (xy -2.54 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy -1.905 3.81)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 -5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 5.08) (xy 2.54 2.54) (xy 1.905 3.175) (xy 2.54 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 2.54 7.62 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -2.54 7.62 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "K_T92S11D12-24_3_1"
+				(polyline
+					(pts
+						(xy -2.54 5.08) (xy -2.54 2.54) (xy -1.905 3.175) (xy -2.54 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy -1.905 3.81)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 -5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 5.08) (xy 2.54 2.54) (xy 1.905 3.175) (xy 2.54 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 2.54 7.62 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -2.54 7.62 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "aa_MyParts:L_CMC_RN102-1-02-3M0"
 			(pin_names
 				(hide yes)
@@ -4715,7 +5745,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "631-RN102-1-02-3M0"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4737,7 +5767,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*817-2084-ND"
+			(property "Distributor 2 Order Number" "817-2084-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5222,7 +6252,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*Bourns"
+			(property "Manufacturer" "Bourns"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5233,7 +6263,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*MH2029-601Y"
+			(property "Manufacturer Part Number" "MH2029-601Y"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5255,7 +6285,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "652-MH2029-601Y"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5277,7 +6307,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+			(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5473,7 +6503,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" ""
+			(property "Manufacturer" "Nexperia USA Inc."
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5484,7 +6514,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" ""
+			(property "Manufacturer Part Number" "2N7002NXAKR"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5506,7 +6536,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "771-2N7002NXAKR"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5528,7 +6558,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" ""
+			(property "Distributor 2 Order Number" "1727-8643-1-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5843,6 +6873,72 @@
 					)
 				)
 			)
+			(property "Manufacturer" "Nexperia USA Inc."
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "BSS84AK,215"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "771-BSS84AK215"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "1727-1144-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "ki_keywords" "PMOS P-MOS"
 				(at 0 0 0)
 				(show_name no)
@@ -6144,7 +7240,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "*TDK (EPCOS)"
+			(property "Manufacturer" "TDK (EPCOS)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -6155,7 +7251,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "*B72210S0271K101"
+			(property "Manufacturer Part Number" "B72210S0271K101"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -6177,7 +7273,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" ""
+			(property "Distributor 1 Order Number" "871-B72210S271K101"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -6199,7 +7295,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "*495-3786-ND"
+			(property "Distributor 2 Order Number" "495-3786-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -6352,461 +7448,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "aa_MyParts:T92S11D12-24"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "K"
-				(at 6.35 1.27 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "T92S11D12-24"
-				(at 6.35 -1.27 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "aa_MyParts:K_T92S11D12-24"
-				(at 6.35 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Manufacturer" "*TE Connectivity Potter & Brumfield"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Manufacturer Part Number" "*T92S11D12-24"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Distributor 1" "Mouser"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Distributor 1 Order Number" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Distributor 2" "Digi-Key"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Distributor 2 Order Number" "*PB352-ND"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "RELAY GEN PURPOSE DPDT 30A 24V"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "T92S11D12-24_1_1"
-				(rectangle
-					(start -5.08 5.08)
-					(end 5.08 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start -3.175 1.905)
-					(end 3.175 -1.905)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -1.905) (xy 2.54 1.905)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 5.08) (xy 0 1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -5.08) (xy 0 -1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 7.62 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "T92S11D12-24_2_1"
-				(polyline
-					(pts
-						(xy -2.54 5.08) (xy -2.54 2.54) (xy -1.905 3.175) (xy -2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy -1.905 3.81)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 0 -5.08)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 5.08) (xy 2.54 2.54) (xy 1.905 3.175) (xy 2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 2.54 7.62 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -2.54 7.62 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "T92S11D12-24_3_1"
-				(polyline
-					(pts
-						(xy -2.54 5.08) (xy -2.54 2.54) (xy -1.905 3.175) (xy -2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy -1.905 3.81)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 0 -5.08)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 5.08) (xy 2.54 2.54) (xy 1.905 3.175) (xy 2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 2.54 7.62 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -2.54 7.62 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -7412,16 +8053,6 @@
 		)
 		(uuid "519cfdb0-20b6-4962-95c9-77c3d9221abc")
 	)
-	(text "Common Mode Choke"
-		(exclude_from_sim no)
-		(at 126.492 36.068 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "596f2e73-6ca3-4e41-82ee-9a992c121517")
-	)
 	(text "Digital isolator with integrated DC/DC\nIn: 3.3VDC (VDD = VIO)\nOut: 3.3VDC, 60mA, 24mVpp ripple\nCh: 1 forward + 1 reverse, 100Mbps\n    Fail-safe output HIGH (no F suffix)\nEff: 46% @ max load\nIso: Reinforced per VDE 0884-17, 5kVrms/60s\n     1000Vrms working, >8mm creepage/clearance\n     CTI >600V, material group I\nProtection: Soft-start, UVLO, OVP\n            Overload, short-circuit, thermal shutdown\n"
 		(exclude_from_sim no)
 		(at 137.16 86.614 0)
@@ -7444,7 +8075,7 @@
 	)
 	(text "Relay coil, K300 (TE T92S11D12-24)\nCoil: 24VDC, 350R ±10%, 1.7W\nCurrent: 69mA nom, 76mA @ -10% R\nThresholds: Operate 18V, Release 2.4V\nIso: 4kV coil-to-contact, 8mm air / 9.5mm surface\nInsulation: Class F, 155C max coil temp"
 		(exclude_from_sim no)
-		(at 279.654 68.326 0)
+		(at 275.59 67.31 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7517,10 +8148,10 @@
 		(uuid "132af310-039f-4eee-9a0d-6a340bf0ddb0")
 	)
 	(junction
-		(at 137.16 44.45)
+		(at 383.54 38.1)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "1589dabd-ec8a-4ada-b0bd-e51808a268a5")
+		(uuid "17a36a0a-ff30-4fee-84e1-877da40c4138")
 	)
 	(junction
 		(at 80.01 234.95)
@@ -7541,6 +8172,12 @@
 		(uuid "23750937-71e0-46ab-b329-ffd65bfa0c4b")
 	)
 	(junction
+		(at 383.54 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "28a31093-157d-49d2-b910-3b49857dc685")
+	)
+	(junction
 		(at 220.98 72.39)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7551,12 +8188,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2f17eea6-4a7f-4559-aed2-4be786dd92bf")
-	)
-	(junction
-		(at 394.97 125.73)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2f6edfa8-d9d1-485a-9122-6e11cd7858c7")
 	)
 	(junction
 		(at 316.23 67.31)
@@ -7599,6 +8230,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4561a475-825f-44e4-8b33-f1c58df4b2f7")
+	)
+	(junction
+		(at 30.48 227.33)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4602f283-2eff-4770-afb7-bc8510c56f27")
 	)
 	(junction
 		(at 62.23 234.95)
@@ -7667,6 +8304,12 @@
 		(uuid "6af11517-0f8d-44ce-9092-70b0297a5f9b")
 	)
 	(junction
+		(at 394.97 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6e145155-9476-479b-be4f-3a256eac49a1")
+	)
+	(junction
 		(at 50.8 234.95)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7683,12 +8326,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7cda1f72-6455-4bbf-a53a-14bf0f5a9f00")
-	)
-	(junction
-		(at 139.7 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7f6246ea-8285-4273-b12c-f4d542695528")
 	)
 	(junction
 		(at 124.46 120.65)
@@ -7721,16 +8358,16 @@
 		(uuid "8e99959c-a7f4-4a3c-978d-c05cb4e65658")
 	)
 	(junction
-		(at 316.23 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "900cf1bb-de69-4294-ac3a-13cba5c7ac5f")
-	)
-	(junction
 		(at 185.42 123.19)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9640b3b1-4e19-4c12-8d4e-1ed7137db305")
+	)
+	(junction
+		(at 139.7 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "964e4118-3bb2-4d9d-ae9b-b66ded0988cf")
 	)
 	(junction
 		(at 76.2 222.25)
@@ -7835,6 +8472,12 @@
 		(uuid "e0c6751e-b37b-4378-964e-7a3e03e1d508")
 	)
 	(junction
+		(at 316.23 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e4926324-3d1b-4744-9457-0986f1c3260d")
+	)
+	(junction
 		(at 363.22 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7857,6 +8500,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e80beca9-84f6-4a4b-83a8-6fc23e008ef8")
+	)
+	(junction
+		(at 137.16 44.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f17044e6-4b79-4d8c-b2b5-e7b64e554636")
 	)
 	(junction
 		(at 217.17 234.95)
@@ -7903,6 +8552,10 @@
 		(uuid "24695c55-8d15-477c-9bfe-3c34d427618a")
 	)
 	(no_connect
+		(at 295.91 219.71)
+		(uuid "362e139c-ca2b-4c29-ab84-d686858d605a")
+	)
+	(no_connect
 		(at 297.18 148.59)
 		(uuid "3c496afd-3a1b-4d1a-8316-c319bf55ab4f")
 	)
@@ -7921,6 +8574,10 @@
 	(no_connect
 		(at 297.18 166.37)
 		(uuid "a5c2ea62-5520-47ef-bf49-24f6f7f251a8")
+	)
+	(no_connect
+		(at 295.91 232.41)
+		(uuid "be1a9691-8727-4a52-bee7-a70e38cb532f")
 	)
 	(no_connect
 		(at 97.79 214.63)
@@ -7956,13 +8613,23 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 44.45) (xy 121.92 44.45)
+			(xy 99.06 44.45) (xy 120.65 44.45)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "0107babe-06b9-4dbf-8d04-908549d9b040")
+	)
+	(wire
+		(pts
+			(xy 165.1 157.48) (xy 165.1 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "015729bd-750c-4810-a0c0-17a33f02590d")
 	)
 	(wire
 		(pts
@@ -7996,7 +8663,7 @@
 	)
 	(polyline
 		(pts
-			(xy 254 74.93) (xy 299.72 74.93)
+			(xy 249.936 73.914) (xy 295.656 73.914)
 		)
 		(stroke
 			(width 0)
@@ -8116,13 +8783,23 @@
 	)
 	(wire
 		(pts
-			(xy 340.36 99.06) (xy 369.57 99.06)
+			(xy 340.36 99.06) (xy 379.73 99.06)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "1058fbfc-1c02-4764-a58e-db585dd48dae")
+	)
+	(wire
+		(pts
+			(xy 229.87 204.47) (xy 210.82 204.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1138b438-c425-4264-af0d-0ed2af104e78")
 	)
 	(polyline
 		(pts
@@ -8287,7 +8964,7 @@
 	)
 	(wire
 		(pts
-			(xy 375.92 82.55) (xy 381 82.55)
+			(xy 375.92 82.55) (xy 377.19 82.55)
 		)
 		(stroke
 			(width 0)
@@ -8307,7 +8984,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 133.35) (xy 85.09 134.62)
+			(xy 87.63 133.35) (xy 87.63 134.62)
 		)
 		(stroke
 			(width 0)
@@ -8357,7 +9034,17 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 44.45) (xy 137.16 44.45)
+			(xy 383.54 53.34) (xy 383.54 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27bda5a0-9e1a-48d0-8a6c-57c64f3fad60")
+	)
+	(wire
+		(pts
+			(xy 130.81 44.45) (xy 137.16 44.45)
 		)
 		(stroke
 			(width 0)
@@ -8397,7 +9084,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 227.33) (xy 34.29 232.41)
+			(xy 38.1 227.33) (xy 38.1 233.68)
 		)
 		(stroke
 			(width 0)
@@ -8424,6 +9111,16 @@
 			(type default)
 		)
 		(uuid "2c8c73c8-a883-48ae-8681-94dadfe2d8a5")
+	)
+	(wire
+		(pts
+			(xy 384.81 33.02) (xy 383.54 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30fb7325-d597-4c44-a224-6ecbe0a8c508")
 	)
 	(wire
 		(pts
@@ -8477,13 +9174,23 @@
 	)
 	(wire
 		(pts
-			(xy 316.23 53.34) (xy 316.23 57.15)
+			(xy 316.23 50.8) (xy 316.23 57.15)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "351c184f-e785-440b-91f7-6ac59446756b")
+	)
+	(wire
+		(pts
+			(xy 30.48 229.87) (xy 30.48 227.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "368626bd-d15e-44f3-9f27-10fcb5aab45f")
 	)
 	(wire
 		(pts
@@ -8514,6 +9221,16 @@
 			(type default)
 		)
 		(uuid "3af8e87b-be84-407c-a040-dbb0cb68d90a")
+	)
+	(wire
+		(pts
+			(xy 382.27 30.48) (xy 384.81 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cd63430-c356-4ec0-acf6-775d72b1f83c")
 	)
 	(wire
 		(pts
@@ -8588,6 +9305,16 @@
 	)
 	(wire
 		(pts
+			(xy 369.57 27.94) (xy 369.57 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4285dacd-e9de-4e72-921a-78af04eafd56")
+	)
+	(wire
+		(pts
 			(xy 316.23 83.82) (xy 323.85 83.82)
 		)
 		(stroke
@@ -8628,7 +9355,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 227.33) (xy 34.29 227.33)
+			(xy 29.21 227.33) (xy 30.48 227.33)
 		)
 		(stroke
 			(width 0)
@@ -8756,9 +9483,19 @@
 		)
 		(uuid "56651214-3003-453d-9d2c-76fe43ee5141")
 	)
+	(wire
+		(pts
+			(xy 240.03 135.89) (xy 243.84 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "587e75c9-8627-46fd-9241-801f9494089e")
+	)
 	(polyline
 		(pts
-			(xy 226.06 124.46) (xy 226.06 187.96)
+			(xy 220.98 124.46) (xy 220.98 187.96)
 		)
 		(stroke
 			(width 0.762)
@@ -8789,7 +9526,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 156.21) (xy 165.1 157.48)
+			(xy 160.02 157.48) (xy 160.02 158.75)
 		)
 		(stroke
 			(width 0)
@@ -8826,6 +9563,16 @@
 			(type default)
 		)
 		(uuid "5eb6264f-eab9-4d61-8fbb-29d96d6ff2e0")
+	)
+	(wire
+		(pts
+			(xy 232.41 135.89) (xy 229.87 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5efe0630-db96-4a17-8375-a4d0898a66e0")
 	)
 	(wire
 		(pts
@@ -8896,6 +9643,36 @@
 			(type default)
 		)
 		(uuid "658739ff-dbbd-4f42-bd2e-24936380d946")
+	)
+	(wire
+		(pts
+			(xy 383.54 38.1) (xy 384.81 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "66521c12-329e-42e9-aebb-16a6bf1cbd10")
+	)
+	(wire
+		(pts
+			(xy 354.33 50.8) (xy 354.33 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6876855b-fdd4-480d-bc55-f288e0551290")
+	)
+	(wire
+		(pts
+			(xy 229.87 135.89) (xy 229.87 204.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "688b85d4-7368-4de0-9c0a-deac9f2f6fcd")
 	)
 	(wire
 		(pts
@@ -8989,6 +9766,16 @@
 	)
 	(wire
 		(pts
+			(xy 381 43.18) (xy 384.81 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7049846e-75b7-41a8-87a7-b6a83bfb91d4")
+	)
+	(wire
+		(pts
 			(xy 358.14 109.22) (xy 358.14 133.35)
 		)
 		(stroke
@@ -9029,16 +9816,6 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 196.85) (xy 231.14 135.89)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "72b6b954-c1e9-45d8-bee7-10be418d7361")
-	)
-	(wire
-		(pts
 			(xy 368.3 147.32) (xy 358.14 147.32)
 		)
 		(stroke
@@ -9056,6 +9833,16 @@
 			(type default)
 		)
 		(uuid "7567a51a-0fe5-43f9-8951-6ec1b4df3bab")
+	)
+	(wire
+		(pts
+			(xy 160.02 157.48) (xy 165.1 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75fe123a-e577-4ad4-a28e-6ca1ae937093")
 	)
 	(wire
 		(pts
@@ -9086,6 +9873,16 @@
 			(type default)
 		)
 		(uuid "7afe5404-4ca9-4326-881c-7d400398b2b7")
+	)
+	(wire
+		(pts
+			(xy 383.54 38.1) (xy 383.54 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b971088-0744-4027-b5a4-3c98d9534ec8")
 	)
 	(wire
 		(pts
@@ -9169,16 +9966,6 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 196.85) (xy 231.14 196.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "82036c57-6ce9-4439-ae18-08941a3f4060")
-	)
-	(wire
-		(pts
 			(xy 288.29 162.56) (xy 269.24 162.56)
 		)
 		(stroke
@@ -9186,6 +9973,16 @@
 			(type default)
 		)
 		(uuid "82800b7d-063c-4a84-9026-90b154bea22a")
+	)
+	(wire
+		(pts
+			(xy 382.27 27.94) (xy 382.27 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84bf270c-61e1-410b-b853-fe1a0a81b5ee")
 	)
 	(wire
 		(pts
@@ -9237,6 +10034,16 @@
 		)
 		(uuid "8ba6c575-3028-4e10-8c12-c27feeb4566a")
 	)
+	(wire
+		(pts
+			(xy 381 45.72) (xy 384.81 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8bfb7e75-b869-4ff8-82cb-ff08c747e900")
+	)
 	(polyline
 		(pts
 			(xy 142.24 118.11) (xy 143.51 119.38)
@@ -9279,7 +10086,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 133.35) (xy 85.09 133.35)
+			(xy 88.9 133.35) (xy 87.63 133.35)
 		)
 		(stroke
 			(width 0)
@@ -9339,7 +10146,7 @@
 	)
 	(wire
 		(pts
-			(xy 394.97 125.73) (xy 402.59 125.73)
+			(xy 394.97 125.73) (xy 400.05 125.73)
 		)
 		(stroke
 			(width 0)
@@ -9369,16 +10176,6 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 135.89) (xy 236.22 135.89)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9dac0395-d77f-49bf-82d7-2b7607cf26f9")
-	)
-	(wire
-		(pts
 			(xy 50.8 222.25) (xy 62.23 222.25)
 		)
 		(stroke
@@ -9386,16 +10183,6 @@
 			(type default)
 		)
 		(uuid "9dd63b70-3c67-481a-8cca-7a2fcc6980c1")
-	)
-	(wire
-		(pts
-			(xy 210.82 196.85) (xy 210.82 208.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e2a5d0c-7b6e-443e-9a65-c22cf8f214ba")
 	)
 	(wire
 		(pts
@@ -9489,6 +10276,26 @@
 	)
 	(wire
 		(pts
+			(xy 375.92 35.56) (xy 384.81 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a62cd6b2-33d2-4584-a9ad-fda15061ec99")
+	)
+	(wire
+		(pts
+			(xy 377.19 48.26) (xy 384.81 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a65418d7-e8f4-4e3a-89dd-92fdf52d8814")
+	)
+	(wire
+		(pts
 			(xy 394.97 118.11) (xy 394.97 125.73)
 		)
 		(stroke
@@ -9536,6 +10343,16 @@
 			(type default)
 		)
 		(uuid "a8148746-a5cd-4dd6-b2d6-33e38a87572b")
+	)
+	(wire
+		(pts
+			(xy 383.54 33.02) (xy 383.54 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a871faf1-6e6c-44ed-b605-01ed284e4be7")
 	)
 	(wire
 		(pts
@@ -9589,6 +10406,16 @@
 	)
 	(wire
 		(pts
+			(xy 375.92 27.94) (xy 375.92 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0758e15-5663-43cf-864e-bc15ab89e17d")
+	)
+	(wire
+		(pts
 			(xy 124.46 120.65) (xy 137.16 120.65)
 		)
 		(stroke
@@ -9616,6 +10443,16 @@
 			(type default)
 		)
 		(uuid "b65ce438-998c-4212-9d51-939c66ded3e7")
+	)
+	(wire
+		(pts
+			(xy 369.57 40.64) (xy 384.81 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b744bff9-c7e5-4151-81d6-fb307980d114")
 	)
 	(wire
 		(pts
@@ -9699,6 +10536,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 204.47) (xy 210.82 208.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c021e0d3-2dd4-4b72-b652-49d2dfe10a9d")
+	)
+	(wire
+		(pts
 			(xy 313.69 229.87) (xy 316.23 229.87)
 		)
 		(stroke
@@ -9769,7 +10616,7 @@
 	)
 	(polyline
 		(pts
-			(xy 226.06 187.96) (xy 167.64 187.96)
+			(xy 220.98 187.96) (xy 167.64 187.96)
 		)
 		(stroke
 			(width 0.762)
@@ -9778,9 +10625,19 @@
 		)
 		(uuid "c3ae01d5-2679-43b9-8f7b-a1e8aa0c60cb")
 	)
+	(wire
+		(pts
+			(xy 379.73 50.8) (xy 384.81 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3d0abf3-4d5a-444c-97b1-757cfa20f826")
+	)
 	(polyline
 		(pts
-			(xy 226.06 106.68) (xy 226.06 107.95)
+			(xy 226.06 106.68) (xy 220.98 106.68)
 		)
 		(stroke
 			(width 0.762)
@@ -9788,6 +10645,16 @@
 			(color 255 0 0 1)
 		)
 		(uuid "c4e4a93c-9960-4ac0-a39f-d84725f9fc93")
+	)
+	(wire
+		(pts
+			(xy 377.19 48.26) (xy 377.19 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5b1a4ef-5f1d-4ea1-b1c8-38df05d67184")
 	)
 	(wire
 		(pts
@@ -9821,7 +10688,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 49.53) (xy 121.92 49.53)
+			(xy 80.01 49.53) (xy 120.65 49.53)
 		)
 		(stroke
 			(width 0)
@@ -9841,7 +10708,7 @@
 	)
 	(polyline
 		(pts
-			(xy 226.06 107.95) (xy 226.06 124.46)
+			(xy 220.98 106.68) (xy 220.98 124.46)
 		)
 		(stroke
 			(width 0.762)
@@ -9849,6 +10716,16 @@
 			(color 255 0 0 1)
 		)
 		(uuid "cc07ee8b-1c9f-49f5-aa0a-5a31285b407a")
+	)
+	(wire
+		(pts
+			(xy 30.48 227.33) (xy 38.1 227.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd15007c-cbf7-44c9-84d0-5b642f142293")
 	)
 	(wire
 		(pts
@@ -9889,6 +10766,16 @@
 			(type default)
 		)
 		(uuid "d34db60e-6f45-4acb-bb17-6f2c253b9dc8")
+	)
+	(wire
+		(pts
+			(xy 379.73 99.06) (xy 379.73 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3d18d85-b19c-46cb-b68e-2b59e403d4fa")
 	)
 	(wire
 		(pts
@@ -10042,13 +10929,23 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 49.53) (xy 139.7 49.53)
+			(xy 130.81 49.53) (xy 139.7 49.53)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "e1829fc9-5226-4740-9da9-6a8028062b0c")
+	)
+	(wire
+		(pts
+			(xy 383.54 53.34) (xy 384.81 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2ca3ea0-999d-4371-aed7-3289d957e25a")
 	)
 	(wire
 		(pts
@@ -10142,7 +11039,7 @@
 	)
 	(polyline
 		(pts
-			(xy 304.8 80.01) (xy 299.72 74.93)
+			(xy 300.736 78.994) (xy 295.656 73.914)
 		)
 		(stroke
 			(width 0)
@@ -10370,6 +11267,16 @@
 		)
 		(uuid "690f2804-024c-4a65-b4f1-42862c5bd985")
 	)
+	(label "relay_en_HS"
+		(at 377.19 71.12 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "86cb5838-db76-4b4d-a369-b50ca1ad3864")
+	)
 	(label "PIN_FUSED_L"
 		(at 185.42 222.25 0)
 		(effects
@@ -10379,6 +11286,16 @@
 			(justify left bottom)
 		)
 		(uuid "aeac1122-2036-47d0-99a6-c0a4bcd90ebf")
+	)
+	(label "relay_en_LS"
+		(at 379.73 71.12 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d070744b-d15e-4b5e-b59e-8a7ca09f86d3")
 	)
 	(label "GND1"
 		(at 189.23 163.83 0)
@@ -10470,17 +11387,17 @@
 	)
 	(global_label "UART_MCU2MCP"
 		(shape input)
-		(at 377.19 71.12 0)
+		(at 381 43.18 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "8078a673-39c4-4686-b4cb-67218156da75")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 395.0523 71.12 0)
+			(at 363.1377 43.18 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10488,7 +11405,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 	)
@@ -10590,17 +11507,17 @@
 	)
 	(global_label "UART_MCP2MCU"
 		(shape output)
-		(at 377.19 76.2 0)
+		(at 381 45.72 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "d8db1761-ec2c-4d1a-8d1d-319991de97f8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 395.0523 76.2 0)
+			(at 363.1377 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10608,7 +11525,614 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
+			)
+		)
+	)
+	(rule_area
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(polyline
+			(pts
+				(xy 96.52 35.56) (xy 157.48 35.56) (xy 166.37 44.45) (xy 166.37 60.96) (xy 128.27 60.96) (xy 127 59.69)
+				(xy 127 46.99) (xy 96.52 46.99)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid "00cf0e3a-21d1-43d6-8bbe-21ba32bc0f90")
+		)
+	)
+	(rule_area
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(polyline
+			(pts
+				(xy 82.55 92.71) (xy 115.57 92.71) (xy 115.57 99.06) (xy 166.37 99.06) (xy 166.37 190.5) (xy 223.52 190.5)
+				(xy 223.52 107.95) (xy 405.13 107.95) (xy 405.13 199.39) (xy 273.05 199.39) (xy 273.05 210.82) (xy 231.14 210.82)
+				(xy 231.14 142.24) (xy 247.65 142.24) (xy 248.92 140.97) (xy 248.92 127) (xy 227.33 127) (xy 227.33 193.04)
+				(xy 227.33 200.66) (xy 227.33 200.66) (xy 205.74 200.66) (xy 205.74 200.66) (xy 82.55 200.66) (xy 82.55 177.8)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid "27d127fa-f32c-4b05-99a7-b6ac2dd26536")
+		)
+	)
+	(rule_area
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(polyline
+			(pts
+				(xy 303.53 43.18) (xy 361.95 43.18) (xy 361.95 71.12) (xy 326.39 71.12) (xy 326.39 71.12) (xy 326.39 86.36)
+				(xy 303.53 86.36)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid "6b5c1a70-30f3-4bef-ab00-04d97b29eab3")
+		)
+	)
+	(rule_area
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(polyline
+			(pts
+				(xy 168.91 13.97) (xy 407.67 13.97) (xy 407.67 105.41) (xy 218.44 105.41) (xy 218.44 186.69) (xy 218.44 186.69)
+				(xy 168.91 186.69)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid "a3205784-7679-4713-98e3-93ba30a2b6f8")
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 303.53 237.49 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "006f5deb-aef2-4cd5-876d-4cb0f1a72d4b")
+		(property "Netclass" "230V_ext"
+			(at 304.2285 240.03 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 227.33 466.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify right)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 86.36 92.71 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "090df928-893b-4762-b82b-09dc779760aa")
+		(property "Netclass" "ISO_signals"
+			(at 87.0585 90.17 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -82.55 -36.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 76.2 179.07 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0ee56b91-5102-4cf0-bd3d-f87a2c2cc531")
+		(property "Netclass" "230V_ext"
+			(at 73.66 178.3715 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 0 -49.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 120.65 222.25 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1982aeef-cb54-4435-b62a-f8149c602da0")
+		(property "Netclass" "230V_ext"
+			(at 121.3485 219.71 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 44.45 -6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 241.3 135.89 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2bb5b73a-707d-4dd4-8972-90f543a9ba95")
+		(property "Netclass" "230V_ext"
+			(at 236.22 139.954 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 165.1 -92.71 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 97.79 35.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4ab6860f-b5af-43d5-8c93-00899e9f7807")
+		(property "Netclass" "230V_int"
+			(at 98.4885 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 21.59 -193.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 195.58 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "61b132a4-035d-41ec-9cc2-b8b0b09d2470")
+		(property "Netclass" "24V"
+			(at 196.2785 41.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 144.78 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 303.53 224.79 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8075b1e4-bcb4-44c1-9e21-12b24b091423")
+		(property "Netclass" "230V_ext"
+			(at 304.2285 222.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 227.33 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 256.54 105.41 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b736f160-cd20-474c-9cee-4afc8779a749")
+		(property "Netclass" "Signals"
+			(at 257.2385 102.87 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 114.3 60.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 252.73 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b797a3f2-18a3-44fe-816d-e365a801c480")
+		(property "Netclass" "5V"
+			(at 253.4285 41.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 201.93 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 213.36 204.47 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dbb95cdf-cf3d-4e5b-bdc6-d8d3970c8de1")
+		(property "Netclass" "230V_ext"
+			(at 214.0585 201.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 137.16 -24.13 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 345.44 43.18 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e067024f-5708-4446-96d2-21570591b852")
+		(property "Netclass" "24V"
+			(at 346.1385 40.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 294.64 26.67 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 120.65 234.95 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f957ef62-2170-4f07-a66d-918a2aa6ff6f")
+		(property "Netclass" "230V_ext"
+			(at 121.3485 232.41 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 44.45 6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 30.48 229.87 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fd1874cb-ad32-4c92-801c-1125dd82e919")
+		(property "Netclass" "PE"
+			(at 31.1785 232.41 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -45.72 458.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 266.7 234.95 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fd91a27c-e1f7-456d-b1da-bc47135add6a")
+		(property "Netclass" "230V_ext"
+			(at 267.3985 232.41 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 190.5 6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
 			)
 		)
 	)
@@ -10692,6 +12216,72 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 323.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "onsemi"
+			(at 323.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "BAS16LT1G"
+			(at 323.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 323.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "863-BAS16LT1G"
+			(at 323.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 323.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "BAS16LT1GOSCT-ND"
 			(at 323.85 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -10865,7 +12455,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Texas Instruments"
+		(property "Manufacturer" "Texas Instruments"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -10876,7 +12466,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*ISOW7721DFMR"
+		(property "Manufacturer Part Number" "ISOW7721DFMR"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -10898,7 +12488,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "595-ISOW7721DFMR"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -10920,7 +12510,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*296-ISOW7721DFMRCT-ND"
+		(property "Distributor 2 Order Number" "296-ISOW7721DFMRCT-ND"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -11116,7 +12706,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*TDK (EPCOS)"
+		(property "Manufacturer" "TDK (EPCOS)"
 			(at 50.8 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -11127,7 +12717,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*B72210S0271K101"
+		(property "Manufacturer Part Number" "B72210S0271K101"
 			(at 50.8 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -11149,7 +12739,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "871-B72210S271K101"
 			(at 50.8 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -11171,7 +12761,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*495-3786-ND"
+		(property "Distributor 2 Order Number" "495-3786-ND"
 			(at 50.8 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -11270,6 +12860,113 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0309")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x10_Pin")
+		(at 389.89 40.64 0)
+		(mirror y)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0e11600d-8a0d-44aa-9323-c08bbb4f522e")
+		(property "Reference" "J302"
+			(at 391.16 40.6399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x10_Pin"
+			(at 391.16 43.1799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 389.89 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 389.89 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x10, script generated"
+			(at 389.89 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "8"
+			(uuid "037de9c6-ab48-40ea-86fa-3fa63f1afc18")
+		)
+		(pin "9"
+			(uuid "4811a243-6c14-439a-8d43-04bf98ca8dc6")
+		)
+		(pin "10"
+			(uuid "52aff556-7a55-420e-bb9d-760952435482")
+		)
+		(pin "7"
+			(uuid "0bb4e3ea-5119-4c35-9f9f-1efc395e8764")
+		)
+		(pin "3"
+			(uuid "fb47e015-b705-4eec-80ac-36f8e042be19")
+		)
+		(pin "5"
+			(uuid "0ce4131a-73cc-4299-9401-0b453e87da34")
+		)
+		(pin "6"
+			(uuid "d43772b0-76e7-4b9a-a825-a5a505ffef3c")
+		)
+		(pin "1"
+			(uuid "e6ed8da8-e6ed-4f4e-8139-9b9564aaf36f")
+		)
+		(pin "2"
+			(uuid "37a02f6f-ae39-49c6-80de-deca4af0c554")
+		)
+		(pin "4"
+			(uuid "9a269e47-c5e0-4612-b13d-d315ac8ede9a")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "J302")
 					(unit 1)
 				)
 			)
@@ -11421,7 +13118,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "Nexperia USA Inc."
 			(at 318.77 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -11432,7 +13129,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" ""
+		(property "Manufacturer Part Number" "2N7002NXAKR"
 			(at 318.77 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -11454,7 +13151,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "771-2N7002NXAKR"
 			(at 318.77 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -11476,7 +13173,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" ""
+		(property "Distributor 2 Order Number" "1727-8643-1-ND"
 			(at 318.77 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -11507,7 +13204,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 240.03 135.89 90)
+		(at 236.22 135.89 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11518,7 +13215,7 @@
 		(fields_autoplaced yes)
 		(uuid "1228837a-6c0a-4de0-85fe-819208f85e98")
 		(property "Reference" "R303"
-			(at 240.03 129.54 90)
+			(at 236.22 129.54 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11528,7 +13225,7 @@
 			)
 		)
 		(property "Value" "499k"
-			(at 240.03 132.08 90)
+			(at 236.22 132.08 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11538,7 +13235,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_2010_5025Metric"
-			(at 240.03 137.668 90)
+			(at 236.22 137.668 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11549,7 +13246,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 240.03 135.89 0)
+			(at 236.22 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11560,7 +13257,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 240.03 135.89 0)
+			(at 236.22 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11813,7 +13510,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*WAGO"
+		(property "Manufacturer" "WAGO"
 			(at 24.13 224.79 0)
 			(hide yes)
 			(show_name no)
@@ -11824,7 +13521,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*2604-1103"
+		(property "Manufacturer Part Number" "2604-1103"
 			(at 24.13 224.79 0)
 			(hide yes)
 			(show_name no)
@@ -11846,7 +13543,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "n/A"
 			(at 24.13 224.79 0)
 			(hide yes)
 			(show_name no)
@@ -11868,7 +13565,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*2946-2604-1103-ND"
+		(property "Distributor 2 Order Number" "2946-2604-1103-ND"
 			(at 24.13 224.79 0)
 			(hide yes)
 			(show_name no)
@@ -11973,7 +13670,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "Nexperia USA Inc."
 			(at 356.87 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -11984,7 +13681,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" ""
+		(property "Manufacturer Part Number" "2N7002NXAKR"
 			(at 356.87 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -12006,7 +13703,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "771-2N7002NXAKR"
 			(at 356.87 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -12028,7 +13725,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" ""
+		(property "Distributor 2 Order Number" "1727-8643-1-ND"
 			(at 356.87 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -12134,6 +13831,84 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C327")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 383.54 54.61 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2414159d-b5d9-4c19-8871-a04dbdac0eba")
+		(property "Reference" "#PWR0352"
+			(at 383.54 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 383.54 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 383.54 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 383.54 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 383.54 54.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4ca505cb-9bab-4678-8153-707228eeded6")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0352")
 					(unit 1)
 				)
 			)
@@ -12305,7 +14080,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 85.09 134.62 0)
+		(at 87.63 134.62 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12316,7 +14091,7 @@
 		(fields_autoplaced yes)
 		(uuid "2ea11758-9b9a-4fd1-8a43-6d22b114ccaf")
 		(property "Reference" "#PWR0332"
-			(at 85.09 140.97 0)
+			(at 87.63 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12327,7 +14102,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 85.09 139.7 0)
+			(at 87.63 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12337,7 +14112,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 85.09 134.62 0)
+			(at 87.63 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12348,7 +14123,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 85.09 134.62 0)
+			(at 87.63 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12359,7 +14134,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 85.09 134.62 0)
+			(at 87.63 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12376,6 +14151,84 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0332")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 375.92 27.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "30158c66-89f8-4032-b851-4148b7376b24")
+		(property "Reference" "#PWR0350"
+			(at 375.92 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 375.92 22.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 375.92 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 375.92 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 375.92 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "04786730-fdf7-48f6-aeec-51f5ed8b5d42")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0350")
 					(unit 1)
 				)
 			)
@@ -12637,7 +14490,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "919-R-78K5.0-2.0"
 			(at 234.95 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -12659,7 +14512,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*945-R-78K5.0-2.0-ND"
+		(property "Distributor 2 Order Number" "945-R-78K5.0-2.0-ND"
 			(at 234.95 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -12755,7 +14608,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Microchip Technology"
+		(property "Manufacturer" "Microchip Technology"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -12766,7 +14619,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MCP39F511A-E/MQ"
+		(property "Manufacturer Part Number" "MCP39F511A-E/MQ"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -12788,7 +14641,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "579-MCP39F511AE/MQ"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -12810,7 +14663,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MCP39F511A-E/MQ-ND"
+		(property "Distributor 2 Order Number" "MCP39F511A-E/MQ-ND"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -12919,7 +14772,7 @@
 	)
 	(symbol
 		(lib_id "power:Earth")
-		(at 34.29 232.41 0)
+		(at 38.1 233.68 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12930,7 +14783,7 @@
 		(fields_autoplaced yes)
 		(uuid "35d7a707-9ac8-4e7b-85e2-9e73f3bd06a1")
 		(property "Reference" "#PWR0300"
-			(at 34.29 238.76 0)
+			(at 38.1 240.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12941,7 +14794,7 @@
 			)
 		)
 		(property "Value" "Earth"
-			(at 34.29 237.49 0)
+			(at 38.1 238.76 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12951,7 +14804,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 34.29 232.41 0)
+			(at 38.1 233.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12962,7 +14815,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 34.29 232.41 0)
+			(at 38.1 233.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12973,7 +14826,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"Earth\""
-			(at 34.29 232.41 0)
+			(at 38.1 233.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13084,7 +14937,7 @@
 				(justify left)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 255.27 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -13095,7 +14948,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 255.27 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -13117,7 +14970,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 255.27 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -13139,7 +14992,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 255.27 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -13733,7 +15586,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 234.95 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -13744,7 +15597,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 234.95 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -13766,7 +15619,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 234.95 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -13788,7 +15641,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 234.95 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -14070,7 +15923,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "621-AP2114H-3.3TRG1"
 			(at 308.61 31.75 0)
 			(hide yes)
 			(show_name no)
@@ -14123,7 +15976,7 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
-		(at 316.23 53.34 0)
+		(at 316.23 50.8 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14134,7 +15987,7 @@
 		(fields_autoplaced yes)
 		(uuid "4e9d65f4-5190-40e1-a345-12a0b0a043e7")
 		(property "Reference" "#PWR0313"
-			(at 316.23 57.15 0)
+			(at 316.23 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14145,7 +15998,7 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 316.23 48.26 0)
+			(at 316.23 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14155,7 +16008,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 316.23 53.34 0)
+			(at 316.23 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14166,7 +16019,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 316.23 53.34 0)
+			(at 316.23 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14177,7 +16030,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 316.23 53.34 0)
+			(at 316.23 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14344,7 +16197,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*WAGO"
+		(property "Manufacturer" "WAGO"
 			(at 321.31 227.33 0)
 			(hide yes)
 			(show_name no)
@@ -14355,7 +16208,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*2604-1103"
+		(property "Manufacturer Part Number" "2604-1103"
 			(at 321.31 227.33 0)
 			(hide yes)
 			(show_name no)
@@ -14377,7 +16230,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "n/A"
 			(at 321.31 227.33 0)
 			(hide yes)
 			(show_name no)
@@ -14399,7 +16252,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*2946-2604-1103-ND"
+		(property "Distributor 2 Order Number" "2946-2604-1103-ND"
 			(at 321.31 227.33 0)
 			(hide yes)
 			(show_name no)
@@ -14589,6 +16442,171 @@
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0338")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "aa_MyParts:K_T92S11D12-24")
+		(at 288.29 234.95 270)
+		(unit 3)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "55428180-d43f-4423-b294-5176d9da5942")
+		(property "Reference" "K300"
+			(at 288.29 227.33 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "T92S11D12-24"
+			(at 288.29 229.87 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
+			(at 284.48 241.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "T92S11D12-24"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "655-T92S11D12-24"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "PB352-ND"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "6"
+			(uuid "a8a448e4-c5e1-471b-b420-1c2f398c5068")
+		)
+		(pin "8"
+			(uuid "4034685a-f000-459b-b727-493bed3ad8c7")
+		)
+		(pin "7"
+			(uuid "146cae98-119b-4669-8d0c-8e8de70c7f5a")
+		)
+		(pin "1"
+			(uuid "8049ecb9-8026-4e99-8ca4-136cf5d41ba2")
+		)
+		(pin "0"
+			(uuid "564faee5-6220-41ef-8b4a-b7cbf5a97f96")
+		)
+		(pin "2"
+			(uuid "6813c6fc-9142-4137-a76e-e96f16ee493f")
+		)
+		(pin "3"
+			(uuid "b9609af3-a422-44c6-a7df-37c002c724ee")
+		)
+		(pin "4"
+			(uuid "0a8b6d8b-a714-40f3-8c5a-5062b9579390")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "K300")
+					(unit 3)
 				)
 			)
 		)
@@ -15000,7 +17018,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Wurth Elektronik"
+		(property "Manufacturer" "Wurth Elektronik"
 			(at 62.23 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -15011,7 +17029,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*890334023023CS"
+		(property "Manufacturer Part Number" "890334023023CS"
 			(at 62.23 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -15033,7 +17051,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "710-890334023023CS "
 			(at 62.23 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -15055,7 +17073,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*732-5733-ND"
+		(property "Distributor 2 Order Number" "732-5733-ND"
 			(at 62.23 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -15572,7 +17590,7 @@
 				(justify left)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 233.68 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -15583,7 +17601,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 233.68 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -15605,7 +17623,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 233.68 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -15627,7 +17645,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 233.68 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -15951,7 +17969,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*MEAN WELL"
+		(property "Manufacturer" "MEAN WELL"
 			(at 167.64 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -15962,7 +17980,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*IRM-10-24"
+		(property "Manufacturer Part Number" "IRM-10-24"
 			(at 167.64 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -15984,7 +18002,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "709-IRM10-24"
 			(at 167.64 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -16006,7 +18024,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*1866-3030-ND"
+		(property "Distributor 2 Order Number" "1866-3030-ND"
 			(at 167.64 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -16273,6 +18291,171 @@
 		)
 	)
 	(symbol
+		(lib_id "aa_MyParts:K_T92S11D12-24")
+		(at 288.29 222.25 270)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7b123238-69d7-49d0-93ca-cce9539a0620")
+		(property "Reference" "K300"
+			(at 288.29 214.63 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "T92S11D12-24"
+			(at 288.29 217.17 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
+			(at 284.48 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "T92S11D12-24"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "655-T92S11D12-24"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "PB352-ND"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "6"
+			(uuid "a8a448e4-c5e1-471b-b420-1c2f398c5068")
+		)
+		(pin "8"
+			(uuid "4034685a-f000-459b-b727-493bed3ad8c7")
+		)
+		(pin "7"
+			(uuid "146cae98-119b-4669-8d0c-8e8de70c7f5a")
+		)
+		(pin "1"
+			(uuid "f5df7e9b-6c50-4c96-aff4-f406372e03da")
+		)
+		(pin "0"
+			(uuid "28526698-3910-453e-b21e-dc14a4009c0c")
+		)
+		(pin "2"
+			(uuid "6813c6fc-9142-4137-a76e-e96f16ee493f")
+		)
+		(pin "3"
+			(uuid "b9609af3-a422-44c6-a7df-37c002c724ee")
+		)
+		(pin "4"
+			(uuid "0a8b6d8b-a714-40f3-8c5a-5062b9579390")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "K300")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:Earth")
 		(at 313.69 232.41 0)
 		(unit 1)
@@ -16432,7 +18615,7 @@
 	)
 	(symbol
 		(lib_id "power:+24V")
-		(at 354.33 53.34 0)
+		(at 354.33 50.8 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16443,7 +18626,7 @@
 		(fields_autoplaced yes)
 		(uuid "7ed0478a-ff93-4f25-9ed9-665da5221acb")
 		(property "Reference" "#PWR0324"
-			(at 354.33 57.15 0)
+			(at 354.33 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16454,7 +18637,7 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 354.33 48.26 0)
+			(at 354.33 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16464,7 +18647,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 354.33 53.34 0)
+			(at 354.33 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16475,7 +18658,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 354.33 53.34 0)
+			(at 354.33 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16486,7 +18669,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+24V\""
-			(at 354.33 53.34 0)
+			(at 354.33 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17389,7 +19572,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 208.28 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -17400,7 +19583,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 208.28 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -17422,7 +19605,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 208.28 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -17444,7 +19627,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 208.28 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -17548,171 +19731,6 @@
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C315")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "aa_MyParts:T92S11D12-24")
-		(at 288.29 234.95 270)
-		(unit 3)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "923e73ef-6363-4fb0-b432-c167571eb047")
-		(property "Reference" "K300"
-			(at 288.29 227.33 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "T92S11D12-24"
-			(at 288.29 229.87 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
-			(at 284.48 241.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "*TE Connectivity Potter & Brumfield"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "*T92S11D12-24"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" ""
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "*PB352-ND"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "8"
-			(uuid "9ad6621e-70a5-4450-9bc8-a767231fda77")
-		)
-		(pin "4"
-			(uuid "f1bc7cac-d08d-40c7-81d0-2ac64b51e105")
-		)
-		(pin "6"
-			(uuid "d3164e79-748d-4e94-af09-5f7206fbc797")
-		)
-		(pin "7"
-			(uuid "8e23d3d0-e6f1-4f3a-9a04-0f9f7e82d83c")
-		)
-		(pin "3"
-			(uuid "d64a4c79-e064-419f-8f0b-be033a0cc9ec")
-		)
-		(pin "2"
-			(uuid "b4dd037c-7b31-4d71-8af1-bd501c1d945b")
-		)
-		(pin "1"
-			(uuid "8c1fe8d7-4dc7-4704-8ae3-3189638b4e6e")
-		)
-		(pin "0"
-			(uuid "3f118146-8bdc-4202-a432-04901bfd3dc4")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "K300")
-					(unit 3)
 				)
 			)
 		)
@@ -18037,7 +20055,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 165.1 157.48 0)
+		(at 160.02 158.75 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18048,7 +20066,7 @@
 		(fields_autoplaced yes)
 		(uuid "9a26e50b-4065-4f9e-902e-c1c9219b7dfd")
 		(property "Reference" "#PWR0326"
-			(at 165.1 163.83 0)
+			(at 160.02 165.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18059,7 +20077,7 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 165.1 162.56 0)
+			(at 160.02 163.83 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18069,7 +20087,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 165.1 157.48 0)
+			(at 160.02 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18080,7 +20098,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 157.48 0)
+			(at 160.02 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18091,7 +20109,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 165.1 157.48 0)
+			(at 160.02 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18202,7 +20220,7 @@
 				(justify left)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 210.82 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -18213,7 +20231,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 210.82 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -18235,7 +20253,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 210.82 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -18257,7 +20275,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 210.82 212.09 0)
 			(hide yes)
 			(show_name no)
@@ -18373,7 +20391,7 @@
 				(justify left)
 			)
 		)
-		(property "Manufacturer" "*Vishay BC Components"
+		(property "Manufacturer" "Vishay BC Components"
 			(at 152.4 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -18384,7 +20402,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*VY2472M49Y5US63L7"
+		(property "Manufacturer Part Number" "VY2472M49Y5US63L7"
 			(at 152.4 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -18406,7 +20424,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "72-VY2472M49Y5US63L7"
 			(at 152.4 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -18428,7 +20446,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*VY2472M49Y5US63L7-ND"
+		(property "Distributor 2 Order Number" "VY2472M49Y5US63L7-ND"
 			(at 152.4 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -18531,7 +20549,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Wurth Elektronik"
+		(property "Manufacturer" "Wurth Elektronik"
 			(at 207.01 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -18564,7 +20582,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "710-860010673012 "
 			(at 207.01 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -18586,7 +20604,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*732-8664-1-ND"
+		(property "Distributor 2 Order Number" "732-8664-1-ND"
 			(at 207.01 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -18851,6 +20869,84 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+24V")
+		(at 382.27 27.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a6b2044d-4175-4110-8b1e-d678f7bb7239")
+		(property "Reference" "#PWR0349"
+			(at 382.27 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+24V"
+			(at 382.27 22.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 382.27 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 382.27 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+24V\""
+			(at 382.27 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2c0e893c-bea1-4fad-aa6b-54de0ffd6b0c")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0349")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 247.65 72.39 0)
 		(unit 1)
@@ -18930,7 +21026,7 @@
 	)
 	(symbol
 		(lib_id "aa_MyParts:L_CMC_RN102-1-02-3M0")
-		(at 127 46.99 0)
+		(at 125.73 46.99 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18940,7 +21036,7 @@
 		(dnp no)
 		(uuid "a9b93b5d-89fb-471c-97ed-d4789f40176d")
 		(property "Reference" "L300"
-			(at 126.492 38.1 0)
+			(at 125.222 38.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18950,7 +21046,7 @@
 			)
 		)
 		(property "Value" "RN102-1-02-3M0"
-			(at 127 40.64 0)
+			(at 125.73 40.64 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18960,7 +21056,7 @@
 			)
 		)
 		(property "Footprint" "aa_MyParts:L_RN102_SCN"
-			(at 127 39.37 0)
+			(at 125.73 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18971,7 +21067,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=RN_series&DocType=Data%20Sheet&DocLang=English&PartCntxt=816487-SF&DocFormat=pdf"
-			(at 179.07 29.21 0)
+			(at 177.8 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18982,7 +21078,7 @@
 			)
 		)
 		(property "Description" "Common Mode Power Line Choke"
-			(at 127 46.99 0)
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18993,7 +21089,7 @@
 			)
 		)
 		(property "Manufacturer" "TE Connectivity Schaffner"
-			(at 179.07 31.75 0)
+			(at 177.8 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19004,7 +21100,7 @@
 			)
 		)
 		(property "Part Number" "RN102-1-02-3M0"
-			(at 179.07 41.91 0)
+			(at 177.8 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19015,7 +21111,7 @@
 			)
 		)
 		(property "Mounting Technology" "THT"
-			(at 179.07 46.99 0)
+			(at 177.8 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19026,7 +21122,7 @@
 			)
 		)
 		(property "IR (A)" "1.0"
-			(at 179.07 49.53 0)
+			(at 177.8 49.53 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19037,7 +21133,7 @@
 			)
 		)
 		(property "L (mH)" "3.0 mH"
-			(at 127 51.308 0)
+			(at 125.73 51.308 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19047,7 +21143,7 @@
 			)
 		)
 		(property "RDC max. (mΩ)" "210.0 mR"
-			(at 127.254 53.34 0)
+			(at 125.984 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19057,7 +21153,7 @@
 			)
 		)
 		(property "VR (V (AC))" "300"
-			(at 179.07 57.15 0)
+			(at 177.8 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19068,7 +21164,7 @@
 			)
 		)
 		(property "VT (V (AC))" "1500"
-			(at 179.07 59.69 0)
+			(at 177.8 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19079,7 +21175,7 @@
 			)
 		)
 		(property "L (mm)" "14"
-			(at 179.07 64.77 0)
+			(at 177.8 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19090,7 +21186,7 @@
 			)
 		)
 		(property "W (mm)" "14"
-			(at 179.07 67.31 0)
+			(at 177.8 67.31 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19101,7 +21197,7 @@
 			)
 		)
 		(property "H (mm)" "9.0"
-			(at 179.07 69.85 0)
+			(at 177.8 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19112,7 +21208,7 @@
 			)
 		)
 		(property "Critical Parameter" "1.0 A"
-			(at 127 55.626 0)
+			(at 125.73 55.626 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19122,7 +21218,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "RN102-1-02-3M0"
-			(at 127 46.99 0)
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19133,7 +21229,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 127 46.99 0)
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19143,8 +21239,8 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
-			(at 127 46.99 0)
+		(property "Distributor 1 Order Number" "631-RN102-1-02-3M0"
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19155,7 +21251,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 127 46.99 0)
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19165,8 +21261,8 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*817-2084-ND"
-			(at 127 46.99 0)
+		(property "Distributor 2 Order Number" "817-2084-ND"
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19603,7 +21699,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 92.71 133.35 0)
 			(hide yes)
 			(show_name no)
@@ -19614,7 +21710,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 92.71 133.35 0)
 			(hide yes)
 			(show_name no)
@@ -19636,7 +21732,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 92.71 133.35 0)
 			(hide yes)
 			(show_name no)
@@ -19658,7 +21754,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 92.71 133.35 0)
 			(hide yes)
 			(show_name no)
@@ -20053,7 +22149,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "710-696309001002"
 			(at 93.98 222.25 0)
 			(hide yes)
 			(show_name no)
@@ -20075,7 +22171,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*732-11383-ND"
+		(property "Distributor 2 Order Number" "732-11383-ND"
 			(at 93.98 222.25 0)
 			(hide yes)
 			(show_name no)
@@ -20266,6 +22362,172 @@
 		)
 	)
 	(symbol
+		(lib_id "aa_MyParts:K_T92S11D12-24")
+		(at 316.23 76.2 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "bd09a3b3-64b5-48a7-b306-1372c1920e24")
+		(property "Reference" "K300"
+			(at 307.34 79.502 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "T92S11D12-24"
+			(at 309.88 84.074 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
+			(at 322.58 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "T92S11D12-24"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "655-T92S11D12-24"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "PB352-ND"
+			(at 316.23 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "6"
+			(uuid "a8a448e4-c5e1-471b-b420-1c2f398c5068")
+		)
+		(pin "8"
+			(uuid "4034685a-f000-459b-b727-493bed3ad8c7")
+		)
+		(pin "7"
+			(uuid "146cae98-119b-4669-8d0c-8e8de70c7f5a")
+		)
+		(pin "1"
+			(uuid "6899e265-d3ec-4cb7-bf8b-077b7ac19fdb")
+		)
+		(pin "0"
+			(uuid "7007714d-0a0e-495a-8df7-4b98781e560b")
+		)
+		(pin "2"
+			(uuid "6813c6fc-9142-4137-a76e-e96f16ee493f")
+		)
+		(pin "3"
+			(uuid "b9609af3-a422-44c6-a7df-37c002c724ee")
+		)
+		(pin "4"
+			(uuid "0a8b6d8b-a714-40f3-8c5a-5062b9579390")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "K300")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "aa_MyParts:F_MRT_500-BULK")
 		(at 95.25 44.45 90)
 		(unit 1)
@@ -20330,7 +22592,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Bel Fuse"
+		(property "Manufacturer" "Bel Fuse"
 			(at 95.25 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -20341,7 +22603,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MRT 500-BULK"
+		(property "Manufacturer Part Number" "MRT 500-BULK"
 			(at 95.25 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -20363,7 +22625,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "530-MRT500BULKSHORT"
 			(at 95.25 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -20385,7 +22647,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*5923-MRT500-BULK-ND"
+		(property "Distributor 2 Order Number" "5923-MRT500-BULK-ND"
 			(at 95.25 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -20406,6 +22668,84 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "F302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 369.57 27.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c47eac22-d5d7-4b04-9b24-ca211f24276b")
+		(property "Reference" "#PWR0351"
+			(at 369.57 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 369.57 22.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 369.57 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 369.57 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 369.57 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a1ce6d56-ab82-4eeb-afc8-44983e15bad5")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0351")
 					(unit 1)
 				)
 			)
@@ -20791,6 +23131,72 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Nexperia USA Inc."
+			(at 318.77 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "BSS84AK,215"
+			(at 318.77 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 318.77 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "771-BSS84AK215"
+			(at 318.77 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 318.77 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "1727-1144-1-ND"
+			(at 318.77 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "3"
 			(uuid "1f45a310-13cf-473b-818a-1a997f285d22")
 		)
@@ -21128,171 +23534,6 @@
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0330")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "aa_MyParts:T92S11D12-24")
-		(at 288.29 222.25 270)
-		(unit 2)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "de911dd9-4ec4-4231-89a3-a6ccd6c7659b")
-		(property "Reference" "K300"
-			(at 288.29 214.63 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "T92S11D12-24"
-			(at 288.29 217.17 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
-			(at 284.48 228.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "*TE Connectivity Potter & Brumfield"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "*T92S11D12-24"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" ""
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "*PB352-ND"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "8"
-			(uuid "9ad6621e-70a5-4450-9bc8-a767231fda78")
-		)
-		(pin "4"
-			(uuid "f1bc7cac-d08d-40c7-81d0-2ac64b51e106")
-		)
-		(pin "6"
-			(uuid "d3164e79-748d-4e94-af09-5f7206fbc798")
-		)
-		(pin "7"
-			(uuid "8e23d3d0-e6f1-4f3a-9a04-0f9f7e82d83d")
-		)
-		(pin "3"
-			(uuid "d64a4c79-e064-419f-8f0b-be033a0cc9ed")
-		)
-		(pin "2"
-			(uuid "b4dd037c-7b31-4d71-8af1-bd501c1d945c")
-		)
-		(pin "1"
-			(uuid "8c1fe8d7-4dc7-4704-8ae3-3189638b4e6f")
-		)
-		(pin "0"
-			(uuid "3f118146-8bdc-4202-a432-04901bfd3dc5")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "K300")
-					(unit 2)
 				)
 			)
 		)
@@ -21707,7 +23948,7 @@
 				(justify left)
 			)
 		)
-		(property "Manufacturer" "*Vishay BC Components"
+		(property "Manufacturer" "Vishay BC Components"
 			(at 137.16 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -21718,7 +23959,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*VY2472M49Y5US63L7"
+		(property "Manufacturer Part Number" "VY2472M49Y5US63L7"
 			(at 137.16 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -21740,7 +23981,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "72-VY2472M49Y5US63L7"
 			(at 137.16 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -21762,7 +24003,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*VY2472M49Y5US63L7-ND"
+		(property "Distributor 2 Order Number" "VY2472M49Y5US63L7-ND"
 			(at 137.16 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -21783,170 +24024,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C309")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "aa_MyParts:T92S11D12-24")
-		(at 316.23 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "e3de8995-0158-48ce-8a10-814f600e1c43")
-		(property "Reference" "K300"
-			(at 306.07 76.2 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "T92S11D12-24"
-			(at 308.61 76.2 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
-			(at 322.58 80.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "*TE Connectivity Potter & Brumfield"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "*T92S11D12-24"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" ""
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "*PB352-ND"
-			(at 316.23 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "8"
-			(uuid "9ad6621e-70a5-4450-9bc8-a767231fda78")
-		)
-		(pin "4"
-			(uuid "5d38af6c-91e7-4209-8fe3-4a694bd03eb6")
-		)
-		(pin "6"
-			(uuid "d3164e79-748d-4e94-af09-5f7206fbc798")
-		)
-		(pin "7"
-			(uuid "8e23d3d0-e6f1-4f3a-9a04-0f9f7e82d83d")
-		)
-		(pin "3"
-			(uuid "cdaff27a-c208-4f4a-ab6f-d20bbd411ef9")
-		)
-		(pin "2"
-			(uuid "4af1bc67-7972-4f81-a37a-4e02c0f28836")
-		)
-		(pin "1"
-			(uuid "8c1fe8d7-4dc7-4704-8ae3-3189638b4e6f")
-		)
-		(pin "0"
-			(uuid "3f118146-8bdc-4202-a432-04901bfd3dc5")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "K300")
 					(unit 1)
 				)
 			)
@@ -22120,7 +24197,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 234.95 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -22131,7 +24208,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 234.95 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -22153,7 +24230,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 234.95 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -22175,7 +24252,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 234.95 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -22607,7 +24684,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "*Bourns"
+		(property "Manufacturer" "Bourns"
 			(at 93.98 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -22618,7 +24695,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "*MH2029-601Y"
+		(property "Manufacturer Part Number" "MH2029-601Y"
 			(at 93.98 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -22640,7 +24717,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" ""
+		(property "Distributor 1 Order Number" "652-MH2029-601Y"
 			(at 93.98 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -22662,7 +24739,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "*MH2029-601YCT-ND"
+		(property "Distributor 2 Order Number" "MH2029-601YCT-ND"
 			(at 93.98 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -23088,7 +25165,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 402.59 125.73 0)
+		(at 400.05 125.73 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23098,7 +25175,7 @@
 		(dnp no)
 		(uuid "fcae1b1b-a94c-4b5d-a3ca-9dd8b94eeb43")
 		(property "Reference" "#PWR0328"
-			(at 402.59 129.54 0)
+			(at 400.05 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23109,7 +25186,7 @@
 			)
 		)
 		(property "Value" "+3V3_ISO"
-			(at 402.844 120.65 0)
+			(at 400.304 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23119,7 +25196,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 402.59 125.73 0)
+			(at 400.05 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23130,7 +25207,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 402.59 125.73 0)
+			(at 400.05 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23141,7 +25218,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 402.59 125.73 0)
+			(at 400.05 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

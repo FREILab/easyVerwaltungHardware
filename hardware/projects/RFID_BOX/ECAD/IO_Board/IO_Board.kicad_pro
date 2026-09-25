@@ -511,13 +511,251 @@
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "name": "230V_ext",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgb(132, 0, 0)",
+        "tuning_profile": "",
+        "wire_width": 12
+      },
+      {
+        "name": "230V_int",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 1,
+        "schematic_color": "rgb(255, 0, 0)",
+        "tuning_profile": "",
+        "wire_width": 12
+      },
+      {
+        "name": "24V",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 4,
+        "schematic_color": "rgb(0, 0, 194)",
+        "tuning_profile": "",
+        "wire_width": 6
+      },
+      {
+        "name": "5V",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 5,
+        "schematic_color": "rgb(194, 0, 194)",
+        "tuning_profile": "",
+        "wire_width": 6
+      },
+      {
+        "name": "ISO_signals",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 3,
+        "schematic_color": "rgb(0, 132, 132)",
+        "tuning_profile": "",
+        "wire_width": 12
+      },
+      {
+        "name": "PE",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
+        "schematic_color": "rgb(0, 194, 0)",
+        "tuning_profile": "",
+        "wire_width": 12
+      },
+      {
+        "name": "Signals",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 6,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "tuning_profile": "",
+        "wire_width": 6
       }
     ],
     "meta": {
       "version": 5
     },
     "net_colors": null,
-    "netclass_assignments": null,
+    "netclass_assignments": {
+      "+24V": [
+        "24V",
+        "Signals"
+      ],
+      "+3V3": [
+        "Signals"
+      ],
+      "+3V3_ISO": [
+        "ISO_signals"
+      ],
+      "+5V": [
+        "5V",
+        "Signals"
+      ],
+      "/GND1": [
+        "Signals"
+      ],
+      "/GND2_ISO": [
+        "ISO_signals"
+      ],
+      "/PIN_CTRL_L": [
+        "230V_int"
+      ],
+      "/PIN_CTRL_N": [
+        "230V_int"
+      ],
+      "/PIN_FUSED_L": [
+        "230V_ext"
+      ],
+      "/PIN_L": [
+        "230V_ext"
+      ],
+      "/PIN_N": [
+        "230V_ext"
+      ],
+      "/VDD": [
+        "Signals"
+      ],
+      "/VIO": [
+        "Signals"
+      ],
+      "/V_ISO_OUT": [
+        "ISO_signals"
+      ],
+      "/relay_en_HS": [
+        "Signals"
+      ],
+      "/relay_en_LS": [
+        "Signals"
+      ],
+      "Earth": [
+        "PE"
+      ],
+      "GND": [
+        "Signals"
+      ],
+      "GND_ISO": [
+        "ISO_signals"
+      ],
+      "Net-(D300-A)": [
+        "24V",
+        "Signals"
+      ],
+      "Net-(D300-K)": [
+        "24V",
+        "Signals"
+      ],
+      "Net-(F302-Pad2)": [
+        "230V_int"
+      ],
+      "Net-(FB300-Pad1)": [
+        "230V_ext",
+        "ISO_signals"
+      ],
+      "Net-(FB301-Pad1)": [
+        "ISO_signals"
+      ],
+      "Net-(FB302-Pad1)": [
+        "ISO_signals"
+      ],
+      "Net-(FB302-Pad2)": [
+        "230V_ext"
+      ],
+      "Net-(J301-Pin_1)": [
+        "230V_ext"
+      ],
+      "Net-(J301-Pin_3)": [
+        "230V_ext"
+      ],
+      "Net-(Q300-G)": [
+        "Signals"
+      ],
+      "Net-(Q301-G)": [
+        "24V",
+        "Signals"
+      ],
+      "Net-(Q302-D)": [
+        "Signals"
+      ],
+      "Net-(Q302-G)": [
+        "Signals"
+      ],
+      "Net-(R303-Pad2)": [
+        "230V_ext",
+        "ISO_signals"
+      ],
+      "Net-(U302-AVDD)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-COMMONA)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-I1+)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-I1-)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-REFIN+{slash}OUT)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-V1+)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-V1-)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-nMCLR)": [
+        "ISO_signals"
+      ],
+      "UART_MCP2MCU": [
+        "Signals"
+      ],
+      "UART_MCP2MCU_ISO": [
+        "ISO_signals"
+      ],
+      "UART_MCU2MCP": [
+        "Signals"
+      ],
+      "UART_MCU2MCP_ISO": [
+        "ISO_signals"
+      ],
+      "unconnected-(U300-CC-Pad8)": [
+        "Signals"
+      ],
+      "unconnected-(U302-AN_IN-Pad20)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-EVENT1-Pad1)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-EVENT2-Pad15)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-NC-Pad2)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-NC-Pad3)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-NC-Pad8)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-NC-Pad9)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-OSCI-Pad6)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-OSCO-Pad7)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-PWM-Pad14)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-ZCD-Pad22)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U302-nDR-Pad28)": [
+        "ISO_signals"
+      ]
+    },
     "netclass_patterns": []
   },
   "pcbnew": {
@@ -592,7 +830,7 @@
           "group_by": true,
           "label": "Exclude from Simulation",
           "name": "${EXCLUDE_FROM_SIM}",
-          "show": true
+          "show": false
         },
         {
           "group_by": true,
@@ -610,13 +848,307 @@
           "group_by": false,
           "label": "Datasheet",
           "name": "Datasheet",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Check_prices",
+          "name": "Check_prices",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Created Date",
+          "name": "Created Date",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Critical Parameter",
+          "name": "Critical Parameter",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Current",
+          "name": "Current",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "DCR",
+          "name": "DCR",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 1",
+          "name": "Distributor 1",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 1 Order Number",
+          "name": "Distributor 1 Order Number",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 2",
+          "name": "Distributor 2",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 2 Order Number",
+          "name": "Distributor 2 Order Number",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "H (mm)",
+          "name": "H (mm)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "IR (A)",
+          "name": "IR (A)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "IR(A)",
+          "name": "IR(A)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "IR[VDE](A)",
+          "name": "IR[VDE](A)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "L (mH)",
+          "name": "L (mH)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "L (mm)",
+          "name": "L (mm)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MANUFACTURER",
+          "name": "MANUFACTURER",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MAXIMUM_PACKAGE_HEIGHT",
+          "name": "MAXIMUM_PACKAGE_HEIGHT",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MF",
+          "name": "MF",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MP",
+          "name": "MP",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer",
+          "name": "Manufacturer",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer Number",
+          "name": "Manufacturer Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer Part Number",
+          "name": "Manufacturer Part Number",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer URL",
+          "name": "Manufacturer URL",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Mounting Technology",
+          "name": "Mounting Technology",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "PARTREV",
+          "name": "PARTREV",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Package",
+          "name": "Package",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Part Number",
+          "name": "Part Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Price",
+          "name": "Price",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Purchase-URL",
+          "name": "Purchase-URL",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "RDC max. (mΩ)",
+          "name": "RDC max. (mΩ)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "SNAPEDA_PN",
+          "name": "SNAPEDA_PN",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "STANDARD",
+          "name": "STANDARD",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Series",
+          "name": "Series",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Library",
+          "name": "Sim.Library",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Name",
+          "name": "Sim.Name",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Params",
+          "name": "Sim.Params",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "SnapEDA_Link",
+          "name": "SnapEDA_Link",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Type",
+          "name": "Type",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "VR (V (AC))",
+          "name": "VR (V (AC))",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "VT (V (AC))",
+          "name": "VT (V (AC))",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Voltage",
+          "name": "Voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "W (mm)",
+          "name": "W (mm)",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Capacitance",
+          "name": "Capacitance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Availability",
+          "name": "Availability",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Automotive",
+          "name": "Automotive",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": true,
-      "name": "Default Editing",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
@@ -661,7 +1193,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "NT300,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,U1-8,U101-108,U300-306,FB300-308,C1,C101,C300-308,C311-328,K1-3,K101-102,K300-301,D300-302,#PWR1-2,#PWR101-102,#PWR300-348,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-317",
+    "used_designators": "NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,PS1,PS101,PS300,LED1,LED101,FB300-308,C1,C101,C300-308,C311-328,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,D300-302,#PWR1-2,#PWR101-102,#PWR300-352,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-317",
     "variants": []
   },
   "sheets": [
