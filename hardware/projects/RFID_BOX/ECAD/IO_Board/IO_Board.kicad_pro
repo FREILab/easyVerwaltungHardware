@@ -240,7 +240,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "V1.0"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -260,7 +260,24 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      [
+        "pin_to_pin|2971800|1600200|36fc4ec9-b9b5-4aaa-ae42-4a861f23b4a3|91183343-13c9-4377-aaf5-dca037cb7ddb|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7",
+        ""
+      ],
+      [
+        "pin_to_pin|3581400|1435100|b1b18a5c-a9c3-435a-aa05-3d1bf5d21f80|670dde3d-d106-4b6f-9124-5ff2079a9482|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7",
+        ""
+      ],
+      [
+        "pin_to_pin|3581400|1473200|1148dfef-ddec-4a8b-a34b-882f53ec2595|5614331a-18aa-4890-84dc-e8a97cfb54c6|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7",
+        ""
+      ],
+      [
+        "pin_to_pin|3581400|1498600|2661c53e-54bf-4196-917f-8ddbea872979|9bf9cf47-3e73-4d98-bd91-a62c6b203962|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7|/925169fe-6f55-4c58-8867-9e65957475e7",
+        ""
+      ]
+    ],
     "meta": {
       "version": 0
     },
@@ -465,9 +482,9 @@
       "no_connect_connected": "warning",
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
-      "pin_not_driven": "error",
-      "pin_to_pin": "warning",
-      "power_pin_not_driven": "error",
+      "pin_not_driven": "ignore",
+      "pin_to_pin": "error",
+      "power_pin_not_driven": "ignore",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
@@ -606,7 +623,13 @@
       "/PIN_L": [
         "230V_ext"
       ],
+      "/PIN_L_SWITCHED": [
+        "230V_ext"
+      ],
       "/PIN_N": [
+        "230V_ext"
+      ],
+      "/PIN_N_SWITCHED": [
         "230V_ext"
       ],
       "/VDD": [
@@ -633,6 +656,9 @@
       "GND_ISO": [
         "ISO_signals"
       ],
+      "ISO_EN": [
+        "Signals"
+      ],
       "Net-(D300-A)": [
         "24V",
         "Signals"
@@ -645,8 +671,7 @@
         "230V_int"
       ],
       "Net-(FB300-Pad1)": [
-        "230V_ext",
-        "ISO_signals"
+        "230V_ext"
       ],
       "Net-(FB301-Pad1)": [
         "ISO_signals"
@@ -677,8 +702,7 @@
         "Signals"
       ],
       "Net-(R303-Pad2)": [
-        "230V_ext",
-        "ISO_signals"
+        "230V_ext"
       ],
       "Net-(U302-AVDD)": [
         "ISO_signals"
@@ -703,6 +727,9 @@
       ],
       "Net-(U302-nMCLR)": [
         "ISO_signals"
+      ],
+      "PIN_PE": [
+        "PE"
       ],
       "UART_MCP2MCU": [
         "Signals"
@@ -1193,7 +1220,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,PS1,PS101,PS300,LED1,LED101,FB300-308,C1,C101,C300-308,C311-328,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,D300-302,#PWR1-2,#PWR101-102,#PWR300-352,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-317",
+    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-308,C311-328,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-357,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-318",
     "variants": []
   },
   "sheets": [
