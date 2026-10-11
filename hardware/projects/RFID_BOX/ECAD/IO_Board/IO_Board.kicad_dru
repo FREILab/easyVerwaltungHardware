@@ -1,0 +1,73 @@
+(version 1)
+
+# ---------------------------------------------------------------------------
+# Clearance & creepage -- I/O Board 230V
+# IEC 60664-1, 250 VAC working voltage, OVC II, pollution degree 2,
+# material group IIIa. Each value applies to clearance and creepage,
+# on both layers. Source: master table in the schematic.
+#
+# Groups: L, N          mains poles (netclass patterns /PIN_L*, /PIN_N*)
+#         ISO_signals   measurement island, at N potential via NT300
+#         PE            protective earth
+#         SELV          everything else, written as the complement, so an
+#                       unassigned net keeps 8 mm from mains instead of
+#                       slipping through
+#
+# Conditions are symmetric, so rule order does not matter -- except for the
+# last rule, which must stay last. Later rules win over earlier ones.
+# ---------------------------------------------------------------------------
+
+# -- same pole: 0.5 ---------------------------------------------------------
+(rule "mains_same_pole"
+	(condition "(A.hasNetclass('L') && B.hasNetclass('L')) || (A.hasNetclass('N') && B.hasNetclass('N'))")
+	(constraint clearance (min 0.5mm))
+	(constraint creepage (min 0.5mm)))
+
+# -- opposite poles: 3.0 ----------------------------------------------------
+(rule "mains_opposite_poles"
+	(condition "(A.hasNetclass('L') && B.hasNetclass('N')) || (A.hasNetclass('N') && B.hasNetclass('L'))")
+	(constraint clearance (min 3.0mm))
+	(constraint creepage (min 3.0mm)))
+
+# -- island is at N potential: 0.5 to N, 3.0 to L ---------------------------
+(rule "island_to_N"
+	(condition "(A.hasNetclass('ISO_signals') && B.hasNetclass('N')) || (A.hasNetclass('N') && B.hasNetclass('ISO_signals'))")
+	(constraint clearance (min 0.5mm))
+	(constraint creepage (min 0.5mm)))
+
+(rule "island_to_L"
+	(condition "(A.hasNetclass('ISO_signals') && B.hasNetclass('L')) || (A.hasNetclass('L') && B.hasNetclass('ISO_signals'))")
+	(constraint clearance (min 3.0mm))
+	(constraint creepage (min 3.0mm)))
+
+# -- inside the island: 0.3 -------------------------------------------------
+(rule "island_internal"
+	(condition "A.hasNetclass('ISO_signals') && B.hasNetclass('ISO_signals')")
+	(constraint clearance (min 0.3mm))
+	(constraint creepage (min 0.3mm)))
+
+# -- barrier, mains or island against SELV: 8.0 -----------------------------
+(rule "barrier_A_mains"
+	(condition "(A.hasNetclass('L') || A.hasNetclass('N') || A.hasNetclass('ISO_signals')) && !B.hasNetclass('L') && !B.hasNetclass('N') && !B.hasNetclass('ISO_signals') && !B.hasNetclass('PE')")
+	(constraint clearance (min 8.0mm))
+	(constraint creepage (min 8.0mm)))
+
+(rule "barrier_B_mains"
+	(condition "(B.hasNetclass('L') || B.hasNetclass('N') || B.hasNetclass('ISO_signals')) && !A.hasNetclass('L') && !A.hasNetclass('N') && !A.hasNetclass('ISO_signals') && !A.hasNetclass('PE')")
+	(constraint clearance (min 8.0mm))
+	(constraint creepage (min 8.0mm)))
+
+# -- PE against mains and island: 3.0 ---------------------------------------
+(rule "mains_to_PE"
+	(condition "(A.hasNetclass('PE') && (B.hasNetclass('L') || B.hasNetclass('N') || B.hasNetclass('ISO_signals'))) || (B.hasNetclass('PE') && (A.hasNetclass('L') || A.hasNetclass('N') || A.hasNetclass('ISO_signals')))")
+	(constraint clearance (min 3.0mm))
+	(constraint creepage (min 3.0mm)))
+
+# -- U300 (ISOW7721DFMR): the package is the barrier. Its pads across the
+#    barrier are 7.25 mm apart (Pad 1 /VIO to Pad 20 +3V3_ISO), below the
+#    8.0 mm board value. Both items must belong to U300, so a track crossing
+#    the footprint is still checked against 8.0 mm. Must stay last.
+(rule "barrier_inside_U300"
+	(condition "A.memberOfFootprint('U300') && B.memberOfFootprint('U300')")
+	(constraint clearance (min 0.2mm))
+	(constraint creepage (min 0.2mm)))

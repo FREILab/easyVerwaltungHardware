@@ -8650,7 +8650,7 @@
 	)
 	(text "VIAS -- 20 um barrel plating, dT 5 K. \"per via\" is what one via\ncarries. Derate by 0.7 in dense via fields.\n\nVia | Drill  | Pad     | Aspect | per via\n----|--------|---------|--------|---------\nA   | 0.2 mm | 0.45 mm | 8:1    | 0.839 A\nB   | 0.3 mm | 0.6 mm  | 5.3:1  | 1.126 A\nC   | 0.6 mm | 1.0 mm  | 2.7:1  | 1.861 A\nD   | 1.0 mm | 1.4 mm  | 1.6:1  | 2.695 A"
 		(exclude_from_sim no)
-		(at 157.226 269.748 0)
+		(at 191.262 270.51 0)
 		(effects
 			(font
 				(face "PT Mono")
@@ -8670,9 +8670,21 @@
 		)
 		(uuid "0a8f6005-0070-41a1-9045-7ab2507debdb")
 	)
+	(text "Groups:\nL = PIN_L*\nN = PIN_N*\nISO = ISO_signals\nPE = PE\nSELV = Signals, 5V, 24V, Default"
+		(exclude_from_sim no)
+		(at 99.06 272.288 0)
+		(effects
+			(font
+				(face "PT Mono")
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "18505839-427f-41b0-813d-7bd90e83059f")
+	)
 	(text "NET CLASS TRACK WIDTHS -- I/O BOARD 230V\n2 layers, 70 um (2 oz), FR4 1.6 mm. IPC-2221 outer layer, dT = 5 K.\n\nNet class   | I max   | Width  | Via\n------------|---------|--------|------\n230V_ext    | 8.000 A | 4.0 mm | 5x D\nPE          | 8.000 A | 4.0 mm | 5x D\n230V_int    | 0.500 A | 1.0 mm | 1x C\n5V          | 2.000 A | 1.0 mm | 2x C\n24V         | 0.500 A | 0.8 mm | 1x C\n3V3         | 1.000 A | 0.5 mm | 1x C\nISO_signals | 0.020 A | 0.4 mm | 1x A\nSignals     | 0.100 A | 0.3 mm | 1x B"
 		(exclude_from_sim no)
-		(at 105.664 264.922 0)
+		(at 140.716 265.43 0)
 		(effects
 			(font
 				(face "PT Mono")
@@ -8742,9 +8754,9 @@
 		)
 		(uuid "667bdc31-89e4-48f8-9b97-58332acc101a")
 	)
-	(text "CLEARANCE & CREEPAGE -- I/O BOARD 230V\nBasis: IEC 60664-1, 250 VAC working voltage, OVC II, pollution degree 2\n       (sealed IP64 enclosure), material group IIIa.\nDesign minima in mm, valid for clearance AND creepage, on both layers.\n\n                  | NET same | NET opp. | ISO isl. |  SELV\n------------------|----------|----------|----------|-------\n  NET same pole   |   0.5    |   3.0    |   0.5    |  8.0\n  NET opposite    |          |   0.5    |   3.0    |  8.0\n  ISO island      |          |          |   0.3    |  8.0\n  SELV            |          |          |          |  0.2"
+	(text "CLEARANCE & CREEPAGE -- I/O BOARD 230V\nMaster table, binding for layout and DRC rules.\nBasis: IEC 60664-1, 250 VAC working voltage, OVC II, pollution degree 2\n       (sealed IP64 enclosure), material group IIIa.\nDesign minima in mm, valid for clearance AND creepage, on both layers.\nL / N = mains poles, ISO = measurement island (at N potential via NT300),\nSELV = everything else, PE = protective earth (basic insulation to mains).\n          |    L     |    N     |   ISO    |   SELV   |    PE\n----------|----------|----------|----------|----------|----------\n  L       |   0.5    |   3.0    |   3.0    |   8.0    |   3.0\n  N       |          |   0.5    |   0.5    |   8.0    |   3.0\n  ISO     |          |          |   0.3    |   8.0    |   3.0\n  SELV    |          |          |          |   0.2    |   0.2\n  PE      |          |          |          |          |    --\n  Exception: inside U300 (ISOW7721DFMR) 0.2 mm. The package provides the\n  barrier; its pads across the barrier are 7.25 mm apart."
 		(exclude_from_sim no)
-		(at 22.606 262.636 0)
+		(at 15.748 262.382 0)
 		(effects
 			(font
 				(face "PT Mono")
@@ -9338,6 +9350,16 @@
 	)
 	(wire
 		(pts
+			(xy 378.46 147.32) (xy 383.54 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04306b0c-7ee7-46e7-815c-7cf7950d0761")
+	)
+	(wire
+		(pts
 			(xy 290.83 140.97) (xy 290.83 185.42)
 		)
 		(stroke
@@ -9776,6 +9798,16 @@
 			(type default)
 		)
 		(uuid "2c8c73c8-a883-48ae-8681-94dadfe2d8a5")
+	)
+	(wire
+		(pts
+			(xy 358.14 149.86) (xy 370.84 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e33a234-f420-49a1-951e-c4a309fa577a")
 	)
 	(wire
 		(pts
@@ -10461,16 +10493,6 @@
 	)
 	(wire
 		(pts
-			(xy 368.3 147.32) (xy 358.14 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "73303139-fae7-46b6-b9c0-c7bded3bc8a1")
-	)
-	(wire
-		(pts
 			(xy 96.52 133.35) (xy 110.49 133.35)
 		)
 		(stroke
@@ -11021,6 +11043,16 @@
 	)
 	(wire
 		(pts
+			(xy 378.46 149.86) (xy 383.54 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0d716fe-cb65-4897-9943-651763a58342")
+	)
+	(wire
+		(pts
 			(xy 124.46 120.65) (xy 137.16 120.65)
 		)
 		(stroke
@@ -11208,6 +11240,16 @@
 			(type default)
 		)
 		(uuid "c22fdfd7-f59b-4e33-b1e9-a3c38b2d44da")
+	)
+	(wire
+		(pts
+			(xy 358.14 147.32) (xy 370.84 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3321342-ead4-4426-811a-4dedba0c0624")
 	)
 	(wire
 		(pts
@@ -11792,16 +11834,6 @@
 		)
 		(uuid "feadd296-df85-4f9d-858d-67a433fdfefd")
 	)
-	(wire
-		(pts
-			(xy 368.3 149.86) (xy 358.14 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "febc7c1c-a724-49ff-b271-7b8e3fccfb70")
-	)
 	(label "PIN_N"
 		(at 30.48 224.79 0)
 		(effects
@@ -11831,6 +11863,26 @@
 			(justify left bottom)
 		)
 		(uuid "274e873c-3964-4640-924f-ba1c4f9cf651")
+	)
+	(label "PIN_L_SENSE"
+		(at 229.87 198.12 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2e5ed9b5-d6b1-4df0-862f-1a6cdf6efeae")
+	)
+	(label "PIN_N_SHUNT"
+		(at 260.35 234.95 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "33669817-15b3-4390-a40c-cef1437192b0")
 	)
 	(label "PIN_L"
 		(at 30.48 222.25 0)
@@ -11862,7 +11914,7 @@
 		)
 		(uuid "50c097bc-99d8-4e0f-861d-5d8a78e38592")
 	)
-	(label "PIN_CTRL_N"
+	(label "PIN_N_CTRL"
 		(at 140.97 49.53 0)
 		(effects
 			(font
@@ -11892,7 +11944,7 @@
 		)
 		(uuid "86cb5838-db76-4b4d-a369-b50ca1ad3864")
 	)
-	(label "PIN_FUSED_L"
+	(label "PIN_L_FUSED"
 		(at 185.42 222.25 0)
 		(effects
 			(font
@@ -11901,6 +11953,16 @@
 			(justify left bottom)
 		)
 		(uuid "aeac1122-2036-47d0-99a6-c0a4bcd90ebf")
+	)
+	(label "PIN_L_CTRL_F"
+		(at 105.41 44.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c2abe81e-ae7c-47b6-9ee5-aadbcdac1743")
 	)
 	(label "relay_en_LS"
 		(at 379.73 71.12 90)
@@ -11912,7 +11974,17 @@
 		)
 		(uuid "d070744b-d15e-4b5e-b59e-8a7ca09f86d3")
 	)
-	(label "PIN_CTRL_L"
+	(label "AVDD"
+		(at 358.14 128.27 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d4996d08-a676-4c39-b91e-6afe4b3c6039")
+	)
+	(label "PIN_L_CTRL"
 		(at 140.97 44.45 0)
 		(effects
 			(font
@@ -11932,6 +12004,16 @@
 		)
 		(uuid "e2797427-4ccc-4756-831a-63e09460882e")
 	)
+	(label "PIN_L_DIV"
+		(at 242.57 135.89 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e4580d3d-8583-49fa-9e08-982b33b95f7c")
+	)
 	(label "PIN_N_SWITCHED"
 		(at 303.53 237.49 0)
 		(effects
@@ -11941,6 +12023,26 @@
 			(justify left bottom)
 		)
 		(uuid "e5c150d4-0b82-4a14-a2f6-52315aa0b72a")
+	)
+	(label "PIN_N_nc"
+		(at 295.91 232.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e85cc84f-5dcd-4680-88bb-b615019530b4")
+	)
+	(label "PIN_L_nc"
+		(at 295.91 219.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f07b1895-c96c-4ea0-9e35-fb9146c0d905")
 	)
 	(label "PIN_L_SWITCHED"
 		(at 303.53 224.79 0)
@@ -12108,7 +12210,7 @@
 	)
 	(global_label "UART_MCU2MCP_ISO"
 		(shape input)
-		(at 368.3 149.86 0)
+		(at 383.54 149.86 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12118,7 +12220,7 @@
 		)
 		(uuid "adcd892f-e9fa-424d-b1c9-2483551a855f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 390.2747 149.86 0)
+			(at 405.5147 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12132,7 +12234,7 @@
 	)
 	(global_label "UART_MCP2MCU_ISO"
 		(shape output)
-		(at 368.3 147.32 0)
+		(at 383.54 147.32 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12142,7 +12244,7 @@
 		)
 		(uuid "bd4a098a-bdda-4bee-a1db-73ad1cd6e434")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 390.2747 147.32 0)
+			(at 405.5147 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12231,8 +12333,9 @@
 			(pts
 				(xy 82.55 92.71) (xy 115.57 92.71) (xy 115.57 99.06) (xy 166.37 99.06) (xy 166.4793 172.1851) (xy 223.6293 172.1851)
 				(xy 223.52 107.95) (xy 405.13 107.95) (xy 405.13 199.39) (xy 273.05 199.39) (xy 273.05 210.82) (xy 231.14 210.82)
-				(xy 231.14 142.24) (xy 247.65 142.24) (xy 248.92 140.97) (xy 248.92 127) (xy 227.33 127) (xy 227.33 193.04)
-				(xy 227.33 200.66) (xy 227.33 200.66) (xy 205.74 200.66) (xy 205.74 200.66) (xy 82.55 200.66) (xy 82.55 177.8)
+				(xy 231.14 142.24) (xy 247.65 142.24) (xy 248.92 140.97) (xy 248.8121 121.6258) (xy 227.2221 121.6258)
+				(xy 227.33 193.04) (xy 227.33 200.66) (xy 227.33 200.66) (xy 205.74 200.66) (xy 205.74 200.66) (xy 82.55 200.66)
+				(xy 82.55 177.8)
 			)
 			(stroke
 				(width 0)
@@ -12777,17 +12880,17 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 266.7 234.95 0)
+		(at 271.78 234.95 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "fd91a27c-e1f7-456d-b1da-bc47135add6a")
 		(property "Netclass" "230V_ext"
-			(at 267.3985 232.41 0)
+			(at 272.4785 237.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12798,7 +12901,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at 190.5 6.35 0)
+			(at 195.58 463.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15527,6 +15630,85 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 374.65 147.32 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "31ecd195-45a3-4da5-a6ef-afed5266f378")
+		(property "Reference" "R319"
+			(at 368.808 146.304 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 380.238 146.304 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 374.65 149.098 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "cb60b37d-f3c7-470b-b79a-a05f1572e372")
+		)
+		(pin "1"
+			(uuid "668da4dc-6704-4bae-a3f8-a579544ce9f4")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R319")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "aa_MyParts:IC_MCP39F511A-E_MQ")
 		(at 297.18 135.89 0)
 		(unit 1)
@@ -17349,171 +17531,6 @@
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0338")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "aa_MyParts:K_T92S11D12-24")
-		(at 288.29 234.95 270)
-		(unit 3)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "55428180-d43f-4423-b294-5176d9da5942")
-		(property "Reference" "K300"
-			(at 288.29 227.33 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "T92S11D12-24"
-			(at 288.29 229.87 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
-			(at 284.48 241.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "T92S11D12-24"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" "655-T92S11D12-24"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "PB352-ND"
-			(at 288.29 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "6"
-			(uuid "a8a448e4-c5e1-471b-b420-1c2f398c5068")
-		)
-		(pin "8"
-			(uuid "4034685a-f000-459b-b727-493bed3ad8c7")
-		)
-		(pin "7"
-			(uuid "146cae98-119b-4669-8d0c-8e8de70c7f5a")
-		)
-		(pin "1"
-			(uuid "8049ecb9-8026-4e99-8ca4-136cf5d41ba2")
-		)
-		(pin "0"
-			(uuid "564faee5-6220-41ef-8b4a-b7cbf5a97f96")
-		)
-		(pin "2"
-			(uuid "6813c6fc-9142-4137-a76e-e96f16ee493f")
-		)
-		(pin "3"
-			(uuid "b9609af3-a422-44c6-a7df-37c002c724ee")
-		)
-		(pin "4"
-			(uuid "0a8b6d8b-a714-40f3-8c5a-5062b9579390")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "K300")
-					(unit 3)
 				)
 			)
 		)
@@ -19447,171 +19464,6 @@
 		)
 	)
 	(symbol
-		(lib_id "aa_MyParts:K_T92S11D12-24")
-		(at 288.29 222.25 270)
-		(unit 2)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7b123238-69d7-49d0-93ca-cce9539a0620")
-		(property "Reference" "K300"
-			(at 288.29 214.63 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "T92S11D12-24"
-			(at 288.29 217.17 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
-			(at 284.48 228.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "T92S11D12-24"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" "655-T92S11D12-24"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "PB352-ND"
-			(at 288.29 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "6"
-			(uuid "a8a448e4-c5e1-471b-b420-1c2f398c5069")
-		)
-		(pin "8"
-			(uuid "4034685a-f000-459b-b727-493bed3ad8c8")
-		)
-		(pin "7"
-			(uuid "146cae98-119b-4669-8d0c-8e8de70c7f5b")
-		)
-		(pin "1"
-			(uuid "f5df7e9b-6c50-4c96-aff4-f406372e03da")
-		)
-		(pin "0"
-			(uuid "28526698-3910-453e-b21e-dc14a4009c0c")
-		)
-		(pin "2"
-			(uuid "6813c6fc-9142-4137-a76e-e96f16ee4940")
-		)
-		(pin "3"
-			(uuid "b9609af3-a422-44c6-a7df-37c002c724ef")
-		)
-		(pin "4"
-			(uuid "0a8b6d8b-a714-40f3-8c5a-5062b9579391")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "K300")
-					(unit 2)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:Earth")
 		(at 332.74 232.41 0)
 		(unit 1)
@@ -20724,6 +20576,85 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0356")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 374.65 149.86 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "8d5198e5-f611-48d0-ad04-1ee5e07fc7a8")
+		(property "Reference" "R320"
+			(at 368.808 148.844 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 380.238 148.844 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 374.65 151.638 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9e6f685f-c25e-44bb-954a-ae1f3a89485f")
+		)
+		(pin "1"
+			(uuid "e37ece1c-b7de-46de-8bdb-1758671c97e4")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R320")
 					(unit 1)
 				)
 			)
@@ -24120,6 +24051,171 @@
 		)
 	)
 	(symbol
+		(lib_id "aa_MyParts:K_T92S11D12-24")
+		(at 288.29 222.25 270)
+		(unit 3)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cbb095fb-52eb-419d-a933-6da4d59e994f")
+		(property "Reference" "K300"
+			(at 288.29 214.63 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "T92S11D12-24"
+			(at 288.29 217.17 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
+			(at 284.48 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "T92S11D12-24"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "655-T92S11D12-24"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "PB352-ND"
+			(at 288.29 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "6"
+			(uuid "5569c966-8e49-4d84-afec-ba02139aa531")
+		)
+		(pin "8"
+			(uuid "1282b16d-d63f-4411-92c8-296793d01614")
+		)
+		(pin "7"
+			(uuid "53526ba2-7fa5-4871-bff7-d8fab772e8f7")
+		)
+		(pin "1"
+			(uuid "8049ecb9-8026-4e99-8ca4-136cf5d41ba2")
+		)
+		(pin "0"
+			(uuid "564faee5-6220-41ef-8b4a-b7cbf5a97f96")
+		)
+		(pin "2"
+			(uuid "6813c6fc-9142-4137-a76e-e96f16ee493f")
+		)
+		(pin "3"
+			(uuid "b9609af3-a422-44c6-a7df-37c002c724ee")
+		)
+		(pin "4"
+			(uuid "0a8b6d8b-a714-40f3-8c5a-5062b9579390")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "K300")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 189.23 52.07 0)
 		(unit 1)
@@ -25235,6 +25331,171 @@
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C309")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "aa_MyParts:K_T92S11D12-24")
+		(at 288.29 234.95 270)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e51733c0-8b30-43ca-9f2b-fb911496537f")
+		(property "Reference" "K300"
+			(at 288.29 227.33 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "T92S11D12-24"
+			(at 288.29 229.87 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "aa_MyParts:K_T92S11D12-24"
+			(at 284.48 241.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1308242_T92&DocType=DS&DocLang=English"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RELAY GEN PURPOSE DPDT 30A 24V"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "TE Connectivity Potter & Brumfield"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "T92S11D12-24"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "655-T92S11D12-24"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "PB352-ND"
+			(at 288.29 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "6"
+			(uuid "a8a448e4-c5e1-471b-b420-1c2f398c5069")
+		)
+		(pin "8"
+			(uuid "4034685a-f000-459b-b727-493bed3ad8c8")
+		)
+		(pin "7"
+			(uuid "146cae98-119b-4669-8d0c-8e8de70c7f5b")
+		)
+		(pin "1"
+			(uuid "f5df7e9b-6c50-4c96-aff4-f406372e03da")
+		)
+		(pin "0"
+			(uuid "28526698-3910-453e-b21e-dc14a4009c0c")
+		)
+		(pin "2"
+			(uuid "8a7b2c3a-72c8-4257-b820-8e27865b40c0")
+		)
+		(pin "3"
+			(uuid "c0f57fcc-327e-4dbe-b6f9-25956145dee7")
+		)
+		(pin "4"
+			(uuid "0e871883-6864-4e47-a85c-4fd78a862282")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "K300")
+					(unit 2)
 				)
 			)
 		)

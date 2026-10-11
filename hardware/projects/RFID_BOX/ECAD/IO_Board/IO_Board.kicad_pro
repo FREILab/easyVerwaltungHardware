@@ -69,7 +69,13 @@
           "thermal_relief_spoke_width": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -203,7 +209,9 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -230,7 +238,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -531,49 +544,77 @@
       },
       {
         "name": "230V_ext",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgb(132, 0, 0)",
         "priority": 0,
         "schematic_color": "rgb(132, 0, 0)",
+        "track_width": 4.0,
         "tuning_profile": "",
         "wire_width": 12
       },
       {
         "name": "230V_int",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgb(255, 0, 0)",
         "priority": 1,
         "schematic_color": "rgb(255, 0, 0)",
+        "track_width": 1.0,
         "tuning_profile": "",
+        "via_diameter": 1.0,
+        "via_drill": 0.6,
         "wire_width": 12
       },
       {
         "name": "24V",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgb(0, 0, 194)",
         "priority": 4,
         "schematic_color": "rgb(0, 0, 194)",
+        "track_width": 0.8,
         "tuning_profile": "",
+        "via_diameter": 1.0,
+        "via_drill": 0.6,
         "wire_width": 6
       },
       {
         "name": "5V",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgb(194, 0, 194)",
         "priority": 5,
         "schematic_color": "rgb(194, 0, 194)",
+        "track_width": 1.0,
         "tuning_profile": "",
+        "via_diameter": 1.0,
+        "via_drill": 0.6,
         "wire_width": 6
       },
       {
         "name": "ISO_signals",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "pcb_color": "rgb(0, 132, 132)",
         "priority": 3,
         "schematic_color": "rgb(0, 132, 132)",
+        "track_width": 0.4,
         "tuning_profile": "",
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
         "wire_width": 12
       },
       {
-        "name": "PE",
+        "name": "L",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 7,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "tuning_profile": ""
+      },
+      {
+        "name": "N",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 8,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "tuning_profile": ""
+      },
+      {
+        "name": "PE",
+        "pcb_color": "rgb(0, 194, 0)",
         "priority": 2,
         "schematic_color": "rgb(0, 194, 0)",
+        "track_width": 4.0,
         "tuning_profile": "",
         "wire_width": 12
       },
@@ -582,7 +623,10 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 6,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.3,
         "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
         "wire_width": 6
       }
     ],
@@ -605,11 +649,17 @@
         "5V",
         "Signals"
       ],
+      "/AVDD": [
+        "ISO_signals"
+      ],
       "/GND1": [
         "Signals"
       ],
       "/GND2_ISO": [
         "ISO_signals"
+      ],
+      "/PIN_CTRL_F_L": [
+        "230V_int"
       ],
       "/PIN_CTRL_L": [
         "230V_int"
@@ -623,13 +673,37 @@
       "/PIN_L": [
         "230V_ext"
       ],
+      "/PIN_L_CTRL": [
+        "230V_int"
+      ],
+      "/PIN_L_CTRL_F": [
+        "230V_int"
+      ],
+      "/PIN_L_DIV": [
+        "230V_ext"
+      ],
+      "/PIN_L_FUSED": [
+        "230V_ext"
+      ],
+      "/PIN_L_SENSE": [
+        "230V_ext"
+      ],
       "/PIN_L_SWITCHED": [
         "230V_ext"
       ],
       "/PIN_N": [
         "230V_ext"
       ],
+      "/PIN_N_CTRL": [
+        "230V_int"
+      ],
+      "/PIN_N_SHUNT": [
+        "230V_ext"
+      ],
       "/PIN_N_SWITCHED": [
+        "230V_ext"
+      ],
+      "/PIN_SHUNT_N": [
         "230V_ext"
       ],
       "/VDD": [
@@ -719,6 +793,12 @@
       "Net-(U302-REFIN+{slash}OUT)": [
         "ISO_signals"
       ],
+      "Net-(U302-UART_RX)": [
+        "ISO_signals"
+      ],
+      "Net-(U302-UART_TX)": [
+        "ISO_signals"
+      ],
       "Net-(U302-V1+)": [
         "ISO_signals"
       ],
@@ -783,7 +863,16 @@
         "ISO_signals"
       ]
     },
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "N",
+        "pattern": "/PIN_N*"
+      },
+      {
+        "netclass": "L",
+        "pattern": "/PIN_L*"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {
@@ -791,7 +880,7 @@
       "netlist": "",
       "plot": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "IO_Board.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
@@ -1220,7 +1309,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-308,C311-328,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-357,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-318",
+    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-308,C311-328,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-357,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-320",
     "variants": []
   },
   "sheets": [
