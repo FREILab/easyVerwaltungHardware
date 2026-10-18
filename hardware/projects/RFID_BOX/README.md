@@ -221,6 +221,8 @@ und teilt sich dort in zwei Pfade:
   eigenen Netzzweig. PGA-Einstellung von U302: Gain 16 am Stromkanal,
   Gain 1 am Spannungskanal. Über `ISO_EN` (U300 Pin 5, Pull-up R318 nach VDD)
   nimmt die Firmware der Insel die Versorgung und startet U302 damit neu.
+  Die Leitung verlässt über J302 das Board; am Pin filtern R322 (1k in Reihe)
+  und C329 (10nF gegen GND1) mit 10 µs Zeitkonstante.
   Details siehe [Leiterbahnbreiten und Abstände](#leiterbahnbreiten-und-abstände).
 
 Die Erweiterungsboards (Extension Board, E-Stop Extension Board) werden über
@@ -230,10 +232,17 @@ Notaus-Schleife) bleibt galvanisch getrennt und wird extern gespeist.
 Die Lastausgangssicherung (F300) ist gesockelt und nach dem Öffnen des
 Gehäuses ohne Löten tauschbar; eine Ersatzsicherung wird im Gehäuse
 mitgeführt. Die Gerätesicherung (F302) ist als dokumentierte Ausnahme fest
-verlötet (siehe [Anforderungen.md](Anforderungen.md), S5).
+verlötet (siehe [Anforderungen.md](Anforderungen.md), S5). Vor F302 liegt
+R323, ein Sicherungswiderstand mit 10 Ohm, der den Kurzschlussstrom im
+Steuerzweig auf rund 25 A begrenzt — unter das Ausschaltvermögen von 35 A
+der MRT.
 
 Am Netz-Eingang liegen RV300 als Überspannungsschutz und C300 als
-X2-Kondensator, beide als Parallelelemente gegen den Netzknoten. Das
+X2-Kondensator, beide als Parallelelemente gegen den Netzknoten. Parallel
+dazu liegt die Entladekette R305–R310–R321, drei 330k in Reihe: 990 kOhm
+ergeben 99 ms Zeitkonstante, die Spannung an den Steckerstiften fällt damit
+in 0,17 s unter 60 V. Die Reihenschaltung verteilt die Netzspannung auf drei
+Körper, je 77 V effektiv. Das
 Gleichtaktfilter aus L300 und C309/C310 sitzt im Steuerzweig direkt vor
 U301, also an der Störquelle; damit sind Netz-Eingang und Schaltausgang
 gleichermaßen abgedeckt. Der Lastpfad trägt kein Filterbauteil.
@@ -459,7 +468,8 @@ zu MCU- und RFID-Board.
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
 | Shunt (Leistungsmessung, R300) | Bourns<br>CRF2010-FZ-R002ELF | 2mOhm ±1%, ±50ppm/°C, 1,5W, 2010, Metallband, therm. EMK <3µV/°C, <5nH | Mouser<br>652-CRF2010FZR002ELF | 0,28 € @25 Stk |
-| Relaistreiber (R312–R318) | *offen* | 0603, 1%: R313/R314 je 47k (Gate-Teiler Q301), R312/R315 je 1k (Gate-Vorwiderstände), R316/R317 je 47k (Gate-Pulldowns Q300 und Q302), R318 47k (Pull-up ISO_EN an U300 Pin 5) | *offen* | ca. 0,07 € · |
+| Entladewiderstand X2 (R305, R310, R321) | *offen* | 3× 330k in Reihe, 0805 — entlädt C300 in 0,17 s unter 60 V; je Widerstand 77 V effektiv und 18 mW. Type mit Grenzspannung ≥ 150 V wählen | *offen* | *offen* |
+| Relaistreiber (R312–R318) | *offen* | 0603, 1%: R313/R314 je 47k (Gate-Teiler Q301), R312/R315 je 1k (Gate-Vorwiderstände), R316/R317 je 47k (Gate-Pulldowns Q300 und Q302), R318 47k (Pull-up ISO_EN an U300 Pin 5), R322 1k (Serienwiderstand des ISO_EN-Tiefpasses) | *offen* | ca. 0,07 € · |
 
 ### Kondensatoren
 
@@ -478,7 +488,7 @@ zu MCU- und RFID-Board.
 |---|---|---|---|---:|
 | Gleichtaktdrossel (EMV, L300) | TE Connectivity Schaffner<br>RN102-1-02-3M0 | Stromkompensierte Drossel, 3,0mH, 1A @40°C, 300VAC, DCR 210mΩ, Hipot 1500VAC/60s, IEC/EN 60938-1 + UL 1283, ENEC/VDE, UL 94 V-0, Körper 10×10×9mm, Rastermaß 4mm, bedrahtet | Digikey<br>817-2084-ND | 1,662 € @10 Stk |
 | Ferrite Isolator (FB303, FB304, FB306, FB307) | Murata<br>BLM15EX331SN1D | 330 Ohm @100MHz, 0402 — Typ vom Isolator-Datenblatt vorgegeben; an VISOOUT→VISOIN, GND2_ISO→GND_ISO sowie in den Zuleitungen VIO und VDD | Digikey<br>490-18371-1-ND | 0,089 € @25 Stk |
-| Ferrite Messabgriffe (FB300–FB302) | Bourns<br>MH2029-601Y | 600 Ohm @100MHz, 0805 — im Abgriff des HV-Teilers und in den beiden Shunt-Sense-Leitungen | Mouser<br>652-MH2029-601Y | 0,05 € @25 Stk |
+| Ferrite Shunt-Sense (FB301, FB302) | Bourns<br>MH2029-601Y | 600 Ohm @100MHz, 0805 — in den beiden Shunt-Sense-Leitungen. FB300 im Abgriff des HV-Teilers ist entfallen: gegen 1 MOhm Serienwiderstand ist ein 600-Ohm-Bead wirkungslos | Mouser<br>652-MH2029-601Y | 0,05 € @25 Stk |
 
 ### Relais & Schutzbeschaltung
 
@@ -491,9 +501,10 @@ zu MCU- und RFID-Board.
 | Polyfuse (K3) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
 | Überspannungsschutz (EMV, RV300) | TDK<br>B72210S0271K101 (SIOV-S10K275) | Metalloxid-Varistor, 275VAC/430V, 2500A Stoßstrom, bedrahtet Ø12,5mm | Digikey<br>495-3786-ND | 0,186 € @25 Stk |
 | Gerätesicherung (F302) | Bel Fuse<br>MRT 500-BULK | 500mA/250VAC träge, IEC 60127-3 Sheet 4, Schmelz-I²t 1,5A²s, ENEC/cULus/CCC, THT radial RM 5,08mm, fest verlötet (Abweichung von S5, siehe Anforderungen.md) | Digikey<br>5923-MRT500-BULK-ND | 0,402 € @10 Stk |
-| Lastausgangssicherung (F301, Einsatz in Halter F300) | Schurter<br>0034.3127 (FST 5x20) | 10A/250V träge | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
+| Sicherungswiderstand Steuerzweig (R323) | Vishay BCcomponents<br>PR01000101009JA500 | 10 Ohm ±5%, 1W/0207 bedrahtet, flammgeschützt UL 94 V-0, definierte Abschaltcharakteristik, U_max 350 V AC/DC. In Reihe vor F302; begrenzt den Fehlerstrom auf 25 A, Verlustleistung im Betrieb rund 0,1 W | Digikey<br>BC4691CT-ND | *offen* |
+| Lastausgangssicherung (F301, Einsatz in Halter F300) | Bel Fuse<br>5HT 10-R | 10A/250V träge, Keramik sandgefüllt, Ausschaltvermögen 1500 A, IEC 60127-2 Blatt 5, Schmelz-I²t 812 A²s @10 I_n. Ersetzt die Glasrohrtype mit 100 A; die VDE-Lizenz der Baureihe deckt nur 1–6,3 A, die 10 A laufen über UL, CSA und CCC | Digikey<br>5923-5HT10-R-ND | *offen* |
 | Sicherungshalter (F300) | Würth<br>WR-FSH 696309001002 | VDE 10A, Berührschutz Shocksafe PC2/IP20, THT stehend | Digikey<br>732-11383-ND | 1,30 € @10 Stk |
-| Ersatzsicherung (im Gehäuse) | Schurter<br>0034.3127 (FST 5x20) | Reserve wie F301, im Gehäuse mitgeführt | Digikey<br>486-1226-ND | 0,414 € @50 Stk |
+| Ersatzsicherung (im Gehäuse) | Bel Fuse<br>5HT 10-R | Reserve wie F301, im Gehäuse mitgeführt | Digikey<br>5923-5HT10-R-ND | *offen* |
 
 ### Steckverbinder & Bedienelemente
 
@@ -671,16 +682,22 @@ Stromabschätzung der 3,3-V-Schiene — Grundlage für die Bemessung oben:
 ### 3. Domänen und Abstände
 
 Betrifft nur das I/O-Board; MCU- und RFID-Board liegen vollständig in SELV
-(0,2 mm durchgehend). Vier Domänen:
+(0,2 mm durchgehend). Sechs Domänen:
 
-- **NETZ** — alles vor/hinter dem Relais auf Netzpotential (beide Pole, PE).
-  PE ist über die Y-Kondensatoren C309/C310 gewollt mit dem Steuerzweig
-  gekoppelt; die Kondensatoren tragen als einzige Bauteile Netzpotential
-  gegen PE und sind deshalb zwingend Y2-Klasse.
+- **L** und **N** — die beiden Netzpole vor und hinter dem Relais, getrennt
+  zu betrachten: gleiches Potential fordert 0,5 mm, gegenüberliegendes
+  3,0 mm. Im Projekt tragen sie die Netzklassen `L` und `N`, zugeordnet über
+  die Muster `/PIN_L*` und `/PIN_N*`. Die Breitenklassen `230V_ext` und
+  `230V_int` liegen orthogonal dazu; jedes Netzleiter-Netz gehört beiden an.
+- **PE** — Schutzleiter. Über die Y-Kondensatoren C309/C310 gewollt mit dem
+  Steuerzweig gekoppelt; die Kondensatoren tragen als einzige Bauteile
+  Netzpotential gegen PE und sind deshalb zwingend Y2-Klasse.
 - **ISO-Insel** — `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, die UART zur Seite 2
   von U300 und der Shunt-Sense. „ISO" heisst isoliert **gegen SELV**, nicht
   berührsicher: die Insel hängt über R300 am Lastpfad und bekommt deshalb
-  keine SELV-Abstände. Einen eigenen Netzzweig führt sie nicht mehr —
+  keine SELV-Abstände. Über den Net-Tie NT300 liegt `GND_ISO` auf
+  N-Potential; daraus folgen 0,5 mm gegen N und 3,0 mm gegen L.
+  Einen eigenen Netzzweig führt sie nicht mehr —
   Versorgung und UART kommen über U300 aus der SELV-Seite.
   `GND2_ISO` ist der Rückweg des isolierten Wandlers, `GND_ISO` die
   Messreferenz am Shunt; ein Ferrit trennt beide innerhalb der Insel.
@@ -695,19 +712,28 @@ Werkstoffgruppe IIIa.
 
 Abstandsmatrix (Luft- **und** Kriechstrecke, Designwerte):
 
-| | NETZ gl. Pol | NETZ Gegenpol | ISO-Insel | SELV | FELD |
-|---|---:|---:|---:|---:|---:|
-| **NETZ gl. Pol** | 0,5 mm | 3,0 mm | 0,5 mm | 8,0 mm | 8,0 mm |
-| **NETZ Gegenpol** | | 0,5 mm | 3,0 mm | 8,0 mm | 8,0 mm |
-| **ISO-Insel** | | | 0,3 mm | 8,0 mm | 8,0 mm |
-| **SELV** | | | | 0,2 mm | 2,0 mm |
+| | L | N | ISO-Insel | SELV | PE | FELD |
+|---|---:|---:|---:|---:|---:|---:|
+| **L** | 0,5 mm | 3,0 mm | 3,0 mm | 8,0 mm | 3,0 mm | 8,0 mm |
+| **N** | | 0,5 mm | 0,5 mm | 8,0 mm | 3,0 mm | 8,0 mm |
+| **ISO-Insel** | | | 0,3 mm | 8,0 mm | 3,0 mm | 8,0 mm |
+| **SELV** | | | | 0,2 mm | 0,2 mm | 2,0 mm |
+| **PE** | | | | | — | 8,0 mm |
+
+Diese Tabelle ist die verbindliche Quelle; der Regelsatz in
+`ECAD/IO_Board/IO_Board.kicad_dru` bildet sie zeilenweise ab — ohne die
+Spalte FELD, die auf dem I/O-Board nicht vorkommt. Die 0,5 mm
+gelten zwischen verschiedenen Netzen desselben Pols — gleiches Netz wird
+nicht geprüft. Eine Ausnahme trägt der Regelsatz: innerhalb von U300 gelten
+0,2 mm, weil die Pads des ISOW7721 über die Barriere nur 7,25 mm auseinander
+liegen und die Isolation vom Bauteil kommt, nicht von der Leiterplatte.
 
 - Die 8,0 mm liegen bewusst über der Norm (3,0 / 5,0 mm) und kommen von den
   Bauteilen: K300 8 mm / 9,5 mm / 4 kVrms, U300 (ISOW7721) > 8 mm Luft- und
   Kriechstrecke mit einem auf 8,1 mm ausgelegten Land Pattern. Nicht auf
   5 mm reduzieren.
 - L300 trennt die beiden Wicklungen bauteilseitig nur über das Rastermaß
-  von 4,0 mm ±0,5. Das erfüllt die 3,0 mm für NETZ Gegenpol, lässt aber
+  von 4,0 mm ±0,5. Das erfüllt die 3,0 mm für L gegen N, lässt aber
   wenig Spielraum — bei einem Typwechsel gegenprüfen.
 - `GND_ISO` und `GND` sind getrennte Flächen; ihre gegenüberliegenden Kanten
   sind die längste Strecke der Barriere und brauchen einen definierten
@@ -753,8 +779,12 @@ aufgeführt.
 | Bauteil | Fehlerart | Auswirkung ohne Maßnahme | Maßnahme |
 |---|---|---|---|
 | C309/C310 (Y2) | Kurzschluss | Netzspannung auf PE → FI löst aus, Gerät und Maschine sind freigeschaltet | Y2-Klasse: für Netz gegen PE zugelassen (IEC 60384-14) und bauartbedingt offen versagend. Keine berührbaren Teile betroffen, da PE geerdet ist |
+| F301 (Lastpfad) | Kurzschluss hinter der Sicherung | Prospektiver Strom mehrere hundert Ampere; über dem Ausschaltvermögen bleibt der Lichtbogen stehen → Brandgefahr | Bel 5HT 10-R, Keramik, **1500 A** bei 250 VAC (IEC 60127-2 Blatt 5). Vorher 100 A |
+| F302 (Steuerzweig) | wie oben, MRT trennt nur bis 35 A | wie oben | **R323 begrenzt auf 25 A.** Sicherungswiderstand mit definierter Abschaltcharakteristik, flammgeschützt, versagt offen |
+| C300 (X2) | Entladekette offen | bis 325 V auf den Steckerstiften | 100 nF an der Ausnahmegrenze, Ladung 5,3 mJ. R305/R310/R321 als zweite Ebene: unter 60 V in 0,17 s |
+| Q301 (High-Side) | Linearbetrieb bei eingebrochener 24 V | Verlustleistung über P_tot 350 mW → Überhitzung | Gate-Teiler stellt V_GS = −V_CC/2, an der Schwelle nur 6 mW. U301 im Hiccup-Modus |
 | U300 (ISOW7721) | Isolationsdurchschlag | Netzpotential auf der SELV-Seite | verstärkte Isolierung (VDE 0884-17, 5 kVrms nach UL 1577) **und** 8 mm Barriere auf der Leiterplatte — zwei unabhängige Ebenen |
-| Relaistreiber | ein Schalter durchlegiert | Relais dauerhaft angezogen, Firmware kann nicht mehr abschalten | **Zwei Schalter in Reihe in der Spule:** High-Side-PMOS (Q301) und Low-Side-NMOS (Q300), an getrennten GPIOs. Ein durchlegierter Schalter lässt sich über den anderen abschalten |
+| Relaistreiber | ein Schalter durchlegiert | Relais dauerhaft angezogen, Firmware kann nicht mehr abschalten | **Zwei Schalter in Reihe in der Spule:** High-Side-PMOS (Q301) und Low-Side-NMOS (Q300), an getrennten GPIOs. Ein durchlegierter Schalter lässt sich über den anderen abschalten. Auf J302 trennt GND die beiden Enables, eine Lötbrücke hebt die Verriegelung nicht auf |
 | Relaistreiber | beide Schalter durchlegiert | wie oben | Doppelfehler, nicht abgedeckt — Erkennung über die Lastmessung |
 | K300 | Kontakt verschweisst | Schaltausgang bleibt aktiv | Lastmessung als Plausibilitätsprüfung: Strom bei kommandiertem AUS ist ein Fehler. Abschalten nicht möglich, siehe unten |
 | Gate-Pulldown/Pull-up | offen | Gate floatet bei Reset/Boot, Relaiszustand undefiniert | Pulldown R316 an Q300 und R317 an Q302, Pull-up R313 an Q301, alle nahe am Gate; Prüfpunkt im Abnahmetest |

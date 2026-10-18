@@ -253,7 +253,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": "V1.0"
+      "sch_revision": "V1.1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -741,6 +741,9 @@
         "24V",
         "Signals"
       ],
+      "Net-(F302-Pad1)": [
+        "230V_int"
+      ],
       "Net-(F302-Pad2)": [
         "230V_int"
       ],
@@ -777,6 +780,15 @@
       ],
       "Net-(R303-Pad2)": [
         "230V_ext"
+      ],
+      "Net-(R305-Pad2)": [
+        "230V_ext"
+      ],
+      "Net-(R310-Pad2)": [
+        "230V_ext"
+      ],
+      "Net-(U300-EN)": [
+        "Signals"
       ],
       "Net-(U302-AVDD)": [
         "ISO_signals"
@@ -822,6 +834,9 @@
       ],
       "UART_MCU2MCP_ISO": [
         "ISO_signals"
+      ],
+      "unconnected-(J302-Pin_2-Pad2)": [
+        "Signals"
       ],
       "unconnected-(U300-CC-Pad8)": [
         "Signals"
@@ -1309,7 +1324,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-308,C311-328,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-357,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-320",
+    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-308,C311-329,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-358,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-323",
     "variants": []
   },
   "sheets": [
