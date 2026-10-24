@@ -6624,230 +6624,6 @@
 			)
 		)
 	)
-	(footprint "Resistor_SMD:R_2010_5025Metric"
-		(layer "F.Cu")
-		(uuid "6c077a03-87c8-462c-969e-d702f9d939f4")
-		(at 97.917 112.573)
-		(descr "Resistor SMD 2010 (5025 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
-		(tags "resistor")
-		(property "Reference" "R300"
-			(at 0 -2.28 0)
-			(layer "F.SilkS")
-			(uuid "c40889f1-5258-4729-b244-93fae20e0626")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "2mR"
-			(at 0 2.28 0)
-			(layer "F.Fab")
-			(uuid "da4cb7c5-6cce-4b49-ae02-5e086fb034e2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.mouser.com/catalog/specsheets/Bourns_6-27-2025_CRF_Datasheet.pdf"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5e667838-35ed-4b4e-9a4c-1f6b40eb5799")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4dc1a326-d593-4e13-aa15-c78d48e6ea8c")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Bourns Inc."
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "29f2b989-231b-4bb1-8f5c-7d1065122639")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "CRF2010-FZ-R002ELF"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d3b64f4b-4474-498b-beb1-7a8b89d2561e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "de064f92-10df-49c2-af3b-ed48d64304c2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" "652-CRF2010FZR002ELF"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "105c78d7-90e0-4100-b435-ce0deaf596d6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8a8847cb-3b31-43ff-a1a4-8b0257aa980b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "118-CRF2010-FZ-R002ELFCT-ND"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "47db0fab-d450-4351-81a6-89e5a2955ff6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "R_*")
-		(path "/0b69d95c-f663-4e3c-8957-959b5b58b265")
-		(sheetname "/")
-		(sheetfile "IO_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -1.527064 -1.36)
-			(end 1.527064 -1.36)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5001e747-5de1-48f1-acc9-bfc5fe241c63")
-		)
-		(fp_line
-			(start -1.527064 1.36)
-			(end 1.527064 1.36)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "3dcf97df-747a-4d00-8388-de6308de8f9a")
-		)
-		(fp_rect
-			(start -3.18 -1.58)
-			(end 3.18 1.58)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "fa13fb4b-5075-4bcd-ade0-51bc39cfab72")
-		)
-		(fp_rect
-			(start -2.5 -1.25)
-			(end 2.5 1.25)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "44b6eed6-f4fb-4e17-b868-73598c66a956")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(uuid "117f0839-27fa-46fe-a70e-47544f1a2063")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -2.3125 0)
-			(size 1.225 2.65)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.204082)
-			(net "/PIN_N")
-			(pintype "passive")
-			(uuid "aa713ad5-0482-4673-8de0-f1cdf64719ba")
-		)
-		(pad "2" smd roundrect
-			(at 2.3125 0)
-			(size 1.225 2.65)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.204082)
-			(net "/PIN_N_SHUNT")
-			(pintype "passive")
-			(uuid "b72457ff-084e-4a65-ba56-9d5262434511")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_2010_5025Metric.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "6cae2cab-4cef-4af0-8feb-64ffd7769f5d")
@@ -15253,6 +15029,234 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "aa_MyParts:R_2512_CSI2H-2512K-2L00G"
+		(layer "F.Cu")
+		(uuid "b938b7c1-6459-48d6-a28a-7c92d61349c7")
+		(at 99.755 116.2)
+		(descr "Resistor SMD 2512 (6332 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "resistor")
+		(property "Reference" "R300"
+			(at 0 -2.63 0)
+			(layer "F.SilkS")
+			(uuid "3e0c4602-2036-40cc-9e61-71ba6bdc501e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "2mR"
+			(at 0 2.63 0)
+			(layer "F.Fab")
+			(uuid "5d08d3b8-5650-47b2-ad48-659e2af06d6a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.com/catalog/specsheets/Bourns_11152023_CSI2H-2512_Datasheet.pdf?_gl=1*f4tsx1*_gcl_au*MTQ0ODQ4Nzc3OS4xNzg1MDYwNjMzLjEzNDA3NTc3NzMuMTc5MjgzMTQ2Ni4xNzkyODMyNTQ4LjEzOTIzMTc2NjQuMTc5MjgzMTQ2Ni4xNzkyODMyNTQ4*_ga*NTkzNzgzMTMxLjE3ODUwNjA2MzM.*_ga_15W4STQT4T*czE3OTI4MzE0MjkkbzIyJGcxJHQxNzkyODMyNzA3JGo2MCRsMCRoMA.."
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f1bf8341-c2e5-4a7a-8568-fad7af5a9233")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a4653d22-1fe6-478e-bbdc-ba1f7a605cd5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Bourns Inc."
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f324d426-72c9-4cc6-85f1-d2e43f89ee69")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CSI2H-2512K-2L00G"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5e26263d-70af-48d2-b19f-88b7bb1bc806")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "826fe2c8-b881-4549-9834-1c3fe05fa734")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "652-CSI2H-2512K2L00G"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "97387e85-3433-42c7-8279-cdaf1a0c7b11")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0f155bce-4be9-49f0-971c-86ec9585d82a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "118-CSI2H-2512K-2L00GETR-ND"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ed1daae6-972a-4086-a9f1-f9ba5ca52882")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "R_*")
+		(path "/d63d7baa-a1e1-4f50-8513-bf6bbb07d7a4")
+		(sheetname "/")
+		(sheetfile "IO_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -2.177064 -1.71)
+			(end 2.177064 -1.71)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "7578615c-8e1d-4c13-8af8-65ec2f8077d3")
+		)
+		(fp_line
+			(start -2.177064 1.71)
+			(end 2.177064 1.71)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "46d2f9d2-cde2-4281-a521-6f88051886e7")
+		)
+		(fp_rect
+			(start -3.83 -1.93)
+			(end 3.83 1.93)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "06f5f59b-2520-48db-b8f0-6c3110513fbb")
+		)
+		(fp_rect
+			(start -3.15 -1.6)
+			(end 3.15 1.6)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "90cc47a8-9526-407d-a0f8-21a23b74823e")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "8f522a64-91ec-4c58-8609-5337dff37397")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -2.6 0)
+			(size 1.8 3.4)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0)
+			(chamfer_ratio 0.2)
+			(chamfer top_right bottom_right)
+			(net "/PIN_N_SHUNT")
+			(pintype "passive")
+			(uuid "32e79711-115a-40e6-8036-585704757150")
+		)
+		(pad "2" smd roundrect
+			(at 2.6 0)
+			(size 1.8 3.4)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0)
+			(chamfer_ratio 0.2)
+			(chamfer top_left bottom_left)
+			(net "/PIN_N")
+			(pintype "passive")
+			(uuid "70590ded-afb1-4f3b-8f89-eb498ee39edc")
+		)
+		(embedded_fonts no)
+		(model "/Users/marius/Github/MyCSLib/3D_Models/Res/R_CSI2H-2512.stp"
+			(offset
+				(xyz -3.2 -1.5 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -0)
 			)
 		)
 	)

@@ -467,7 +467,7 @@ zu MCU- und RFID-Board.
 
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
-| Shunt (Leistungsmessung, R300) | Bourns<br>CRF2010-FZ-R002ELF | 2mOhm ±1%, ±50ppm/°C, 1,5W, 2010, Metallband, therm. EMK <3µV/°C, <5nH | Mouser<br>652-CRF2010FZR002ELF | 0,28 € @25 Stk |
+| Shunt (Leistungsmessung, R300) | Bourns<br>CSI2H-2512K-2L00G | 2mOhm ±2%, ±75ppm/°C, 5W @70°C, 2512, Metallband, pulsfest. Bei Digi-Key nicht erhältlich (MOQ 1000, Bestand 0) — Single Source Mouser | Mouser<br>652-CSI2H-2512K2L00G | 0,64 € @25 Stk |
 | Entladewiderstand X2 (R305, R310, R321) | *offen* | 3× 330k in Reihe, 0805 — entlädt C300 in 0,17 s unter 60 V; je Widerstand 77 V effektiv und 18 mW. Type mit Grenzspannung ≥ 150 V wählen | *offen* | *offen* |
 | Relaistreiber (R312–R318) | *offen* | 0603, 1%: R313/R314 je 47k (Gate-Teiler Q301), R312/R315 je 1k (Gate-Vorwiderstände), R316/R317 je 47k (Gate-Pulldowns Q300 und Q302), R318 47k (Pull-up ISO_EN an U300 Pin 5), R322 1k (Serienwiderstand des ISO_EN-Tiefpasses) | *offen* | ca. 0,07 € · |
 
@@ -599,8 +599,8 @@ P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
 | **S:** GND | `GND` | — | — | Massefläche | Stitching ⌀0,3 mm, Raster ≤ 10 mm |
 
 - Lastpfad als Polygon, ohne Lagenwechsel. Untergrenze an unvermeidbaren
-  Engstellen 2,65 mm (ΔT 10 K); Bauteilpads ausgenommen (R300 als 2010
-  schnürt auf ~2,5 mm ein und liegt damit auf der 10-K-Schwelle).
+  Engstellen 2,65 mm (ΔT 10 K); Bauteilpads ausgenommen (R300 als 2512 mit
+  3,4 mm Padbreite schnürt nicht ein).
 - R300 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads.
 - Die Netzklassen im KiCad-Projekt tragen noch keine Breiten und Abstände;
   eine Klasse `3V3` fehlt, `+3V3` hängt derzeit in `Signals`.

@@ -23,7 +23,7 @@
 "L300","1","RN102-1-02-3M0","","","","${EXCLUDE_FROM_POS_FILES}","aa_MyParts:L_RN102_SCN","Mouser","631-RN102-1-02-3M0","Digi-Key","817-2084-ND","TE Connectivity Schaffner","RN102-1-02-3M0"
 "Q300,Q302","2","2N7002NXAKR","","","","${EXCLUDE_FROM_POS_FILES}","Package_TO_SOT_SMD:SOT-23","Mouser","771-2N7002NXAKR","Digi-Key","1727-8643-1-ND","Nexperia USA Inc.","2N7002NXAKR"
 "Q301","1","BSS84AK","","","","${EXCLUDE_FROM_POS_FILES}","Package_TO_SOT_SMD:SOT-23","Mouser","771-BSS84AK215","Digi-Key","1727-1144-1-ND","Nexperia USA Inc.","BSS84AK,215"
-"R300","1","2mR","","","","${EXCLUDE_FROM_POS_FILES}","Resistor_SMD:R_2010_5025Metric","Mouser","652-CRF2010FZR002ELF","Digi-Key","118-CRF2010-FZ-R002ELFCT-ND","Bourns Inc.","CRF2010-FZ-R002ELF"
+"R300","1","2mR","","","","${EXCLUDE_FROM_POS_FILES}","aa_MyParts:R_2512_CSI2H-2512K-2L00G","Mouser","652-CSI2H-2512K2L00G","Digi-Key","118-CSI2H-2512K-2L00GETR-ND","Bourns Inc.","CSI2H-2512K-2L00G"
 "R301,R302,R306,R312,R315,R322","6","1k","","","","${EXCLUDE_FROM_POS_FILES}","Resistor_SMD:R_0603_1608Metric","","","","","",""
 "R303,R304","2","499k","","","","${EXCLUDE_FROM_POS_FILES}","Resistor_SMD:R_2010_5025Metric","","","","","",""
 "R305,R310,R321","3","330k","","","","${EXCLUDE_FROM_POS_FILES}","Resistor_SMD:R_0805_2012Metric","","","","","",""

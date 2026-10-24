@@ -6,8 +6,8 @@
 	(paper "A3")
 	(title_block
 		(title "Schematic I/O Board")
-		(date "2026-10-18")
-		(rev "V1.1")
+		(date "2026-10-24")
+		(rev "V1.2")
 		(company "FREILab Freiburg e.V.")
 		(comment 1 "Marius Tetard")
 	)
@@ -7782,7 +7782,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "aa_MyParts:R_CRF2010-FZ-R002ELF"
+		(symbol "aa_MyParts:R_CSI2H-2512K-2L00G"
 			(pin_numbers
 				(hide yes)
 			)
@@ -7814,7 +7814,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Resistor_SMD:R_2010_5025Metric"
+			(property "Footprint" "aa_MyParts:R_2512_CSI2H-2512K-2L00G"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace no)
@@ -7825,7 +7825,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://www.mouser.com/catalog/specsheets/Bourns_6-27-2025_CRF_Datasheet.pdf"
+			(property "Datasheet" "https://www.mouser.com/catalog/specsheets/Bourns_11152023_CSI2H-2512_Datasheet.pdf?_gl=1*f4tsx1*_gcl_au*MTQ0ODQ4Nzc3OS4xNzg1MDYwNjMzLjEzNDA3NTc3NzMuMTc5MjgzMTQ2Ni4xNzkyODMyNTQ4LjEzOTIzMTc2NjQuMTc5MjgzMTQ2Ni4xNzkyODMyNTQ4*_ga*NTkzNzgzMTMxLjE3ODUwNjA2MzM.*_ga_15W4STQT4T*czE3OTI4MzE0MjkkbzIyJGcxJHQxNzkyODMyNzA3JGo2MCRsMCRoMA.."
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -7858,7 +7858,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "CRF2010-FZ-R002ELF"
+			(property "Manufacturer Part Number" "CSI2H-2512K-2L00G"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -7880,7 +7880,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" "652-CRF2010FZR002ELF"
+			(property "Distributor 1 Order Number" "652-CSI2H-2512K2L00G"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -7902,7 +7902,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "118-CRF2010-FZ-R002ELFCT-ND"
+			(property "Distributor 2 Order Number" "118-CSI2H-2512K-2L00GETR-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -7935,10 +7935,10 @@
 					)
 				)
 			)
-			(symbol "R_CRF2010-FZ-R002ELF_0_1"
+			(symbol "R_CSI2H-2512K-2L00G_0_1"
 				(rectangle
-					(start -1.016 -2.54)
-					(end 1.016 2.54)
+					(start -1.016 2.54)
+					(end 1.016 -2.54)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -7948,7 +7948,7 @@
 					)
 				)
 			)
-			(symbol "R_CRF2010-FZ-R002ELF_1_1"
+			(symbol "R_CSI2H-2512K-2L00G_1_1"
 				(pin passive line
 					(at 0 3.81 270)
 					(length 1.27)
@@ -8994,7 +8994,7 @@
 	)
 	(text "Shunt"
 		(exclude_from_sim no)
-		(at 243.84 238.252 0)
+		(at 245.11 238.252 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9097,6 +9097,12 @@
 		(uuid "313b8585-955c-4cb9-a49e-4c55042c3e41")
 	)
 	(junction
+		(at 241.3 234.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "358b2f3f-2aa8-4d4d-90ec-172ddcaf4f83")
+	)
+	(junction
 		(at 207.01 44.45)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9113,6 +9119,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3ecf6aeb-d9cd-456d-b793-1ead5a2f1e09")
+	)
+	(junction
+		(at 217.17 234.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4083883c-9117-44cb-8108-708a9566ff10")
 	)
 	(junction
 		(at 124.46 133.35)
@@ -9229,12 +9241,6 @@
 		(uuid "829625fe-c698-458e-9b78-c6b18c2bfde0")
 	)
 	(junction
-		(at 247.65 234.95)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "831b3ff1-16c3-483a-a957-ab0e4ba9959e")
-	)
-	(junction
 		(at 363.22 180.34)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9325,12 +9331,6 @@
 		(uuid "c2bcee75-076b-4442-bc38-397871ad5840")
 	)
 	(junction
-		(at 240.03 234.95)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cc3fafed-743b-4a18-8fc1-ecd85794ebaf")
-	)
-	(junction
 		(at 323.85 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9415,12 +9415,6 @@
 		(uuid "f17044e6-4b79-4d8c-b2b5-e7b64e554636")
 	)
 	(junction
-		(at 217.17 234.95)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f1a9e139-7ee8-4a8c-8dbe-21e1ebd7d1c0")
-	)
-	(junction
 		(at 210.82 222.25)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9437,6 +9431,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f4b4ccdb-9491-44f6-bac7-6e84832349a7")
+	)
+	(junction
+		(at 248.92 234.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f5483a4f-02c1-47b2-acca-002725bab4b2")
 	)
 	(no_connect
 		(at 297.18 156.21)
@@ -9829,7 +9829,17 @@
 	)
 	(wire
 		(pts
-			(xy 217.17 234.95) (xy 240.03 234.95)
+			(xy 251.46 232.41) (xy 248.92 234.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cbdd356-40d0-48f8-8a30-1cfd9efc8ccf")
+	)
+	(wire
+		(pts
+			(xy 217.17 234.95) (xy 241.3 234.95)
 		)
 		(stroke
 			(width 0)
@@ -9859,16 +9869,6 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 234.95) (xy 237.49 232.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1ea82156-aaa5-40bd-a58e-3f048f4dc7b1")
-	)
-	(wire
-		(pts
 			(xy 358.14 139.7) (xy 361.95 139.7)
 		)
 		(stroke
@@ -9886,16 +9886,6 @@
 			(type default)
 		)
 		(uuid "217350cf-3414-4edd-bded-ebddddf83590")
-	)
-	(wire
-		(pts
-			(xy 250.19 232.41) (xy 255.27 232.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21f8a26c-c0b6-455d-9c3d-f7b71d15f0cf")
 	)
 	(wire
 		(pts
@@ -10671,16 +10661,6 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 234.95) (xy 250.19 232.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6ac5a3ff-0dba-4034-8c83-a86b32dd3ea0")
-	)
-	(wire
-		(pts
 			(xy 148.59 128.27) (xy 148.59 151.13)
 		)
 		(stroke
@@ -10781,7 +10761,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 232.41) (xy 237.49 232.41)
+			(xy 233.68 232.41) (xy 238.76 232.41)
 		)
 		(stroke
 			(width 0)
@@ -10798,6 +10778,16 @@
 			(type default)
 		)
 		(uuid "727fe6ee-b599-4eee-aa84-9dff05ba4d9e")
+	)
+	(wire
+		(pts
+			(xy 238.76 232.41) (xy 241.3 234.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "741912bb-44a1-4d8e-9c65-840097d851a6")
 	)
 	(wire
 		(pts
@@ -11201,16 +11191,6 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 234.95) (xy 280.67 234.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a24d526c-d511-455a-8d83-ebc213626b84")
-	)
-	(wire
-		(pts
 			(xy 259.08 162.56) (xy 233.68 162.56)
 		)
 		(stroke
@@ -11418,6 +11398,16 @@
 			(type default)
 		)
 		(uuid "b7cecc97-4333-468f-ac29-ac7a41e94939")
+	)
+	(wire
+		(pts
+			(xy 248.92 234.95) (xy 280.67 234.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b802afce-e7c3-4941-84be-4f413d0274e9")
 	)
 	(wire
 		(pts
@@ -12041,6 +12031,16 @@
 			(type default)
 		)
 		(uuid "f3a338ea-1d3b-4cd3-a83d-64f32d39c7b6")
+	)
+	(wire
+		(pts
+			(xy 251.46 232.41) (xy 255.27 232.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8561c2e-5f82-4016-898d-3514ebd34394")
 	)
 	(wire
 		(pts
@@ -12714,7 +12714,7 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 86.36 92.71 0)
+		(at 189.23 200.66 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12724,7 +12724,7 @@
 		)
 		(uuid "090df928-893b-4762-b82b-09dc779760aa")
 		(property "Netclass" "ISO_signals"
-			(at 87.0585 90.17 0)
+			(at 189.9285 198.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12735,7 +12735,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at -82.55 -36.83 0)
+			(at 20.32 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13881,152 +13881,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "RV300")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "aa_MyParts:R_CRF2010-FZ-R002ELF")
-		(at 243.84 234.95 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0b69d95c-f663-4e3c-8957-959b5b58b265")
-		(property "Reference" "R300"
-			(at 243.84 228.6 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "2mR"
-			(at 243.84 231.14 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_2010_5025Metric"
-			(at 243.84 236.728 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.mouser.com/catalog/specsheets/Bourns_6-27-2025_CRF_Datasheet.pdf"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Bourns Inc."
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "CRF2010-FZ-R002ELF"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" "652-CRF2010FZR002ELF"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "118-CRF2010-FZ-R002ELFCT-ND"
-			(at 243.84 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1705418c-efcc-44fe-87a3-496f0cf0d093")
-		)
-		(pin "2"
-			(uuid "f1e67d67-fe36-4b62-91dc-87a7451dcb3f")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R300")
 					(unit 1)
 				)
 			)
@@ -25218,6 +25072,152 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "Q301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "aa_MyParts:R_CSI2H-2512K-2L00G")
+		(at 245.11 234.95 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d63d7baa-a1e1-4f50-8513-bf6bbb07d7a4")
+		(property "Reference" "R300"
+			(at 245.11 227.33 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2mR"
+			(at 245.11 229.87 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "aa_MyParts:R_2512_CSI2H-2512K-2L00G"
+			(at 245.11 233.172 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.com/catalog/specsheets/Bourns_11152023_CSI2H-2512_Datasheet.pdf?_gl=1*f4tsx1*_gcl_au*MTQ0ODQ4Nzc3OS4xNzg1MDYwNjMzLjEzNDA3NTc3NzMuMTc5MjgzMTQ2Ni4xNzkyODMyNTQ4LjEzOTIzMTc2NjQuMTc5MjgzMTQ2Ni4xNzkyODMyNTQ4*_ga*NTkzNzgzMTMxLjE3ODUwNjA2MzM.*_ga_15W4STQT4T*czE3OTI4MzE0MjkkbzIyJGcxJHQxNzkyODMyNzA3JGo2MCRsMCRoMA.."
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Bourns Inc."
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CSI2H-2512K-2L00G"
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "652-CSI2H-2512K2L00G"
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "118-CSI2H-2512K-2L00GETR-ND"
+			(at 245.11 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "c50cf4ea-5619-48d3-84c3-0a9c275b63e7")
+		)
+		(pin "1"
+			(uuid "8d8fdec9-484e-4fb7-883e-3d1401252823")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R300")
 					(unit 1)
 				)
 			)
