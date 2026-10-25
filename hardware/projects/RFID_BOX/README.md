@@ -46,6 +46,10 @@ sind von aussen sichtbar und durch eine Plexiglasscheibe geschützt; der
 LED-Ring selbst sitzt dabei innerhalb des Gehäuses. Der Stopp-Knopf ist von
 aussen erreichbar.
 
+Das Display sitzt nicht auf dem RFID-Board, sondern in einem eigenen
+3D-gedruckten Träger, der von innen hinter die Plexiglasscheibe geklippt wird.
+Die Verbindung zum RFID-Board läuft über das FPC des Displays.
+
 Alle Kabel werden einseitig über Kabeldurchführungen ins Gehäuse geführt, von
 links nach rechts:
 
@@ -518,9 +522,36 @@ zu MCU- und RFID-Board.
 
 | Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
 |---|---|---|---|---:|
-| OLED | Displaytech<br>DT010ATFT | 1" IPS-LCD mit integriertem Controller, I2C-Ansteuerung | Mouser<br>758-DT010ATFT | 10,92 € @10 Stk |
+| Display (bisher) | Displaytech<br>DT010ATFT | 0,96" IPS-LCD, ST7735S, 80×160 px, 4-Line SPI, aktive Fläche 10,8 × 21,7 mm, Modul 13,5 × 27,95 × 1,4 mm | Mouser<br>758-DT010ATFT | 10,92 € @10 Stk |
+| Display (vorgemerkt) | EastRising<br>ER-TFT020-3 | 2" IPS-LCD, ST7789V2, 240×320 px, 4-Wire SPI, aktive Fläche 30,6 × 40,8 mm, Modul 34,6 × 47,8 × 2,05 mm. Nacktes Panel ohne Breakout, Anschluss über steckbares FPC, 14-pol im 0,5-mm-Raster | [buydisplay](https://www.buydisplay.com/2-inch-240x320-ips-tft-lcd-display-with-connector-fpc) | 4,36 $ @1 Stk |
 | LED-Ring | Inolux<br>IN-PI20TATPRPGPB | 12x, 2020-Gehäuse, adressierbar über Single-Wire-Protokoll (WS2812B-kompatibel) | Digikey<br>1830-IN-PI20TATPRPGPBCT-ND | 0,2225 € @100 Stk |
 | Buzzer | TDK<br>PS1240P02BT | Piezo-Buzzer ohne Oszillator, Pin-Terminal (THT), externe Ansteuerung (Resonanz ~4kHz) | Digikey<br>445-2525-1-ND | 0,3844 € @25 Stk |
+
+**Display vorgemerkt:** ER-TFT020-3 statt DT010ATFT — 5,3-fache aktive Fläche
+beim gleichen Bustyp. Montage über einen eigenen Träger, siehe
+[Aufbau](#aufbau). Das FPC trägt 14 Signale: `VDD`, `IOVDD`, 3× `GND`,
+`LED+`/`LED-`, `/RESET`, `RS`, `SDA`, `SCK`, `CS`, 2× `NC` — kein Rückkanal,
+das Display wird nur geschrieben. Das Backlight hängt direkt an `LED+`/`LED-`
+und braucht eine eigene Strombegrenzung. Offen: Backlight-Strom für die
+[Lastbilanz](#power-distribution) (dort stehen 30 mA für das DT010ATFT).
+Preis vom 2026-10-24, Direktbezug buydisplay ohne Zoll und
+Einfuhrumsatzsteuer.
+
+Maße aus der Fertigungszeichnung, für den Träger und den Scheibenausschnitt:
+
+| Maß | Wert |
+|---|---|
+| Modul (BL) | 34,6 ±0,2 × 47,8 ±0,2 × 2,05 ±0,1 mm |
+| TFT-Glas | 33,6 ±0,15 × 46,6 ±0,2 mm |
+| Polarisator | 32,22 ±0,2 × 43,2 ±0,2 mm |
+| Aktive Fläche | 30,6 × 40,8 mm |
+| Rand bis aktive Fläche | links/rechts je 2,0 ±0,3 mm, oben 1,8 ±0,3 mm, **unten 5,2 mm** |
+| FPC | mittig, 7,5 mm breit, 36,75 mm lang ab Modulkante, 0,3 ±0,03 mm dick |
+| FPC-Ende | Versteifung 5 ±0,2 mm, Kontaktzone 3 ±0,1 mm, Pin 14 links / Pin 1 rechts |
+
+Die aktive Fläche sitzt **nicht mittig**: unten bleiben 5,2 mm für den
+Treiberbereich. Scheibenausschnitt und Trägerfenster danach ausrichten, nicht
+nach der Modulmitte.
 
 ### Sonstige
 
@@ -768,6 +799,13 @@ liegen und die Isolation vom Bauteil kommt, nicht von der Leiterplatte.
   vorsehen, damit sich Zweige zur Inbetriebnahme einzeln zuschalten lassen.
 - **Testpunkte** für die Inbetriebnahme vorsehen. In der Netzdomäne und auf
   der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
+- **Display-Träger** zeichnen: Aufnahme für das ER-TFT020-3
+  (34,6 × 47,8 × 2,0 mm), Fenster für die aktive Fläche (30,6 × 40,8 mm),
+  Klipps ins Gehäuseoberteil, Durchführung für das FPC zum RFID-Board. Dazu
+  auf dem RFID-Board ein ZIF-Steckverbinder, 14-pol, 0,5-mm-Raster. Das
+  3D-Modell in `MyCSLib/3D_Models/LCD/` ist die `-2`; Körper identisch, aber
+  deren FPC ist kürzer als die 36,75 mm der `-3`. Kabelweg nach der
+  Zeichnung auslegen, nicht nach dem Modell.
 
 ## FMEA
 
