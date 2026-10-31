@@ -16,7 +16,7 @@
 >   werden gegen die [FMEA](#fmea) geprüft, bevor sie ins Layout gehen.
 > - **Beim geöffneten Gerät ist nichts Netzführendes berührbar.** Feste
 >   Abdeckplatten über dem I/O-Board geben nur die Feldterminals und den
->   Sicherungshalter frei. MCU- und RFID-Board führen kein 230 V und dürfen
+>   Sicherungshalter frei. Das RFID-Board führt kein 230 V und darf
 >   angefasst werden. Siehe [Aufbau](#aufbau).
 >
 > Die Auslegung dazu steht in
@@ -46,7 +46,7 @@ sind von aussen sichtbar und durch eine Plexiglasscheibe geschützt; der
 LED-Ring selbst sitzt dabei innerhalb des Gehäuses. Der Stopp-Knopf ist von
 aussen erreichbar.
 
-Das Display sitzt nicht auf dem RFID-Board, sondern in einem eigenen
+Das Display sitzt nicht auf der Platine, sondern in einem eigenen
 3D-gedruckten Träger, der von innen hinter die Plexiglasscheibe geklippt wird.
 Die Verbindung zum RFID-Board läuft über das FPC des Displays.
 
@@ -75,7 +75,7 @@ Netz hängt. Deshalb:
   Shocksafe PC2/IP20). Alles andere Netzführende bleibt abgedeckt.
 - Die Platten sind kein Deckel, der beim Öffnen mitkommt: sie bleiben am
   Board bzw. am Gehäuseunterteil und lassen sich nur mit Werkzeug lösen.
-- **MCU- und RFID-Board führen kein 230 V** und dürfen im geöffneten Zustand
+- **Das RFID-Board führt kein 230 V** und darf im geöffneten Zustand
   berührt werden. Das ist eine bindende Randbedingung, keine Momentaufnahme
   — es darf kein netzführendes Netz auf diese Boards wandern.
 
@@ -90,12 +90,13 @@ bemessen, als wäre kein Lack vorhanden.
 
 ## Elektronik
 
-Das Gerät ist als Platinenstack aufgebaut:
+Das Gerät ist als Platinenstack aus **zwei** Leiterplatten aufgebaut:
 
-- **Oberste PCB (RFID-Board):** RFID-Antenne, ggf. Display und LED-Ring.
-- **Mittlere PCB (MCU-Board):** Mikrocontroller (ESP32), Buzzer und
-  Peripherie.
-- **Unterste PCB (I/O-Board):** 230-V-Netz und Schaltausgang, dazu die
+- **Obere PCB (RFID-Board):** Mikrocontroller (ESP32), Buzzer und
+  Peripherie, dazu NFC-Controller und RFID-Antenne, ggf. Display und
+  LED-Ring. RFID- und MCU-Teil lagen früher getrennt und sind
+  zusammengelegt.
+- **Untere PCB (I/O-Board):** 230-V-Netz und Schaltausgang, dazu die
   Extension-Header für das E-Stop Extension Board und das Extension Board.
   Hiervon gibt es **zwei getrennte Boards mit eigenem Layout**, von denen
   pro Gerät genau eines bestückt wird:
@@ -106,11 +107,11 @@ Das Gerät ist als Platinenstack aufgebaut:
     rund 33 € günstiger und ohne Bedarf an 70 µm Kupfer.
 
   Beide haben denselben Formfaktor und denselben Board-to-Board-Stecker zum
-  MCU-Board.
+  RFID-Board.
 
 ## Architektur
 
-Neben dem festen Dreier-Stack (I/O-, MCU-, RFID-Board) gibt es zwei
+Neben dem festen Zweier-Stack (I/O- und RFID-Board) gibt es zwei
 optionale, steckbare Erweiterungsboards, die auf das I/O-Board gesteckt
 werden:
 
@@ -156,32 +157,26 @@ flowchart TB
         
     end
 
-    subgraph MCU["MCU-Board"]
+    subgraph MCU["RFID-Board"]
         direction LR
         ESP[ESP32]
         BUZ[Buzzer]
         STOP[Stopp-Taster]
         USB([USB-C: Erstprogrammierung/Debug])
-
-        ESP ~~~ USB
-        BUZ ~~~ STOP
-
-        ESP --- USB
-    end
-
-    subgraph RFID["RFID-Board"]
-        direction LR
-        NFC[NFC-Controller PN532]
+        NFC[NFC-Controller CLRC663]
         ANT[RFID-Antenne]
         DISP["Display (ggf.)"]
         RING["LED-Ring (ggf.)"]
 
-        NFC --- ANT
-
+        ESP ~~~ USB
+        BUZ ~~~ STOP
+        NFC ~~~ DISP
         DISP ~~~ RING
+
+        ESP --- USB
+        NFC --- ANT
     end
 
-    RFID --- MCU
     MCU --- IO
 
     classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
@@ -216,7 +211,7 @@ und teilt sich dort in zwei Pfade:
   Gleichtaktdrossel (L300) → Y-Kondensatorpaar (C309, C310, Mittelabgriff
   an PE) → isoliertes AC/DC-Wandlermodul Mean Well IRM-10-24 (U301, 24 V,
   isoliert) → Regler auf 5 V (U306, Modul mit Unterspannungs- und
-  Kurzschlussschutz) → 3,3 V auf dem MCU-Board für ESP32 und
+  Kurzschlussschutz) → 3,3 V auf dem RFID-Board für ESP32 und
   NFC-Controller. Die 24-V-Schiene aus dem IRM-10-24 versorgt zusätzlich
   die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V.
 - **ISO-Insel:** Die Lastmessung liegt auf Netzpotential. Versorgung und
@@ -385,7 +380,7 @@ hinüber.
 ```mermaid
 flowchart TB
     Antenne([RFID-Antenne])
-    NFC["NFC-Controller PN532<br/>[3V3]"]
+    NFC["NFC-Controller CLRC663<br/>[3V3]"]
     ESP["ESP32<br/>[3V3]"]
     STOP["Stopp-Taster<br/>[3V3]"]
     TREIBER["Relaistreiber<br/>Low-Side NMOS + High-Side PMOS<br/>Gate [3V3] / Spule [24V]"]
@@ -448,7 +443,7 @@ K300, U302, R300, der Digitalisolator U300 mit seinen Ferriten und
 Abblockkondensatoren sowie F301 mit Halter F300 und Ersatzsicherung —
 zusammen rund 40 €. Nur auf dem **I/O-Board 24V** sitzen K2 und seine Polyfuse,
 zusammen rund 2 €. Alles Übrige ist auf beiden Boards identisch oder gehört
-zu MCU- und RFID-Board.
+zum RFID-Board.
 
 ### ICs & Module
 
@@ -456,7 +451,7 @@ zu MCU- und RFID-Board.
 |---|---|---|---|---:|
 | Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | MCU-Modul mit WLAN/BLE, 16MB Flash, 8MB PSRAM | Mouser<br>356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
 | Leistungsmessung (U302) | Microchip<br>MCP39F511A-E/MQ | AC/DC-Energiemess-IC, UART-Schnittstelle, 28-QFN | Digikey<br>MCP39F511A-E/MQ-ND | 2,5684 € @25 Stk |
-| RFID-Controller | NXP<br>PN5321A3HN/C106 | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle | Mouser<br>771-PN5321A3HN10 | 11,25 € @1 Stk |
+| RFID-Controller | NXP<br>CLRC66303HNY | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle, HVQFN-32 | Mouser<br>771-CLRC66303HNY | ~8,70 € @1 Stk |
 | AC/DC-Wandler 24V (Steuerpfad, U301) | Mean Well<br>IRM-10-24 | 10W isoliert, 24V/0,42A, 4,2kVac I/P-O/P, Isolationsklasse II, PCB-Mount | Digikey<br>1866-3030-ND | 5,650 € @25 Stk |
 | Regler 5V (Steuerpfad, U306) | RECOM<br>R-78K5.0-2.0 | DC/DC-Wandler 24V→5V, 2A, SIP3/TO-220-kompatibel | Digikey<br>945-R-78K5.0-2.0-ND | 4,71 € @25 Stk |
 | 3V3-Regler (nicht isoliert, ESP32/NFC) | Diodes<br>AP2114H-3.3TRG1 | LDO 3,3V/1A, SOT-223-3, Ruhestrom 65µA, Dropout 450mV @1A, PSRR 65dB, Fold-back-Strombegrenzung, θJA 128°C/W | Digikey<br>AP2114H-3.3TRG1DICT-ND | 0,1652 € @25 Stk |
@@ -574,8 +569,7 @@ ein grober erster Anhaltspunkt.
 |---|---|---|
 | I/O-Board 230V | 2 | **70 µm (2 oz)** |
 | I/O-Board 24V | 2 | 35 µm |
-| MCU-Board | **4** | 35 µm außen, 17,5 µm innen |
-| RFID-Board | 2 | 35 µm |
+| RFID-Board | **4** | 35 µm außen, 17,5 µm innen |
 
 Nur das I/O-Board 230V braucht 70 µm: dort läuft der 8-A-Lastpfad. Auf dem
 I/O-Board 24V fliesst nur der Eigenverbrauch des Geräts.
@@ -660,7 +654,7 @@ C300 bleiben am Eingang. **F:** = Feldseite, extern gespeist.
 - Der Relaistreiber ist wie beim I/O-Board 230V redundant aus Q300 und Q301
   aufgebaut, nur mit der kleineren Spule von K2.
 
-#### 2.3 MCU-Board — 4 Lagen, 35 µm außen / 17,5 µm innen
+#### 2.3 RFID-Board — 4 Lagen, 35 µm außen / 17,5 µm innen
 
 Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
 **L3** Flächen `+3V3` / `+5V` · **L4** Signal + Stack-Stecker.
@@ -668,51 +662,43 @@ Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
 | Klasse | Netze | Bemessung | Rechnerisch (L1/L4) | Breite | Vias |
 |---|---|---|---:|---:|---|
 | 5 V | `+5V` (LED-Ring, Buzzer, Weitergabe) | ≤ 2 A | 1,19 mm | **1,3 mm** | **2 × ⌀0,6 mm** |
-| 3,3 V | `+3V3` (ESP32-S3, OLED, PN532 über Stack, U300) | ~285 mA Mittel, ~630 mA Spitze | 0,46 mm | **0,5 mm** | **2 × ⌀0,3 mm** |
+| 3,3 V | `+3V3` (ESP32-S3, OLED, CLRC663, U300) | ~285 mA Mittel, ~630 mA Spitze | 0,46 mm | **0,5 mm** | **2 × ⌀0,3 mm** |
+| Antennentreiber | TX1/TX2 → Matching → Antenne | HF, ~200 mA | — | **≥ 0,8 mm**, symmetrisch | **keine** |
+| Antennenschleife | — | HF | — | **1,0 mm**, 0,5 mm Abstand | **keine** |
 | LED-Daten | Single-Wire nach 74AHCT125, 5 V | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
-| Signale | SPI, I2C, UART, GPIO, Stopp-Taster | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
+| Signale | SPI, I2C, UART, GPIO, Stopp-Taster, IRQ/RST | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
 | USB D+/D− | Service-Buchse J4 | Full Speed | impedanzbestimmt | **0,25 mm**, eng gekoppelt | **keine** im Paar |
-| GND | `GND` | — | — | durchgehende Lage L2 | Stitching ⌀0,3 mm, ≤ 5 mm am Modulrand |
+| GND | `GND` | — | — | durchgehende Lage L2, **unter der Antenne ausgespart** | Stitching ⌀0,3 mm, ≤ 5 mm am Modulrand, nicht unter der Antenne |
 
 - Strom auf L2/L3 nur als Fläche, nie als Bahn (2 A bräuchten dort 6,2 mm).
-- L2 nicht aufschneiden; Signalwechsel L1↔L4 mit GND-Via daneben.
-- Antennen-Keepout des WROOM-Moduls gilt auf **allen vier** Lagen.
+- L2 nicht aufschneiden — **außer unter der Antenne**, dort muss die Fläche
+  auf allen vier Lagen weg. Signale dürfen die Aussparung nicht queren.
+- **Zwei Keepouts auf allen vier Lagen:** der des WROOM-Moduls und die
+  80 × 50 mm der RFID-Antenne.
+- TX1/TX2 symmetrisch und gleich lang, Matching dicht am CLRC663, keine Vias
+  im TX-Pfad.
+- Antennenabstimmung gilt erst am vollständigen Stack — unter der Antenne
+  liegt in einigen Zentimetern Abstand das I/O-Board.
 - **Kupferfläche am Tab des 3V3-Reglers**, mindestens 100 mm². Der Tab liegt
   auf VOUT, die Fläche ist also die 3,3-V-Fläche. Ohne sie erreicht die
   Sperrschicht bei Lastspitzen die Abschaltschwelle.
+- USB ist Full Speed, keine Impedanzkontrolle nötig: symmetrisch, < 50 mm,
+  durchgehend über L2, keine Stubs.
 
 Stromabschätzung der 3,3-V-Schiene — Grundlage für die Bemessung oben:
 
 | Verbraucher | Mittel | Spitze | Grundlage |
 |---|---:|---:|---|
 | ESP32-S3-WROOM-1 | 120 mA | 400 mA | Schätzung, WLAN assoziiert / TX-Burst |
-| PN5321 inkl. Antennentreiber | 80 mA | 120 mA | Schätzung, hängt an der Antennengüte |
+| CLRC663 inkl. Antennentreiber | 80 mA | 120 mA | Schätzung, hängt an der Antennengüte |
 | OLED inkl. Backlight | 30 mA | 30 mA | Schätzung |
 | ISOW7721 (U300) | 44 mA | 67 mA | Datenblatt 5.10, interpoliert für 17 mA Insellast |
 | Pull-ups, Sonstiges | 10 mA | 10 mA | Schätzung |
 | **Summe** | **~285 mA** | **~630 mA** | |
-- USB ist Full Speed, keine Impedanzkontrolle nötig: symmetrisch, < 50 mm,
-  durchgehend über L2, keine Stubs.
-
-#### 2.4 RFID-Board — 2 Lagen, 35 µm
-
-| Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
-|---|---|---|---:|---:|---|
-| 3,3 V | `+3V3` (PN5321) | ≤ 300 mA | 0,09 mm | **0,5 mm** | **1 × ⌀0,6 mm** |
-| Antennentreiber | TX1/TX2 → Matching → Antenne | HF, ~200 mA | — | **≥ 0,8 mm**, symmetrisch | **keine**; unvermeidbar: 2 × ⌀0,6 mm parallel |
-| Antennenschleife | — | HF | — | nach Antennenauslegung, typ. 0,5–1,5 mm | **keine** |
-| Signale | SPI zum Stack, IRQ, RST | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
-| GND | `GND` | — | — | Massefläche, **unter der Antenne ausgespart** | Stitching ⌀0,3 mm, nicht unter der Antenne |
-
-- Kein Kupfer unter der Antennenschleife, auf beiden Lagen.
-- TX1/TX2 symmetrisch und gleich lang, Matching dicht am PN5321, keine Vias
-  im TX-Pfad.
-- Antennenabstimmung gilt erst am vollständigen Stack — das MCU-Board sitzt
-  direkt darunter.
 
 ### 3. Domänen und Abstände
 
-Betrifft nur das I/O-Board; MCU- und RFID-Board liegen vollständig in SELV
+Betrifft nur das I/O-Board; das RFID-Board liegt vollständig in SELV
 (0,2 mm durchgehend). Sechs Domänen:
 
 - **L** und **N** — die beiden Netzpole vor und hinter dem Relais, getrennt
@@ -733,7 +719,7 @@ Betrifft nur das I/O-Board; MCU- und RFID-Board liegen vollständig in SELV
   `GND2_ISO` ist der Rückweg des isolierten Wandlers, `GND_ISO` die
   Messreferenz am Shunt; ein Ferrit trennt beide innerhalb der Insel.
 - **SELV** — 24 V / 5 V / 3,3 V / alle Logiksignale, Relaistreiber, gesamtes
-  MCU- und RFID-Board.
+  RFID-Board.
 - **FELD** — extern gespeiste Seite der Erweiterungsboards (NAMUR-Kanäle,
   Notaus-Schleife), galvanisch getrennt laut X2 und BR1.
 
@@ -779,7 +765,7 @@ liegen und die Isolation vom Bauteil kommt, nicht von der Leiterplatte.
 - Fräsnuten ≥ 1,0 mm breit, sonst bei Verschmutzungsgrad 2 als überbrückt
   gewertet.
 - Keine Vias in der Barriere — die 8 mm gelten auf beiden Lagen.
-- Die 8 mm gelten auch vertikal gegen die Unterseite des MCU-Boards:
+- Die 8 mm gelten auch vertikal gegen die Unterseite des RFID-Boards:
   entweder Stackhöhe ≥ 8 mm oder Netzzone dort kupferfrei. Randbedingung für
   den Board-to-Board-Stecker.
 - **Kein Kupfer im Umkreis von 4 mm um VISOOUT und GND2 von U300** (Vorgabe
@@ -801,7 +787,7 @@ liegen und die Isolation vom Bauteil kommt, nicht von der Leiterplatte.
   der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
 - **Display-Träger** zeichnen: Aufnahme für das ER-TFT020-3
   (34,6 × 47,8 × 2,0 mm), Fenster für die aktive Fläche (30,6 × 40,8 mm),
-  Klipps ins Gehäuseoberteil, Durchführung für das FPC zum RFID-Board. Dazu
+  Klipps ins Gehäuseoberteil, Durchführung für das FPC zur Platine. Dazu
   auf dem RFID-Board ein ZIF-Steckverbinder, 14-pol, 0,5-mm-Raster. Das
   3D-Modell in `MyCSLib/3D_Models/LCD/` ist die `-2`; Körper identisch, aber
   deren FPC ist kürzer als die 36,75 mm der `-3`. Kabelweg nach der

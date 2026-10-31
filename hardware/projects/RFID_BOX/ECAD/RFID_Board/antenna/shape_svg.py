@@ -41,6 +41,45 @@ def stadium(w, h, tol=0.03):
     return rounded_rect(w, h, min(w, h) / 2, tol)
 
 
+ANCHORS = ("right", "left", "top", "bottom",
+           "top-left", "top-right", "bottom-left", "bottom-right")
+
+
+def set_start(pts, anchor, w, h, r):
+    """Dreht den Pfad so, dass er am gewaehlten Punkt endet.
+
+    KiCoil setzt Pad 1, Pad 2 und die Durchkontaktierung an das Ende des
+    Pfades. Die Himmelsrichtungen gelten fuer die Ansicht in KiCad, y also
+    nach unten. Die Eckvarianten sitzen auf der geraden Kante dort, wo der
+    Eckradius anfaengt — nicht in der Rundung.
+    """
+    along = {"left": -(w / 2 - r), "right": w / 2 - r,
+             "top": -(h / 2 - r), "bottom": h / 2 - r}
+    side, _, pos = anchor.partition("-")
+    if side in ("top", "bottom"):
+        tx = along[pos] if pos else 0.0
+        ty = -h / 2 if side == "top" else h / 2
+    else:
+        tx = -w / 2 if side == "left" else w / 2
+        ty = along[pos] if pos else 0.0
+
+    # Kante suchen, auf der der Punkt liegt, und den Umlauf dort enden lassen
+    best, bestd = 0, float("inf")
+    for i in range(len(pts)):
+        ax, ay = pts[i]
+        bx, by = pts[(i + 1) % len(pts)]
+        dx, dy = bx - ax, by - ay
+        f = min(1.0, max(0.0, ((tx - ax) * dx + (ty - ay) * dy) / (dx * dx + dy * dy)))
+        d = math.dist((tx, ty), (ax + f * dx, ay + f * dy))
+        if d < bestd:
+            best, bestd = i, d
+    if bestd > 1e-6:
+        raise SystemExit(f"Abgriff {anchor} liegt nicht auf der Kontur "
+                         f"(Abstand {bestd:.3f} mm)")
+    pts = pts[best + 1:] + pts[:best + 1]
+    return [p for p in pts if math.dist(p, (tx, ty)) > 1e-6] + [(tx, ty)]
+
+
 def write_svg(path, pts, margin=1.0):
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
@@ -62,6 +101,8 @@ if __name__ == "__main__":
     p.add_argument("--width", type=float, required=True)
     p.add_argument("--height", type=float, required=True)
     p.add_argument("--radius", type=float, default=12.0)
+    p.add_argument("--start", choices=ANCHORS, default="right",
+                   help="Wo der Abgriff sitzt (Pads und Durchkontaktierung)")
     a = p.parse_args()
     if a.shape == "rounded-rect":
         pts = rounded_rect(a.width, a.height, a.radius)
@@ -69,4 +110,6 @@ if __name__ == "__main__":
         pts = ellipse(a.width, a.height)
     else:
         pts = stadium(a.width, a.height)
+    radius = a.radius if a.shape == "rounded-rect" else min(a.width, a.height) / 2
+    pts = set_start(pts, a.start, a.width, a.height, radius)
     write_svg(a.outfile, pts)

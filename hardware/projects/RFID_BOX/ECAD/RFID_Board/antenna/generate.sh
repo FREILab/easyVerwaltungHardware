@@ -18,18 +18,43 @@ fi
 KICOIL="$VENV/bin/kicoil"
 PY="$VENV/bin/python"
 
-# Gemeinsame Wicklungsparameter. Sie gelten fuer alle Varianten, damit die
-# Formen untereinander vergleichbar bleiben.
-COMMON=(--turns 3 --trace-width 1.0 --clearance 0.5 --single-layer
+# Freie Flaeche auf dem RFID-Board und Randabstand des Kupfers zur
+# Platinenkante. Daraus folgt die Kontur; alles Weitere haengt daran.
+AREA_W=80
+AREA_H=50
+EDGE=0.5
+RADIUS=10          # Eckradius der Kontur
+START=bottom       # Lage des Abgriffs: bottom, bottom-left, left, ...
+
+# Wicklungsparameter. Die Steigung trace+clearance gilt KiCoil als
+# Mindestabstand: die Ringbreite muss turns * (trace + clearance) sein.
+TRACE=1.0
+CLEAR=0.5
+TURNS=(2 3 4)
+
+# Konturmass ist die Mittellinie der aeussersten Windung, deshalb halbe
+# Leiterbreite und Randabstand abziehen.
+read -r SHAPE_W SHAPE_H < <("$PY" -c "
+print($AREA_W - 2*$EDGE - $TRACE, $AREA_H - 2*$EDGE - $TRACE)")
+
+COMMON=(--trace-width "$TRACE" --clearance "$CLEAR" --single-layer
         --keepout-margin 3)
 
-gen() {           # gen <name> <beschreibung> <kicoil-argumente...>
-    local name="$1"; shift
-    local desc="$1"; shift
-    echo "== $name  ($desc)"
-    "$KICOIL" "${COMMON[@]}" --footprint-name "NFC_Loop_$name" \
-        "$@" "NFC_Loop_$name.kicad_mod" 2>/dev/null
-    "$KICOIL" "${COMMON[@]}" --format svg "$@" "render_$name.svg" 2>/dev/null
+# KiCoils SVG-Import versteht nur Polygone, die Rundungen werden deshalb
+# hier schon aufgeloest (siehe shape_svg.py).
+"$PY" shape_svg.py rounded-rect contour.svg \
+    --width "$SHAPE_W" --height "$SHAPE_H" --radius "$RADIUS" --start "$START"
+
+gen() {           # gen <windungen>
+    local turns="$1"
+    local name="${AREA_W}x${AREA_H}_${turns}T"
+    local annular
+    annular=$("$PY" -c "print($turns * ($TRACE + $CLEAR))")
+    echo "== NFC_Loop_$name  ($turns Windungen, Ringbreite $annular mm)"
+    "$KICOIL" --turns "$turns" "${COMMON[@]}" --footprint-name "NFC_Loop_$name" \
+        svg --annular-width "$annular" contour.svg "NFC_Loop_$name.kicad_mod" 2>/dev/null
+    "$KICOIL" --turns "$turns" "${COMMON[@]}" --format svg \
+        svg --annular-width "$annular" contour.svg "render_$name.svg" 2>/dev/null
     if command -v rsvg-convert >/dev/null; then
         rsvg-convert -w 430 -b white "render_$name.svg" -o "render_$name.png"
         rm -f "render_$name.svg"
@@ -37,16 +62,34 @@ gen() {           # gen <name> <beschreibung> <kicoil-argumente...>
     grep -o "inductance approximately [0-9.]* µH" "NFC_Loop_$name.kicad_mod"
 }
 
-# Konturen fuer den SVG-Weg. KiCoils SVG-Import versteht nur Polygone,
-# die Rundungen werden deshalb hier schon aufgeloest (siehe shape_svg.py).
-"$PY" shape_svg.py rounded-rect rr.svg --width 78 --height 78 --radius 12
-"$PY" shape_svg.py ellipse      el.svg --width 78 --height 58
-"$PY" shape_svg.py stadium      st.svg --width 78 --height 48
+echo "== Flaeche ${AREA_W} x ${AREA_H} mm, Kontur ${SHAPE_W} x ${SHAPE_H} mm (Mittellinie), Abgriff $START"
+for t in "${TURNS[@]}"; do
+    gen "$t"
+done
 
-gen 78x78_3T "Rechteck, scharfe Ecken"  rectangle --width 78 --height 78 --annular-width 4.5
-gen rr       "Rechteck, Eckradius 12"   svg rr.svg
-gen el       "Ellipse 78 x 58"          svg el.svg
-gen st       "Racetrack 78 x 48"        svg st.svg
+# Vergleichsbild aus den Einzelrendern. Pillow kommt mit KiCoil mit.
+"$PY" - "${TURNS[@]}" <<'PYEOF'
+import sys
+try:
+    from PIL import Image, ImageDraw
+except ImportError:
+    sys.exit(0)
+names = [f"render_80x50_{t}T.png" for t in sys.argv[1:]]
+imgs = [Image.open(n).convert("RGB") for n in names]
+w, h, pad, head = imgs[0].width, imgs[0].height, 12, 22
+cols = 2
+rows = -(-len(imgs) // cols)
+sheet = Image.new("RGB", (cols * w + (cols + 1) * pad,
+                          rows * (h + head) + (rows + 1) * pad), "white")
+d = ImageDraw.Draw(sheet)
+for i, (img, t) in enumerate(zip(imgs, sys.argv[1:])):
+    x = pad + (i % cols) * (w + pad)
+    y = pad + (i // cols) * (h + head + pad)
+    d.text((x, y + 4), f"{t} Windungen", fill="black")
+    sheet.paste(img, (x, y + head))
+sheet.save("vergleich.png")
+print("vergleich.png")
+PYEOF
 
 echo
 echo "Fertig. Footprints: NFC_Loop_*.kicad_mod"

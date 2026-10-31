@@ -658,13 +658,18 @@
       {
         "filename": "RFID_Board.kicad_sch",
         "name": "RFID_Board",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "d506034a-00c4-4f3e-a3e1-9eb1bcd387d5"
       }
     ],
-    "used_designators": "AE1",
+    "used_designators": "L1-2,U1,AE1",
     "variants": []
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "d506034a-00c4-4f3e-a3e1-9eb1bcd387d5",
+      "RFID_Board"
+    ]
+  ],
   "text_variables": {},
   "tuning_profiles": {
     "meta": {
