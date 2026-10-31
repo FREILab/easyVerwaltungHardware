@@ -141,7 +141,7 @@ braucht `rsvg-convert` (Homebrew: `librsvg`).
 ## Offen
 
 - Windungszahl: 3 vorgeschlagen, nicht entschieden.
-- Abstimmung gilt erst am vollständigen Stack: unter der Antenne liegt in
-  einigen Zentimetern Abstand das I/O-Board.
+- Abstimmung gilt erst im fertigen Gerät: das RFID-Board sitzt im Deckel,
+  das I/O-Board in der unteren Schale, einige Zentimeter unter der Antenne.
 - Matching aus gemessenem L und R nachrechnen. Maßgeblich ist **AN11019**
   für CLRC663/MFRC630/MFRC631/SLRC610, nicht AN1445.

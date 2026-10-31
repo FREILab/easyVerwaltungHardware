@@ -34,8 +34,9 @@ Layout-Regeln, Firmware-Zustände, Abnahmetests) steht in
   langfristig, wird aber ausdrücklich nicht auf Kriech- und Luftstrecken
   angerechnet (dafür wäre eine Qualifizierung nach IEC 60664-3 nötig).
 - **1.5** – Vier Korrekturen am I/O-Board, entstanden beim Durchrechnen von
-  Thermik und Isolationsbarriere für die Layout-Regeln (neues Kapitel
-  „Leiterbahnbreiten und Abstände" in [README.md](README.md)). **NTC zur
+  Thermik und Isolationsbarriere für die Layout-Regeln (damals neues Kapitel
+  „Leiterbahnbreiten und Abstände" in der README, heute
+  [Layoutregeln.md](Layoutregeln.md)). **NTC zur
   Einschaltstrombegrenzung (RT300) entfällt ersatzlos:** er lag dauerhaft im
   8-A-Lastpfad, setzte dort rund 3 W um und wurde damit zum heissesten
   Bauteil im unbelüfteten IP64-Gehäuse; begrenzt hätte er ohnehin nur kalt,

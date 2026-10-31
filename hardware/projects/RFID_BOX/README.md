@@ -13,56 +13,54 @@
 >   Isolierung** bei 250 V Arbeitsspannung. Eine hohe Prüfspannung in kV
 >   allein genügt nicht — sie sagt über die Isolationsklasse nichts aus.
 > - **Ein Einzelfehler darf nicht nach außen wirken.** Neue Schaltungsteile
->   werden gegen die [FMEA](#fmea) geprüft, bevor sie ins Layout gehen.
+>   werden gegen die [FMEA](FMEA.md) geprüft, bevor sie ins Layout gehen.
 > - **Beim geöffneten Gerät ist nichts Netzführendes berührbar.** Feste
 >   Abdeckplatten über dem I/O-Board geben nur die Feldterminals und den
 >   Sicherungshalter frei. Das RFID-Board führt kein 230 V und darf
->   angefasst werden. Siehe [Aufbau](#aufbau).
+>   angefasst werden.
 >
-> Die Auslegung dazu steht in
-> [Leiterbahnbreiten und Abstände](#leiterbahnbreiten-und-abstände).
+> Breiten, Abstände und Domänen stehen in
+> [Layoutregeln.md](Layoutregeln.md), die Anforderungen in
+> [Anforderungen.md](Anforderungen.md).
 
 ## Einleitung
 
 Dies ist der **RFID Node**: ein kompaktes Steuergerät, das elektrische
 Geräte und Maschinen in der Werkstatt (z.B. Standfräse, Drehmaschine, FKS)
-per RFID-Karte freischaltet. Er prüft die RFID-Karte einer Nutzerin oder
-eines Nutzers gegen easyVerwaltung, gibt bei gültiger Berechtigung die
-Maschine frei und schaltet sie beim Stopp oder bei Kartenentzug wieder ab.
+per RFID-Karte freischaltet. Er prüft die Karte einer Nutzerin oder eines
+Nutzers gegen easyVerwaltung, gibt bei gültiger Berechtigung die Maschine
+frei und schaltet sie beim Stopp oder bei Kartenentzug wieder ab.
 
-Technisch ist der Node als Stack aus mehreren kompakten Platinen aufgebaut
-(Netzteil/Schaltausgang, Controller mit Bedienoberfläche, RFID-Frontend),
-ergänzt um optionale Erweiterungsboards für Maschinen mit zusätzlichem
-Bedarf (z.B. NAMUR-I/O oder eine Notaus-/Bremsschleife). Die konkrete
-Aufteilung und Auslegung folgt in den weiteren Kapiteln dieses Dokuments.
-
-Die Anforderungen, aus denen diese Auslegung abgeleitet ist, stehen separat
-in [Anforderungen.md](Anforderungen.md).
+Technisch besteht der Node aus zwei Platinen — I/O-Board mit Netzteil und
+Schaltausgang, RFID-Board mit Controller, Bedienoberfläche und
+RFID-Frontend — ergänzt um optionale Erweiterungsboards für Maschinen mit
+zusätzlichem Bedarf.
 
 ## Aufbau
 
-Das Gehäuse ist 3D-gedruckt und staubdicht ausgeführt. Display und LED-Ring
-sind von aussen sichtbar und durch eine Plexiglasscheibe geschützt; der
-LED-Ring selbst sitzt dabei innerhalb des Gehäuses. Der Stopp-Knopf ist von
-aussen erreichbar.
+Das Gehäuse ist 3D-gedruckt und staubdicht ausgeführt. Display und
+LED-Streifen sind von aussen sichtbar und durch eine Plexiglasscheibe
+geschützt; der Streifen selbst sitzt innerhalb des Gehäuses. Der Stopp-Knopf
+ist von aussen erreichbar.
 
 Das Display sitzt nicht auf der Platine, sondern in einem eigenen
-3D-gedruckten Träger, der von innen hinter die Plexiglasscheibe geklippt wird.
-Die Verbindung zum RFID-Board läuft über das FPC des Displays.
+3D-gedruckten Träger, der von innen hinter die Plexiglasscheibe geklippt
+wird. Die Verbindung zum RFID-Board läuft über das FPC des Displays.
 
-Alle Kabel werden einseitig über Kabeldurchführungen ins Gehäuse geführt, von
-links nach rechts:
+Die Mechanik — Gehäuse, Display-Träger, Abdeckplatten — lebt in Fusion, nicht
+in diesem Repo. Von dort kommen auch die Platinenumrisse als DXF
+(`PCB_outline/`).
 
-1. Netz-Eingang 230 V
-2. Schaltausgang: geschaltete 230 V oder Steuerleitung für ein externes
-   Schütz
-3. Optionale Notaus-Schleife
-4. Optionales Extension-I/O (NAMUR oder Digital-I/O)
+Die beiden Platinen sitzen in verschiedenen Gehäusehälften: das
+**RFID-Board am Deckel**, das **I/O-Board an der unteren Schale**. Verbunden
+werden sie über ein **Kabel** — für einen Board-to-Board-Stecker ist der
+Abstand zu groß. Der Deckel hängt beim Öffnen damit am Kabel.
 
-Nicht verwendete Durchführungen werden verschlossen.
-
-Die Boards werden über Board-to-Board-Stecker als Stack gesteckt und
-geklipst — keine Kabelverbindungen zwischen den Platinen.
+Alle Kabel werden einseitig über Kabeldurchführungen ins Gehäuse geführt,
+von links nach rechts: Netz-Eingang 230 V, Schaltausgang (geschaltete 230 V
+oder Steuerleitung für ein externes Schütz), optionale Notaus-Schleife,
+optionales Extension-I/O. Nicht verwendete Durchführungen werden
+verschlossen.
 
 ### Berührschutz
 
@@ -76,306 +74,124 @@ Netz hängt. Deshalb:
 - Die Platten sind kein Deckel, der beim Öffnen mitkommt: sie bleiben am
   Board bzw. am Gehäuseunterteil und lassen sich nur mit Werkzeug lösen.
 - **Das RFID-Board führt kein 230 V** und darf im geöffneten Zustand
-  berührt werden. Das ist eine bindende Randbedingung, keine Momentaufnahme
-  — es darf kein netzführendes Netz auf diese Boards wandern.
+  berührt werden. Das ist eine bindende Randbedingung — es darf kein
+  netzführendes Netz auf dieses Board wandern.
 
-Zusätzlich werden alle Boards **lackiert** (Schutzlack), um den IP-Schutz
-über die Lebensdauer zu stützen: Sägemehl und Feuchtigkeit sollen auf
-Dauer keine Kriechpfade bilden. Vom Lack ausgenommen bleiben Feldterminals,
-Sicherungskontakte und die Board-to-Board-Stecker.
-
-Der Lack ersetzt keine Abstände: Kriech- und Luftstrecken werden weiterhin
-nach [Leiterbahnbreiten und Abstände](#leiterbahnbreiten-und-abstände)
-bemessen, als wäre kein Lack vorhanden.
+Alle Boards werden **lackiert**, damit Sägemehl und Feuchtigkeit über die
+Lebensdauer keine Kriechpfade bilden. Vom Lack ausgenommen bleiben
+Feldterminals, Sicherungskontakte und die Steckverbinder. Der Lack
+ersetzt keine Abstände: Kriech- und Luftstrecken werden bemessen, als wäre
+kein Lack vorhanden.
 
 ## Elektronik
 
-Das Gerät ist als Platinenstack aus **zwei** Leiterplatten aufgebaut:
+Zwei Leiterplatten, in verschiedenen Gehäusehälften:
 
-- **Obere PCB (RFID-Board):** Mikrocontroller (ESP32), Buzzer und
-  Peripherie, dazu NFC-Controller und RFID-Antenne, ggf. Display und
-  LED-Ring. RFID- und MCU-Teil lagen früher getrennt und sind
-  zusammengelegt.
-- **Untere PCB (I/O-Board):** 230-V-Netz und Schaltausgang, dazu die
-  Extension-Header für das E-Stop Extension Board und das Extension Board.
+- **RFID-Board (im Deckel):** ESP32-S3, NFC-Controller CLRC663 mit der
+  RFID-Antenne, Display, LED-Streifen, Buzzer, Stopp-Taster und eine
+  USB-C-Buchse für Erstprogrammierung und Debug. MCU- und RFID-Teil lagen früher getrennt
+  und sind zusammengelegt.
+- **I/O-Board (in der unteren Schale):** 230-V-Netz, Schaltausgang und die
+  Extension-Header.
   Hiervon gibt es **zwei getrennte Boards mit eigenem Layout**, von denen
   pro Gerät genau eines bestückt wird:
   - **I/O-Board 230V** — Lastrelais und Lastmessung zum direkten Schalten
     von Lasten bis 8 A.
   - **I/O-Board 24V** — potentialfreier Kontakt für ein externes Schütz.
-    Ohne Lastpfad und Lastmessung; dadurch deutlich einfacher,
-    rund 33 € günstiger und ohne Bedarf an 70 µm Kupfer.
+    Ohne Lastpfad und Lastmessung, dadurch deutlich einfacher und ohne
+    Bedarf an 70 µm Kupfer.
 
-  Beide haben denselben Formfaktor und denselben Board-to-Board-Stecker zum
+  Beide haben denselben Formfaktor und denselben Kabelstecker zum
   RFID-Board.
 
-## Architektur
-
-Neben dem festen Zweier-Stack (I/O- und RFID-Board) gibt es zwei
-optionale, steckbare Erweiterungsboards, die auf das I/O-Board gesteckt
-werden:
+Dazu kommen zwei optionale, steckbare Erweiterungsboards auf dem I/O-Board:
 
 - **Extension Board:** generisches Zusatzboard mit zwei Bestückvarianten —
-  **NAMUR** (zwei optoisolierte NAMUR-Ausgänge, ein galvanisch getrennter
-  NAMUR-Eingang) oder **Digital-I/O** (einfache digitale Ein-/Ausgänge, noch
-  nicht spezifiziert). Ein Node trägt höchstens eine Variante.
-- **E-Stop Extension Board:** einfaches Relais (24 V / 100 mA), dessen Kontakt
-  in die Notaus-/Interlock-Schleife bzw. Bremsversorgung der Maschine
-  eingeschleift wird. Fail-safe: stromlos = Notaus-Schleife unterbrochen;
-  öffnet bei Stopp/Kartenentzug sofort, während die Hauptversorgung erst
-  nach der Nachlaufzeit trennt (Details siehe
-  [Anforderungen.md](Anforderungen.md)).
+  **NAMUR** (zwei optoisolierte Ausgänge, ein galvanisch getrennter Eingang)
+  oder **Digital-I/O** (noch nicht spezifiziert). Ein Node trägt höchstens
+  eine Variante.
+- **E-Stop Extension Board:** Relais (24 V / 100 mA), dessen Kontakt in die
+  Notaus-/Interlock-Schleife oder Bremsversorgung der Maschine eingeschleift
+  wird. Fail-safe: stromlos = Schleife unterbrochen. Es öffnet bei Stopp
+  oder Kartenentzug sofort, während die Hauptversorgung erst nach der
+  Nachlaufzeit trennt.
 
-## Blockdiagramm
-
-```mermaid
-flowchart TB
-    subgraph IO["I/O-Board — eines von beiden"]
-        direction LR
-        NETZ([Terminal: Netz-Eingang 230V])
-        OUT([Terminal: Schaltausgang])
-        REL["Lastrelais 8A<br/>(I/O-Board 230V)"]
-        POTFREI["Potentialfreier Kontakt 24V 100mA<br/>(I/O-Board 24V)"]
-        MESS["Lastmessung<br/>(nur I/O-Board 230V)"]
-
-        NETZ --> MESS --> REL --> OUT
-        NETZ --> POTFREI --> OUT
-
-        subgraph ESTOP["E-Stop Extension Board (optional)"]
-            direction LR
-            K3[Notaus-Kontakt 24V 100mA]
-            ESTOP_T([Terminal: Notaus-Schleife])
-            K3 --- ESTOP_T
-        end
-
-        subgraph EXT["Extension Board (optional)"]
-            direction LR
-            EXTIO[NAMUR ODER Digital-I/O]
-            IO_T([Terminal: Extension-I/O])
-            EXTIO --- IO_T
-        end
-        
-    end
-
-    subgraph MCU["RFID-Board"]
-        direction LR
-        ESP[ESP32]
-        BUZ[Buzzer]
-        STOP[Stopp-Taster]
-        USB([USB-C: Erstprogrammierung/Debug])
-        NFC[NFC-Controller CLRC663]
-        ANT[RFID-Antenne]
-        DISP["Display (ggf.)"]
-        RING["LED-Ring (ggf.)"]
-
-        ESP ~~~ USB
-        BUZ ~~~ STOP
-        NFC ~~~ DISP
-        DISP ~~~ RING
-
-        ESP --- USB
-        NFC --- ANT
-    end
-
-    MCU --- IO
-
-    classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
-    classDef termSELV fill:#90caf9,color:#000,stroke:#1565c0
-    classDef part230 fill:#ff9800,color:#000,stroke:#e65100
-    classDef partSELV fill:#81c784,color:#000,stroke:#2e7d32
-
-    class NETZ,OUT term230
-    class ESTOP_T,IO_T,USB termSELV
-    class REL,MESS part230
-    class POTFREI,K3,EXTIO,ESP,BUZ,STOP,NFC,ANT,DISP,RING partSELV
-```
-
-Die Form kennzeichnet die Art des Elements, die Farbe die Spannungsebene:
-
-- Formen: abgerundet = Terminal/Steckverbinder, eckig = Funktionsblock; als
-  "(optional)" markierte Boards sind steckbare Erweiterungen im I/O-Board.
-- Farben: blau = 230-V-Terminal, hellblau = Kleinspannungs-Terminal,
-  orange = 230-V-führender Schaltungsteil, grün = Kleinspannungs-
-  Schaltungsteil.
-
-## Power Distribution
+## Energieversorgung
 
 Die gesamte Versorgung kommt aus dem Netz-Eingang 230 V auf dem I/O-Board
 und teilt sich dort in zwei Pfade:
 
 - **Lastpfad (nur I/O-Board 230V):** Netz-Eingang → Ausgangssicherung (F300)
   → Lastrelais (K300) → Schaltausgang. Der Shunt (R300) liegt im
-  **N-Rückweg**, vor dem Relais, damit die Messung unabhängig vom
-  Schaltzustand versorgt und betriebsbereit bleibt.
-- **Steuerpfad:** Netz-Eingang → Sicherung Steuerzweig (F302) →
-  Gleichtaktdrossel (L300) → Y-Kondensatorpaar (C309, C310, Mittelabgriff
-  an PE) → isoliertes AC/DC-Wandlermodul Mean Well IRM-10-24 (U301, 24 V,
-  isoliert) → Regler auf 5 V (U306, Modul mit Unterspannungs- und
-  Kurzschlussschutz) → 3,3 V auf dem RFID-Board für ESP32 und
-  NFC-Controller. Die 24-V-Schiene aus dem IRM-10-24 versorgt zusätzlich
-  die Lastrelais-Spule. LED-Ring und Buzzer laufen direkt auf 5 V.
-- **ISO-Insel:** Die Lastmessung liegt auf Netzpotential. Versorgung und
-  UART laufen über den Digitalisolator U300 (ISOW7721) mit integriertem
-  DC-DC-Wandler, gespeist aus der SELV-Seite. Die Insel führt damit keinen
-  eigenen Netzzweig. PGA-Einstellung von U302: Gain 16 am Stromkanal,
-  Gain 1 am Spannungskanal. Über `ISO_EN` (U300 Pin 5, Pull-up R318 nach VDD)
-  nimmt die Firmware der Insel die Versorgung und startet U302 damit neu.
-  Die Leitung verlässt über J302 das Board; am Pin filtern R322 (1k in Reihe)
-  und C329 (10nF gegen GND1) mit 10 µs Zeitkonstante.
-  Details siehe [Leiterbahnbreiten und Abstände](#leiterbahnbreiten-und-abstände).
+  **N-Rückweg vor dem Relais**, damit die Messung unabhängig vom
+  Schaltzustand betriebsbereit bleibt. K300 trennt L und N gemeinsam, weil
+  die N/L-Zuordnung an der Werkstatt-Steckdose nicht garantiert eindeutig
+  ist.
+- **Steuerpfad:** Netz-Eingang → Sicherung F302 → Gleichtaktdrossel (L300) →
+  Y-Kondensatorpaar (C309/C310, Mittelabgriff an PE) → isoliertes
+  AC/DC-Modul (U301, 24 V) → Regler auf 5 V (U306) → 3,3 V auf dem
+  RFID-Board. Die 24-V-Schiene versorgt zusätzlich die Relaisspule,
+  LED-Streifen und Buzzer laufen direkt auf 5 V.
 
-Die Erweiterungsboards (Extension Board, E-Stop Extension Board) werden über
-den Stack aus dem Steuerpfad versorgt; ihre Feldseite (NAMUR-Kanäle,
-Notaus-Schleife) bleibt galvanisch getrennt und wird extern gespeist.
+Die **Lastmessung** liegt auf Netzpotential. Versorgung und UART laufen über
+den Digitalisolator U300 (ISOW7721) mit integriertem DC-DC-Wandler, gespeist
+aus der SELV-Seite — die Insel führt keinen eigenen Netzzweig. Über `ISO_EN`
+nimmt die Firmware der Insel die Versorgung und startet das Mess-IC U302 neu.
 
-Die Lastausgangssicherung (F300) ist gesockelt und nach dem Öffnen des
-Gehäuses ohne Löten tauschbar; eine Ersatzsicherung wird im Gehäuse
-mitgeführt. Die Gerätesicherung (F302) ist als dokumentierte Ausnahme fest
-verlötet (siehe [Anforderungen.md](Anforderungen.md), S5). Vor F302 liegt
-R323, ein Sicherungswiderstand mit 10 Ohm, der den Kurzschlussstrom im
-Steuerzweig auf rund 25 A begrenzt — unter das Ausschaltvermögen von 35 A
+Die Erweiterungsboards stecken auf dem I/O-Board und werden aus dem
+Steuerpfad versorgt;
+ihre Feldseite bleibt galvanisch getrennt und wird extern gespeist.
+
+PE wird unverändert vom Netz-Eingang zum Schaltausgang durchgeschleift und
+trägt den Mittelabgriff von C309/C310. Das Gehäuse ist Kunststoff, es gibt
+keine Gehäusemasse.
+
+**Sicherungen.** Die Lastausgangssicherung (F300) ist gesockelt und nach dem
+Öffnen des Gehäuses ohne Löten tauschbar; eine Ersatzsicherung wird im
+Gehäuse mitgeführt. Die Gerätesicherung (F302) ist als dokumentierte
+Ausnahme fest verlötet (siehe [Anforderungen.md](Anforderungen.md), S5). Vor
+F302 liegt R323, ein Sicherungswiderstand mit 10 Ω, der den Kurzschlussstrom
+im Steuerzweig auf rund 25 A begrenzt — unter das Ausschaltvermögen von 35 A
 der MRT.
 
-Am Netz-Eingang liegen RV300 als Überspannungsschutz und C300 als
-X2-Kondensator, beide als Parallelelemente gegen den Netzknoten. Parallel
-dazu liegt die Entladekette R305–R310–R321, drei 330k in Reihe: 990 kOhm
-ergeben 99 ms Zeitkonstante, die Spannung an den Steckerstiften fällt damit
-in 0,17 s unter 60 V. Die Reihenschaltung verteilt die Netzspannung auf drei
-Körper, je 77 V effektiv. Das
-Gleichtaktfilter aus L300 und C309/C310 sitzt im Steuerzweig direkt vor
-U301, also an der Störquelle; damit sind Netz-Eingang und Schaltausgang
-gleichermaßen abgedeckt. Der Lastpfad trägt kein Filterbauteil.
+**EMV.** Am Netz-Eingang liegen RV300 als Überspannungsschutz und C300 als
+X2-Kondensator; eine Entladekette aus drei Widerständen bringt die
+Steckerstifte in 0,17 s unter 60 V. Das Gleichtaktfilter aus L300 und
+C309/C310 sitzt im Steuerzweig direkt vor U301, also an der Störquelle;
+der Lastpfad trägt kein Filterbauteil. Auslegungspunkt ist 150 kHz bei 20 dB
+Dämpfung. Drei Grenzen gelten dabei:
 
-Eine Kontakt-Schutzbeschaltung am Lastrelais gibt es nicht: der Node ist
-Lastschalter, das Entkoppeln der Lastgeräte vom Netz ist nicht seine Aufgabe.
-Eine Einschaltstrombegrenzung im Lastpfad gibt es bewusst nicht: den Anlauf
-tragen die träge Ausgangssicherung F300 und das Einschaltvermögen von K300
-(30 A, AgCdO-Kontakte). Das Lastrelais (K300) trennt L und
-N gemeinsam (2-polig), da die
-N/L-Zuordnung an der Werkstatt-Steckdose nicht garantiert eindeutig ist.
-PE wird unverändert vom
-Netz-Eingang zum Schaltausgang durchgeschleift und trägt zusätzlich den
-Mittelabgriff von C309/C310; da das Gehäuse aus Kunststoff besteht, gibt es
-keine Verbindung zu einer Gehäusemasse.
-
-```mermaid
-flowchart TB
-    NETZ([Netz-Eingang<br/>230V 8A])
-    EMV["EMV-Maßnahmen<br/>Überspannungsschutz + X2-Kondensator"]
-    FLAST["Ausgangssicherung F300<br/>230V 10A träge"]
-    MESS["Lastmessung<br/>Shunt im N-Rückweg"]
-    REL["Lastrelais<br/>Spule 24V / Kontakt 230V 8A"]
-    OUT([Schaltausgang <br/>230V 8A])
-    PE([PE / Schutzleiter<br/>durchgeschleift])
-
-    FSTEUER["Sicherung F302<br/>Steuerzweig<br/>230V 500mA"]
-    FILT["EMV-Filter<br/>Gleichtaktdrossel + Y-Kondensatoren"]
-    ACDC["AC/DC-Wandler<br/>Mean Well IRM-10-24<br/>→ 24V, isoliert"]
-    REG5V["Regler 5V<br/>(Modul mit UV-/Kurzschlussschutz)"]
-    V5[5V: LED-Ring, Buzzer, Erweiterungsboards]
-    V33[3V3-Regler]
-    LOGIK[ESP32, NFC-Controller]
-    ISO["Digitalisolator<br/>mit isoliertem DC-DC<br/>→ 3V3, netzbezogen"]
-
-    NETZ -->|"[PIN_L]"| EMV
-    EMV -->|"[PIN_L]"| FLAST
-    FLAST -->|"[PIN_FUSED_L]"| REL
-    NETZ -->|"[PIN_N]"| MESS
-    MESS --> REL
-    REL -->|"[PIN_*_SWITCHED]"| OUT
-    EMV -->|"[PIN_L]"| FSTEUER
-    FSTEUER --> FILT
-    FILT -->|"[PIN_CTRL_L/N]"| ACDC
-    FILT -.- PE
-    ACDC -->|"[+24V]"| REG5V
-    ACDC -->|"[+24V]"| REL
-    REG5V -->|"[+5V]"| V5
-    REG5V -->|"[+5V]"| V33
-    V33 -->|"[+3V3]"| LOGIK
-    V33 -->|"[+3V3]"| ISO
-    ISO -->|"[+3V3_ISO]"| MESS
-    NETZ -->|"[PIN_PE]"| PE
-    PE -->|"[PIN_PE]"| OUT
-
-    linkStyle 0,1,6 stroke:#b71c1c,stroke-width:2px
-    linkStyle 2,3,4 stroke:#e53935,stroke-width:2px
-    linkStyle 5 stroke:#ef6c00,stroke-width:2px
-    linkStyle 9 stroke:#757575,stroke-width:1.5px,stroke-dasharray:3 3
-    linkStyle 7 stroke:#f4511e,stroke-width:2px
-    linkStyle 8 stroke:#c62828,stroke-width:2px
-    linkStyle 10,11 stroke:#fdd835,stroke-width:2px
-    linkStyle 12,13 stroke:#2e7d32,stroke-width:2px
-    linkStyle 14,15 stroke:#00897b,stroke-width:2px
-    linkStyle 16 stroke:#8e24aa,stroke-width:2px
-    linkStyle 17,18 stroke:#43a047,stroke-width:2px
-
-    classDef term230 fill:#1565c0,color:#fff,stroke:#0d47a1
-    classDef part230 fill:#ff9800,color:#000,stroke:#e65100
-    classDef partSELV fill:#81c784,color:#000,stroke:#2e7d32
-    classDef pe fill:#e8f5e9,color:#1b5e20,stroke:#43a047
-
-    class NETZ,OUT term230
-    class EMV,FLAST,MESS,REL,FSTEUER,FILT part230
-    class ACDC,REG5V,V5,V33,LOGIK,ISO partSELV
-    class PE pe
-```
-
-| Netz | Bedeutung |
-|---|---|
-| `[PIN_L]` | Netzknoten, ungesichert; hier liegen RV300 und C300 parallel |
-| `[PIN_FUSED_L]` | Lastpfad nach Ausgangssicherung, bis zum Lastrelais |
-| `[PIN_N]` | N-Rückweg vom Eingangsterminal bis zum Shunt; das Stück Shunt → Lastrelais trägt kein eigenes Label |
-| `[PIN_L_SWITCHED]`, `[PIN_N_SWITCHED]` | Geschaltete Phase und geschalteter N hinter dem Lastrelais |
-| `[PIN_CTRL_L]`, `[PIN_CTRL_N]` | Steuerzweig nach L300, speist U301; hier liegt das Y-Paar C309/C310 gegen PE. Das Stück F302 → L300 trägt kein eigenes Label |
-| `[+24V]` | Geregelte 24-V-Schiene aus dem AC/DC-Wandler IRM-10-24 (U301), versorgt die Lastrelais-Spule und den Eingang des 5V-Reglers |
-| `[+5V]` | 5-V-Schiene (Schutz durch integrierten Modulschutz des Reglers) |
-| `[+3V3_ISO]` | Netzbezogene 3,3-V-Versorgung der Lastmessung (U302) aus dem Digitalisolator (U300) |
-| `[GND_ISO]` | Messreferenz der ISO-Insel, hart am Shunt-Knoten |
-| `[GND2_ISO]` | Rückweg des isolierten DC-DC-Wandlers, von `GND_ISO` durch einen Ferrit getrennt |
-| `[+3V3]` | Logikversorgung |
-| `[PIN_PE]` | Schutzleiter, unverändert durchgeschleift, trägt den Mittelabgriff von C309/C310, kein Bezug zum Kunststoffgehäuse |
-
-Bemessung des Gleichtaktfilters: im Gleichtakt liegen die Y-Kondensatoren
-parallel, `C_CM = 2 · Cy`, und mit `f₀ = 1 / (2π · √(L · C))` steigt die
-Dämpfung oberhalb f₀ mit 40 dB/Dekade. Auslegungspunkt ist 150 kHz, Ziel
-20 dB. Gerechnet wird mit dem Toleranz-Worst-Case der Drossel (−30 %) und
-dem Temperaturgang des Y5U-Dielektrikums, nicht mit den Nennwerten.
-
-Drei Grenzen der Auslegung:
-
-- Der Mittelabgriff nach PE ist zwingend — ohne ihn hat der
-  Gleichtaktstrom im Kunststoffgehäuse keinen Rückweg, und die Drossel
-  wirkt nur noch über ihre Streuinduktivität.
+- Der Mittelabgriff nach PE ist zwingend — ohne ihn hat der Gleichtaktstrom
+  im Kunststoffgehäuse keinen Rückweg, und die Drossel wirkt nur noch über
+  ihre Streuinduktivität.
 - Cy ist nach oben durch den Ableitstrom begrenzt; mehrere Nodes hängen am
   selben FI-Kreis.
-- L nominal im Fenster 3–10 mH: nach unten setzt die Eckfrequenz die
-  Grenze, nach oben die Eigenresonanz der Drossel.
+- L nominal im Fenster 3–10 mH: nach unten setzt die Eckfrequenz die Grenze,
+  nach oben die Eigenresonanz der Drossel.
 
-Zwei Abschnitte tragen im Schaltplan kein eigenes Netzlabel: F302 → L300 und
-Shunt → Lastrelais.
+**Bewusst nicht vorhanden:** eine Kontakt-Schutzbeschaltung am Lastrelais —
+der Node ist Lastschalter, das Entkoppeln der Lastgeräte vom Netz ist nicht
+seine Aufgabe. Und eine Einschaltstrombegrenzung im Lastpfad — den Anlauf
+tragen die träge Ausgangssicherung und das Einschaltvermögen von K300
+(30 A, AgCdO-Kontakte).
 
 ## Signalfluss
 
-Analog zur Power Distribution beginnt auch der Signalfluss am Eingang
-(RFID-Karte) und endet am Schaltausgang — hier geht es aber nicht um die
-Leistungs-, sondern um die Steuersignale, die entscheiden, ob der
-Schaltausgang aktiv ist.
+Der Signalfluss beginnt an der RFID-Karte und endet am Schaltausgang. Vier
+Aussagen, die man kennen muss:
 
-Der Stopp-Taster wirkt auf den ESP32 (Firmware-Status `STOPPED`); dieser
-schaltet, falls bestückt, das E-Stop Relais aus. Es gibt keinen separaten
-hardwareseitigen Bypass am E-Stop Relais, der unabhängig von der Firmware
-wirkt. Der Relaistreiber der Hauptversorgung bekommt **keinen** direkten
-Hardware-Interlock vom Stopp-Taster: die Hauptversorgung wird
-ausschliesslich vom ESP32 nach Ablauf der Nachlaufzeit abgeschaltet (siehe
-Power Distribution und Anforderungen.md). Das Enable bleibt vollständig auf
-der SELV-Seite: die Relaisspule hängt an der 24-V-Schiene aus dem isolierten
-IRM-10-24 und wird von **zwei Schaltern in Reihe** geführt — einem
-Low-Side-NMOS (Q300) und einem High-Side-PMOS (Q301) an getrennten GPIOs.
-Beide gehen im Ruhezustand über Pulldown bzw. Pull-up sicher auf, und ein
-durchlegierter Schalter lässt sich über den anderen noch abschalten (siehe
-FMEA). Die Isolationsbarriere quert nur die UART der Lastmessung, über den
-Digitalisolator U300 — er führt zugleich die Versorgung der Insel
-hinüber.
+- Der Stopp-Taster wirkt **nur über die Firmware** auf den ESP32. Einen
+  hardwareseitigen Bypass gibt es nicht, weder am E-Stop-Relais noch am
+  Relaistreiber der Hauptversorgung.
+- Das Enable bleibt vollständig auf der SELV-Seite. Die Relaisspule hängt an
+  der isolierten 24-V-Schiene und wird von **zwei Schaltern in Reihe**
+  geführt: Low-Side-NMOS (Q300) und High-Side-PMOS (Q301) an getrennten
+  GPIOs. Beide gehen im Ruhezustand sicher auf, und ein durchlegierter
+  Schalter lässt sich über den anderen noch abschalten.
+- Die Hauptversorgung wird ausschliesslich vom ESP32 nach Ablauf der
+  Nachlaufzeit abgeschaltet; das E-Stop-Relais öffnet sofort.
+- Die Isolationsbarriere quert nur die UART der Lastmessung, über U300 — er
+  führt zugleich die Versorgung der Insel hinüber.
 
 ```mermaid
 flowchart TB
@@ -422,404 +238,43 @@ flowchart TB
     class OPTO_FB iso
 ```
 
-Formen und Farben wie im Blockdiagramm (abgerundet = Terminal/Eingabe,
-eckig = Funktionsblock); zusätzlich: weiss mit violettem Rahmen =
-Optokoppler / Isolationsbarriere, gelb = Signalpegel isoliert/SELV, aber
-das Bauteil selbst berührt die 230-V-Seite (z.B. Lastmessung). Die
-Spannungsangabe `[…]` in den Blöcken zeigt den jeweiligen Signalpegel,
-analog zu den Netznamen im Power-Distribution-Diagramm.
+Abgerundet = Terminal oder Eingabe, eckig = Funktionsblock. Grün =
+Kleinspannung, orange = 230-V-führend, blau = 230-V-Terminal, gelb =
+Signalpegel isoliert, Bauteil berührt aber die Netzseite, weiss mit
+violettem Rahmen = Isolationsbarriere. `[…]` nennt den Signalpegel.
 
-## Bauteilauswahl
+## Kernbauteile
 
-Bereits festgelegte Bauteile für die in den vorherigen Kapiteln gezeigten
-Funktionsblöcke. Preise sind Einzelstückpreise, sofern nicht anders
-angegeben (z.B. "@10 Stk"); wo kein Distributorpreis vorliegt, ist der Wert
-geschätzt (·). Lieferant/Bestellnummer sind nur eingetragen, wo bereits
-konkret geprüft; "*offen*" heisst nicht unbekannt/unmöglich, sondern noch
-nicht recherchiert.
+Nur die Teile, die das Gerät bestimmen. Dazu die Sicherung: **im Servicefall
+wird nur sie getauscht**, alles andere ist fest verlötet. Denkbar wäre noch
+das Display, das über sein FPC steckbar ist.
 
-Die Liste umfasst beide I/O-Boards. Nur auf dem **I/O-Board 230V** sitzen
-K300, U302, R300, der Digitalisolator U300 mit seinen Ferriten und
-Abblockkondensatoren sowie F301 mit Halter F300 und Ersatzsicherung —
-zusammen rund 40 €. Nur auf dem **I/O-Board 24V** sitzen K2 und seine Polyfuse,
-zusammen rund 2 €. Alles Übrige ist auf beiden Boards identisch oder gehört
-zum RFID-Board.
+Die vollständige Liste steht im Schaltplan und in
+`ECAD/IO_Board/IO_Board.csv`, die Preise in `MyCSLib/KiCad/parts_db.json`.
 
-### ICs & Module
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | MCU-Modul mit WLAN/BLE, 16MB Flash, 8MB PSRAM | Mouser<br>356-ESP32S3WRM1N16R8 | 4,82 € @25 Stk |
-| Leistungsmessung (U302) | Microchip<br>MCP39F511A-E/MQ | AC/DC-Energiemess-IC, UART-Schnittstelle, 28-QFN | Digikey<br>MCP39F511A-E/MQ-ND | 2,5684 € @25 Stk |
-| RFID-Controller | NXP<br>CLRC66303HNY | NFC-Frontend-IC (ISO14443), SPI-Schnittstelle, HVQFN-32 | Mouser<br>771-CLRC66303HNY | ~8,70 € @1 Stk |
-| AC/DC-Wandler 24V (Steuerpfad, U301) | Mean Well<br>IRM-10-24 | 10W isoliert, 24V/0,42A, 4,2kVac I/P-O/P, Isolationsklasse II, PCB-Mount | Digikey<br>1866-3030-ND | 5,650 € @25 Stk |
-| Regler 5V (Steuerpfad, U306) | RECOM<br>R-78K5.0-2.0 | DC/DC-Wandler 24V→5V, 2A, SIP3/TO-220-kompatibel | Digikey<br>945-R-78K5.0-2.0-ND | 4,71 € @25 Stk |
-| 3V3-Regler (nicht isoliert, ESP32/NFC) | Diodes<br>AP2114H-3.3TRG1 | LDO 3,3V/1A, SOT-223-3, Ruhestrom 65µA, Dropout 450mV @1A, PSRR 65dB, Fold-back-Strombegrenzung, θJA 128°C/W | Digikey<br>AP2114H-3.3TRG1DICT-ND | 0,1652 € @25 Stk |
-| Digitalisolator + isolierter DC-DC (U300) | Texas Instruments<br>ISOW7721DFMR | 2 Kanäle (1 hin, 1 zurück), integrierter DC-DC 3,3V/60mA, verstärkte Isolierung VDE 0884-17, Luft-/Kriechstrecke >8mm, SOIC-20 wide | Digikey<br>296-ISOW7721DFMRCT-ND | 5,4308 € @25 Stk |
-| Relaistreiber Low-Side (Q300) | Nexperia<br>2N7002NXAKR | NMOS 60V/190mA, SOT-23, Rds(on) 4,5Ω max @Vgs 10V; in der Spulenrückleitung nach GND | Digikey<br>1727-8643-1-ND | 0,0522 € @50 Stk |
-| Relaistreiber High-Side (Q301) | Nexperia<br>BSS84AK,215 | PMOS 50V/180mA, SOT-23, Rds(on) 7,5Ω max @Vgs −10V, Vgs ±20V; in der 24V-Zuleitung der Spule — redundanter zweiter Schalter (siehe FMEA) | Digikey<br>1727-1144-1-ND | 0,063 € @50 Stk |
-| Pegelwandler High-Side (Q302) | Nexperia<br>2N7002NXAKR | zieht den Fusspunkt des Gate-Teilers von Q301 nach GND, Drain sieht 24V | Digikey<br>1727-8643-1-ND | 0,0522 € @50 Stk |
-| Freilaufdiode Relaisspule (D305) | onsemi<br>BAS16LT1G | 100V/200mA, SOT-23, VF ~1,1V @76mA; über der Spule, wirkt unabhängig davon welcher Schalter öffnet | Digikey<br>BAS16LT1GOSCT-ND | 0,0408 € @50 Stk |
-| Pegelwandler LED-Ring (3V3→5V) | diverse<br>74AHCT125 | Quad-Buffer/Levelshifter 3,3V→5V | *offen* | ca. 0,30 € · |
-
-### Widerstände
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Shunt (Leistungsmessung, R300) | Bourns<br>CSI2H-2512K-2L00G | 2mOhm ±2%, ±75ppm/°C, 5W @70°C, 2512, Metallband, pulsfest. Bei Digi-Key nicht erhältlich (MOQ 1000, Bestand 0) — Single Source Mouser | Mouser<br>652-CSI2H-2512K2L00G | 0,64 € @25 Stk |
-| Entladewiderstand X2 (R305, R310, R321) | *offen* | 3× 330k in Reihe, 0805 — entlädt C300 in 0,17 s unter 60 V; je Widerstand 77 V effektiv und 18 mW. Type mit Grenzspannung ≥ 150 V wählen | *offen* | *offen* |
-| Relaistreiber (R312–R318) | *offen* | 0603, 1%: R313/R314 je 47k (Gate-Teiler Q301), R312/R315 je 1k (Gate-Vorwiderstände), R316/R317 je 47k (Gate-Pulldowns Q300 und Q302), R318 47k (Pull-up ISO_EN an U300 Pin 5), R322 1k (Serienwiderstand des ISO_EN-Tiefpasses) | *offen* | ca. 0,07 € · |
-
-### Kondensatoren
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| X2-Kondensator (EMV, C300) | Würth Elektronik<br>890334023023CS | Funkentstörkondensator X2 (MKP), 100nF, 310VAC/560VDC, Rastermaß 10mm | Digikey<br>732-5733-ND | 0,35 € @1 Stk |
-| Y-Kondensatoren (EMV, C309/C310) | Vishay BCcomponents<br>VY2472M49Y5US63L7 | Funkentstörkondensator Y2 (Keramikscheibe), 4,7nF ±20%, X1 440VAC / Y2 300VAC, Y5U, ⌀12,5×5,0mm, Rastermaß 7,5mm, IEC 60384-14 / VDE / UL, 2× je Board | Digikey<br>VY2472M49Y5US63L7-ND | 0,208 € @50 Stk |
-| Ausgangs-Stützkondensator (U301) | Murata<br>GCM155R71H104KE02J | 100nF/50V, 0805 (C301) | Mouser<br>81-GCM155R71H104KE2J | 0,021 € @10 Stk |
-| Ausgangs-Elko (U301) | Würth Elektronik<br>860010673012 | 47µF/50V (C302) | Mouser<br>710-860010673012 | 0,129 € @1 Stk |
-| Ausgangs-MLCC (U306) | Murata<br>GRM21BR71A106KA73K | 10µF/10V, 0805 (C303); derselbe Typ auch als Ein- und Ausgangskondensator des 3V3-Reglers (min. 4,7µF gefordert, Derating bei 5V prüfen) | Mouser<br>81-GRM21BR71A106KA3K | 0,04 € @10 Stk |
-| Abblockung Isolator (C304–C308, C311–C317) | *offen* | je Versorgungspin 10nF + 1µF + 10µF, vier Gruppen für VIO, VDD, VISOIN, VISOOUT; die 10nF < 1mm vom Pin, Baugröße 0603 (kleinste auf dem Board verwendete) | *offen* | ca. 0,30 € · |
-
-### Induktivitäten
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Gleichtaktdrossel (EMV, L300) | TE Connectivity Schaffner<br>RN102-1-02-3M0 | Stromkompensierte Drossel, 3,0mH, 1A @40°C, 300VAC, DCR 210mΩ, Hipot 1500VAC/60s, IEC/EN 60938-1 + UL 1283, ENEC/VDE, UL 94 V-0, Körper 10×10×9mm, Rastermaß 4mm, bedrahtet | Digikey<br>817-2084-ND | 1,662 € @10 Stk |
-| Ferrite Isolator (FB303, FB304, FB306, FB307) | Murata<br>BLM15EX331SN1D | 330 Ohm @100MHz, 0402 — Typ vom Isolator-Datenblatt vorgegeben; an VISOOUT→VISOIN, GND2_ISO→GND_ISO sowie in den Zuleitungen VIO und VDD | Digikey<br>490-18371-1-ND | 0,089 € @25 Stk |
-| Ferrite Shunt-Sense (FB301, FB302) | Bourns<br>MH2029-601Y | 600 Ohm @100MHz, 0805 — in den beiden Shunt-Sense-Leitungen. FB300 im Abgriff des HV-Teilers ist entfallen: gegen 1 MOhm Serienwiderstand ist ein 600-Ohm-Bead wirkungslos | Mouser<br>652-MH2029-601Y | 0,05 € @25 Stk |
-
-### Relais & Schutzbeschaltung
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Lastrelais (K300) | TE Connectivity<br>T92S11D12-24 (9-1393211-0) | 2-polig (N+L), 2 Form C, AgCdO, 30A/40A NO, verstärkte Isolation Spule/Kontakt 8mm/9,5mm/4kVrms, Höhe 30,7mm | Digikey<br>PB352-ND | 27,46 € @30 Stk |
-| Potentialfreier Kontakt (K2) | Omron<br>G5V-1-2 DC24 | 100mA/24V, Spule 24V | Digikey<br>Z11621-ND | 1,9556 € @25 Stk |
-| Polyfuse (K2) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
-| E-Stop-Relais (K3) | Omron<br>G5V-1-2 DC24 | 100mA/24V, Spule 24V | Digikey<br>Z11621-ND | 1,9556 € @25 Stk |
-| Polyfuse (K3) | Yageo<br>SMD1812B020TF-J | PTC-Rückstellsicherung, Hold 0,2A, Trip 0,4A, 60V, SMD | Mouser<br>603-SMD1812B020TF-J | 0,095 € @10 Stk |
-| Überspannungsschutz (EMV, RV300) | TDK<br>B72210S0271K101 (SIOV-S10K275) | Metalloxid-Varistor, 275VAC/430V, 2500A Stoßstrom, bedrahtet Ø12,5mm | Digikey<br>495-3786-ND | 0,186 € @25 Stk |
-| Gerätesicherung (F302) | Bel Fuse<br>MRT 500-BULK | 500mA/250VAC träge, IEC 60127-3 Sheet 4, Schmelz-I²t 1,5A²s, ENEC/cULus/CCC, THT radial RM 5,08mm, fest verlötet (Abweichung von S5, siehe Anforderungen.md) | Digikey<br>5923-MRT500-BULK-ND | 0,402 € @10 Stk |
-| Sicherungswiderstand Steuerzweig (R323) | Vishay BCcomponents<br>PR01000101009JA500 | 10 Ohm ±5%, 1W/0207 bedrahtet, flammgeschützt UL 94 V-0, definierte Abschaltcharakteristik, U_max 350 V AC/DC. In Reihe vor F302; begrenzt den Fehlerstrom auf 25 A, Verlustleistung im Betrieb rund 0,1 W | Digikey<br>BC4691CT-ND | *offen* |
-| Lastausgangssicherung (F301, Einsatz in Halter F300) | Bel Fuse<br>5HT 10-R | 10A/250V träge, Keramik sandgefüllt, Ausschaltvermögen 1500 A, IEC 60127-2 Blatt 5, Schmelz-I²t 812 A²s @10 I_n. Ersetzt die Glasrohrtype mit 100 A; die VDE-Lizenz der Baureihe deckt nur 1–6,3 A, die 10 A laufen über UL, CSA und CCC | Digikey<br>5923-5HT10-R-ND | *offen* |
-| Sicherungshalter (F300) | Würth<br>WR-FSH 696309001002 | VDE 10A, Berührschutz Shocksafe PC2/IP20, THT stehend | Digikey<br>732-11383-ND | 1,30 € @10 Stk |
-| Ersatzsicherung (im Gehäuse) | Bel Fuse<br>5HT 10-R | Reserve wie F301, im Gehäuse mitgeführt | Digikey<br>5923-5HT10-R-ND | *offen* |
-
-### Steckverbinder & Bedienelemente
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Netz-Eingang / Schaltausgang (Terminal, J300) | WAGO<br>2604-1103 | 3-pol. Hebelklemme, Rastermaß 5mm | Digikey<br>2946-2604-1103-ND | 2,95 € @50 Stk |
-| USB-C-Buchse (Service) | *offen*<br>USB4105-GF-A | THT | *offen* | ca. 0,30 € · |
-| Stopp-Taster | *offen* | Panelmontage, IP65, 12mm | *offen* | ca. 1,50 € · |
-
-### Anzeige & Akustik
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Display (bisher) | Displaytech<br>DT010ATFT | 0,96" IPS-LCD, ST7735S, 80×160 px, 4-Line SPI, aktive Fläche 10,8 × 21,7 mm, Modul 13,5 × 27,95 × 1,4 mm | Mouser<br>758-DT010ATFT | 10,92 € @10 Stk |
-| Display (vorgemerkt) | EastRising<br>ER-TFT020-3 | 2" IPS-LCD, ST7789V2, 240×320 px, 4-Wire SPI, aktive Fläche 30,6 × 40,8 mm, Modul 34,6 × 47,8 × 2,05 mm. Nacktes Panel ohne Breakout, Anschluss über steckbares FPC, 14-pol im 0,5-mm-Raster | [buydisplay](https://www.buydisplay.com/2-inch-240x320-ips-tft-lcd-display-with-connector-fpc) | 4,36 $ @1 Stk |
-| LED-Ring | Inolux<br>IN-PI20TATPRPGPB | 12x, 2020-Gehäuse, adressierbar über Single-Wire-Protokoll (WS2812B-kompatibel) | Digikey<br>1830-IN-PI20TATPRPGPBCT-ND | 0,2225 € @100 Stk |
-| Buzzer | TDK<br>PS1240P02BT | Piezo-Buzzer ohne Oszillator, Pin-Terminal (THT), externe Ansteuerung (Resonanz ~4kHz) | Digikey<br>445-2525-1-ND | 0,3844 € @25 Stk |
-
-**Display vorgemerkt:** ER-TFT020-3 statt DT010ATFT — 5,3-fache aktive Fläche
-beim gleichen Bustyp. Montage über einen eigenen Träger, siehe
-[Aufbau](#aufbau). Das FPC trägt 14 Signale: `VDD`, `IOVDD`, 3× `GND`,
-`LED+`/`LED-`, `/RESET`, `RS`, `SDA`, `SCK`, `CS`, 2× `NC` — kein Rückkanal,
-das Display wird nur geschrieben. Das Backlight hängt direkt an `LED+`/`LED-`
-und braucht eine eigene Strombegrenzung. Offen: Backlight-Strom für die
-[Lastbilanz](#power-distribution) (dort stehen 30 mA für das DT010ATFT).
-Preis vom 2026-10-24, Direktbezug buydisplay ohne Zoll und
-Einfuhrumsatzsteuer.
-
-Maße aus der Fertigungszeichnung, für den Träger und den Scheibenausschnitt:
-
-| Maß | Wert |
-|---|---|
-| Modul (BL) | 34,6 ±0,2 × 47,8 ±0,2 × 2,05 ±0,1 mm |
-| TFT-Glas | 33,6 ±0,15 × 46,6 ±0,2 mm |
-| Polarisator | 32,22 ±0,2 × 43,2 ±0,2 mm |
-| Aktive Fläche | 30,6 × 40,8 mm |
-| Rand bis aktive Fläche | links/rechts je 2,0 ±0,3 mm, oben 1,8 ±0,3 mm, **unten 5,2 mm** |
-| FPC | mittig, 7,5 mm breit, 36,75 mm lang ab Modulkante, 0,3 ±0,03 mm dick |
-| FPC-Ende | Versteifung 5 ±0,2 mm, Kontaktzone 3 ±0,1 mm, Pin 14 links / Pin 1 rechts |
-
-Die aktive Fläche sitzt **nicht mittig**: unten bleiben 5,2 mm für den
-Treiberbereich. Scheibenausschnitt und Trägerfenster danach ausrichten, nicht
-nach der Modulmitte.
-
-### Sonstige
-
-| Funktion | Hersteller / Teilenummer | Beschreibung | Lieferant / Bestellnummer | Preis |
-|---|---|---|---|---:|
-| Extension Board (NAMUR/Digital-I/O) | *offen (eigenes Board, kein Einzelbauteil)* | | | — |
-
-**Summe: ca. 89,00 €** (1× je Zeile über alle Kategorien, ohne Mengen und
-ohne Extension Board). Die Summe zählt jede Zeile einfach (auch wo "/Stk"
-steht, z.B. LED-Ring, Sicherungen); sie berücksichtigt keine tatsächlich
-benötigten Stückzahlen pro Board (z.B. 12× LED, mehrere
-Sicherungen/Terminals) und ist daher kein vollständiger BOM-Preis, sondern
-ein grober erster Anhaltspunkt.
-
-## Leiterbahnbreiten und Abstände
-
-### 1. Fertigungsbasis
-
-| Board | Lagen | Kupfer |
+| Funktion | Hersteller / Teilenummer | Warum dieser |
 |---|---|---|
-| I/O-Board 230V | 2 | **70 µm (2 oz)** |
-| I/O-Board 24V | 2 | 35 µm |
-| RFID-Board | **4** | 35 µm außen, 17,5 µm innen |
-
-Nur das I/O-Board 230V braucht 70 µm: dort läuft der 8-A-Lastpfad. Auf dem
-I/O-Board 24V fliesst nur der Eigenverbrauch des Geräts.
-
-Alle FR4, 1,6 mm. Fertigungsuntergrenzen: 0,2 mm Bahn/Abstand, 0,3 mm
-Bohrung, 0,5 mm Via, 0,5 mm Kupfer zur Boardkante, 1,0 mm Fräsnut.
-
-Ein Punkt, der leicht übersehen wird: die Innenlagen sind nur 17,5 µm, und
-IPC-2221 rechnet für sie mit halbem Faktor (k = 0,024). Eine Innenlagenbahn
-braucht damit rund das Fünffache der Außenlagenbreite — 2 A dort 6,2 mm
-statt 1,2 mm.
-
-### 2. Leiterbahnbreiten
-
-Grundlage IPC-2221 für Außenlagen, `A = (I / (k · ΔT^0,44))^(1/0,725)` mit
-k = 0,048 (außen) bzw. 0,024 (innen), **ΔT = 5 K**. Unterhalb von ~2 A sind
-die Breiten nicht thermisch bestimmt, sondern durch Spannungsabfall und
-mechanische Robustheit — die Spalte "rechnerisch" liegt dort deutlich unter
-dem Designwert.
-
-Via-Größen als Referenz, Restring ≥ 0,125 mm je Seite. Belastbarkeit nach
-derselben Formel über den Barrel-Querschnitt `A = π · d · t`, t = 20 µm
-Galvanik:
-
-| Bohrung | Pad | Aspect Ratio | Barrel-Querschnitt | je Via @ ΔT 5 K | Verwendung |
-|---:|---:|---:|---:|---:|---|
-| **⌀0,2 mm** | 0,45 mm | 8:1 | 0,013 mm² | 0,8 A | enge Bereiche mit Kleinstströmen |
-| **⌀0,3 mm** | 0,6 mm | 5,3:1 | 0,019 mm² | 1,1 A | Signale, GND-Stitching |
-| **⌀0,6 mm** | 1,0 mm | 2,7:1 | 0,038 mm² | 1,9 A | Versorgungsschienen |
-| **⌀1,0 mm** | 1,4 mm | 1,6:1 | 0,063 mm² | 2,7 A | Lastpfad |
-
-Stückzahlen in den Tabellen mit Faktor 0,7 für eng gesetzte Via-Felder
-gerechnet.
-
-#### 2.1 I/O-Board 230V — 2 Lagen, 70 µm
-
-**P:** = Primärseite, Netzpotential · **S:** = Sekundärseite, SELV. Innerhalb
-jeder Gruppe von hoher zu niedriger Spannung; die ISO-Insel schliesst die
-P-Gruppe ab, weil sie trotz 3,3-V-Pegeln zur Primärseite gehört.
-
-| Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
-|---|---|---|---:|---:|---|
-| **P:** 230 V Lastpfad | `PIN_L`, `PIN_N`, `PIN_FUSED_L`, `PIN_L_SWITCHED`, `PIN_N_SWITCHED` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** / Polygon | kein Lagenwechsel; unvermeidbar: **5 × ⌀1,0 mm** oder **8 × ⌀0,6 mm** |
-| **P:** PE | `PIN_PE` | 8 A → ≥ 0,28 mm² | 4,03 mm | **4,0 mm** | wie Lastpfad; die Stichleitung zum Y-Paar ist kurz und direkt zum PE-Terminal zu führen, nicht über den Lastpfad |
-| **P:** 230 V Steuerzweig | F302 → L300 (ohne Label), `PIN_CTRL_L/N` (L300 → U301, mit C309/C310 gegen PE) | ≤ 500 mA (F302; real ~50 mA) | 0,09 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
-| **P:** Signale ISO-Insel | `+3V3_ISO` (U300 → U302), `GND_ISO`, `GND2_ISO`, UART U302 ↔ U300, Shunt-Sense von R300 | ≤ 20 mA | < 0,05 mm | **0,4 mm** | **1 × ⌀0,2 mm** |
-| **P:** GND ISO-Insel | `GND_ISO` | — | — | eigene Massefläche | Stitching ⌀0,2 mm |
-| **S:** 24 V | `+24V` (Spule K300, Eingang U306) | ≤ 500 mA | 0,09 mm | **0,8 mm** | **1 × ⌀0,6 mm** |
-| **S:** 5 V | `+5V` (Erzeugung + Weitergabe in den Stack) | ≤ 2 A | 0,59 mm | **1,0 mm** | **2 × ⌀0,6 mm** |
-| **S:** 3,3 V | `+3V3` (U307 → Stack und U300) | ~285 mA Mittel, ~630 mA Spitze | 0,12 mm | **0,5 mm** | **1 × ⌀0,3 mm** |
-| **S:** Signale | Enable zum Relaistreiber, `ISO_EN`, UART von U300, Stack-Signale | < 100 mA | < 0,05 mm | **0,3 mm** | **1 × ⌀0,3 mm** |
-| **S:** GND | `GND` | — | — | Massefläche | Stitching ⌀0,3 mm, Raster ≤ 10 mm |
-
-- Lastpfad als Polygon, ohne Lagenwechsel. Untergrenze an unvermeidbaren
-  Engstellen 2,65 mm (ΔT 10 K); Bauteilpads ausgenommen (R300 als 2512 mit
-  3,4 mm Padbreite schnürt nicht ein).
-- R300 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads.
-- Die Netzklassen im KiCad-Projekt tragen noch keine Breiten und Abstände;
-  eine Klasse `3V3` fehlt, `+3V3` hängt derzeit in `Signals`.
-
-#### 2.2 I/O-Board 24V — 2 Lagen, 35 µm
-
-Ohne Lastpfad und Lastmessung. Der Netz-Eingang speist nur
-noch den Steuerzweig, also den Eigenverbrauch des Geräts — es gibt auf
-diesem Board nirgends 8 A. Das EMV-Filter aus L300 und C309/C310 sitzt wie
-beim I/O-Board 230V vor U301 und wird unverändert übernommen; RV300 und
-C300 bleiben am Eingang. **F:** = Feldseite, extern gespeist.
-
-| Klasse | Netze | Bemessung | Rechnerisch | Breite | Vias |
-|---|---|---|---:|---:|---|
-| **P:** 230 V Eingang + Steuerzweig | `PIN_L`, `PIN_N`, `PIN_CTRL_L/N` | ≤ 500 mA (F302; real ~50 mA) | 0,13 mm | **1,0 mm** | **1 × ⌀0,6 mm** |
-| **P:** PE | `PIN_PE` | kein Laststrom, endet am Eingangsterminal, trägt den Mittelabgriff von C309/C310 | — | **1,0 mm** | — |
-| **S:** 24 V | `+24V` (Spule K2, Eingang U306) | ≤ 500 mA | 0,13 mm | **0,8 mm** | **1 × ⌀0,6 mm** |
-| **S:** 5 V | `+5V` (Erzeugung + Weitergabe in den Stack) | ≤ 2 A | 1,19 mm | **1,3 mm** | **2 × ⌀0,6 mm** |
-| **S:** Signale | Enable zum Relaistreiber, Stack-Signale | < 100 mA | < 0,05 mm | **0,3 mm** | **1 × ⌀0,3 mm** |
-| **S:** GND | `GND` | — | — | Massefläche | Stitching ⌀0,3 mm, Raster ≤ 10 mm |
-| **F:** Kontakt K2 | `C`, `NO`, `NC` zum Feldterminal | ≤ 100 mA, extern gespeist | < 0,05 mm | **0,5 mm** | **1 × ⌀0,3 mm** |
-
-- Die Barriere Netz ↔ SELV gilt unverändert mit 8 mm, auch ohne Lastpfad.
-  Sie verläuft hier nur um den Eingangsbereich und U301 herum.
-- Keine ISO-Insel: `GND_ISO` und die Messdomäne entfallen komplett.
-- Der Relaistreiber ist wie beim I/O-Board 230V redundant aus Q300 und Q301
-  aufgebaut, nur mit der kleineren Spule von K2.
-
-#### 2.3 RFID-Board — 4 Lagen, 35 µm außen / 17,5 µm innen
-
-Lagenaufbau: **L1** Signal + Bauteile · **L2** GND durchgehend ·
-**L3** Flächen `+3V3` / `+5V` · **L4** Signal + Stack-Stecker.
-
-| Klasse | Netze | Bemessung | Rechnerisch (L1/L4) | Breite | Vias |
-|---|---|---|---:|---:|---|
-| 5 V | `+5V` (LED-Ring, Buzzer, Weitergabe) | ≤ 2 A | 1,19 mm | **1,3 mm** | **2 × ⌀0,6 mm** |
-| 3,3 V | `+3V3` (ESP32-S3, OLED, CLRC663, U300) | ~285 mA Mittel, ~630 mA Spitze | 0,46 mm | **0,5 mm** | **2 × ⌀0,3 mm** |
-| Antennentreiber | TX1/TX2 → Matching → Antenne | HF, ~200 mA | — | **≥ 0,8 mm**, symmetrisch | **keine** |
-| Antennenschleife | — | HF | — | **1,0 mm**, 0,5 mm Abstand | **keine** |
-| LED-Daten | Single-Wire nach 74AHCT125, 5 V | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
-| Signale | SPI, I2C, UART, GPIO, Stopp-Taster, IRQ/RST | < 100 mA | < 0,05 mm | **0,25 mm** | **1 × ⌀0,3 mm** |
-| USB D+/D− | Service-Buchse J4 | Full Speed | impedanzbestimmt | **0,25 mm**, eng gekoppelt | **keine** im Paar |
-| GND | `GND` | — | — | durchgehende Lage L2, **unter der Antenne ausgespart** | Stitching ⌀0,3 mm, ≤ 5 mm am Modulrand, nicht unter der Antenne |
-
-- Strom auf L2/L3 nur als Fläche, nie als Bahn (2 A bräuchten dort 6,2 mm).
-- L2 nicht aufschneiden — **außer unter der Antenne**, dort muss die Fläche
-  auf allen vier Lagen weg. Signale dürfen die Aussparung nicht queren.
-- **Zwei Keepouts auf allen vier Lagen:** der des WROOM-Moduls und die
-  80 × 50 mm der RFID-Antenne.
-- TX1/TX2 symmetrisch und gleich lang, Matching dicht am CLRC663, keine Vias
-  im TX-Pfad.
-- Antennenabstimmung gilt erst am vollständigen Stack — unter der Antenne
-  liegt in einigen Zentimetern Abstand das I/O-Board.
-- **Kupferfläche am Tab des 3V3-Reglers**, mindestens 100 mm². Der Tab liegt
-  auf VOUT, die Fläche ist also die 3,3-V-Fläche. Ohne sie erreicht die
-  Sperrschicht bei Lastspitzen die Abschaltschwelle.
-- USB ist Full Speed, keine Impedanzkontrolle nötig: symmetrisch, < 50 mm,
-  durchgehend über L2, keine Stubs.
-
-Stromabschätzung der 3,3-V-Schiene — Grundlage für die Bemessung oben:
-
-| Verbraucher | Mittel | Spitze | Grundlage |
-|---|---:|---:|---|
-| ESP32-S3-WROOM-1 | 120 mA | 400 mA | Schätzung, WLAN assoziiert / TX-Burst |
-| CLRC663 inkl. Antennentreiber | 80 mA | 120 mA | Schätzung, hängt an der Antennengüte |
-| OLED inkl. Backlight | 30 mA | 30 mA | Schätzung |
-| ISOW7721 (U300) | 44 mA | 67 mA | Datenblatt 5.10, interpoliert für 17 mA Insellast |
-| Pull-ups, Sonstiges | 10 mA | 10 mA | Schätzung |
-| **Summe** | **~285 mA** | **~630 mA** | |
-
-### 3. Domänen und Abstände
-
-Betrifft nur das I/O-Board; das RFID-Board liegt vollständig in SELV
-(0,2 mm durchgehend). Sechs Domänen:
-
-- **L** und **N** — die beiden Netzpole vor und hinter dem Relais, getrennt
-  zu betrachten: gleiches Potential fordert 0,5 mm, gegenüberliegendes
-  3,0 mm. Im Projekt tragen sie die Netzklassen `L` und `N`, zugeordnet über
-  die Muster `/PIN_L*` und `/PIN_N*`. Die Breitenklassen `230V_ext` und
-  `230V_int` liegen orthogonal dazu; jedes Netzleiter-Netz gehört beiden an.
-- **PE** — Schutzleiter. Über die Y-Kondensatoren C309/C310 gewollt mit dem
-  Steuerzweig gekoppelt; die Kondensatoren tragen als einzige Bauteile
-  Netzpotential gegen PE und sind deshalb zwingend Y2-Klasse.
-- **ISO-Insel** — `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, die UART zur Seite 2
-  von U300 und der Shunt-Sense. „ISO" heisst isoliert **gegen SELV**, nicht
-  berührsicher: die Insel hängt über R300 am Lastpfad und bekommt deshalb
-  keine SELV-Abstände. Über den Net-Tie NT300 liegt `GND_ISO` auf
-  N-Potential; daraus folgen 0,5 mm gegen N und 3,0 mm gegen L.
-  Einen eigenen Netzzweig führt sie nicht mehr —
-  Versorgung und UART kommen über U300 aus der SELV-Seite.
-  `GND2_ISO` ist der Rückweg des isolierten Wandlers, `GND_ISO` die
-  Messreferenz am Shunt; ein Ferrit trennt beide innerhalb der Insel.
-- **SELV** — 24 V / 5 V / 3,3 V / alle Logiksignale, Relaistreiber, gesamtes
-  RFID-Board.
-- **FELD** — extern gespeiste Seite der Erweiterungsboards (NAMUR-Kanäle,
-  Notaus-Schleife), galvanisch getrennt laut X2 und BR1.
-
-Normbasis: IEC 60664-1, 250 V AC Arbeitsspannung, Überspannungskategorie II,
-Verschmutzungsgrad 2 (zulässig, weil das IP64-Gehäuse staubdicht ist),
-Werkstoffgruppe IIIa.
-
-Abstandsmatrix (Luft- **und** Kriechstrecke, Designwerte):
-
-| | L | N | ISO-Insel | SELV | PE | FELD |
-|---|---:|---:|---:|---:|---:|---:|
-| **L** | 0,5 mm | 3,0 mm | 3,0 mm | 8,0 mm | 3,0 mm | 8,0 mm |
-| **N** | | 0,5 mm | 0,5 mm | 8,0 mm | 3,0 mm | 8,0 mm |
-| **ISO-Insel** | | | 0,3 mm | 8,0 mm | 3,0 mm | 8,0 mm |
-| **SELV** | | | | 0,2 mm | 0,2 mm | 2,0 mm |
-| **PE** | | | | | — | 8,0 mm |
-
-Diese Tabelle ist die verbindliche Quelle; der Regelsatz in
-`ECAD/IO_Board/IO_Board.kicad_dru` bildet sie zeilenweise ab — ohne die
-Spalte FELD, die auf dem I/O-Board nicht vorkommt. Die 0,5 mm
-gelten zwischen verschiedenen Netzen desselben Pols — gleiches Netz wird
-nicht geprüft. Eine Ausnahme trägt der Regelsatz: innerhalb von U300 gelten
-0,2 mm, weil die Pads des ISOW7721 über die Barriere nur 7,25 mm auseinander
-liegen und die Isolation vom Bauteil kommt, nicht von der Leiterplatte.
-
-- Die 8,0 mm liegen bewusst über der Norm (3,0 / 5,0 mm) und kommen von den
-  Bauteilen: K300 8 mm / 9,5 mm / 4 kVrms, U300 (ISOW7721) > 8 mm Luft- und
-  Kriechstrecke mit einem auf 8,1 mm ausgelegten Land Pattern. Nicht auf
-  5 mm reduzieren.
-- L300 trennt die beiden Wicklungen bauteilseitig nur über das Rastermaß
-  von 4,0 mm ±0,5. Das erfüllt die 3,0 mm für L gegen N, lässt aber
-  wenig Spielraum — bei einem Typwechsel gegenprüfen.
-- `GND_ISO` und `GND` sind getrennte Flächen; ihre gegenüberliegenden Kanten
-  sind die längste Strecke der Barriere und brauchen einen definierten
-  Umriss statt freier Füllung.
-- Die ISO-Insel wird komplett von der Barriere umschlossen, auch wo auf ihr
-  nur 3,3 V liegen.
-- Netzkupfer inkl. ISO-Insel ≥ 2,0 mm zu Kante, Bohrungen, Fräsungen;
-  SELV ≥ 0,5 mm.
-- Lötstopplack, Bestückungsdruck und Schutzlack zählen nicht zur
-  Kriechstrecke. Der Schutzlack würde erst nach einer Qualifizierung gemäß
-  IEC 60664-3 anrechenbar; die ist hier nicht vorgesehen.
-- Fräsnuten ≥ 1,0 mm breit, sonst bei Verschmutzungsgrad 2 als überbrückt
-  gewertet.
-- Keine Vias in der Barriere — die 8 mm gelten auf beiden Lagen.
-- Die 8 mm gelten auch vertikal gegen die Unterseite des RFID-Boards:
-  entweder Stackhöhe ≥ 8 mm oder Netzzone dort kupferfrei. Randbedingung für
-  den Board-to-Board-Stecker.
-- **Kein Kupfer im Umkreis von 4 mm um VISOOUT und GND2 von U300** (Vorgabe
-  des Datenblatts, Bedingung für CISPR 32 Class B).
-- `GND2_ISO` (Rückweg des Wandlers) und `GND_ISO` (Messreferenz) über einen
-  Ferrit trennen, damit der getaktete Strom nicht über die Referenz des
-  2-mΩ-Shunts läuft; `GND_ISO` in Kelvin-Anbindung hart am Shunt-Knoten.
+| Mikrocontroller | Espressif<br>ESP32-S3-WROOM-1-N16R8 | WLAN/BLE, 16 MB Flash, 8 MB PSRAM |
+| Lastrelais (K300) | TE Connectivity<br>T92S11D12-24 | 2-polig (N+L), 30 A Einschaltvermögen, verstärkte Isolation Spule/Kontakt 8 mm / 9,5 mm / 4 kVrms. Bauhöhe 30,7 mm |
+| Potentialfreier Kontakt, E-Stop (K2, K3) | Omron<br>G5V-1-2 DC24 | 100 mA / 24 V, Spule 24 V |
+| Display | EastRising<br>ER-TFT020-3 | 2" IPS, 240×320, 4-Wire SPI. Ersetzt das DT010ATFT bei gleichem Bustyp, 5,3-fache aktive Fläche. Nacktes Panel, Anschluss über steckbares FPC 14-pol / 0,5 mm |
+| Lastausgangssicherung + Ersatz (F301) | Bel Fuse<br>5HT 10-R | 10 A / 250 V träge, Keramik sandgefüllt, **Ausschaltvermögen 1500 A**. Die Glasrohrtype mit 100 A reicht nicht. Die VDE-Lizenz der Baureihe deckt nur 1–6,3 A, die 10 A laufen über UL, CSA und CCC |
+| Gerätesicherung (F302) | Bel Fuse<br>MRT 500-BULK | 500 mA / 250 V träge, IEC 60127-3. Fest verlötet, dokumentierte Ausnahme zu S5 |
 
 ## TODO
 
 - RV300 liegt vor F300 und F302 und ist damit ungesichert. Ein Varistor am
   Lebensdauerende versagt niederohmig; vorgelagert wirkt nur der
   Leitungsschutzschalter im Werkstattverteiler. Thermisch geschützten
-  Varistor (ThermoFuse) prüfen. Vorbestehend, nicht durch die Verlegung des
-  EMV-Filters verursacht.
+  Varistor (ThermoFuse) prüfen.
 - **Auftrennbare Netzbrücken** an ausgewählten Stellen der Niederspannung
   vorsehen, damit sich Zweige zur Inbetriebnahme einzeln zuschalten lassen.
 - **Testpunkte** für die Inbetriebnahme vorsehen. In der Netzdomäne und auf
   der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
-- **Display-Träger** zeichnen: Aufnahme für das ER-TFT020-3
-  (34,6 × 47,8 × 2,0 mm), Fenster für die aktive Fläche (30,6 × 40,8 mm),
-  Klipps ins Gehäuseoberteil, Durchführung für das FPC zur Platine. Dazu
-  auf dem RFID-Board ein ZIF-Steckverbinder, 14-pol, 0,5-mm-Raster. Das
-  3D-Modell in `MyCSLib/3D_Models/LCD/` ist die `-2`; Körper identisch, aber
-  deren FPC ist kürzer als die 36,75 mm der `-3`. Kabelweg nach der
-  Zeichnung auslegen, nicht nach dem Modell.
-
-## FMEA
-
-Betrachtet werden Einzelfehler, die nach aussen wirken — Brandgefahr,
-Netzspannung auf berührbaren Teilen oder ein Schaltausgang, der sich nicht
-mehr abschalten lässt. Reiner Funktionsverlust ohne Gefährdung ist nicht
-aufgeführt.
-
-| Bauteil | Fehlerart | Auswirkung ohne Maßnahme | Maßnahme |
-|---|---|---|---|
-| C309/C310 (Y2) | Kurzschluss | Netzspannung auf PE → FI löst aus, Gerät und Maschine sind freigeschaltet | Y2-Klasse: für Netz gegen PE zugelassen (IEC 60384-14) und bauartbedingt offen versagend. Keine berührbaren Teile betroffen, da PE geerdet ist |
-| F301 (Lastpfad) | Kurzschluss hinter der Sicherung | Prospektiver Strom mehrere hundert Ampere; über dem Ausschaltvermögen bleibt der Lichtbogen stehen → Brandgefahr | Bel 5HT 10-R, Keramik, **1500 A** bei 250 VAC (IEC 60127-2 Blatt 5). Vorher 100 A |
-| F302 (Steuerzweig) | wie oben, MRT trennt nur bis 35 A | wie oben | **R323 begrenzt auf 25 A.** Sicherungswiderstand mit definierter Abschaltcharakteristik, flammgeschützt, versagt offen |
-| C300 (X2) | Entladekette offen | bis 325 V auf den Steckerstiften | 100 nF an der Ausnahmegrenze, Ladung 5,3 mJ. R305/R310/R321 als zweite Ebene: unter 60 V in 0,17 s |
-| Q301 (High-Side) | Linearbetrieb bei eingebrochener 24 V | Verlustleistung über P_tot 350 mW → Überhitzung | Gate-Teiler stellt V_GS = −V_CC/2, an der Schwelle nur 6 mW. U301 im Hiccup-Modus |
-| U300 (ISOW7721) | Isolationsdurchschlag | Netzpotential auf der SELV-Seite | verstärkte Isolierung (VDE 0884-17, 5 kVrms nach UL 1577) **und** 8 mm Barriere auf der Leiterplatte — zwei unabhängige Ebenen |
-| Relaistreiber | ein Schalter durchlegiert | Relais dauerhaft angezogen, Firmware kann nicht mehr abschalten | **Zwei Schalter in Reihe in der Spule:** High-Side-PMOS (Q301) und Low-Side-NMOS (Q300), an getrennten GPIOs. Ein durchlegierter Schalter lässt sich über den anderen abschalten. Auf J302 trennt GND die beiden Enables, eine Lötbrücke hebt die Verriegelung nicht auf |
-| Relaistreiber | beide Schalter durchlegiert | wie oben | Doppelfehler, nicht abgedeckt — Erkennung über die Lastmessung |
-| K300 | Kontakt verschweisst | Schaltausgang bleibt aktiv | Lastmessung als Plausibilitätsprüfung: Strom bei kommandiertem AUS ist ein Fehler. Abschalten nicht möglich, siehe unten |
-| Gate-Pulldown/Pull-up | offen | Gate floatet bei Reset/Boot, Relaiszustand undefiniert | Pulldown R316 an Q300 und R317 an Q302, Pull-up R313 an Q301, alle nahe am Gate; Prüfpunkt im Abnahmetest |
-
-Die Erkennung über die Lastmessung funktioniert, weil R300 **vor** dem
-Relais sitzt und in Reihe dazu liegt: bei offenem Relais fliesst kein Strom.
-Ein gemessener Strom im Zustand AUS ist damit eindeutig ein Fehler.
-
-Beim Treiber kann die Firmware darauf reagieren — sie öffnet den jeweils
-anderen Schalter, und das Relais fällt ab. Beim verschweissten Kontakt kann
-sie nur melden: K300 lässt sich dann nur extern freischalten. Ein zweites
-Lastrelais in Reihe wäre die Lösung, ist aber auf 100x100 mm nicht
-unterzubringen und steht zurück — wie der fehlende Hardware-Bypass am
-E-Stop-Relais (BR3).
+- Die Netzklassen im KiCad-Projekt tragen noch keine Breiten und Abstände;
+  eine Klasse `3V3` fehlt, `+3V3` hängt derzeit in `Signals`.
+- **Verbindungskabel** festlegen: Steckverbinder, Länge, Querschnitt und
+  Zugentlastung an beiden Enden. Es führt 5 V, 3,3 V und die Signale vom
+  I/O-Board zum RFID-Board.
+- **ZIF-Steckverbinder** für das Display auf dem RFID-Board vorsehen:
+  14-polig, 0,5-mm-Raster, passend zum FPC des ER-TFT020-3.
