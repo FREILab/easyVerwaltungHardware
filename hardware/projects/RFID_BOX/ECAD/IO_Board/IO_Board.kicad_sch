@@ -13438,7 +13438,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 265.43 118.618 90)
 			(hide yes)
 			(show_name no)
@@ -13910,13 +13910,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 261.62 57.15 0)
+			(at 264.16 53.3399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -14254,7 +14255,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_2010_5025Metric"
+		(property "Footprint" ""
 			(at 236.22 137.668 90)
 			(hide yes)
 			(show_name no)
@@ -14336,7 +14337,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" ""
 			(at 262.5852 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -14515,8 +14516,7 @@
 			)
 		)
 		(property "Current" "1,1A"
-			(at 234.8992 64.77 90)
-			(hide yes)
+			(at 235.204 66.294 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14526,8 +14526,7 @@
 			)
 		)
 		(property "DCR" "205mR"
-			(at 234.8992 67.31 90)
-			(hide yes)
+			(at 235.458 64.516 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14652,13 +14651,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 325.12 41.91 0)
+			(at 327.66 38.0999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -15052,7 +15052,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 381.9652 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -15124,13 +15124,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 383.54 59.69 0)
+			(at 386.08 55.8799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -15212,7 +15213,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 396.748 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -15294,7 +15295,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 221.9452 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -15512,13 +15513,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 191.77 123.19 0)
+			(at 194.31 119.3799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -15590,13 +15592,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 87.63 139.7 0)
+			(at 90.17 135.8899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -15668,13 +15671,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 375.92 22.86 0)
+			(at 378.46 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -15789,151 +15793,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MF" "Recom Power"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "17.5mm"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "Package" "None"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "Price" "None"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "Check_prices" "https://www.snapeda.com/parts/R-78K5.0-2.0/Recom+Power/view-part/?ref=eda"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "STANDARD" "IPC-7351B"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "PARTREV" "0/2023"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/R-78K5.0-2.0/Recom+Power/view-part/?ref=snap"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "MP" "R-78K5.0-2.0"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "Purchase-URL" "https://www.snapeda.com/api/url_track_click_mouser/?unipart_id=12768878&manufacturer=Recom Power&part_name=R-78K5.0-2.0&search_term=r-78k5.0-2.0"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "MANUFACTURER" "Recom Power"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "Availability" "In Stock"
-			(at 234.95 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-			)
-		)
-		(property "SNAPEDA_PN" "R-78K2.5-2.0"
 			(at 234.95 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -16060,7 +15920,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 374.65 149.098 90)
 			(hide yes)
 			(show_name no)
@@ -16152,7 +16012,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "MCP39F511A-E/MQ"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -16609,13 +16469,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 257.81 121.92 0)
+			(at 260.35 118.1099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -16697,7 +16558,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "NetTie:NetTie-2_SMD_Pad0.5mm"
+		(property "Footprint" ""
 			(at 217.17 242.57 0)
 			(hide yes)
 			(show_name no)
@@ -16779,7 +16640,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 356.108 57.15 90)
 			(hide yes)
 			(show_name no)
@@ -16859,7 +16720,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 262.89 187.198 90)
 			(hide yes)
 			(show_name no)
@@ -16941,7 +16802,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 111.4552 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -17023,7 +16884,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" ""
 			(at 52.832 228.6 90)
 			(hide yes)
 			(show_name no)
@@ -17095,13 +16956,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 378.46 121.92 0)
+			(at 381 118.1099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -17173,13 +17035,14 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 336.55 20.32 0)
+			(at 339.09 24.1299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -17402,13 +17265,14 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 316.23 45.72 0)
+			(at 318.77 49.5299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -17480,13 +17344,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 364.49 95.25 0)
+			(at 367.03 91.4399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -17718,13 +17583,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 217.17 255.27 0)
+			(at 219.71 251.4599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -17903,8 +17769,7 @@
 			)
 		)
 		(property "Current" "1,1A"
-			(at 92.6592 125.73 90)
-			(hide yes)
+			(at 92.964 127.254 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17914,8 +17779,7 @@
 			)
 		)
 		(property "DCR" "205mR"
-			(at 92.6592 128.27 90)
-			(hide yes)
+			(at 93.218 125.476 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17963,13 +17827,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 271.78 132.08 0)
+			(at 274.32 128.2699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -18051,7 +17916,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 332.4352 36.83 0)
 			(hide yes)
 			(show_name no)
@@ -18123,13 +17988,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 137.16 116.84 0)
+			(at 139.7 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -18211,7 +18077,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 189.738 105.41 90)
 			(hide yes)
 			(show_name no)
@@ -18293,7 +18159,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 270.2052 172.72 0)
 			(hide yes)
 			(show_name no)
@@ -18689,7 +18555,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 274.0152 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -18771,7 +18637,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 125.4252 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -18843,13 +18709,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 266.7 39.37 0)
+			(at 269.24 43.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -18921,13 +18788,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 363.22 193.04 0)
+			(at 365.76 189.2299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -18999,13 +18867,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 124.46 116.84 0)
+			(at 127 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -19087,7 +18956,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 192.7352 118.11 0)
 			(hide yes)
 			(show_name no)
@@ -19169,7 +19038,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 221.9452 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -19411,13 +19280,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 208.28 163.83 0)
+			(at 210.82 160.0199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -19489,13 +19359,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 250.19 57.15 0)
+			(at 252.73 53.3399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -19567,13 +19438,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 172.72 165.1 0)
+			(at 175.26 161.2899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -19752,8 +19624,7 @@
 			)
 		)
 		(property "Current" "1,1A"
-			(at 234.8992 81.28 90)
-			(hide yes)
+			(at 235.204 82.804 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19763,8 +19634,7 @@
 			)
 		)
 		(property "DCR" "205mR"
-			(at 234.8992 83.82 90)
-			(hide yes)
+			(at 235.458 81.026 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19963,13 +19833,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 110.49 116.84 0)
+			(at 113.03 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -20041,13 +19912,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 368.3 138.43 0)
+			(at 370.84 134.6199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -20119,13 +19991,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 331.47 41.91 0)
+			(at 334.01 38.0999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -20283,7 +20156,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 262.89 164.338 90)
 			(hide yes)
 			(show_name no)
@@ -20355,13 +20228,14 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 354.33 45.72 0)
+			(at 356.87 49.5299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -20433,13 +20307,14 @@
 			)
 		)
 		(property "Value" "+3V3_ISO"
-			(at 104.14 95.25 0)
+			(at 106.68 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -20521,7 +20396,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" ""
 			(at 364.1852 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -20767,7 +20642,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 332.74 91.948 90)
 			(hide yes)
 			(show_name no)
@@ -20849,7 +20724,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 255.778 142.24 90)
 			(hide yes)
 			(show_name no)
@@ -20931,7 +20806,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 190.1952 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -21003,13 +20878,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 194.31 85.09 0)
+			(at 196.85 81.2799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -21081,13 +20957,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 254 151.13 0)
+			(at 256.54 147.3199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -21159,13 +21036,14 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 215.9 38.1 0)
+			(at 218.44 41.9099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -21237,13 +21115,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 278.13 24.13 0)
+			(at 280.67 27.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -21322,7 +21201,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 374.65 151.638 90)
 			(hide yes)
 			(show_name no)
@@ -21404,7 +21283,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 111.4552 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -21476,13 +21355,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 316.23 102.87 0)
+			(at 318.77 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -21554,13 +21434,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 273.05 151.13 0)
+			(at 275.59 147.3199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -21640,7 +21521,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_2010_5025Metric"
+		(property "Footprint" ""
 			(at 247.65 137.668 90)
 			(hide yes)
 			(show_name no)
@@ -21722,7 +21603,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 325.628 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -21794,13 +21675,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 160.02 165.1 0)
+			(at 162.56 161.2899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -22085,17 +21967,6 @@
 				)
 			)
 		)
-		(property "Manufacturer Number" "860010673012"
-			(at 207.01 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer" "Wurth Elektronik"
 			(at 207.01 48.26 0)
 			(hide yes)
@@ -22201,14 +22072,13 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 354.33 116.8399 90)
+			(at 356.87 113.03 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -22280,13 +22150,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 220.98 102.87 0)
+			(at 223.52 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -22368,7 +22239,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 138.1252 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -22440,13 +22311,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 208.28 85.09 0)
+			(at 210.82 81.2799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -22518,13 +22390,14 @@
 			)
 		)
 		(property "Value" "+24V"
-			(at 382.27 22.86 0)
+			(at 384.81 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -22596,13 +22469,14 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 247.65 67.31 0)
+			(at 250.19 71.1199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -22715,18 +22589,7 @@
 			)
 		)
 		(property "Manufacturer" "TE Connectivity Schaffner"
-			(at 177.8 31.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Part Number" "RN102-1-02-3M0"
-			(at 177.8 41.91 0)
+			(at 125.73 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22759,7 +22622,7 @@
 			)
 		)
 		(property "L (mH)" "3.0 mH"
-			(at 125.73 51.308 0)
+			(at 125.984 56.642 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22769,7 +22632,7 @@
 			)
 		)
 		(property "RDC max. (mΩ)" "210.0 mR"
-			(at 125.984 53.34 0)
+			(at 125.476 58.674 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22834,7 +22697,7 @@
 			)
 		)
 		(property "Critical Parameter" "1.0 A"
-			(at 125.73 55.626 0)
+			(at 124.968 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22953,7 +22816,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 379.4252 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -23033,7 +22896,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 372.11 84.328 90)
 			(hide yes)
 			(show_name no)
@@ -23113,7 +22976,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 370.84 172.212 90)
 			(hide yes)
 			(show_name no)
@@ -23185,13 +23048,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 207.01 57.15 0)
+			(at 209.55 53.3399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -23271,7 +23135,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 201.93 108.712 90)
 			(hide yes)
 			(show_name no)
@@ -23353,7 +23217,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 209.2452 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -23425,13 +23289,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 262.89 151.13 0)
+			(at 265.43 147.3199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -23513,7 +23378,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" ""
 			(at 52.832 217.17 90)
 			(hide yes)
 			(show_name no)
@@ -23630,7 +23495,7 @@
 			)
 		)
 		(property "Manufacturer" "Wurth Elektronik"
-			(at 106.68 207.01 0)
+			(at 93.98 222.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23638,7 +23503,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Manufacturer URL" "https://www.we-online.com"
@@ -23668,17 +23532,6 @@
 		(property "Series" "WR-FSH"
 			(at 106.68 214.63 0)
 			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Part Number" "696309001002"
-			(at 87.376 225.044 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23852,7 +23705,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 366.268 86.36 90)
 			(hide yes)
 			(show_name no)
@@ -23934,7 +23787,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 369.2652 133.35 0)
 			(hide yes)
 			(show_name no)
@@ -24318,13 +24171,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 208.28 102.87 0)
+			(at 210.82 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -24396,13 +24250,14 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 369.57 22.86 0)
+			(at 372.11 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -24474,13 +24329,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 363.22 121.92 0)
+			(at 365.76 118.1099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -24552,13 +24408,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 254 177.8 0)
+			(at 256.54 173.9899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -24795,13 +24652,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 189.23 57.15 0)
+			(at 191.77 53.3399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -25090,7 +24948,7 @@
 		(fields_autoplaced yes)
 		(uuid "d63d7baa-a1e1-4f50-8513-bf6bbb07d7a4")
 		(property "Reference" "R300"
-			(at 245.11 227.33 90)
+			(at 245.11 228.6 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25100,7 +24958,7 @@
 			)
 		)
 		(property "Value" "2mR"
-			(at 245.11 229.87 90)
+			(at 245.11 231.14 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25257,7 +25115,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" ""
 			(at 52.832 207.01 90)
 			(hide yes)
 			(show_name no)
@@ -25339,7 +25197,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 138.1252 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -25421,7 +25279,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 270.2052 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -25503,7 +25361,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 195.2752 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -25662,7 +25520,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 209.2452 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -25744,7 +25602,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 195.2752 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -25816,13 +25674,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 180.34 57.15 0)
+			(at 182.88 53.3399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -25894,13 +25753,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 220.98 85.09 0)
+			(at 223.52 81.2799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -26318,7 +26178,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 125.4252 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -26390,13 +26250,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 323.85 102.87 0)
+			(at 326.39 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -26478,7 +26339,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 272.7452 127 0)
 			(hide yes)
 			(show_name no)
@@ -26550,13 +26411,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 318.77 194.31 0)
+			(at 321.31 190.4999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -26638,7 +26500,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" ""
 			(at 279.0952 36.83 0)
 			(hide yes)
 			(show_name no)
@@ -26710,13 +26572,14 @@
 			)
 		)
 		(property "Value" "GND_ISO"
-			(at 381 193.04 0)
+			(at 383.54 189.2299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -26798,7 +26661,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 356.108 71.12 90)
 			(hide yes)
 			(show_name no)
@@ -26880,7 +26743,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 364.1852 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -26952,13 +26815,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 278.13 41.91 0)
+			(at 280.67 38.0999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -27030,13 +26894,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 354.33 95.25 0)
+			(at 356.87 91.4399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -27273,7 +27138,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 264.668 142.24 90)
 			(hide yes)
 			(show_name no)
