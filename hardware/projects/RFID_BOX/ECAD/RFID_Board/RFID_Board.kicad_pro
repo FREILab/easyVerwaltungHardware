@@ -532,7 +532,7 @@
     "page_layout_descr_file": ""
   },
   "schematic": {
-    "annotate_start_num": 0,
+    "annotate_start_num": 199,
     "annotation": {
       "method": 0,
       "sort_order": 0
@@ -661,13 +661,17 @@
         "uuid": "d506034a-00c4-4f3e-a3e1-9eb1bcd387d5"
       }
     ],
-    "used_designators": "L1-2,U1,#PWR1,AE1",
+    "used_designators": "R1A100,R1A200,R100-107,R200-207,Cx100,Cx200,#PWR1-20,#PWR100-119,#PWR200-219,C100-117,C200-217,R1B100,R1B200,LED100,L1-2,L100-101,L200-201,Y100,Y200,U1,U100,U200,AE1,AE100,AE200",
     "variants": []
   },
   "sheets": [
     [
       "d506034a-00c4-4f3e-a3e1-9eb1bcd387d5",
       "RFID_Board"
+    ],
+    [
+      "48e8cd60-8354-42de-961d-2d15417f7563",
+      "NFC"
     ]
   ],
   "text_variables": {},
