@@ -16316,22 +16316,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 259.588 58.42 0)
+			(at 261.62 58.42 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 261.62 54.61 0)
@@ -17634,21 +17633,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Value" "GND"
 			(at 196.85 104.14 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 196.85 100.33 0)
@@ -17711,22 +17710,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 323.088 39.37 0)
+			(at 325.12 39.37 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 325.12 35.56 0)
@@ -18111,22 +18109,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 383.54 59.69 0)
+			(at 383.54 58.42 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 383.54 54.61 0)
@@ -18629,22 +18626,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 189.738 124.206 0)
+			(at 191.77 124.46 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 191.77 120.65 0)
@@ -18707,22 +18703,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 87.63 139.7 0)
+			(at 87.63 138.43 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 87.63 134.62 0)
@@ -18964,22 +18959,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+5V"
-			(at 375.92 22.86 0)
+			(at 375.92 24.384 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 375.92 27.94 0)
@@ -19513,22 +19507,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "PIN_PE"
-			(at 28.702 215.646 0)
+			(at 31.75 214.63 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 31.75 210.82 0)
@@ -19771,22 +19764,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 257.81 121.92 0)
+			(at 257.81 120.65 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 257.81 116.84 0)
@@ -20354,22 +20346,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 374.396 123.19 0)
+			(at 378.46 123.19 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 378.46 119.38 0)
@@ -20611,22 +20602,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+3V3"
-			(at 334.01 17.526 0)
+			(at 336.55 18.034 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 336.55 21.59 0)
@@ -21019,22 +21009,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+24V"
-			(at 316.23 45.72 0)
+			(at 316.23 47.244 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 316.23 50.8 0)
@@ -21097,22 +21086,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 364.49 95.25 0)
+			(at 364.49 93.98 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 364.49 90.17 0)
@@ -21335,22 +21323,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 217.17 255.27 0)
+			(at 217.17 254 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 217.17 250.19 0)
@@ -21590,22 +21577,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 267.97 132.334 0)
+			(at 271.78 132.08 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 271.78 128.27 0)
@@ -21668,22 +21654,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 133.35 117.856 0)
+			(at 137.16 118.11 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 137.16 114.3 0)
@@ -22721,22 +22706,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+5V"
-			(at 266.7 39.37 0)
+			(at 266.7 40.894 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 266.7 44.45 0)
@@ -22799,22 +22783,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 359.664 194.564 0)
+			(at 363.22 194.31 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 363.22 190.5 0)
@@ -22877,22 +22860,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 121.158 117.602 0)
+			(at 124.46 118.11 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 124.46 114.3 0)
@@ -23135,22 +23117,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 208.28 163.83 0)
+			(at 208.28 162.56 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 208.28 158.75 0)
@@ -23213,22 +23194,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 248.158 58.42 0)
+			(at 250.19 58.42 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 250.19 54.61 0)
@@ -23291,22 +23271,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 172.72 165.1 0)
+			(at 172.72 163.83 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 172.72 160.02 0)
@@ -23697,22 +23676,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 106.934 117.856 0)
+			(at 110.49 118.11 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 110.49 114.3 0)
@@ -23775,22 +23753,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 364.998 139.7 0)
+			(at 368.3 139.7 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 368.3 135.89 0)
@@ -23853,22 +23830,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 329.438 39.624 0)
+			(at 331.47 39.37 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 331.47 35.56 0)
@@ -23931,22 +23907,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "PIN_PE"
-			(at 329.184 236.22 0)
+			(at 332.74 236.22 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 332.74 232.41 0)
@@ -24089,22 +24064,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+24V"
-			(at 354.33 45.72 0)
+			(at 354.33 47.244 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 354.33 50.8 0)
@@ -24167,22 +24141,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+3V3_ISO"
-			(at 104.14 95.25 0)
+			(at 104.14 96.774 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 104.14 100.33 0)
@@ -24585,22 +24558,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 192.786 86.614 0)
+			(at 194.31 86.36 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 194.31 82.55 0)
@@ -24663,22 +24635,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 250.444 151.384 0)
+			(at 254 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 254 147.32 0)
@@ -24741,22 +24712,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+24V"
-			(at 215.9 38.1 0)
+			(at 215.9 39.624 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 215.9 43.18 0)
@@ -24819,22 +24789,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+5V"
-			(at 276.606 21.59 0)
+			(at 278.13 21.844 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 278.13 25.4 0)
@@ -24976,22 +24945,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 316.23 102.87 0)
+			(at 316.23 101.6 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 316.23 97.79 0)
@@ -25233,22 +25201,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 269.24 151.384 0)
+			(at 273.05 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 273.05 147.32 0)
@@ -25473,22 +25440,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 155.956 164.592 0)
+			(at 160.02 163.83 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 160.02 160.02 0)
@@ -25899,22 +25865,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 218.948 103.886 0)
+			(at 220.98 104.14 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 220.98 100.33 0)
@@ -26156,22 +26121,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 206.502 86.614 0)
+			(at 208.28 86.36 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 208.28 82.55 0)
@@ -26413,22 +26377,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+24V"
-			(at 382.27 22.86 0)
+			(at 382.27 24.384 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 382.27 27.94 0)
@@ -26491,22 +26454,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+3V3"
-			(at 245.364 65.532 0)
+			(at 247.65 66.294 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 247.65 69.85 0)
@@ -26987,22 +26949,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 205.232 61.214 0)
+			(at 207.01 60.96 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 207.01 57.15 0)
@@ -27324,22 +27285,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 259.588 151.384 0)
+			(at 262.89 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 262.89 147.32 0)
@@ -28335,22 +28295,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 205.994 104.394 0)
+			(at 208.28 104.14 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 208.28 100.33 0)
@@ -28413,22 +28372,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+3V3"
-			(at 369.57 22.86 0)
+			(at 369.57 24.384 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 369.57 27.94 0)
@@ -28491,22 +28449,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 359.918 122.936 0)
+			(at 363.22 123.19 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 363.22 119.38 0)
@@ -28569,22 +28526,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 249.428 179.324 0)
+			(at 254 179.07 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 254 175.26 0)
@@ -28812,22 +28768,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 187.198 60.96 0)
+			(at 189.23 60.96 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 189.23 57.15 0)
@@ -28890,22 +28845,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "PIN_PE"
-			(at 149.352 72.136 0)
+			(at 152.4 71.12 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 152.4 67.31 0)
@@ -29566,21 +29520,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+3V3_ISO"
-			(at 379.984 167.64 0)
+			(at 379.73 169.164 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 379.73 172.72 0)
@@ -29643,22 +29597,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 180.34 57.15 0)
+			(at 180.34 55.88 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 180.34 52.07 0)
@@ -29721,22 +29674,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 219.202 86.614 0)
+			(at 220.98 86.36 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 220.98 82.55 0)
@@ -30323,22 +30275,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 323.85 102.87 0)
+			(at 323.85 101.6 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 323.85 97.79 0)
@@ -30580,22 +30531,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 318.77 194.31 0)
+			(at 318.77 193.04 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 318.77 189.23 0)
@@ -30658,22 +30608,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND_ISO"
-			(at 377.19 194.31 0)
+			(at 381 194.31 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 381 190.5 0)
@@ -30997,22 +30946,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 276.098 39.624 0)
+			(at 278.13 39.37 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 278.13 35.56 0)
@@ -31075,22 +31023,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "GND"
-			(at 354.33 95.25 0)
+			(at 354.33 93.98 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 354.33 90.17 0)
@@ -31332,21 +31279,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "+3V3_ISO"
-			(at 400.304 120.65 0)
+			(at 400.05 122.174 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 400.05 125.73 0)
@@ -31409,22 +31356,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
+		)
 		(property "Value" "PIN_PE"
-			(at 134.112 72.136 0)
+			(at 137.16 71.12 0)
 			(show_name no)
 			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+		)
 		)
 		(property "Footprint" ""
 			(at 137.16 67.31 0)
