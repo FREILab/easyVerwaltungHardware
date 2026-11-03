@@ -7401,6 +7401,1595 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "0_Resistor_1%:R_0R_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0R"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 0 OHM JUMPER 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW06030000Z0EBC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-4013-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0R_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_0R_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Resistor_1%:R_10R_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "10R"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES SMD 10 OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW060310R0FKEA"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW0603-10-E3"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-10.0HCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_10R_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_10R_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Resistor_1%:R_1k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 1K OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-3949-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_1k_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1k_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Resistor_1%:R_2k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "2k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 2K OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW06032K00FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW06032K00FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-3953-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_2k_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_2k_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Resistor_1%:R_330k_1206"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "330k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/20043/crcwhpe3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 330K OHM 1% 3/4W 1206"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW1206330KFKEAHP"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW1206330KFKEAH"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-CRCW1206330KFKEAHPCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "1206"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "750mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_330k_1206_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_330k_1206_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Resistor_1%:R_47k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "47k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 47K OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-4021-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_47k_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_47k_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Resistor_1%:R_499R_0805"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "499R"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 499 OHM 1% 1/8W 0805"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW0805499RFKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW0805499RFKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-CRCW0805499RFKEACCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0805"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "125mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_499R_0805_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_499R_0805_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "0_Resistor_other:RVAR_B72210S0271K101"
 			(pin_numbers
 				(hide yes)
@@ -10455,6 +12044,12 @@
 		(uuid "0bb8a8c0-c31b-4872-9e85-f4ace3238d1d")
 	)
 	(junction
+		(at 187.96 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0d3a7385-0eae-43c4-99fe-a439299d9330")
+	)
+	(junction
 		(at 278.13 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10575,12 +12170,6 @@
 		(uuid "5b80d1c1-d010-41ed-8a9b-320271561a33")
 	)
 	(junction
-		(at 364.49 82.55)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5baa6ed2-7a08-425c-9f04-5b2d835fae34")
-	)
-	(junction
 		(at 194.31 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10611,10 +12200,16 @@
 		(uuid "6e145155-9476-479b-be4f-3a256eac49a1")
 	)
 	(junction
-		(at 220.98 88.9)
+		(at 223.52 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6ecd8a68-269f-486b-98b7-41df8544a406")
+	)
+	(junction
+		(at 191.77 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6f3a8ce4-58e3-4233-b116-47992f3fb1d2")
 	)
 	(junction
 		(at 110.49 104.14)
@@ -10689,13 +12284,7 @@
 		(uuid "a2b15a94-1250-4fbe-845a-6c3b6ca7f542")
 	)
 	(junction
-		(at 187.96 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a5a28d0d-e580-490c-86a9-d02e281a2255")
-	)
-	(junction
-		(at 196.85 88.9)
+		(at 199.39 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a6fb5915-06dd-44ae-9418-4fd384546c9f")
@@ -10737,10 +12326,10 @@
 		(uuid "c7e0e38e-26b5-4c8a-bb0c-9a53dc3ca6c1")
 	)
 	(junction
-		(at 323.85 90.17)
+		(at 364.49 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d682ad61-1379-4dbe-91cb-83d5eebab7c5")
+		(uuid "d4abfe39-79a7-4c70-b9a7-eb4471ac8f8f")
 	)
 	(junction
 		(at 207.01 44.45)
@@ -10761,7 +12350,7 @@
 		(uuid "dd3ac562-4501-4696-aa7f-59a085f3bee9")
 	)
 	(junction
-		(at 208.28 88.9)
+		(at 210.82 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e0b648d6-f0d5-4bb4-8dfa-5efd42417dc6")
@@ -10813,12 +12402,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f4b4ccdb-9491-44f6-bac7-6e84832349a7")
-	)
-	(junction
-		(at 191.77 109.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f5374832-82bb-472a-9643-17aff8f353cd")
 	)
 	(junction
 		(at 248.92 234.95)
@@ -11036,16 +12619,6 @@
 	)
 	(wire
 		(pts
-			(xy 205.74 109.22) (xy 208.28 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0b08b804-0ef9-4dbd-8151-04ff101c2d2c")
-	)
-	(wire
-		(pts
 			(xy 358.14 173.99) (xy 367.03 173.99)
 		)
 		(stroke
@@ -11136,7 +12709,7 @@
 	)
 	(wire
 		(pts
-			(xy 340.36 99.06) (xy 379.73 99.06)
+			(xy 336.55 99.06) (xy 379.73 99.06)
 		)
 		(stroke
 			(width 0)
@@ -11153,6 +12726,16 @@
 			(type default)
 		)
 		(uuid "1138b438-c425-4264-af0d-0ed2af104e78")
+	)
+	(wire
+		(pts
+			(xy 269.24 116.84) (xy 271.78 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11be729d-e2a5-4ff0-9554-880e169550c7")
 	)
 	(polyline
 		(pts
@@ -11317,7 +12900,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 100.33) (xy 220.98 99.06)
+			(xy 223.52 100.33) (xy 223.52 99.06)
 		)
 		(stroke
 			(width 0)
@@ -11417,7 +13000,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 91.44) (xy 196.85 88.9)
+			(xy 199.39 91.44) (xy 199.39 88.9)
 		)
 		(stroke
 			(width 0)
@@ -11577,7 +13160,7 @@
 	)
 	(wire
 		(pts
-			(xy 364.49 82.55) (xy 361.95 82.55)
+			(xy 361.95 82.55) (xy 364.49 82.55)
 		)
 		(stroke
 			(width 0)
@@ -11587,7 +13170,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 88.9) (xy 220.98 88.9)
+			(xy 210.82 88.9) (xy 223.52 88.9)
 		)
 		(stroke
 			(width 0)
@@ -11597,7 +13180,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 88.9) (xy 232.41 88.9)
+			(xy 223.52 88.9) (xy 232.41 88.9)
 		)
 		(stroke
 			(width 0)
@@ -11978,23 +13561,13 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 91.44) (xy 220.98 88.9)
+			(xy 223.52 91.44) (xy 223.52 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "545252b8-ab85-48c5-b33b-7c6de30b0b57")
-	)
-	(wire
-		(pts
-			(xy 340.36 90.17) (xy 336.55 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "549110a2-30f6-434c-b7c7-d07f7bf7e0fa")
 	)
 	(wire
 		(pts
@@ -12319,17 +13892,17 @@
 	)
 	(wire
 		(pts
-			(xy 368.3 82.55) (xy 364.49 82.55)
+			(xy 323.85 90.17) (xy 328.93 90.17)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "6d92774b-7304-45f3-985d-07cdf7f3aea7")
+		(uuid "6e131abd-a757-46a6-b0e5-c0c3a190f96f")
 	)
 	(wire
 		(pts
-			(xy 191.77 109.22) (xy 198.12 109.22)
+			(xy 191.77 109.22) (xy 200.66 109.22)
 		)
 		(stroke
 			(width 0)
@@ -12466,6 +14039,16 @@
 			(type default)
 		)
 		(uuid "77bbb4c1-0369-412d-a6fd-0da0d0c26514")
+	)
+	(wire
+		(pts
+			(xy 336.55 90.17) (xy 336.55 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "78f9ac7a-cf6c-4f75-a286-66959c1a0ab2")
 	)
 	(wire
 		(pts
@@ -12659,7 +14242,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 99.06) (xy 208.28 100.33)
+			(xy 210.82 99.06) (xy 210.82 100.33)
 		)
 		(stroke
 			(width 0)
@@ -12709,16 +14292,6 @@
 	)
 	(wire
 		(pts
-			(xy 328.93 90.17) (xy 323.85 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "977ae383-8b70-46f6-b986-4f8b1e34379d")
-	)
-	(wire
-		(pts
 			(xy 394.97 125.73) (xy 400.05 125.73)
 		)
 		(stroke
@@ -12739,7 +14312,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 88.9) (xy 196.85 88.9)
+			(xy 187.96 88.9) (xy 199.39 88.9)
 		)
 		(stroke
 			(width 0)
@@ -12979,7 +14552,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 91.44) (xy 208.28 88.9)
+			(xy 210.82 91.44) (xy 210.82 88.9)
 		)
 		(stroke
 			(width 0)
@@ -13281,7 +14854,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 88.9) (xy 208.28 88.9)
+			(xy 199.39 88.9) (xy 210.82 88.9)
 		)
 		(stroke
 			(width 0)
@@ -13492,16 +15065,6 @@
 	)
 	(wire
 		(pts
-			(xy 269.24 116.84) (xy 271.78 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dc80646a-ab81-451c-bda9-a83f30bc048a")
-	)
-	(wire
-		(pts
 			(xy 297.18 160.02) (xy 297.18 162.56)
 		)
 		(stroke
@@ -13579,6 +15142,16 @@
 			(type default)
 		)
 		(uuid "e1829fc9-5226-4740-9da9-6a8028062b0c")
+	)
+	(wire
+		(pts
+			(xy 364.49 82.55) (xy 368.3 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3e769b8-80b2-4cac-8727-94a975795137")
 	)
 	(wire
 		(pts
@@ -13772,7 +15345,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 100.33) (xy 196.85 99.06)
+			(xy 199.39 100.33) (xy 199.39 99.06)
 		)
 		(stroke
 			(width 0)
@@ -13819,16 +15392,6 @@
 			(type default)
 		)
 		(uuid "fde8f020-f435-4201-898a-7e2126f4ad14")
-	)
-	(wire
-		(pts
-			(xy 340.36 90.17) (xy 340.36 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "feadd296-df85-4f9d-858d-67a433fdfefd")
 	)
 	(label "PIN_N"
 		(at 26.67 201.93 0)
@@ -15285,7 +16848,7 @@
 	)
 	(symbol
 		(lib_id "0_Capacitor_X7R:C_10uF_0805_10V")
-		(at 220.98 95.25 0)
+		(at 223.52 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15296,7 +16859,7 @@
 		(fields_autoplaced yes)
 		(uuid "045ce0d8-9600-4acf-ae80-0436f06c5965")
 		(property "Reference" "C311"
-			(at 224.79 93.9799 0)
+			(at 227.33 93.9799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15307,7 +16870,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 224.79 96.5199 0)
+			(at 227.33 96.5199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15318,7 +16881,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 221.9452 99.06 0)
+			(at 224.4852 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15329,7 +16892,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.de/datasheet/3/508/1/UPY_GPHC_X7R_6_3V_TO_250V.pdf"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15340,7 +16903,7 @@
 			)
 		)
 		(property "Description" "CAP CER 10UF 10V X7R 0805"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15351,7 +16914,7 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15362,7 +16925,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "CC0805KFX7R6BB106"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15373,7 +16936,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15384,7 +16947,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" "603-CC0805KFX7R6B106"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15395,7 +16958,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15406,7 +16969,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" "13-CC0805KFX7R6BB106CT-ND"
-			(at 220.98 95.25 0)
+			(at 223.52 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15417,7 +16980,7 @@
 			)
 		)
 		(property "FootprintSymbol" "0805"
-			(at 222.25 91.694 90)
+			(at 224.79 91.694 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -15427,7 +16990,7 @@
 			)
 		)
 		(property "Dielectric" "X7R"
-			(at 222.25 98.298 90)
+			(at 224.79 98.298 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -15437,7 +17000,7 @@
 			)
 		)
 		(property "Voltage Rating" "10V"
-			(at 219.71 96.52 90)
+			(at 222.25 96.52 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -15457,86 +17020,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C311")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 265.43 116.84 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "04e99421-3300-4825-925c-535a7c476633")
-		(property "Reference" "R306"
-			(at 265.43 110.49 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 265.43 113.03 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 265.43 118.618 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 265.43 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 265.43 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "afb6de37-feea-4baf-89ec-7899c7e1d84b")
-		)
-		(pin "1"
-			(uuid "8dde71e1-ceb6-4296-a21c-996d13fc4df4")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R306")
 					(unit 1)
 				)
 			)
@@ -15716,6 +17199,183 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_0R_0603")
+		(at 374.65 147.32 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "061af92a-3814-48b9-ad42-8c9bed8fa2ac")
+		(property "Reference" "R319"
+			(at 369.316 146.05 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 380.238 146.304 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 374.65 149.098 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 0 OHM JUMPER 1/10W 0603"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06030000Z0EBC"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4013-1-ND"
+			(at 374.65 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 374.65 147.32 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 374.65 145.034 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 374.65 152.4 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d5df8b41-d4a1-4d43-8e37-290a921b7363")
+		)
+		(pin "2"
+			(uuid "55803f58-cd57-4fba-bf25-41bd4e77f120")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R319")
 					(unit 1)
 				)
 			)
@@ -15920,7 +17580,7 @@
 	)
 	(symbol
 		(lib_id "0_Capacitor_X7R:C_10nF_0603_100V")
-		(at 196.85 95.25 0)
+		(at 199.39 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15931,7 +17591,7 @@
 		(fields_autoplaced yes)
 		(uuid "086e9613-689d-4417-95d4-eccbf8602358")
 		(property "Reference" "C307"
-			(at 200.66 93.9799 0)
+			(at 203.2 93.9799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15942,7 +17602,7 @@
 			)
 		)
 		(property "Value" "10nF"
-			(at 200.66 96.5199 0)
+			(at 203.2 96.5199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15953,7 +17613,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 197.8152 99.06 0)
+			(at 200.3552 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15964,7 +17624,7 @@
 			)
 		)
 		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM188R72A103KA01-01A-EN_PDF_CERAMICCAPACITORSMD"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15975,7 +17635,7 @@
 			)
 		)
 		(property "Description" "CAP CER 10000PF 100V X7R 0603"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15986,7 +17646,7 @@
 			)
 		)
 		(property "Manufacturer" "Murata Electronics"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15997,7 +17657,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "GRM188R72A103KA01D"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -16008,7 +17668,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -16019,7 +17679,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" "81-GRM188R72A103KA1D"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -16030,7 +17690,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -16041,7 +17701,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" "490-GRM188R72A103KA01DCT-ND"
-			(at 196.85 95.25 0)
+			(at 199.39 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -16052,7 +17712,7 @@
 			)
 		)
 		(property "FootprintSymbol" "0603"
-			(at 198.12 91.694 90)
+			(at 200.66 91.694 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -16062,7 +17722,7 @@
 			)
 		)
 		(property "Dielectric" "X7R"
-			(at 198.12 98.298 90)
+			(at 200.66 98.298 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -16072,7 +17732,7 @@
 			)
 		)
 		(property "Voltage Rating" "100V"
-			(at 195.58 96.52 90)
+			(at 198.12 96.52 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -16316,21 +17976,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 261.62 58.42 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 261.62 54.61 0)
@@ -16479,6 +18139,184 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "J302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_499R_0805")
+		(at 236.22 135.89 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "108da28f-4e50-48d3-a573-359d3e798ae9")
+		(property "Reference" "R303"
+			(at 236.22 129.54 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "499R"
+			(at 236.22 132.08 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 236.22 137.668 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 499 OHM 1% 1/8W 0805"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW0805499RFKEAC"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW0805499RFKEAC"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-CRCW0805499RFKEACCT-ND"
+			(at 236.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0805"
+			(at 236.22 135.89 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "125mW"
+			(at 236.22 133.604 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 236.22 140.97 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9ed9d1f2-121f-4401-b430-e29cf6516871")
+		)
+		(pin "1"
+			(uuid "c1802766-5210-40b8-b140-113e73a6d105")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R303")
 					(unit 1)
 				)
 			)
@@ -16824,8 +18662,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 236.22 135.89 90)
+		(lib_id "0_Resistor_1%:R_1k_0603")
+		(at 262.89 187.96 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16834,9 +18672,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "1228837a-6c0a-4de0-85fe-819208f85e98")
-		(property "Reference" "R303"
-			(at 236.22 129.54 90)
+		(uuid "123db930-be63-4d53-9763-fd39cf5d40ec")
+		(property "Reference" "R302"
+			(at 262.89 181.61 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16845,8 +18683,8 @@
 				)
 			)
 		)
-		(property "Value" "499k"
-			(at 236.22 132.08 90)
+		(property "Value" "1k"
+			(at 262.89 184.15 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16855,33 +18693,131 @@
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 236.22 137.668 90)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 262.89 189.738 90)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 236.22 135.89 0)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 262.89 187.96 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
-			(at 236.22 135.89 0)
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
+			(at 262.89 187.96 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 262.89 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 262.89 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 262.89 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 262.89 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 262.89 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 262.89 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 262.89 187.96 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 262.89 185.674 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 262.89 193.04 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16889,15 +18825,15 @@
 			)
 		)
 		(pin "2"
-			(uuid "15bdcf3f-36c6-4b49-b0a9-51e2da1e161e")
+			(uuid "a1734c0e-ee8f-454a-9f5a-a01d0d05d12a")
 		)
 		(pin "1"
-			(uuid "2d6ddfb8-1609-41f1-bbec-dcdc05d2df8f")
+			(uuid "b0fa6cd4-a3e5-4957-a76b-aef89c8a06a3")
 		)
 		(instances
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R303")
+					(reference "R302")
 					(unit 1)
 				)
 			)
@@ -17619,7 +19555,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 196.85 100.33 0)
+		(at 199.39 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17629,28 +19565,28 @@
 		(dnp no)
 		(uuid "1b778dbb-8ef4-415f-b19b-dd51872966af")
 		(property "Reference" "#PWR0353"
-			(at 196.85 106.68 0)
+			(at 199.39 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
-			(at 196.85 104.14 0)
+			(at 199.39 104.14 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
-		)
 		(property "Footprint" ""
-			(at 196.85 100.33 0)
+			(at 199.39 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17661,7 +19597,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 196.85 100.33 0)
+			(at 199.39 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17672,7 +19608,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 196.85 100.33 0)
+			(at 199.39 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17710,21 +19646,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 325.12 39.37 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 325.12 35.56 0)
@@ -18109,21 +20045,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 383.54 58.42 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 383.54 54.61 0)
@@ -18350,88 +20286,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 394.97 114.3 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "299592f4-a837-4966-a340-bf2902e75721")
-		(property "Reference" "R307"
-			(at 397.51 113.0299 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "10R"
-			(at 397.51 115.5699 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 396.748 114.3 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 394.97 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 394.97 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "5a429234-746b-41d8-9001-eee9e6aaf716")
-		)
-		(pin "1"
-			(uuid "794d38b5-fe66-42bb-a705-0266baff71ad")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R307")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "0_Fuse:F_5HT_10-R")
 		(at 93.98 214.63 90)
 		(unit 1)
@@ -18626,21 +20480,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 191.77 124.46 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 191.77 120.65 0)
@@ -18703,21 +20557,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 87.63 138.43 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 87.63 134.62 0)
@@ -18944,6 +20798,184 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_499R_0805")
+		(at 247.65 135.89 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2f154fb5-6ec3-406e-a0ee-e7b0c0960291")
+		(property "Reference" "R304"
+			(at 247.65 129.54 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "499R"
+			(at 247.65 132.08 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 247.65 137.668 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 499 OHM 1% 1/8W 0805"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW0805499RFKEAC"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW0805499RFKEAC"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-CRCW0805499RFKEACCT-ND"
+			(at 247.65 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0805"
+			(at 247.65 135.89 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "125mW"
+			(at 247.65 133.604 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 247.65 140.97 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "02cd54c7-70fa-4097-b91b-774a61c6b91c")
+		)
+		(pin "1"
+			(uuid "ca6dc538-291f-4fcb-8abb-45aca8d51c30")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R304")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 375.92 27.94 0)
 		(unit 1)
@@ -18959,21 +20991,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+5V"
 			(at 375.92 24.384 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 375.92 27.94 0)
@@ -19178,85 +21210,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "U306")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 374.65 147.32 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "31ecd195-45a3-4da5-a6ef-afed5266f378")
-		(property "Reference" "R319"
-			(at 368.808 146.304 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "0R"
-			(at 380.238 146.304 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 374.65 149.098 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 374.65 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 374.65 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "cb60b37d-f3c7-470b-b79a-a05f1572e372")
-		)
-		(pin "1"
-			(uuid "668da4dc-6704-4bae-a3f8-a579544ce9f4")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R319")
 					(unit 1)
 				)
 			)
@@ -19507,21 +21460,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "PIN_PE"
 			(at 31.75 214.63 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 31.75 210.82 0)
@@ -19764,21 +21717,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 257.81 120.65 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 257.81 116.84 0)
@@ -19902,168 +21855,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "NT300")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 354.33 57.15 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3e033f70-4658-47b4-a181-c053bed38215")
-		(property "Reference" "R313"
-			(at 356.87 55.8799 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "47k"
-			(at 356.87 58.4199 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 356.108 57.15 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 354.33 57.15 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 354.33 57.15 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "a2a513c0-9a80-4f00-b4bf-30c2da2d0270")
-		)
-		(pin "1"
-			(uuid "003c4069-eef1-4a8d-ba88-0c4b71f50901")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R313")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 262.89 187.96 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "40e4c1ae-d099-42a4-a240-5ce382ad1658")
-		(property "Reference" "R302"
-			(at 262.89 181.61 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 262.89 184.15 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 262.89 189.738 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 262.89 187.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 262.89 187.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "23ea95b6-6ea4-4178-ac0b-f862106cf3a9")
-		)
-		(pin "1"
-			(uuid "91dab58f-14f0-4370-aede-8fddd2b8ab42")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R302")
 					(unit 1)
 				)
 			)
@@ -20249,7 +22040,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_330k_1206")
 		(at 54.61 228.6 0)
 		(unit 1)
 		(body_style 1)
@@ -20282,33 +22073,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 52.832 228.6 90)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20043/crcwhpe3.pdf"
 			(at 54.61 228.6 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 330K OHM 1% 3/4W 1206"
 			(at 54.61 228.6 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 54.61 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW1206330KFKEAHP"
+			(at 54.61 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 54.61 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW1206330KFKEAH"
+			(at 54.61 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 54.61 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-CRCW1206330KFKEAHPCT-ND"
+			(at 54.61 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "1206"
+			(at 54.61 228.6 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "750mW"
+			(at 56.896 228.6 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 49.53 228.6 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20346,21 +22235,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 378.46 123.19 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 378.46 119.38 0)
@@ -20587,6 +22476,183 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_1k_0603")
+		(at 204.47 109.22 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4992ea4b-89e6-4a03-8eaa-a09dde1cd436")
+		(property "Reference" "R322"
+			(at 204.47 102.87 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 204.47 105.41 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 204.47 110.998 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 204.47 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 204.47 109.22 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 204.47 106.934 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 204.47 114.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "316ee001-afca-4a1a-92d0-79f1960ace04")
+		)
+		(pin "1"
+			(uuid "c4525926-e8ec-4b19-a978-c7d3dee09fa0")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R322")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 336.55 21.59 0)
 		(unit 1)
@@ -20602,21 +22668,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+3V3"
 			(at 336.55 18.034 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 336.55 21.59 0)
@@ -21009,21 +23075,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+24V"
 			(at 316.23 47.244 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 316.23 50.8 0)
@@ -21086,21 +23152,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 364.49 93.98 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 364.49 90.17 0)
@@ -21323,21 +23389,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 217.17 254 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 217.17 250.19 0)
@@ -21577,21 +23643,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 271.78 132.08 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 271.78 128.27 0)
@@ -21654,21 +23720,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 137.16 118.11 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 137.16 114.3 0)
@@ -21710,6 +23776,184 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0321")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_1k_0603")
+		(at 332.74 90.17 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "599b234a-c733-45fc-a181-4e4c9d2a8d56")
+		(property "Reference" "R312"
+			(at 332.74 83.82 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 332.74 86.36 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 332.74 91.948 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 332.74 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 332.74 90.17 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 332.74 87.884 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 332.74 95.25 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "7f7763fc-d0f4-4c69-98ed-ce1bf74661bc")
+		)
+		(pin "1"
+			(uuid "b0b36506-d975-4ae7-8133-05e9a57b4ed5")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R312")
 					(unit 1)
 				)
 			)
@@ -21889,88 +24133,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "C308")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 187.96 99.06 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5c55787f-9ce9-4072-9abc-a2f106e206bf")
-		(property "Reference" "R318"
-			(at 190.5 97.7899 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "47k"
-			(at 190.5 100.3299 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 189.738 99.06 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 187.96 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 187.96 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "f029624c-9865-4728-b8e9-019a9204ffc5")
-		)
-		(pin "1"
-			(uuid "7e4c3d18-c700-44e4-87ec-e7f3cdad33e9")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R318")
 					(unit 1)
 				)
 			)
@@ -22691,6 +24853,186 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_10R_0603")
+		(at 394.97 114.3 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6258dece-9abc-4f28-bf57-fede59c39dc0")
+		(property "Reference" "R307"
+			(at 397.51 113.0299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10R"
+			(at 397.51 115.5699 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 393.192 114.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES SMD 10 OHM 1% 1/10W 0603"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060310R0FKEA"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW0603-10-E3"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-10.0HCT-ND"
+			(at 394.97 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 394.97 114.3 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 397.256 114.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 389.89 114.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7522699d-fbf3-4189-b9fe-78c8c98a302e")
+		)
+		(pin "2"
+			(uuid "13f83eef-f550-458a-9bef-bf6116ac8fff")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R307")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 266.7 44.45 0)
 		(unit 1)
@@ -22706,21 +25048,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+5V"
 			(at 266.7 40.894 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 266.7 44.45 0)
@@ -22783,21 +25125,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 363.22 194.31 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 363.22 190.5 0)
@@ -22860,21 +25202,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 124.46 118.11 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 124.46 114.3 0)
@@ -22916,6 +25258,366 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0320")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_47k_0603")
+		(at 354.33 71.12 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "68351363-ebac-4a94-940f-ffd9f007379e")
+		(property "Reference" "R314"
+			(at 356.87 69.8499 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 356.87 72.3899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 352.552 71.12 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 47K OHM 1% 1/10W 0603"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4021-1-ND"
+			(at 354.33 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 354.33 71.12 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 356.616 71.12 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 349.25 71.12 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ad200a92-c2b5-4119-a8d1-92459a6e83e8")
+		)
+		(pin "1"
+			(uuid "48767e4b-44d8-4085-a792-28fc0e5c335b")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R314")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_2k_0603")
+		(at 262.89 142.24 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "684a66bb-e7f7-4d93-a8a0-9e3c45d5869c")
+		(property "Reference" "R309"
+			(at 265.43 140.9699 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "2k"
+			(at 265.43 143.5099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 264.668 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 2K OHM 1% 1/10W 0603"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06032K00FKEAC"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06032K00FKEAC"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3953-1-ND"
+			(at 262.89 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 262.89 142.24 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 260.604 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 267.97 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cec6d603-73fa-4b50-9b78-9882734a1458")
+		)
+		(pin "2"
+			(uuid "892407e7-b4bb-4f3b-9a91-208a05d4d97b")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R309")
 					(unit 1)
 				)
 			)
@@ -23117,21 +25819,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 208.28 162.56 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 208.28 158.75 0)
@@ -23179,6 +25881,186 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_2k_0603")
+		(at 254 142.24 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6de267d7-b360-44fd-9b72-ffb067955965")
+		(property "Reference" "R308"
+			(at 256.54 140.9699 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "2k"
+			(at 256.54 143.5099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 255.778 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 2K OHM 1% 1/10W 0603"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06032K00FKEAC"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06032K00FKEAC"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3953-1-ND"
+			(at 254 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 254 142.24 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 251.714 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 259.08 142.24 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a4bb4a22-176f-40d9-8301-dc0629174fe9")
+		)
+		(pin "2"
+			(uuid "80365770-c3b8-410f-9976-7323e46ad6cb")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R308")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 250.19 54.61 0)
 		(unit 1)
@@ -23194,21 +26076,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 250.19 58.42 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 250.19 54.61 0)
@@ -23271,21 +26153,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 172.72 163.83 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 172.72 160.02 0)
@@ -23676,21 +26558,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 110.49 118.11 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 110.49 114.3 0)
@@ -23753,21 +26635,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 368.3 139.7 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 368.3 135.89 0)
@@ -23830,21 +26712,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 331.47 39.37 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 331.47 35.56 0)
@@ -23907,21 +26789,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "PIN_PE"
 			(at 332.74 236.22 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 332.74 232.41 0)
@@ -23969,86 +26851,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 262.89 162.56 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7df9338e-2a90-4b2b-b888-b8e1a9840a58")
-		(property "Reference" "R301"
-			(at 262.89 156.21 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 262.89 158.75 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 262.89 164.338 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 262.89 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 262.89 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "4f3b3435-e3a6-4fc6-8c57-5ad32ca198fa")
-		)
-		(pin "1"
-			(uuid "2a314d9b-1070-42ec-96a4-f49c71f81dbe")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+24V")
 		(at 354.33 50.8 0)
 		(unit 1)
@@ -24064,21 +26866,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+24V"
 			(at 354.33 47.244 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 354.33 50.8 0)
@@ -24141,21 +26943,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+3V3_ISO"
 			(at 104.14 96.774 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 104.14 100.33 0)
@@ -24381,168 +27183,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 332.74 90.17 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "81fbafa2-c00a-424c-889d-138b5357ae5a")
-		(property "Reference" "R312"
-			(at 332.74 83.82 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 332.74 86.36 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 332.74 91.948 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 332.74 90.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 332.74 90.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "1fd2d0bd-601b-44b8-9986-56b76ba55837")
-		)
-		(pin "1"
-			(uuid "568cc0e8-86a0-4b6f-a9bb-c4d61222000c")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R312")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 254 142.24 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "85878e92-22bb-4f0f-aec5-a26c83240957")
-		(property "Reference" "R308"
-			(at 256.54 140.9699 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "2k"
-			(at 256.54 143.5099 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 255.778 142.24 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 254 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 254 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "6b677f1b-8bb2-4983-8353-e3e5da62b763")
-		)
-		(pin "1"
-			(uuid "b006a3d7-b9cf-4dcc-8915-c00dbc505284")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R308")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 194.31 82.55 0)
 		(unit 1)
@@ -24558,21 +27198,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 194.31 86.36 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 194.31 82.55 0)
@@ -24635,21 +27275,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 254 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 254 147.32 0)
@@ -24712,21 +27352,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+24V"
 			(at 215.9 39.624 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 215.9 43.18 0)
@@ -24789,21 +27429,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+5V"
 			(at 278.13 21.844 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 278.13 25.4 0)
@@ -24851,85 +27491,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 374.65 149.86 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "8d5198e5-f611-48d0-ad04-1ee5e07fc7a8")
-		(property "Reference" "R320"
-			(at 368.808 148.844 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "0R"
-			(at 380.238 148.844 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 374.65 151.638 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 374.65 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 374.65 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "9e6f685f-c25e-44bb-954a-ae1f3a89485f")
-		)
-		(pin "1"
-			(uuid "e37ece1c-b7de-46de-8bdb-1758671c97e4")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R320")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 316.23 97.79 0)
 		(unit 1)
@@ -24945,21 +27506,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 316.23 101.6 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 316.23 97.79 0)
@@ -25201,21 +27762,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 273.05 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 273.05 147.32 0)
@@ -25263,168 +27824,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 247.65 135.89 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "99f40b3d-fcaf-4329-9393-3a55f171878a")
-		(property "Reference" "R304"
-			(at 247.65 129.54 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "499k"
-			(at 247.65 132.08 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 247.65 137.668 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 247.65 135.89 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 247.65 135.89 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "784b8d64-aa56-47e8-af10-8edc4bad9458")
-		)
-		(pin "1"
-			(uuid "ebf3d9ff-8061-4a8a-a5e3-332e9076404f")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R304")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 323.85 93.98 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9a1cd7f4-b9c1-49be-ba99-e68248a99fc4")
-		(property "Reference" "R316"
-			(at 326.39 92.7099 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "47k"
-			(at 326.39 95.2499 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 325.628 93.98 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 323.85 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 323.85 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "d07a0bc9-dea7-4156-aa10-4fd88956c109")
-		)
-		(pin "1"
-			(uuid "b55afb98-ecab-49ad-88a9-79b954405e17")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R316")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 160.02 160.02 0)
 		(unit 1)
@@ -25440,21 +27839,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 160.02 163.83 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 160.02 160.02 0)
@@ -25850,8 +28249,188 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_47k_0603")
+		(at 323.85 93.98 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9e40d175-8889-48d1-97f5-e2f5fc31d0f3")
+		(property "Reference" "R316"
+			(at 326.39 92.7099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 326.39 95.2499 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 322.072 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 47K OHM 1% 1/10W 0603"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4021-1-ND"
+			(at 323.85 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 323.85 93.98 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 326.136 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 318.77 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "e9909aed-0d70-4e27-93af-3fccbd638ad0")
+		)
+		(pin "1"
+			(uuid "811a356f-80b5-4938-a639-09e6ec6e0a46")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R316")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
-		(at 220.98 100.33 0)
+		(at 223.52 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -25861,28 +28440,28 @@
 		(dnp no)
 		(uuid "a01cdbbb-9167-4e0e-ba5a-6aa64b70586f")
 		(property "Reference" "#PWR0355"
-			(at 220.98 106.68 0)
+			(at 223.52 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
-			(at 220.98 104.14 0)
+			(at 223.52 104.14 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
-		)
 		(property "Footprint" ""
-			(at 220.98 100.33 0)
+			(at 223.52 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25893,7 +28472,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 100.33 0)
+			(at 223.52 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25904,7 +28483,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 220.98 100.33 0)
+			(at 223.52 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25921,6 +28500,186 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0355")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_47k_0603")
+		(at 364.49 86.36 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a2402804-d0bf-4b04-a079-8de6824db1f0")
+		(property "Reference" "R317"
+			(at 367.03 85.0899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 367.03 87.6299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 362.712 86.36 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 47K OHM 1% 1/10W 0603"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4021-1-ND"
+			(at 364.49 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 364.49 86.36 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 366.776 86.36 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 359.41 86.36 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "322b620f-056d-4d4d-941a-7a2dcf1da876")
+		)
+		(pin "1"
+			(uuid "03ba023a-c75b-46e4-8752-15b29cc63f9e")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R317")
 					(unit 1)
 				)
 			)
@@ -26121,21 +28880,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 208.28 86.36 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 208.28 82.55 0)
@@ -26377,21 +29136,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+24V"
 			(at 382.27 24.384 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 382.27 27.94 0)
@@ -26439,6 +29198,184 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_2k_0603")
+		(at 370.84 173.99 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a7abb2d2-31be-4f39-ba08-a8a9fd9f08b0")
+		(property "Reference" "R311"
+			(at 370.84 167.64 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2k"
+			(at 370.84 170.18 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 370.84 175.768 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 2K OHM 1% 1/10W 0603"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06032K00FKEAC"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06032K00FKEAC"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3953-1-ND"
+			(at 370.84 173.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 370.84 173.99 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 370.84 171.704 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 370.84 179.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "711b990e-7ad9-44b6-9094-478160d41347")
+		)
+		(pin "2"
+			(uuid "f85b2a7a-bd9a-4f0e-90ae-5d17f3eef595")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R311")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 247.65 69.85 0)
 		(unit 1)
@@ -26454,21 +29391,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+3V3"
 			(at 247.65 66.294 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 247.65 69.85 0)
@@ -26774,166 +29711,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 372.11 82.55 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ae940d73-f070-4998-87e9-5af38c03afc4")
-		(property "Reference" "R315"
-			(at 372.11 76.2 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 372.11 78.74 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 372.11 84.328 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 372.11 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 372.11 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "90483176-eadb-4430-993f-c31445433099")
-		)
-		(pin "1"
-			(uuid "fc24ecec-3790-425d-8d44-3436c0180adb")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R315")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 370.84 173.99 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b052a498-2948-49ec-8c5a-83913359a7f1")
-		(property "Reference" "R311"
-			(at 370.84 167.64 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "2k"
-			(at 370.84 170.18 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 370.84 172.212 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 370.84 173.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 370.84 173.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "87632009-abe6-4cb4-95bf-4b565003df00")
-		)
-		(pin "1"
-			(uuid "921335f7-8707-40c3-8eb1-46ae6a96b6fb")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R311")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 207.01 57.15 0)
 		(unit 1)
@@ -26949,21 +29726,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 207.01 60.96 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 207.01 57.15 0)
@@ -27005,86 +29782,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0306")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 201.93 109.22 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b2ece9a8-6511-4785-8846-bd7b9c6ebb90")
-		(property "Reference" "R322"
-			(at 201.93 102.87 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1k"
-			(at 201.93 105.41 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 201.93 107.442 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 201.93 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 201.93 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "8f85708f-5384-4dad-b9d2-1089a754436d")
-		)
-		(pin "1"
-			(uuid "c2523b72-1a3c-4cb4-bca5-358503980820")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R322")
 					(unit 1)
 				)
 			)
@@ -27285,21 +29982,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 262.89 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 262.89 147.32 0)
@@ -27526,7 +30223,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_330k_1206")
 		(at 54.61 217.17 0)
 		(unit 1)
 		(body_style 1)
@@ -27559,33 +30256,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 52.832 217.17 90)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20043/crcwhpe3.pdf"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 330K OHM 1% 3/4W 1206"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 54.61 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW1206330KFKEAHP"
+			(at 54.61 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 54.61 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW1206330KFKEAH"
+			(at 54.61 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 54.61 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-CRCW1206330KFKEAHPCT-ND"
+			(at 54.61 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "1206"
+			(at 54.61 217.17 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "750mW"
+			(at 56.896 217.17 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 49.53 217.17 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27847,88 +30642,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "F300")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 364.49 86.36 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bb430d21-15fe-4e32-b49a-337d145604c7")
-		(property "Reference" "R317"
-			(at 367.03 85.0899 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "47k"
-			(at 367.03 87.6299 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 366.268 86.36 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 364.49 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 364.49 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "12c71244-5d80-4e9a-bfec-b49792d58ab2")
-		)
-		(pin "1"
-			(uuid "380e7210-76e3-476c-8e2a-b9fcc6ce2775")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R317")
 					(unit 1)
 				)
 			)
@@ -28281,7 +30994,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 208.28 100.33 0)
+		(at 210.82 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -28291,28 +31004,28 @@
 		(dnp no)
 		(uuid "c0794b20-f237-4995-913d-cbe625e6755a")
 		(property "Reference" "#PWR0354"
-			(at 208.28 106.68 0)
+			(at 210.82 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
-			(at 208.28 104.14 0)
+			(at 210.82 104.14 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
-		)
 		(property "Footprint" ""
-			(at 208.28 100.33 0)
+			(at 210.82 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28323,7 +31036,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 208.28 100.33 0)
+			(at 210.82 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28334,7 +31047,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 208.28 100.33 0)
+			(at 210.82 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28372,21 +31085,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+3V3"
 			(at 369.57 24.384 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 369.57 27.94 0)
@@ -28449,21 +31162,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 363.22 123.19 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 363.22 119.38 0)
@@ -28511,6 +31224,184 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_1k_0603")
+		(at 265.43 116.84 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c8f8aa40-86e3-4e75-935d-49508d98bc88")
+		(property "Reference" "R306"
+			(at 265.43 110.49 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 265.43 113.03 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 265.43 118.618 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 265.43 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 265.43 116.84 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 265.43 114.554 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 265.43 121.92 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "0feec217-8357-4af8-8270-e0fc0cf49e32")
+		)
+		(pin "1"
+			(uuid "1b41e7d6-3a23-4883-b835-45d26873d928")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R306")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 254 175.26 0)
 		(unit 1)
@@ -28526,21 +31417,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 254 179.07 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 254 175.26 0)
@@ -28582,6 +31473,184 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0333")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Resistor_1%:R_1k_0603")
+		(at 262.89 162.56 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ca61e0f4-f03d-4dcf-a7f6-ce418adf6ae8")
+		(property "Reference" "R301"
+			(at 262.89 156.21 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 262.89 158.75 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 262.89 164.338 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 262.89 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 262.89 162.56 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 262.89 160.274 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 262.89 167.64 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "fa7ef932-e9d6-4d22-b04d-9468394047fa")
+		)
+		(pin "1"
+			(uuid "20542048-ad0e-4415-8bab-a533a073f31b")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R301")
 					(unit 1)
 				)
 			)
@@ -28768,21 +31837,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 189.23 60.96 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 189.23 57.15 0)
@@ -28845,21 +31914,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "PIN_PE"
 			(at 152.4 71.12 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 152.4 67.31 0)
@@ -29067,6 +32136,186 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_47k_0603")
+		(at 187.96 99.06 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d2c7e48b-a857-4ca7-8b9a-d3b6be93ef11")
+		(property "Reference" "R318"
+			(at 190.5 97.7899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 190.5 100.3299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 186.182 99.06 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 47K OHM 1% 1/10W 0603"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4021-1-ND"
+			(at 187.96 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 187.96 99.06 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 190.246 99.06 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 182.88 99.06 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "f441dba1-bb3c-4424-82c2-cc7eb1c3f229")
+		)
+		(pin "1"
+			(uuid "0b984d12-89cd-4c3e-86d3-3fb6c484979e")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R318")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "0_Resistor_other:R_CSI2H-2512K-2L00G")
 		(at 245.11 234.95 270)
 		(unit 1)
@@ -29244,7 +32493,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_330k_1206")
 		(at 54.61 207.01 0)
 		(unit 1)
 		(body_style 1)
@@ -29277,33 +32526,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 52.832 207.01 90)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20043/crcwhpe3.pdf"
 			(at 54.61 207.01 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 330K OHM 1% 3/4W 1206"
 			(at 54.61 207.01 0)
 			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 54.61 207.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW1206330KFKEAHP"
+			(at 54.61 207.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 54.61 207.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW1206330KFKEAH"
+			(at 54.61 207.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 54.61 207.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-CRCW1206330KFKEAHPCT-ND"
+			(at 54.61 207.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "1206"
+			(at 54.61 207.01 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "750mW"
+			(at 56.896 207.01 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 49.53 207.01 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29505,6 +32852,186 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_47k_0603")
+		(at 354.33 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "db542c08-a118-4722-8a43-27f956f2ebeb")
+		(property "Reference" "R313"
+			(at 356.87 55.8799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 356.87 58.4199 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 352.552 57.15 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 47K OHM 1% 1/10W 0603"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4021-1-ND"
+			(at 354.33 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 354.33 57.15 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 356.616 57.15 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 349.25 57.15 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "b21e5322-22ce-44fa-8bec-581769919d12")
+		)
+		(pin "1"
+			(uuid "1ccac3d5-77d6-4b5c-a4ee-b2d7af5122ef")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R313")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 379.73 172.72 0)
 		(unit 1)
@@ -29520,21 +33047,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+3V3_ISO"
 			(at 379.73 169.164 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 379.73 172.72 0)
@@ -29582,6 +33109,183 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_0R_0603")
+		(at 374.65 149.86 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "debaaaf1-9780-4ef3-bd12-92e35fcafef5")
+		(property "Reference" "R320"
+			(at 369.316 148.59 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0R"
+			(at 380.238 148.844 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 374.65 151.638 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 0 OHM JUMPER 1/10W 0603"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06030000Z0EBC"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4013-1-ND"
+			(at 374.65 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 374.65 149.86 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 374.65 147.574 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 374.65 154.94 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22f3fd68-5c9f-48b9-8c03-0fe479aab3fb")
+		)
+		(pin "2"
+			(uuid "e1f8d57c-0657-4ccb-aaca-c19eb7045df8")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R320")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 180.34 52.07 0)
 		(unit 1)
@@ -29597,21 +33301,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 180.34 55.88 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 180.34 52.07 0)
@@ -29674,21 +33378,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 220.98 86.36 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 220.98 82.55 0)
@@ -30081,6 +33785,184 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Resistor_1%:R_1k_0603")
+		(at 372.11 82.55 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e63c86c0-9618-4d93-b5d6-e1833d2b5b1c")
+		(property "Reference" "R315"
+			(at 372.11 76.2 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 372.11 78.74 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 372.11 84.328 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 372.11 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 372.11 82.55 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 372.11 80.264 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 372.11 87.63 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "131eea7f-071d-4934-ab4a-ba3cad230014")
+		)
+		(pin "1"
+			(uuid "fa461032-9d52-4a71-ab26-497b8291af5b")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "R315")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "0_Capacitor_X7R:C_10uF_0805_10V")
 		(at 261.62 50.8 0)
 		(unit 1)
@@ -30275,21 +34157,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 323.85 101.6 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 323.85 97.79 0)
@@ -30531,21 +34413,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 318.77 193.04 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 318.77 189.23 0)
@@ -30608,21 +34490,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND_ISO"
 			(at 381 194.31 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 381 190.5 0)
@@ -30671,7 +34553,7 @@
 	)
 	(symbol
 		(lib_id "0_Capacitor_X7R:C_1uF_0603_16V")
-		(at 208.28 95.25 0)
+		(at 210.82 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -30682,7 +34564,7 @@
 		(fields_autoplaced yes)
 		(uuid "f343651c-0fd1-423d-a640-99e5bb9a93dc")
 		(property "Reference" "C305"
-			(at 212.09 93.9799 0)
+			(at 214.63 93.9799 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -30693,7 +34575,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 212.09 96.5199 0)
+			(at 214.63 96.5199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -30704,7 +34586,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 209.2452 99.06 0)
+			(at 211.7852 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30715,7 +34597,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/capacitor/ceramic/mlcc/catalog/mlcc_automotive_general_en.pdf"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30726,7 +34608,7 @@
 			)
 		)
 		(property "Description" "CAP CER 1UF 16V X7R 0603"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30737,7 +34619,7 @@
 			)
 		)
 		(property "Manufacturer" "TDK"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30748,7 +34630,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "CGA3E1X7R1C105K080AC"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30759,7 +34641,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30770,7 +34652,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" "810-CGA3E1X7R1C105AC"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30781,7 +34663,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30792,7 +34674,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" "445-12539-1-ND"
-			(at 208.28 95.25 0)
+			(at 210.82 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -30803,7 +34685,7 @@
 			)
 		)
 		(property "FootprintSymbol" "0603"
-			(at 209.55 91.694 90)
+			(at 212.09 91.694 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -30813,7 +34695,7 @@
 			)
 		)
 		(property "Dielectric" "X7R"
-			(at 209.55 98.298 90)
+			(at 212.09 98.298 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -30823,7 +34705,7 @@
 			)
 		)
 		(property "Voltage Rating" "16V"
-			(at 207.01 96.52 90)
+			(at 209.55 96.52 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -30849,88 +34731,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 354.33 71.12 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f5aef6a8-9519-4109-9da4-fb842048db04")
-		(property "Reference" "R314"
-			(at 356.87 69.8499 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "47k"
-			(at 356.87 72.3899 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 356.108 71.12 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 354.33 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 354.33 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "f0779022-af8d-42a1-bd82-883a4b1c23a5")
-		)
-		(pin "1"
-			(uuid "a734f93e-fcc6-4942-a7a6-766630aea6cb")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R314")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 278.13 35.56 0)
 		(unit 1)
@@ -30946,21 +34746,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 278.13 39.37 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 278.13 35.56 0)
@@ -31023,21 +34823,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "GND"
 			(at 354.33 93.98 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 354.33 90.17 0)
@@ -31279,21 +35079,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "+3V3_ISO"
 			(at 400.05 122.174 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 400.05 125.73 0)
@@ -31356,21 +35156,21 @@
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Value" "PIN_PE"
 			(at 137.16 71.12 0)
 			(show_name no)
 			(do_not_autoplace yes)
-		(effects
-			(font
-				(size 1.27 1.27)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
-		)
 		)
 		(property "Footprint" ""
 			(at 137.16 67.31 0)
@@ -31412,88 +35212,6 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "#PWR0303")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 262.89 142.24 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ff416fed-cf09-4065-99f0-a7889c715eae")
-		(property "Reference" "R309"
-			(at 265.43 140.9699 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "2k"
-			(at 265.43 143.5099 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 264.668 142.24 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 262.89 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 262.89 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "b3c61c15-4875-4811-9021-dc7e7e24063c")
-		)
-		(pin "1"
-			(uuid "972cd2db-34bf-415e-a349-b3b3b221c747")
-		)
-		(instances
-			(project "IO_Board"
-				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
-					(reference "R309")
 					(unit 1)
 				)
 			)

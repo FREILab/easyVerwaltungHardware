@@ -725,7 +725,6 @@
         "PE"
       ],
       "GND": [
-        "ISO_signals",
         "Signals"
       ],
       "GND_ISO": [
@@ -789,7 +788,6 @@
         "230V_ext"
       ],
       "Net-(U300-EN)": [
-        "ISO_signals",
         "Signals"
       ],
       "Net-(U302-AVDD)": [
