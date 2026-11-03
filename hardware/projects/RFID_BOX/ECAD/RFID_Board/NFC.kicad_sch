@@ -2779,6 +2779,3310 @@
 			)
 			(embedded_fonts no)
 		)
+	(symbol "0_Capacitor_C0G:C_120pF_0603_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "120pF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A121FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 120PF 100V C0G/NP0 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GCM1885C2A121FA6J"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-GCM1885C2A121FA16JCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "C0G"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "100V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_120pF_0603_100V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_120pF_0603_100V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_C0G:C_1nF_0603_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "1nF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A102JA16-01A-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 1000PF 100V C0G/NP0 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GCM1885C2A102JA16D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GCM1885C2A102JA6D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-4772-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "C0G"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "100V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_1nF_0603_100V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1nF_0603_100V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_C0G:C_47pF_0603_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "47pF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A470FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 47PF 100V C0G/NP0 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GCM1885C2A470FA16D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GCM1885C2A470FA6D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-16408-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "C0G"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "100V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_47pF_0603_100V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_47pF_0603_100V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_X7R:C_100nF_0603_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "100nF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 0.1UF 100V X7R 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Würth Elektronik"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "885012206120"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "710-885012206120"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "X7R"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "100V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_100nF_0603_100V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_100nF_0603_100V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_X7R:C_10uF_1206_25V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "10uF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM31CR71E106KA12-01CA-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 10UF 25V X7R 1206"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GRM31CR71E106KA12L"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GRM31CR71E106KA12"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-6518-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "1206"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "X7R"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "25V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_10uF_1206_25V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_10uF_1206_25V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_X7R:C_1uF_0603_16V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "1uF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/capacitor/ceramic/mlcc/catalog/mlcc_automotive_general_en.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 1UF 16V X7R 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "TDK"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CGA3E1X7R1C105K080AC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "810-CGA3E1X7R1C105AC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "445-12539-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "X7R"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "16V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_1uF_0603_16V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1uF_0603_16V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_X7R:C_2.2uF_0603_16V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "2.2uF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM188Z71C225KE43-01A-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 2.2UF 16V X7R 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GRM188Z71C225KE43J"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GRM188Z71C225KE3J"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-GRM188Z71C225KE43JCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "X7R"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "16V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_2.2uF_0603_16V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_2.2uF_0603_16V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_X7R:C_470nF_0603_25V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "470nF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM188R71E474KA12-01A-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 0.47UF 25V X7R 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GRM188R71E474KA12D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GRM188R71E474KA12"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-3291-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "X7R"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "25V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_470nF_0603_25V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_470nF_0603_25V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Resistor_1%:R_0R_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0R"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 0 OHM JUMPER 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW06030000Z0EBC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-4013-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0R_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_0R_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Resistor_1%:R_10k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "10k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 10K OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW060310K0FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-5136-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_10k_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_10k_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Resistor_1%:R_12k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "12k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 12K OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW060312K0FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW060312K0FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-4046-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_12k_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_12k_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Resistor_1%:R_1k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 1K OHM 1% 1/10W 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-3949-1-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "100mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_1k_0603_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1k_0603_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Resistor_1%:R_2R49_1206"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "2R49"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 2.49 OHM 1% 1/4W 1206"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW12062R49FKEA"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW12062R49FKEA"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-2.49FFCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "1206"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "250mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_2R49_1206_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_2R49_1206_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "0_Capacitor_C0G:C_8.2pF_0603_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "8.2pF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A8R2CA16-01A-EN_PDF_CERAMICCAPACITORSMD"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "CAP CER 8.2PF 100V C0G/NP0 0603"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Murata Electronics"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "GCM1885C2A8R2CA16D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "81-GCM1885C2A8R2CA6D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "490-GCM1885C2A8R2CA16DCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "0603"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "C0G"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "100V"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_8.2pF_0603_100V_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_8.2pF_0603_100V_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "27,12 MHz"
 		(exclude_from_sim no)
@@ -2819,34 +6123,40 @@
 		(uuid "1b2b0dfb-46f3-46fe-a436-1c5ad82f1839")
 	)
 	(junction
-		(at 153.67 165.1)
+		(at 125.73 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "2d7fd765-480f-45b8-a5cf-47268e059cc0")
-	)
-	(junction
-		(at 138.43 111.76)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "38fdfb6e-b4cb-40e3-8fca-8e8166d29c74")
+		(uuid "1fa0d459-8d74-47aa-83aa-6e46a174eb95")
 	)
 	(junction
 		(at 54.61 167.64)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4873b6fe-50ca-441f-85cd-ccef5c2ac276")
+		(uuid "25c9cf14-8450-4683-a0b7-a6700fb8be98")
+	)
+	(junction
+		(at 139.7 162.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3f2449b6-c035-4579-8a51-2a0142d5ba48")
+	)
+	(junction
+		(at 54.61 160.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "438ef689-9276-41a1-8bd4-2fd2b5a88f62")
+	)
+	(junction
+		(at 149.86 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4667473f-4089-41f0-ba9e-3f2ee0d31def")
 	)
 	(junction
 		(at 180.34 60.96)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "568f16d4-3b08-46c5-af3f-94d056a4f9b8")
-	)
-	(junction
-		(at 149.86 111.76)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6248e7a6-9a40-49b4-8636-f6149c17e6e2")
 	)
 	(junction
 		(at 152.4 73.66)
@@ -2879,16 +6189,10 @@
 		(uuid "7ee748f5-1862-40a7-8058-83ad8c28c23d")
 	)
 	(junction
-		(at 125.73 111.76)
+		(at 153.67 162.56)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "95e9b671-a8bb-4104-9ac9-4cd8c6dbeee0")
-	)
-	(junction
-		(at 54.61 160.02)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ba3dee27-7836-48ae-a859-4e6677a8bc0d")
+		(uuid "7fa93d4c-77ec-482f-9006-15f426d9ec1f")
 	)
 	(junction
 		(at 129.54 22.86)
@@ -2903,16 +6207,16 @@
 		(uuid "d2f75983-6bf9-467b-9207-77ba213b8e7b")
 	)
 	(junction
+		(at 138.43 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d3a85533-cc73-459b-abd6-149cecc8aacd")
+	)
+	(junction
 		(at 46.99 78.74)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "df08cdca-9eaf-434a-ac6d-7ff650e276c1")
-	)
-	(junction
-		(at 139.7 165.1)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ec207f7d-702a-4813-bb09-f82e008d645d")
 	)
 	(junction
 		(at 152.4 60.96)
@@ -2921,16 +6225,16 @@
 		(uuid "ed9538da-b11f-4022-9c9a-f4714771af71")
 	)
 	(junction
+		(at 149.86 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ee7d7d09-ddcc-4f35-be17-e2074468b1ad")
+	)
+	(junction
 		(at 129.54 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f19c2fa3-d6cb-49d2-a836-de317eb6fafa")
-	)
-	(junction
-		(at 149.86 134.62)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f93c9fd0-c109-4977-a1ab-2e1af5757a00")
 	)
 	(no_connect
 		(at 71.12 63.5)
@@ -3028,7 +6332,7 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 165.1) (xy 139.7 165.1)
+			(xy 153.67 162.56) (xy 139.7 162.56)
 		)
 		(stroke
 			(width 0)
@@ -3048,7 +6352,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 111.76) (xy 149.86 111.76)
+			(xy 125.73 109.22) (xy 138.43 109.22)
 		)
 		(stroke
 			(width 0)
@@ -3088,7 +6392,17 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 139.7) (xy 139.7 165.1)
+			(xy 54.61 148.59) (xy 54.61 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1d6b8acd-09fd-458e-834d-746cc6f58339")
+	)
+	(wire
+		(pts
+			(xy 139.7 139.7) (xy 139.7 162.56)
 		)
 		(stroke
 			(width 0)
@@ -3118,6 +6432,16 @@
 	)
 	(wire
 		(pts
+			(xy 149.86 109.22) (xy 149.86 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25d58c1c-6181-4096-95cf-b2e68849fa29")
+	)
+	(wire
+		(pts
 			(xy 124.46 149.86) (xy 119.38 149.86)
 		)
 		(stroke
@@ -3125,6 +6449,36 @@
 			(type default)
 		)
 		(uuid "27880e44-13a8-4cea-bdcd-6f21ebbadb68")
+	)
+	(wire
+		(pts
+			(xy 54.61 170.18) (xy 54.61 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2af01369-a358-4fc6-999d-982f96c7b3a2")
+	)
+	(wire
+		(pts
+			(xy 138.43 109.22) (xy 149.86 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b38088d-c2a9-4348-9599-60f4120632ea")
+	)
+	(wire
+		(pts
+			(xy 149.86 135.89) (xy 149.86 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e9cbecd-3686-4375-aa76-63e95f1738aa")
 	)
 	(wire
 		(pts
@@ -3165,6 +6519,16 @@
 			(type default)
 		)
 		(uuid "38152d7c-8a77-41c0-835b-465a9a9bc99c")
+	)
+	(wire
+		(pts
+			(xy 129.54 146.05) (xy 129.54 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ff65a46-132d-491b-8f66-a7c943b87928")
 	)
 	(wire
 		(pts
@@ -3235,6 +6599,16 @@
 			(type default)
 		)
 		(uuid "4e2d0227-9a36-4305-a3b9-bb6477a4c585")
+	)
+	(wire
+		(pts
+			(xy 125.73 109.22) (xy 125.73 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f2665ad-7d84-48f2-a096-e35ab0f2360c")
 	)
 	(wire
 		(pts
@@ -3398,6 +6772,16 @@
 	)
 	(wire
 		(pts
+			(xy 54.61 179.07) (xy 54.61 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7fd4fb79-7565-4035-acbf-71823d665cb5")
+	)
+	(wire
+		(pts
 			(xy 147.32 73.66) (xy 152.4 73.66)
 		)
 		(stroke
@@ -3435,6 +6819,16 @@
 			(type default)
 		)
 		(uuid "8e210778-90be-417e-bc54-aff54b669c69")
+	)
+	(wire
+		(pts
+			(xy 129.54 144.78) (xy 119.38 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9152218c-c08d-49c7-9c9d-5d7b1cb64e1a")
 	)
 	(wire
 		(pts
@@ -3558,7 +6952,7 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 163.83) (xy 153.67 165.1)
+			(xy 153.67 162.56) (xy 153.67 165.1)
 		)
 		(stroke
 			(width 0)
@@ -3575,6 +6969,16 @@
 			(type default)
 		)
 		(uuid "afb9f17b-bfc2-4cf7-b16a-70afb7b5e7e9")
+	)
+	(wire
+		(pts
+			(xy 138.43 109.22) (xy 138.43 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b254e84f-6469-4371-a24c-a6f672f836a5")
 	)
 	(wire
 		(pts
@@ -3658,13 +7062,33 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 129.54) (xy 121.92 111.76)
+			(xy 121.92 129.54) (xy 121.92 109.22)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "c93d2eed-7e5c-457f-8833-f0552894eed2")
+	)
+	(wire
+		(pts
+			(xy 54.61 157.48) (xy 54.61 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9d346b1-062a-4fb7-ac49-94fb71bd5981")
+	)
+	(wire
+		(pts
+			(xy 139.7 162.56) (xy 139.7 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb2588f0-4f26-46e7-bd23-ed7b1e2187ab")
 	)
 	(wire
 		(pts
@@ -3698,6 +7122,16 @@
 	)
 	(wire
 		(pts
+			(xy 149.86 107.95) (xy 149.86 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4434fc9-40b0-459f-8aeb-0f1a52cc2a1e")
+	)
+	(wire
+		(pts
 			(xy 119.38 76.2) (xy 119.38 93.98)
 		)
 		(stroke
@@ -3725,16 +7159,6 @@
 			(type default)
 		)
 		(uuid "dace7447-9bce-47fa-a60b-7c420e20eb25")
-	)
-	(wire
-		(pts
-			(xy 149.86 110.49) (xy 149.86 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dd9580bc-0249-4d9d-a9ba-70fae62eeaba")
 	)
 	(wire
 		(pts
@@ -3788,7 +7212,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 111.76) (xy 125.73 111.76)
+			(xy 121.92 109.22) (xy 125.73 109.22)
 		)
 		(stroke
 			(width 0)
@@ -3825,16 +7249,6 @@
 			(type default)
 		)
 		(uuid "f0f23c3c-4ed4-463d-ac59-ddc859ef7789")
-	)
-	(wire
-		(pts
-			(xy 119.38 144.78) (xy 129.54 144.78)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f5b79f62-29d3-4b5f-8e10-3cb3f1f92809")
 	)
 	(wire
 		(pts
@@ -3984,7 +7398,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 129.54 152.4 0)
+		(at 129.54 153.67 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3995,7 +7409,7 @@
 		(fields_autoplaced yes)
 		(uuid "00943e27-8121-46ee-9ffd-c78880682b5e")
 		(property "Reference" "#PWR0209"
-			(at 129.54 158.75 0)
+			(at 129.54 160.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4006,7 +7420,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 129.54 157.48 0)
+			(at 129.54 158.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4016,7 +7430,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 152.4 0)
+			(at 129.54 153.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4027,7 +7441,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 152.4 0)
+			(at 129.54 153.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4038,7 +7452,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 129.54 152.4 0)
+			(at 129.54 153.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4061,7 +7475,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_1nF_0603_100V")
 		(at 140.97 22.86 90)
 		(unit 1)
 		(body_style 1)
@@ -4082,7 +7496,7 @@
 				)
 			)
 		)
-		(property "Value" "1n"
+		(property "Value" "1nF"
 			(at 140.97 17.78 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4092,37 +7506,134 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.78 21.8948 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A102JA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 140.97 22.86 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 1000PF 100V C0G/NP0 0603"
 			(at 140.97 22.86 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 140.97 22.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A102JA16D"
+			(at 140.97 22.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 140.97 22.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A102JA6D"
+			(at 140.97 22.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 140.97 22.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-4772-1-ND"
+			(at 140.97 22.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 137.414 21.59 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 144.018 21.59 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 142.24 24.13 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -4301,7 +7812,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_1nF_0603_100V")
 		(at 140.97 93.98 90)
 		(unit 1)
 		(body_style 1)
@@ -4322,7 +7833,7 @@
 				)
 			)
 		)
-		(property "Value" "1n"
+		(property "Value" "1nF"
 			(at 140.97 88.9 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4332,37 +7843,134 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.78 93.0148 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A102JA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 140.97 93.98 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 1000PF 100V C0G/NP0 0603"
 			(at 140.97 93.98 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 140.97 93.98 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A102JA16D"
+			(at 140.97 93.98 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 140.97 93.98 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A102JA6D"
+			(at 140.97 93.98 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 140.97 93.98 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-4772-1-ND"
+			(at 140.97 93.98 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 137.414 92.71 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 144.018 92.71 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 142.24 95.25 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -4381,7 +7989,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_1k_0603")
 		(at 129.54 85.09 0)
 		(unit 1)
 		(body_style 1)
@@ -4414,33 +8022,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 127.762 85.09 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 129.54 85.09 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
 			(at 129.54 85.09 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 129.54 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 129.54 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 129.54 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 129.54 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 129.54 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 129.54 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 129.54 85.09 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 131.826 85.09 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 124.46 85.09 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4463,7 +8169,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_120pF_0603_100V")
 		(at 180.34 54.61 0)
 		(unit 1)
 		(body_style 1)
@@ -4485,7 +8191,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120p"
+		(property "Value" "120pF"
 			(at 184.15 55.8799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4496,37 +8202,134 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.3052 58.42 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A121FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 180.34 54.61 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 120PF 100V C0G/NP0 0603"
 			(at 180.34 54.61 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 180.34 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
+			(at 180.34 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 180.34 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A121FA6J"
+			(at 180.34 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 180.34 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GCM1885C2A121FA16JCT-ND"
+			(at 180.34 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 181.61 51.054 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 181.61 57.658 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 179.07 55.88 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "2"
@@ -4783,7 +8586,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_100nF_0603_100V")
 		(at 140.97 35.56 90)
 		(unit 1)
 		(body_style 1)
@@ -4804,7 +8607,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF X7R"
+		(property "Value" "100nF"
 			(at 140.97 30.48 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4814,37 +8617,134 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.78 34.5948 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
 			(at 140.97 35.56 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.1UF 100V X7R 0603"
 			(at 140.97 35.56 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Würth Elektronik"
+			(at 140.97 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "885012206120"
+			(at 140.97 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 140.97 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "710-885012206120"
+			(at 140.97 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 140.97 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+			(at 140.97 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 137.414 34.29 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 144.018 34.29 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 142.24 36.83 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -4864,7 +8764,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 54.61 152.4 270)
+		(at 54.61 148.59 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4875,7 +8775,7 @@
 		(fields_autoplaced yes)
 		(uuid "2c5ae33f-c22d-4bbe-9171-e681cd22e2c5")
 		(property "Reference" "#PWR0204"
-			(at 48.26 152.4 0)
+			(at 48.26 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4886,7 +8786,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 50.8 152.3999 90)
+			(at 50.8 148.5899 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4897,7 +8797,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 54.61 152.4 0)
+			(at 54.61 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4908,7 +8808,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 54.61 152.4 0)
+			(at 54.61 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4919,7 +8819,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 54.61 152.4 0)
+			(at 54.61 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5020,7 +8920,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_10k_0603")
 		(at 46.99 71.12 180)
 		(unit 1)
 		(body_style 1)
@@ -5053,33 +8953,131 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 48.768 71.12 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 46.99 71.12 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 10K OHM 1% 1/10W 0603"
 			(at 46.99 71.12 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 46.99 71.12 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
+			(at 46.99 71.12 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 46.99 71.12 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060310K0FKEAC"
+			(at 46.99 71.12 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 46.99 71.12 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-5136-1-ND"
+			(at 46.99 71.12 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 46.99 71.12 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 44.704 71.12 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 52.07 71.12 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5102,7 +9100,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_2R49_1206")
 		(at 194.31 73.66 90)
 		(unit 1)
 		(body_style 1)
@@ -5123,7 +9121,7 @@
 				)
 			)
 		)
-		(property "Value" "2R5"
+		(property "Value" "2R49"
 			(at 194.31 69.85 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5133,33 +9131,131 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 194.31 75.438 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 194.31 73.66 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 2.49 OHM 1% 1/4W 1206"
 			(at 194.31 73.66 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 194.31 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW12062R49FKEA"
+			(at 194.31 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 194.31 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW12062R49FKEA"
+			(at 194.31 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 194.31 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-2.49FFCT-ND"
+			(at 194.31 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "1206"
+			(at 194.31 73.66 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "250mW"
+			(at 194.31 71.374 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 194.31 78.74 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5428,7 +9524,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 149.86 142.24 0)
+		(at 149.86 143.51 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5439,7 +9535,7 @@
 		(fields_autoplaced yes)
 		(uuid "4356a73e-51b5-44dd-a38d-2bcdd3493839")
 		(property "Reference" "#PWR0217"
-			(at 149.86 148.59 0)
+			(at 149.86 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5450,7 +9546,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 149.86 147.32 0)
+			(at 149.86 148.59 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5460,7 +9556,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 142.24 0)
+			(at 149.86 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5471,7 +9567,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 142.24 0)
+			(at 149.86 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5482,7 +9578,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 149.86 142.24 0)
+			(at 149.86 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5583,7 +9679,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_100nF_0603_100V")
 		(at 125.73 115.57 180)
 		(unit 1)
 		(body_style 1)
@@ -5605,7 +9701,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 129.54 116.8399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5616,37 +9712,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 124.7648 111.76 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
 			(at 125.73 115.57 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.1UF 100V X7R 0603"
 			(at 125.73 115.57 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Würth Elektronik"
+			(at 125.73 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "885012206120"
+			(at 125.73 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 125.73 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "710-885012206120"
+			(at 125.73 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 125.73 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+			(at 125.73 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 124.46 119.126 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 124.46 112.522 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 127 114.3 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -5823,29 +10016,18 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 54.61 171.45 180)
+		(lib_id "0_Capacitor_C0G:C_8.2pF_0603_100V")
+		(at 54.61 173.99 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "6feb9703-2e27-4baa-88ac-3a9f177d3fd8")
 		(property "Reference" "C201"
-			(at 58.42 170.1799 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "8p"
 			(at 58.42 172.7199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5856,37 +10038,145 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
-			(at 53.6448 167.64 0)
-			(hide yes)
+		(property "Value" "8.2pF"
+			(at 58.42 175.2599 0)
 			(show_name no)
 			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 53.6448 170.18 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 54.61 171.45 0)
-			(hide yes)
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A8R2CA16-01A-EN_PDF_CERAMICCAPACITORSMD"
+			(at 54.61 173.99 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 54.61 171.45 0)
-			(hide yes)
+		(property "Description" "CAP CER 8.2PF 100V C0G/NP0 0603"
+			(at 54.61 173.99 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 54.61 173.99 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A8R2CA16D"
+			(at 54.61 173.99 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 54.61 173.99 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A8R2CA6D"
+			(at 54.61 173.99 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 54.61 173.99 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GCM1885C2A8R2CA16DCT-ND"
+			(at 54.61 173.99 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 53.34 177.546 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 53.34 170.942 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 55.88 172.72 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -5905,7 +10195,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_100nF_0603_100V")
 		(at 139.7 168.91 180)
 		(unit 1)
 		(body_style 1)
@@ -5927,7 +10217,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 143.51 170.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5938,37 +10228,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 138.7348 165.1 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
 			(at 139.7 168.91 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.1UF 100V X7R 0603"
 			(at 139.7 168.91 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Würth Elektronik"
+			(at 139.7 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "885012206120"
+			(at 139.7 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 139.7 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "710-885012206120"
+			(at 139.7 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 139.7 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+			(at 139.7 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 138.43 172.466 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 138.43 165.862 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 140.97 167.64 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -5988,7 +10375,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 54.61 175.26 270)
+		(at 54.61 179.07 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5999,7 +10386,7 @@
 		(fields_autoplaced yes)
 		(uuid "7256f5be-572e-47ed-9e35-7cbf9b19f64f")
 		(property "Reference" "#PWR0205"
-			(at 48.26 175.26 0)
+			(at 48.26 179.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6010,7 +10397,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 50.8 175.2599 90)
+			(at 50.8 179.0699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6021,7 +10408,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 54.61 175.26 0)
+			(at 54.61 179.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6032,7 +10419,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 54.61 175.26 0)
+			(at 54.61 179.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6043,7 +10430,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 54.61 175.26 0)
+			(at 54.61 179.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6067,7 +10454,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 149.86 110.49 0)
+		(at 149.86 107.95 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6078,7 +10465,7 @@
 		(fields_autoplaced yes)
 		(uuid "732aded4-3c89-49aa-9d3e-c94034ac299f")
 		(property "Reference" "#PWR0214"
-			(at 149.86 114.3 0)
+			(at 149.86 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6089,7 +10476,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 149.86 105.41 0)
+			(at 149.86 102.87 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6099,7 +10486,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 110.49 0)
+			(at 149.86 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6110,7 +10497,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 110.49 0)
+			(at 149.86 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6121,7 +10508,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 149.86 110.49 0)
+			(at 149.86 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6144,7 +10531,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_120pF_0603_100V")
 		(at 180.34 67.31 0)
 		(unit 1)
 		(body_style 1)
@@ -6166,7 +10553,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120p"
+		(property "Value" "120pF"
 			(at 184.15 68.5799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6177,37 +10564,134 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.3052 71.12 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A121FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 180.34 67.31 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 120PF 100V C0G/NP0 0603"
 			(at 180.34 67.31 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 180.34 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
+			(at 180.34 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 180.34 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A121FA6J"
+			(at 180.34 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 180.34 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GCM1885C2A121FA16JCT-ND"
+			(at 180.34 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 181.61 63.754 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 181.61 70.358 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 179.07 68.58 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "2"
@@ -6226,8 +10710,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 129.54 148.59 180)
+		(lib_id "0_Capacitor_X7R:C_470nF_0603_25V")
+		(at 129.54 149.86 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6238,7 +10722,7 @@
 		(fields_autoplaced yes)
 		(uuid "7769c65b-0a71-438b-beb3-6dbe526142de")
 		(property "Reference" "C204"
-			(at 133.35 147.3199 0)
+			(at 133.35 148.5899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6248,8 +10732,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "470n"
-			(at 133.35 149.8599 0)
+		(property "Value" "470nF"
+			(at 133.35 151.1299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6259,37 +10743,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
-			(at 128.5748 144.78 0)
-			(hide yes)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 128.5748 146.05 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 129.54 148.59 0)
-			(hide yes)
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM188R71E474KA12-01A-EN_PDF_CERAMICCAPACITORSMD"
+			(at 129.54 149.86 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 129.54 148.59 0)
-			(hide yes)
+		(property "Description" "CAP CER 0.47UF 25V X7R 0603"
+			(at 129.54 149.86 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 129.54 149.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GRM188R71E474KA12D"
+			(at 129.54 149.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 129.54 149.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GRM188R71E474KA12"
+			(at 129.54 149.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 129.54 149.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-3291-1-ND"
+			(at 129.54 149.86 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 128.27 153.416 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 128.27 146.812 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "25V"
+			(at 130.81 148.59 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -6308,7 +10889,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_120pF_0603_100V")
 		(at 152.4 67.31 0)
 		(unit 1)
 		(body_style 1)
@@ -6330,7 +10911,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120p"
+		(property "Value" "120pF"
 			(at 156.21 68.5799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6341,37 +10922,134 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 153.3652 71.12 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A121FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 152.4 67.31 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 120PF 100V C0G/NP0 0603"
 			(at 152.4 67.31 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 152.4 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
+			(at 152.4 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 152.4 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A121FA6J"
+			(at 152.4 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 152.4 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GCM1885C2A121FA16JCT-ND"
+			(at 152.4 67.31 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 153.67 63.754 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 153.67 70.358 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 151.13 68.58 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "2"
@@ -6390,7 +11068,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_10uF_1206_25V")
 		(at 149.86 115.57 180)
 		(unit 1)
 		(body_style 1)
@@ -6412,7 +11090,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "10uF"
 			(at 153.67 116.8399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6423,37 +11101,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 148.8948 111.76 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM31CR71E106KA12-01CA-EN_PDF_CERAMICCAPACITORSMD"
 			(at 149.86 115.57 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 10UF 25V X7R 1206"
 			(at 149.86 115.57 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 149.86 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GRM31CR71E106KA12L"
+			(at 149.86 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 149.86 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GRM31CR71E106KA12"
+			(at 149.86 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 149.86 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-6518-1-ND"
+			(at 149.86 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "1206"
+			(at 148.59 119.126 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 148.59 112.522 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "25V"
+			(at 151.13 114.3 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -6473,7 +11248,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 153.67 163.83 0)
+		(at 153.67 162.56 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6484,7 +11259,7 @@
 		(fields_autoplaced yes)
 		(uuid "8cacac04-63f3-4fa8-ba9d-6fbf23cda5a1")
 		(property "Reference" "#PWR0218"
-			(at 153.67 167.64 0)
+			(at 153.67 166.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6495,7 +11270,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 153.67 158.75 0)
+			(at 153.67 157.48 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6505,7 +11280,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 153.67 163.83 0)
+			(at 153.67 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6516,7 +11291,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 153.67 163.83 0)
+			(at 153.67 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6527,7 +11302,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 153.67 163.83 0)
+			(at 153.67 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6628,7 +11403,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_2R49_1206")
 		(at 194.31 48.26 90)
 		(unit 1)
 		(body_style 1)
@@ -6649,7 +11424,7 @@
 				)
 			)
 		)
-		(property "Value" "2R5"
+		(property "Value" "2R49"
 			(at 194.31 44.45 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6659,33 +11434,131 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 194.31 50.038 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 194.31 48.26 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 2.49 OHM 1% 1/4W 1206"
 			(at 194.31 48.26 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 194.31 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW12062R49FKEA"
+			(at 194.31 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 194.31 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW12062R49FKEA"
+			(at 194.31 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 194.31 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-2.49FFCT-ND"
+			(at 194.31 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "1206"
+			(at 194.31 48.26 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "250mW"
+			(at 194.31 45.974 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 194.31 53.34 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7030,7 +11903,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_10k_0603")
 		(at 46.99 38.1 180)
 		(unit 1)
 		(body_style 1)
@@ -7063,33 +11936,131 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 48.768 38.1 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 46.99 38.1 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 10K OHM 1% 1/10W 0603"
 			(at 46.99 38.1 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 46.99 38.1 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
+			(at 46.99 38.1 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 46.99 38.1 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060310K0FKEAC"
+			(at 46.99 38.1 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 46.99 38.1 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-5136-1-ND"
+			(at 46.99 38.1 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 46.99 38.1 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 44.704 38.1 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 52.07 38.1 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7112,7 +12083,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_0R_0603")
 		(at 62.23 96.52 90)
 		(unit 1)
 		(body_style 1)
@@ -7142,33 +12113,131 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 62.23 98.298 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 62.23 96.52 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 0 OHM JUMPER 1/10W 0603"
 			(at 62.23 96.52 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 62.23 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
+			(at 62.23 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 62.23 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06030000Z0EBC"
+			(at 62.23 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 62.23 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4013-1-ND"
+			(at 62.23 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 62.23 96.52 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 62.23 94.234 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 62.23 101.6 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7191,18 +12260,29 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 54.61 156.21 180)
+		(lib_id "0_Capacitor_C0G:C_8.2pF_0603_100V")
+		(at 54.61 153.67 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "a9081976-22f8-42bc-88fb-5b163da94148")
 		(property "Reference" "C200"
+			(at 58.42 152.3999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "8.2pF"
 			(at 58.42 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7213,48 +12293,134 @@
 				(justify right)
 			)
 		)
-		(property "Value" "8p"
-			(at 58.42 157.4799 0)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 53.6448 149.86 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A8R2CA16-01A-EN_PDF_CERAMICCAPACITORSMD"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "CAP CER 8.2PF 100V C0G/NP0 0603"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A8R2CA16D"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A8R2CA6D"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GCM1885C2A8R2CA16DCT-ND"
+			(at 54.61 153.67 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 53.34 157.226 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 53.34 150.622 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 55.88 152.4 90)
+			(show_name no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 53.6448 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 54.61 156.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 54.61 156.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "1"
@@ -7351,7 +12517,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_470nF_0603_25V")
 		(at 124.46 168.91 180)
 		(unit 1)
 		(body_style 1)
@@ -7373,7 +12539,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "470n"
+		(property "Value" "470nF"
 			(at 128.27 170.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7384,37 +12550,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 123.4948 165.1 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM188R71E474KA12-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 124.46 168.91 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.47UF 25V X7R 0603"
 			(at 124.46 168.91 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 124.46 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GRM188R71E474KA12D"
+			(at 124.46 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 124.46 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GRM188R71E474KA12"
+			(at 124.46 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 124.46 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-3291-1-ND"
+			(at 124.46 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 123.19 172.466 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 123.19 165.862 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "25V"
+			(at 125.73 167.64 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -7589,7 +12852,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_12k_0603")
 		(at 152.4 34.29 0)
 		(unit 1)
 		(body_style 1)
@@ -7622,33 +12885,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 150.622 34.29 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 152.4 34.29 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 12K OHM 1% 1/10W 0603"
 			(at 152.4 34.29 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 152.4 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060312K0FKEAC"
+			(at 152.4 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 152.4 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060312K0FKEAC"
+			(at 152.4 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 152.4 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4046-1-ND"
+			(at 152.4 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 152.4 34.29 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 154.686 34.29 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 147.32 34.29 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7751,7 +13112,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_47pF_0603_100V")
 		(at 166.37 73.66 90)
 		(unit 1)
 		(body_style 1)
@@ -7772,7 +13133,7 @@
 				)
 			)
 		)
-		(property "Value" "47p"
+		(property "Value" "47pF"
 			(at 166.37 68.58 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7782,37 +13143,134 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 170.18 72.6948 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A470FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 166.37 73.66 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 47PF 100V C0G/NP0 0603"
 			(at 166.37 73.66 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 166.37 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A470FA16D"
+			(at 166.37 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 166.37 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A470FA6D"
+			(at 166.37 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 166.37 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-16408-1-ND"
+			(at 166.37 73.66 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 162.814 72.39 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 169.418 72.39 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 167.64 74.93 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "2"
@@ -7831,7 +13289,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_47pF_0603_100V")
 		(at 166.37 48.26 90)
 		(unit 1)
 		(body_style 1)
@@ -7852,7 +13310,7 @@
 				)
 			)
 		)
-		(property "Value" "47p"
+		(property "Value" "47pF"
 			(at 166.37 43.18 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7862,37 +13320,134 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 170.18 47.2948 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A470FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 166.37 48.26 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 47PF 100V C0G/NP0 0603"
 			(at 166.37 48.26 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 166.37 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A470FA16D"
+			(at 166.37 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 166.37 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A470FA6D"
+			(at 166.37 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 166.37 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-16408-1-ND"
+			(at 166.37 48.26 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 162.814 46.99 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 169.418 46.99 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 167.64 49.53 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "2"
@@ -7911,7 +13466,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_12k_0603")
 		(at 152.4 85.09 0)
 		(unit 1)
 		(body_style 1)
@@ -7944,33 +13499,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 150.622 85.09 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 152.4 85.09 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 12K OHM 1% 1/10W 0603"
 			(at 152.4 85.09 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 152.4 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW060312K0FKEAC"
+			(at 152.4 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 152.4 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW060312K0FKEAC"
+			(at 152.4 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 152.4 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4046-1-ND"
+			(at 152.4 85.09 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 152.4 85.09 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 154.686 85.09 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 147.32 85.09 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8071,7 +13724,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_0R_0603")
 		(at 62.23 82.55 90)
 		(unit 1)
 		(body_style 1)
@@ -8101,33 +13754,131 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 62.23 84.328 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 62.23 82.55 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 0 OHM JUMPER 1/10W 0603"
 			(at 62.23 82.55 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 62.23 82.55 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
+			(at 62.23 82.55 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 62.23 82.55 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06030000Z0EBC"
+			(at 62.23 82.55 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 62.23 82.55 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-4013-1-ND"
+			(at 62.23 82.55 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 62.23 82.55 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 62.23 80.264 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 62.23 87.63 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8150,7 +13901,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
+		(lib_id "0_Resistor_1%:R_1k_0603")
 		(at 129.54 29.21 0)
 		(unit 1)
 		(body_style 1)
@@ -8183,33 +13934,131 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 127.762 29.21 90)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
 			(at 129.54 29.21 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 1K OHM 1% 1/10W 0603"
 			(at 129.54 29.21 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 129.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
+			(at 129.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 129.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "71-CRCW06031K00FKEAC"
+			(at 129.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 129.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "541-3949-1-ND"
+			(at 129.54 29.21 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 129.54 29.21 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Power" "100mW"
+			(at 131.826 29.21 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tolerance" "1%"
+			(at 124.46 29.21 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8310,8 +14159,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 149.86 138.43 180)
+		(lib_id "0_Capacitor_X7R:C_100nF_0603_100V")
+		(at 149.86 139.7 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8322,7 +14171,7 @@
 		(fields_autoplaced yes)
 		(uuid "f406a23f-c584-4bdb-836c-abcf017a6bfa")
 		(property "Reference" "C210"
-			(at 153.67 137.1599 0)
+			(at 153.67 138.4299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8332,8 +14181,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "100n"
-			(at 153.67 139.6999 0)
+		(property "Value" "100nF"
+			(at 153.67 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8343,37 +14192,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
-			(at 148.8948 134.62 0)
-			(hide yes)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 148.8948 135.89 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 149.86 138.43 0)
-			(hide yes)
+		(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
+			(at 149.86 139.7 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 149.86 138.43 0)
-			(hide yes)
+		(property "Description" "CAP CER 0.1UF 100V X7R 0603"
+			(at 149.86 139.7 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Würth Elektronik"
+			(at 149.86 139.7 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "885012206120"
+			(at 149.86 139.7 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 149.86 139.7 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "710-885012206120"
+			(at 149.86 139.7 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 149.86 139.7 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+			(at 149.86 139.7 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 148.59 143.256 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 148.59 136.652 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 151.13 138.43 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -8392,7 +14338,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_2.2uF_0603_16V")
 		(at 153.67 168.91 180)
 		(unit 1)
 		(body_style 1)
@@ -8414,7 +14360,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "2.2u"
+		(property "Value" "2.2uF"
 			(at 157.48 170.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8425,37 +14371,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 152.7048 165.1 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GRM188Z71C225KE43-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 153.67 168.91 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 2.2UF 16V X7R 0603"
 			(at 153.67 168.91 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 153.67 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GRM188Z71C225KE43J"
+			(at 153.67 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 153.67 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GRM188Z71C225KE3J"
+			(at 153.67 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 153.67 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GRM188Z71C225KE43JCT-ND"
+			(at 153.67 168.91 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 152.4 172.466 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 152.4 165.862 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "16V"
+			(at 154.94 167.64 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -8552,7 +14595,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_X7R:C_1uF_0603_16V")
 		(at 138.43 115.57 180)
 		(unit 1)
 		(body_style 1)
@@ -8574,7 +14617,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "1uF"
 			(at 142.24 116.8399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8585,37 +14628,134 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 137.4648 111.76 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/capacitor/ceramic/mlcc/catalog/mlcc_automotive_general_en.pdf"
 			(at 138.43 115.57 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 1UF 16V X7R 0603"
 			(at 138.43 115.57 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "TDK"
+			(at 138.43 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "CGA3E1X7R1C105K080AC"
+			(at 138.43 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 138.43 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "810-CGA3E1X7R1C105AC"
+			(at 138.43 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 138.43 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "445-12539-1-ND"
+			(at 138.43 115.57 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 137.16 119.126 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "X7R"
+			(at 137.16 112.522 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "16V"
+			(at 139.7 114.3 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "1"
@@ -8634,7 +14774,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
+		(lib_id "0_Capacitor_C0G:C_120pF_0603_100V")
 		(at 152.4 54.61 0)
 		(unit 1)
 		(body_style 1)
@@ -8656,7 +14796,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120p"
+		(property "Value" "120pF"
 			(at 156.21 55.8799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8667,37 +14807,134 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 153.3652 58.42 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://pim.murata.com/asset/pim4/ceramicCapacitorSMD/GCM1885C2A121FA16-01A-EN_PDF_CERAMICCAPACITORSMD"
 			(at 152.4 54.61 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 120PF 100V C0G/NP0 0603"
 			(at 152.4 54.61 0)
-			(hide yes)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
+			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 152.4 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
+			(at 152.4 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 152.4 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "81-GCM1885C2A121FA6J"
+			(at 152.4 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 152.4 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "490-GCM1885C2A121FA16JCT-ND"
+			(at 152.4 54.61 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "0603"
+			(at 153.67 51.054 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "C0G"
+			(at 153.67 57.658 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "100V"
+			(at 151.13 55.88 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(pin "2"
