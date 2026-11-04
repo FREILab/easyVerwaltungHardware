@@ -129,9 +129,14 @@ und teilt sich dort in zwei Pfade:
   ist.
 - **Steuerpfad:** Netz-Eingang → Sicherung F302 → Gleichtaktdrossel (L300) →
   Y-Kondensatorpaar (C309/C310, Mittelabgriff an PE) → isoliertes
-  AC/DC-Modul (U301, 24 V) → Regler auf 5 V (U306) → 3,3 V auf dem
-  RFID-Board. Die 24-V-Schiene versorgt zusätzlich die Relaisspule,
-  LED-Streifen und Buzzer laufen direkt auf 5 V.
+  AC/DC-Modul (U301, 24 V) → Regler auf 5 V (U306). Über das Kabel geht nur
+  die 5-V-Schiene zum RFID-Board; **die 3,3 V erzeugt jede Platine selbst** —
+  U307 auf dem I/O-Board für die Eingangsseite des Isolators, U103 auf dem
+  MCU-Board für ESP32, NFC-Frontend und Display. Der DC-DC im Isolator zieht
+  seinen Strom damit lokal und nicht über 30 cm Kabel. Die 24-V-Schiene
+  versorgt die Relaisspule und bleibt auf dem I/O-Board; zum MCU-Board geht
+  statt der Schiene nur ein Teilersignal zur Überwachung. LED-Leiste und
+  Buzzer laufen direkt auf 5 V.
 
 Die **Lastmessung** liegt auf Netzpotential. Versorgung und UART laufen über
 den Digitalisolator U300 (ISOW7721) mit integriertem DC-DC-Wandler, gespeist
@@ -273,8 +278,55 @@ Die vollständige Liste steht im Schaltplan und in
   der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
 - Die Netzklassen im KiCad-Projekt tragen noch keine Breiten und Abstände;
   eine Klasse `3V3` fehlt, `+3V3` hängt derzeit in `Signals`.
-- **Verbindungskabel** festlegen: Steckverbinder, Länge, Querschnitt und
-  Zugentlastung an beiden Enden. Es führt 5 V, 3,3 V und die Signale vom
-  I/O-Board zum RFID-Board.
+- **Isolator U300 entscheiden.** Der ISOW7721DFMR ist bei Mouser und
+  Digi-Key auf null, Status trotzdem „Aktiv". Lagernd ist nur der
+  ISOW7721**F**DFMR, dessen Ausgänge bei stromloser Eingangsseite auf LOW
+  statt HIGH gehen. Da `ISO_EN` die Insel im Betrieb abschaltet, sähe die
+  UART des ESP32 dann dauerhaft Break — die Firmware müsste den Empfänger
+  abschalten, solange die Insel aus ist. Entweder das, oder den D-Typ
+  vorbestellen.
+- **Verbindungskabel** festlegen: Länge und Querschnitt. Steckverbinder
+  stehen fest (JST PH, 12-polig, vorgecrimpte Adern); es führt 5 V, GND,
+  die Signale und zwei Messleitungen. Die 3,3 V entfallen, seit jedes Board
+  seinen eigenen Regler hat, und die 24 V ebenso — statt der Schiene geht
+  nur noch ein Teilersignal zur Überwachung hinüber.
 - **ZIF-Steckverbinder** für das Display auf dem RFID-Board vorsehen:
-  14-polig, 0,5-mm-Raster, passend zum FPC des ER-TFT020-3.
+  14-polig, 0,5-mm-Raster, passend zum FPC des ER-TFT020-3. Ob die Kontakte
+  oben oder unten liegen, entscheidet zwischen `FH12-14S-0.5SH(55)` und
+  `SFV14R-2STE1HLF` — steht im Datenblatt des Displays, das noch fehlt.
+
+### Offen aus der Bauteilplanung
+
+- **Symbole für die mehrpoligen Teile** zeichnen; sie lassen sich nicht von
+  einem Master ableiten: ESP32-S3-WROOM-1, SN74AHCT125, IS31FL3236A,
+  USBLC6-2SC6Y, USB4105-GF-A, der Display-ZIF und die JST-Stiftleiste
+  B12B-PH-K-S. Teilenummern und Bestellnummern sind recherchiert.
+- **Drei Datenblätter fehlen**, ihre Quellen wehren automatische Abrufe ab:
+  ST USBLC6-2SC6Y, Hirose FH12-14S-0.5SH, EastRising ER-TFT020-3. Von Hand
+  nach `docs/Datasheets/ESD/`, `Connectors/` und `Display/` legen.
+- **Piezo PKLCS1212E40A1-R1 ist bei Digi-Key Last Time Buy** (Mouser 27.236
+  Stück). Alternative mit aktivem Status wäre `CMT-1203-SMT-TR` von Same
+  Sky — dafür ohne fertiges KiCad-Footprint und 3 dB leiser.
+- **Quarz Y200:** das Symbol hat zwei Pins, das Footprint vier Pads. Die
+  beiden Gehäusepads bleiben ohne Netz. Sollen sie auf GND, muss der Master
+  von `Device:Crystal_GND24` kommen.
+- **Bibliotheken `0_Crystal` und `0_Buzzer`** sind neu und stehen in
+  `MyCSLib/KiCad/sym-lib-table.snippet`; in KiCad einmal hinzufügen.
+- **MCU-Blatt (1xx) zeichnen:** Statusliste mit elf Punkten, Tongeber über
+  zwei Gatter des 74AHCT125, USB-C mit ESD, 3V3-Regler, RESET und BOOT auf
+  der Unterseite.
+- **I/O-Board 24V zeichnen:** zwei potentialfreie Kontakte für externes
+  Hauptschütz und Aux-Ausgang. Die Kontakte müssen den Einschaltstrom einer
+  Schützspule tragen — ein Signalrelais wie das G5V-1 reicht dafür nicht.
+  Der Haupt-Kontakt braucht dieselbe Verriegelung aus zwei Schaltern wie
+  K300, für Aux genügt ein Low-Side-Schalter.
+- **Extension-I/O fehlt im Kabel.** Das Flussbild führt eine Verbindung
+  ESP32 → Extension Board, J302 hat dafür keinen Pol. Einer der zwölf ist
+  als Reserve freigehalten.
+- **ERC des RFID-Boards:** Pin 14 des CLRC663 liegt auf zwei Netzen. Die
+  beiden VMID-Hälften des Symbols sind auf dem Blatt nicht verbunden, und
+  Cx200 hängt nur an einer davon.
+- **`antenna/README.md` nachziehen:** dort stehen C₀ mit 50 V und
+  R<sub>S</sub> mit 2,4 Ω im 0603, bestückt sind 100 V und 2,49 Ω im 1206.
+- **Anforderung A1 nachziehen:** aus dem LED-Ring mit zwölf LEDs ist eine
+  Leiste über dem Display geworden, dazu kommt die Statusliste.

@@ -21237,7 +21237,7 @@
 				)
 			)
 		)
-		(property "Value" "MCP39F511A-E/MQ"
+		(property "Value" "MCP39F511AT-E/MQ"
 			(at 327.66 128.27 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21293,7 +21293,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "MCP39F511A-E/MQ"
+		(property "Manufacturer Part Number" "MCP39F511AT-E/MQ"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -21337,7 +21337,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "MCP39F511A-E/MQ-ND"
+		(property "Distributor 2 Order Number" "MCP39F511AT-E/MQCT-ND"
 			(at 297.18 135.89 0)
 			(hide yes)
 			(show_name no)
