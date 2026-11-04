@@ -21,7 +21,9 @@
 >
 > Breiten, Abstände und Domänen stehen in
 > [Layoutregeln.md](Layoutregeln.md), die Anforderungen in
-> [Anforderungen.md](Anforderungen.md).
+> [Anforderungen.md](Anforderungen.md). Wo das Gerät teuer ist und was eine
+> Alternative kosten würde, führt [Kostenoptimierung.md](Kostenoptimierung.md)
+> mit — keine der Positionen dort hebt eine der vier Festlegungen auf.
 
 ## Einleitung
 
@@ -329,4 +331,5 @@ Die vollständige Liste steht im Schaltplan und in
 - **`antenna/README.md` nachziehen:** dort stehen C₀ mit 50 V und
   R<sub>S</sub> mit 2,4 Ω im 0603, bestückt sind 100 V und 2,49 Ω im 1206.
 - **Anforderung A1 nachziehen:** aus dem LED-Ring mit zwölf LEDs ist eine
-  Leiste über dem Display geworden, dazu kommt die Statusliste.
+  Leiste über dem Display mit **sieben** LEDs geworden, dazu kommt die
+  Statusliste.
