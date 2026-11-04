@@ -12,6 +12,47 @@ günstigere Distributor bei **25 Stück**. Die erste Serie sind 30 Geräte.
 > [README](README.md) auf. Was unten unter „Nicht verhandelbar" steht, ist
 > entschieden und wird nicht erneut aufgerollt.
 
+## Stand
+
+Materialkosten je Gerät, gerechnet mit den Mengen für **30 Geräte** — je
+Teilenummer wird die Menge über alle Stücklistenzeilen summiert und danach
+die Staffelstufe bestimmt.
+
+| Baugruppe | je Gerät |
+|---|---:|
+| I/O-Board 230V, 77 bepreiste Teile | 54,03 € |
+| RFID-Board, NFC-Teil, 29 Teile | 7,77 € |
+| MCU-Blatt, geplant | 16,29 € |
+| Kabel und Stecker | 4,30 € |
+| NFC-Blatt, noch generische Teile | 0,60 € |
+| **Summe** | **83,00 €** |
+| **30 Geräte** | **2.490 €** |
+
+Nicht enthalten: **Display** (nicht bepreist, siehe Position 1),
+Leiterplatten, Gehäuse, Bestückung.
+
+Die acht teuersten Einzelposten tragen 54,99 € davon, also zwei Drittel:
+
+| Teil | Menge | Stück | gesamt |
+|---|---:|---:|---:|
+| Lastrelais T92S11D12-24 | 1 | 20,15 € | 20,15 € |
+| Feldklemmen WAGO 2604-1103 | 2 | 3,34 € | 6,68 € |
+| NFC-Frontend CLRC66303HNY | 1 | 6,25 € | 6,25 € |
+| AC/DC-Modul IRM-10-24 | 1 | 5,70 € | 5,70 € |
+| Isolator ISOW7721DFMR | 1 | 5,56 € | 5,56 € |
+| ESP32-S3-WROOM-1-N16R8 | 1 | 4,82 € | 4,82 € |
+| 5-V-Regler R-78K5.0-2.0 | 1 | 4,43 € | 4,43 € |
+| Gleichtaktdrossel RN102-1-02-3M0 | 1 | 1,40 € | 1,40 € |
+
+Davon stehen 33,08 € — Relais, Klemmen und NFC-Frontend — unter „Nicht
+verhandelbar", also 40 % der Materialkosten. Die LED-Leiste über dem
+Display und die Statusliste machen zusammen 5,06 € aus, die Statusliste
+allein 3,50 € mit ihren beiden fest verdrahteten Punkten.
+
+**Ersparnis:** umgesetzt 1,55 €, offen **5,30 €** (Positionen 2, 3, 5 und
+6). Das sind 6 % der 83 €. Die eine Position, die das Bild ändern würde,
+ist das Display — und die hängt an den Anforderungen, nicht am Preis.
+
 ## Übersicht
 
 | # | Position | heute | Alternative | Ersparnis | Status |
@@ -23,8 +64,9 @@ günstigere Distributor bei **25 Stück**. Die erste Serie sind 30 Geräte.
 | 5 | Isolator U300 | 5,56 € | ISOW7721**F**DFMR | 0,60 € | offen |
 | 6 | ESP32-Modul U100 | 4,82 € | N16 ohne PSRAM | 0,52 € | Firmware prüfen |
 
-Gesichert sind 1,55 €. Positionen 1 und 2 zusammen wären rund 13 € je
-Gerät — 400 € über die Serie — kosten aber die lokale Rückmeldung.
+Gesichert sind 1,55 €, sie stecken schon in den 83 € oben. Positionen 1
+und 2 zusammen wären rund 13 € je Gerät — 400 € über die Serie — kosten aber
+die lokale Rückmeldung.
 
 **Die beiden größten Posten hängen zusammen.** Display und Statusliste sind
 zwei Wege, denselben Zustand zu zeigen. Einer von beiden kann weg, nicht
@@ -55,9 +97,9 @@ Drei Stufen sind denkbar:
 
 ## 2 — Statusliste, 3,23 €
 
-Neun RGB-LEDs à 0,26 € und der Treiber IS31FL3236A mit 0,89 €. Die beiden
-fest verdrahteten Versorgungspunkte bleiben in jedem Fall, sie kosten
-0,26 €.
+Neun RGB-LEDs à 0,26 € und der Treiber IS31FL3236A mit 0,89 € — zusammen
+3,23 €. Die beiden fest verdrahteten Versorgungspunkte bleiben in jedem
+Fall, sie kosten 0,26 € und sind hier nicht mitgerechnet.
 
 Dagegen steht: **das Display kann dieselben Zustände zeigen.** Eine
 Serviceseite mit 24 V, Insel, NFC, WLAN, Relais und Aux kostet kein
