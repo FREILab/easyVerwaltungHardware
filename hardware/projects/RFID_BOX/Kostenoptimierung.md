@@ -25,13 +25,18 @@ die Staffelstufe bestimmt.
 | MCU-Blatt, geplant | 16,29 € |
 | Kabel und Stecker | 4,30 € |
 | NFC-Blatt, noch generische Teile | 0,60 € |
-| **Summe** | **83,00 €** |
-| **30 Geräte** | **2.490 €** |
+| Display ER-TFT020-3 | 3,92 € |
+| **Summe** | **86,92 €** |
+| **30 Geräte** | **2.608 €** |
 
-Nicht enthalten: **Display** (nicht bepreist, siehe Position 1),
-Leiterplatten, Gehäuse, Bestückung.
+Das Display kostet **4,26 USD** beim Hersteller, hier mit 0,92 €/USD
+gerechnet. Es kommt nicht über Mouser oder Digi-Key, steht deshalb in
+keiner Preisdatenbank, und Versand sowie Einfuhr kommen oben drauf — die
+Distributorpreise daneben sind Nettopreise ab Lager.
 
-Die acht teuersten Einzelposten tragen 54,99 € davon, also zwei Drittel:
+Nicht enthalten: Leiterplatten, Gehäuse, Bestückung.
+
+Die acht teuersten Einzelposten tragen 57,51 € davon, also zwei Drittel:
 
 | Teil | Menge | Stück | gesamt |
 |---|---:|---:|---:|
@@ -42,60 +47,37 @@ Die acht teuersten Einzelposten tragen 54,99 € davon, also zwei Drittel:
 | Isolator ISOW7721DFMR | 1 | 5,56 € | 5,56 € |
 | ESP32-S3-WROOM-1-N16R8 | 1 | 4,82 € | 4,82 € |
 | 5-V-Regler R-78K5.0-2.0 | 1 | 4,43 € | 4,43 € |
-| Gleichtaktdrossel RN102-1-02-3M0 | 1 | 1,40 € | 1,40 € |
+| Display ER-TFT020-3 | 1 | 3,92 € | 3,92 € |
 
 Davon stehen 33,08 € — Relais, Klemmen und NFC-Frontend — unter „Nicht
-verhandelbar", also 40 % der Materialkosten. Die LED-Leiste über dem
+verhandelbar", also 38 % der Materialkosten. Die LED-Leiste über dem
 Display und die Statusliste machen zusammen 5,06 € aus, die Statusliste
 allein 3,50 € mit ihren beiden fest verdrahteten Punkten.
 
-**Ersparnis:** umgesetzt 1,55 €, offen **5,30 €** (Positionen 2, 3, 5 und
-6). Das sind 6 % der 83 €. Die eine Position, die das Bild ändern würde,
-ist das Display — und die hängt an den Anforderungen, nicht am Preis.
+**Ersparnis:** umgesetzt 1,55 €, offen **5,30 €**. Das sind 6 % der
+86,92 €. Mehr gibt die Stückliste nicht her, solange Relais, Klemmen und
+NFC-Frontend stehen — und das Display mit 3,92 € ist zu billig, um die
+Anforderungen dafür aufzugeben.
 
 ## Übersicht
 
 | # | Position | heute | Alternative | Ersparnis | Status |
 |---|---|---:|---|---:|---|
-| 1 | Display | ~10 € | kleineres OLED, oder ganz weglassen | **~10 €** | Anforderungen A2, A5, B5 |
-| 2 | Statusliste | 3,23 € | Zustände auf dem Display | 3,23 € | offen |
+| 1 | Statusliste | 3,23 € | Zustände auf dem Display | **3,23 €** | offen |
+| 2 | LED-Leiste | 3,72 € | 7 statt 12 LEDs | 1,55 € | **entschieden** |
 | 3 | 5-V-Regler U306 | 4,43 € | R-78E5.0-1.0, 1 A statt 2 A | 0,95 € | Strombudget prüfen |
-| 4 | LED-Leiste | 3,72 € | 7 statt 12 LEDs | 1,55 € | **entschieden** |
-| 5 | Isolator U300 | 5,56 € | ISOW7721**F**DFMR | 0,60 € | offen |
-| 6 | ESP32-Modul U100 | 4,82 € | N16 ohne PSRAM | 0,52 € | Firmware prüfen |
+| 4 | Isolator U300 | 5,56 € | ISOW7721**F**DFMR | 0,60 € | offen |
+| 5 | ESP32-Modul U100 | 4,82 € | N16 ohne PSRAM | 0,52 € | Firmware prüfen |
 
-Gesichert sind 1,55 €, sie stecken schon in den 83 € oben. Positionen 1
-und 2 zusammen wären rund 13 € je Gerät — 400 € über die Serie — kosten aber
-die lokale Rückmeldung.
+Gesichert sind 1,55 €, sie stecken schon in den 86,92 € oben. Mehr als
+5,30 € sind aus der Stückliste nicht zu holen.
 
-**Die beiden größten Posten hängen zusammen.** Display und Statusliste sind
-zwei Wege, denselben Zustand zu zeigen. Einer von beiden kann weg, nicht
-beide: sonst bleibt als lokale Anzeige nur die siebenstellige LED-Leiste,
-und die kann keinen Klarnamen.
+**Seit der Displaypreis bekannt ist, ist die Statusliste die schwächere der
+beiden Anzeigen.** Beide zeigen denselben Zustand, beide kosten etwa
+gleich viel — aber das Display ist durch A2, A5 und B5 ohnehin gesetzt und
+kann zusätzlich den Klarnamen. Die Liste wäre der Teil, der geht.
 
-## 1 — Display, rund 10 €
-
-Das ER-TFT020-3 ist nicht bepreist — es kommt von EastRising, nicht von
-Mouser oder Digi-Key, und steht deshalb in keiner Datenbank. Der
-Größenordnung nach ist es nach dem Lastrelais der teuerste Posten, dazu
-kommen der ZIF-Steckverbinder mit 1,57 €, das FPC, der gedruckte Träger und
-die Plexiglasscheibe.
-
-**Preis beschaffen und hier eintragen** — ohne Zahl lässt sich die Position
-nicht bewerten.
-
-Drei Stufen sind denkbar:
-
-- **Zurück zum kleinen OLED.** Anforderung A2 nennt ohnehin ein OLED; das
-  2-Zoll-TFT kam, weil das DT010ATFT zu klein war. Ein 1,3-Zoll-OLED über
-  SPI kostet wenige Euro und zeigt einen Klarnamen in zwei Zeilen.
-- **Nur auf der Werkstattversion.** Geräte an Maschinen ohne Publikum
-  brauchen den Namen weniger dringend als eine FKS im Kursbetrieb.
-- **Ganz weglassen.** Dann fallen A2, A5 und B5 — und damit die sichtbare
-  Verantwortlichkeit, die der Kern des Geräts ist. Das ist eine
-  Anforderungsentscheidung, keine Kostenentscheidung.
-
-## 2 — Statusliste, 3,23 €
+## 1 — Statusliste, 3,23 €
 
 Neun RGB-LEDs à 0,26 € und der Treiber IS31FL3236A mit 0,89 € — zusammen
 3,23 €. Die beiden fest verdrahteten Versorgungspunkte bleiben in jedem
@@ -109,8 +91,15 @@ decken die zwei fest verdrahteten LEDs ab, die bleiben.
 Dafür spricht die Liste: ablesbar, ohne das Gehäuse zu öffnen, und ohne sich
 durch eine Menüseite zu klicken, an einem Gerät, das am Netz hängt.
 
-Entscheidet sich das Display gegen die Liste, spart die Liste. Entscheidet
-sich die Liste gegen das Display, spart das Display mehr.
+Seit der Displaypreis bekannt ist, ist die Frage einseitig: das Display
+bleibt ohnehin, die Liste ist die zusätzliche Anzeige. Wer sie streicht,
+verliert die Ablesbarkeit ohne Menü und spart 3,23 € — die größte einzelne
+Position, die überhaupt noch zur Wahl steht.
+
+## 2 — LED-Leiste, 1,55 € (entschieden)
+
+Sieben adressierbare LEDs statt zwölf. Anforderung A1 nennt noch zwölf und
+einen Ring, beides ist überholt.
 
 ## 3 — 5-V-Regler, 0,95 €
 
@@ -135,19 +124,14 @@ Die beiden 3,3-V-Regler selbst sind keine Position: ein AP2114H kostet
 0,17 €. Sie sitzen getrennt, weil der DC-DC des Isolators seinen Strom
 sonst über 30 cm Kabel zöge.
 
-## 4 — LED-Leiste, 1,55 € (entschieden)
-
-Sieben adressierbare LEDs statt zwölf. Anforderung A1 nennt noch zwölf und
-einen Ring, beides ist überholt.
-
-## 5 — Isolator, 0,60 €
+## 4 — Isolator, 0,60 €
 
 Der ISOW7721**F**DFMR kostet 0,60 € weniger — und ist der einzige der
 beiden Typen, der überhaupt lagernd ist. Die Entscheidung hängt nicht am
 Preis, sondern am Default-Pegel bei abgeschalteter Insel; sie steht als TODO
 im [README](README.md).
 
-## 6 — ESP32-Modul, 0,52 €
+## 5 — ESP32-Modul, 0,52 €
 
 Das `-N16R8` bringt 8 MB PSRAM mit, die ohne Framebuffer niemand braucht;
 das `-N16` kostet 4,30 € statt 4,82 €. Ein voller Framebuffer für 240 × 320
@@ -165,6 +149,10 @@ identisch. Fällt das Display weg, fällt die Frage mit.
 - **Feldklemmen J300/J301, 2 × 3,34 €.** Die Hebelklemme wird nicht gegen
   eine Schraubklemme getauscht. Sie ist ohne Werkzeug bedienbar, und am
   geöffneten Gerät berührsicher.
+- **Display ER-TFT020-3, 3,92 €.** Mit dem Herstellerpreis ist die Frage
+  entschieden: für knapp vier Euro gibt es keine Anzeige, die A2, A5 und B5
+  gleichwertig erfüllt. Ein kleineres OLED spart davon höchstens zwei Euro
+  und kann den Klarnamen schlechter. Bleibt.
 - **NFC-Frontend U200, 6,25 €.** Der MFRC63002HN wäre 1,70 € billiger. Der
   CLRC663 plus steht im Longevity-Programm und bringt die LPCD-Optionen für
   das zyklische Kartenlesen mit. Für 1,70 € gibt man die Laufzeit des
