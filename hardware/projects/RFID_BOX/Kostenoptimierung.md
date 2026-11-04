@@ -5,103 +5,132 @@ Alternative kosten würde — sortiert nach Ersparnis je Gerät, die größte
 zuerst.
 
 Preise aus `MyCSLib/KiCad/parts_db.json`, Stand **2026-11-04**, jeweils der
-günstigere Distributor bei **25 Stück**. Die Stückzahl der ersten Serie ist
-30 Geräte.
+günstigere Distributor bei **25 Stück**. Die erste Serie sind 30 Geräte.
 
-> **Sicherheit geht vor Kosten.** Keine der Positionen hier hebt eine
-> Festlegung aus [Anforderungen.md](Anforderungen.md) oder dem Regelwerk im
-> [README](README.md) auf. Wo eine Ersparnis an eine Bedingung geknüpft ist,
-> steht sie dabei — ungeprüft gilt sie nicht.
+> **Sicherheit geht vor Kosten.** Keine Position hier hebt eine Festlegung
+> aus [Anforderungen.md](Anforderungen.md) oder dem Regelwerk im
+> [README](README.md) auf. Was unten unter „Nicht verhandelbar" steht, ist
+> entschieden und wird nicht erneut aufgerollt.
 
 ## Übersicht
 
 | # | Position | heute | Alternative | Ersparnis | Status |
 |---|---|---:|---|---:|---|
-| 1 | Lastrelais K300 | 20,15 € | TE/Schrack RT424024 | **17,37 €** | zu prüfen |
-| 2 | Feldklemmen J300/J301 | 6,68 € | Schraubklemme | 4,70 € | verworfen |
-| 3 | 5-V-Regler U306 | 4,43 € | diskreter Abwärtswandler | 3,20 € | zu prüfen |
-| 4 | NFC-Frontend U200 | 6,25 € | MFRC63002HN | 1,70 € | verworfen |
-| 5 | LED-Leiste | 3,72 € | 7 statt 12 LEDs | 1,55 € | **entschieden** |
-| 6 | Isolator U300 | 5,56 € | ISOW7721**F**DFMR | 0,60 € | offen |
-| 7 | ESP32-Modul U100 | 4,82 € | N16 ohne PSRAM | 0,52 € | zu prüfen |
+| 1 | Display | ~10 € | kleineres OLED, oder ganz weglassen | **~10 €** | Anforderungen A2, A5, B5 |
+| 2 | Statusliste | 3,23 € | Zustände auf dem Display | 3,23 € | offen |
+| 3 | 5-V-Regler U306 | 4,43 € | R-78E5.0-1.0, 1 A statt 2 A | 0,95 € | Strombudget prüfen |
+| 4 | LED-Leiste | 3,72 € | 7 statt 12 LEDs | 1,55 € | **entschieden** |
+| 5 | Isolator U300 | 5,56 € | ISOW7721**F**DFMR | 0,60 € | offen |
+| 6 | ESP32-Modul U100 | 4,82 € | N16 ohne PSRAM | 0,52 € | Firmware prüfen |
 
-Gesichert sind davon bisher 1,55 €. Die Positionen 1 und 3 zusammen wären
-20,57 € je Gerät, über 30 Geräte 617 €.
+Gesichert sind 1,55 €. Positionen 1 und 2 zusammen wären rund 13 € je
+Gerät — 400 € über die Serie — kosten aber die lokale Rückmeldung.
 
-## 1 — Lastrelais, 17,37 €
+**Die beiden größten Posten hängen zusammen.** Display und Statusliste sind
+zwei Wege, denselben Zustand zu zeigen. Einer von beiden kann weg, nicht
+beide: sonst bleibt als lokale Anzeige nur die siebenstellige LED-Leiste,
+und die kann keinen Klarnamen.
 
-Das T92S11D12-24 ist mit Abstand der teuerste Posten des Geräts: 20,15 €,
-mehr als das Dreifache des nächstteuren Bauteils. Das TE/Schrack RT424024
-kostet 2,78 € bei 26.847 Stück Lagerbestand und ist zweipolig mit 8 A.
+## 1 — Display, rund 10 €
 
-Vor einem Wechsel zu prüfen, in dieser Reihenfolge:
+Das ER-TFT020-3 ist nicht bepreist — es kommt von EastRising, nicht von
+Mouser oder Digi-Key, und steht deshalb in keiner Datenbank. Der
+Größenordnung nach ist es nach dem Lastrelais der teuerste Posten, dazu
+kommen der ZIF-Steckverbinder mit 1,57 €, das FPC, der gedruckte Träger und
+die Plexiglasscheibe.
 
-- **8 mm Luft- und Kriechstrecke Spule/Kontakt.** Das ist die bindende
-  Festlegung, nicht der Normwert von 5 mm. Das Datenblatt muss sie belegen,
-  nicht nur eine Prüfspannung in kV nennen.
-- **Einschaltvermögen.** Das T92 wurde wegen 30 A und AgCdO-Kontakten
-  gewählt; die Nachlaufprofile nennen Maschinen mit Motoranlauf. Trägt der
-  RT das, oder braucht es dann doch eine Einschaltstrombegrenzung — die das
-  README heute bewusst nicht vorsieht?
-- **Bauhöhe und Fläche** im Schacht, der Deckelabstand liegt bei 35 mm.
+**Preis beschaffen und hier eintragen** — ohne Zahl lässt sich die Position
+nicht bewerten.
 
-Ergibt die Prüfung, dass nur für Motorlasten ein größeres Relais nötig ist,
-wäre eine zweite Bestückvariante denkbar: RT für ohmsche Lasten, T92 für
-Maschinen mit Anlauf.
+Drei Stufen sind denkbar:
 
-## 2 — Feldklemmen, 4,70 € (verworfen)
+- **Zurück zum kleinen OLED.** Anforderung A2 nennt ohnehin ein OLED; das
+  2-Zoll-TFT kam, weil das DT010ATFT zu klein war. Ein 1,3-Zoll-OLED über
+  SPI kostet wenige Euro und zeigt einen Klarnamen in zwei Zeilen.
+- **Nur auf der Werkstattversion.** Geräte an Maschinen ohne Publikum
+  brauchen den Namen weniger dringend als eine FKS im Kursbetrieb.
+- **Ganz weglassen.** Dann fallen A2, A5 und B5 — und damit die sichtbare
+  Verantwortlichkeit, die der Kern des Geräts ist. Das ist eine
+  Anforderungsentscheidung, keine Kostenentscheidung.
 
-Zwei WAGO 2604-1103 kosten 6,68 €, eine Schraubklemme läge bei einem Euro.
-Die Anforderungen verlangen aber eine **berührsichere Bauform** an allen
-Stellen, die beim geöffneten Gerät freiliegen, und die Hebelklemme erfüllt
-das ohne Werkzeug am Leiter. Bleibt.
+## 2 — Statusliste, 3,23 €
 
-## 3 — 5-V-Regler, 3,20 €
+Neun RGB-LEDs à 0,26 € und der Treiber IS31FL3236A mit 0,89 €. Die beiden
+fest verdrahteten Versorgungspunkte bleiben in jedem Fall, sie kosten
+0,26 €.
 
-Der R-78K5.0-2.0 ist ein fertiges Schaltreglermodul für 4,43 €. Ein
-diskreter Abwärtswandler mit Spule und Diode liegt bei rund 1,20 €.
+Dagegen steht: **das Display kann dieselben Zustände zeigen.** Eine
+Serviceseite mit 24 V, Insel, NFC, WLAN, Relais und Aux kostet kein
+Bauteil. Was es nicht kann, ist der Fall „Firmware steht" — und genau den
+decken die zwei fest verdrahteten LEDs ab, die bleiben.
 
-Dagegen steht: das Modul bringt Unterspannungs- und Kurzschlussschutz mit,
-braucht keine EMV-Arbeit und keine Fläche für die Spule. Der Steuerzweig
-hängt an einem Filter, das auf 150 kHz ausgelegt ist — ein eigener Wandler
-schiebt eine zweite Störquelle dazwischen. Erst prüfen, wenn das Layout
-steht und Platz übrig ist.
+Dafür spricht die Liste: ablesbar, ohne das Gehäuse zu öffnen, und ohne sich
+durch eine Menüseite zu klicken, an einem Gerät, das am Netz hängt.
 
-## 4 — NFC-Frontend, 1,70 € (verworfen)
+Entscheidet sich das Display gegen die Liste, spart die Liste. Entscheidet
+sich die Liste gegen das Display, spart das Display mehr.
 
-Der MFRC63002HN kostet 4,55 € gegen 6,25 € für den CLRC66303HNY. Er ist
-derselben Familie, aber der CLRC663 **plus** wurde bewusst gewählt: aktiv im
-Longevity-Programm und mit den LPCD-Optionen, die das zyklische Kartenlesen
-im Always-on-Modus billig machen. Für 1,70 € gibt man die Laufzeit des
-Designs auf. Bleibt.
+## 3 — 5-V-Regler, 0,95 €
 
-## 5 — LED-Leiste, 1,55 € (entschieden)
+Der R-78K5.0-2.0 liefert 2 A für 4,43 €, der R-78E5.0-1.0 liefert 1 A für
+3,48 € bei gleicher Bauform und gleichem Pinout.
 
-Die Leiste über dem Display kommt mit **sieben** adressierbaren LEDs statt
-zwölf aus. Anforderung A1 nennt noch zwölf und einen Ring; beides ist
-überholt.
+Zu prüfen ist das Strombudget der 5-V-Schiene: sieben LEDs der Leiste,
+Tongeber, Display-Beleuchtung und der 3,3-V-Regler des MCU-Boards mit
+630 mA Spitze. Das summiert sich auf knapp unter 1 A — zu knapp für ein
+1-A-Modul ohne genaue Messung.
 
-## 6 — Isolator, 0,60 €
+**Zum Vorschlag, 5 V und 3,3 V in einem Baustein zu erzeugen:** ein PMIC,
+der beides aus 24 V kann, ist ein Automotive-Baustein; bei Mouser und
+Digi-Key ist derzeit keiner gelistet, der passt. Mehrfach-Ausgangsmodule für
+24 V Eingang gibt es praktisch nur als ±-Typen für Analogtechnik. Der Weg
+wäre also ein diskreter Abwärtswandler plus LDO — rund 1,70 € an Bauteilen
+statt 4,60 €, dafür eine zweite Störquelle im Steuerzweig, dessen Filter auf
+150 kHz ausgelegt ist, und Layoutarbeit. Erst sinnvoll, wenn das Layout
+steht.
 
-Der ISOW7721**F**DFMR kostet 0,60 € weniger als der heute eingesetzte D-Typ
-— und ist der einzige der beiden, der überhaupt lagernd ist. Die Entscheidung
-hängt nicht am Preis, sondern am Default-Pegel; sie steht als TODO im
-[README](README.md).
+Die beiden 3,3-V-Regler selbst sind keine Position: ein AP2114H kostet
+0,17 €. Sie sitzen getrennt, weil der DC-DC des Isolators seinen Strom
+sonst über 30 cm Kabel zöge.
 
-## 7 — ESP32-Modul, 0,52 €
+## 4 — LED-Leiste, 1,55 € (entschieden)
 
-Das `-N16R8` bringt 8 MB PSRAM mit, die ohne Framebuffer niemand braucht.
-Das `-N16` ohne PSRAM kostet 4,30 € statt 4,82 €. Zu prüfen: ein voller
-Framebuffer für 240 × 320 bei 16 bit sind 150 kB und passen damit knapp in
-den internen RAM — mit partiellem Bildaufbau reicht weniger. Die Entscheidung
-gehört in die Firmware, nicht ins Layout; das Footprint ist identisch.
+Sieben adressierbare LEDs statt zwölf. Anforderung A1 nennt noch zwölf und
+einen Ring, beides ist überholt.
+
+## 5 — Isolator, 0,60 €
+
+Der ISOW7721**F**DFMR kostet 0,60 € weniger — und ist der einzige der
+beiden Typen, der überhaupt lagernd ist. Die Entscheidung hängt nicht am
+Preis, sondern am Default-Pegel bei abgeschalteter Insel; sie steht als TODO
+im [README](README.md).
+
+## 6 — ESP32-Modul, 0,52 €
+
+Das `-N16R8` bringt 8 MB PSRAM mit, die ohne Framebuffer niemand braucht;
+das `-N16` kostet 4,30 € statt 4,82 €. Ein voller Framebuffer für 240 × 320
+bei 16 bit sind 150 kB und passen knapp in den internen RAM, mit partiellem
+Bildaufbau reicht weniger. Entscheidung der Firmware, das Footprint ist
+identisch. Fällt das Display weg, fällt die Frage mit.
+
+## Nicht verhandelbar
+
+- **Lastrelais K300, 20,15 €.** Der teuerste Posten des Geräts, und das
+  Ergebnis einer langen Suche: zweipolig für N und L, 30 A
+  Einschaltvermögen, verstärkte Isolierung Spule/Kontakt mit 8 mm. Die
+  Anforderungen dazu stehen fest. Billigere zweipolige Relais gibt es
+  reichlich — sie erfüllen die Barriere nicht.
+- **Feldklemmen J300/J301, 2 × 3,34 €.** Die Hebelklemme wird nicht gegen
+  eine Schraubklemme getauscht. Sie ist ohne Werkzeug bedienbar, und am
+  geöffneten Gerät berührsicher.
+- **NFC-Frontend U200, 6,25 €.** Der MFRC63002HN wäre 1,70 € billiger. Der
+  CLRC663 plus steht im Longevity-Programm und bringt die LPCD-Optionen für
+  das zyklische Kartenlesen mit. Für 1,70 € gibt man die Laufzeit des
+  Designs auf.
 
 ## Nicht bewertet
 
-- **Display ER-TFT020-3** — noch kein Bibliotheksteil, kein Preis in der
-  Datenbank. Dem Bauteilwert nach gehört es in die Spitzengruppe.
 - **Gehäuse und Mechanik** — 3D-Druck, Plexiglas, Abdeckplatten. Liegt in
   Fusion, nicht in diesem Repo.
-- **Bestückung und Leiterplatte** selbst. Die 70 µm Kupfer des 230-V-Boards
-  und die vier Lagen des RFID-Boards sind Kostenträger, die hier noch
-  fehlen.
+- **Leiterplatte und Bestückung** — die 70 µm Kupfer des 230-V-Boards und
+  die vier Lagen des RFID-Boards sind Kostenträger, die hier fehlen.
