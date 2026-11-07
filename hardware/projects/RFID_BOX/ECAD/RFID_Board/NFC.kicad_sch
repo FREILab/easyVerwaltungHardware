@@ -6282,7 +6282,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 172.72) (xy 119.38 167.64)
+			(xy 119.38 173.99) (xy 119.38 167.64)
 		)
 		(stroke
 			(width 0)
@@ -6372,6 +6372,16 @@
 	)
 	(wire
 		(pts
+			(xy 149.86 144.78) (xy 149.86 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1476121a-fda5-4fa9-97d2-d1f9b7e9e9b8")
+	)
+	(wire
+		(pts
 			(xy 205.74 62.23) (xy 205.74 73.66)
 		)
 		(stroke
@@ -6389,6 +6399,16 @@
 			(type default)
 		)
 		(uuid "19d10910-35f1-4bc8-bfe5-5b7381266a64")
+	)
+	(wire
+		(pts
+			(xy 129.54 154.94) (xy 129.54 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1bdd73bc-e04a-4388-b0a7-e9411830970d")
 	)
 	(wire
 		(pts
@@ -6772,6 +6792,16 @@
 	)
 	(wire
 		(pts
+			(xy 149.86 120.65) (xy 149.86 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "777a120d-b56b-4925-802b-791470b1bf73")
+	)
+	(wire
+		(pts
 			(xy 54.61 179.07) (xy 54.61 177.8)
 		)
 		(stroke
@@ -6862,6 +6892,16 @@
 	)
 	(wire
 		(pts
+			(xy 138.43 120.65) (xy 138.43 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c2cd633-d7f0-43ea-819a-292931099360")
+	)
+	(wire
+		(pts
 			(xy 129.54 93.98) (xy 137.16 93.98)
 		)
 		(stroke
@@ -6879,6 +6919,16 @@
 			(type default)
 		)
 		(uuid "9d7f5cf7-76cc-4ea0-91ee-f7a68c691d3d")
+	)
+	(wire
+		(pts
+			(xy 139.7 173.99) (xy 139.7 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a02b71c8-22cf-43bc-94ad-9f2534cd9403")
 	)
 	(wire
 		(pts
@@ -6962,6 +7012,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 173.99) (xy 124.46 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a74194e4-db94-45f6-a697-75f850153742")
+	)
+	(wire
+		(pts
 			(xy 180.34 48.26) (xy 180.34 50.8)
 		)
 		(stroke
@@ -7029,6 +7089,16 @@
 			(type default)
 		)
 		(uuid "bb592704-89af-43a2-bf79-1de4c2ba4405")
+	)
+	(wire
+		(pts
+			(xy 153.67 173.99) (xy 153.67 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be25ca4c-79a5-48ed-8747-06fcbb25a86e")
 	)
 	(wire
 		(pts
@@ -7162,6 +7232,16 @@
 	)
 	(wire
 		(pts
+			(xy 125.73 120.65) (xy 125.73 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db7e4aec-d6bc-4c12-98cc-04a188c349ea")
+	)
+	(wire
+		(pts
 			(xy 152.4 73.66) (xy 162.56 73.66)
 		)
 		(stroke
@@ -7222,7 +7302,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 35.56) (xy 147.32 35.56)
+			(xy 144.78 35.56) (xy 148.59 35.56)
 		)
 		(stroke
 			(width 0)
@@ -7398,7 +7478,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 129.54 153.67 0)
+		(at 129.54 154.94 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7408,8 +7488,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "00943e27-8121-46ee-9ffd-c78880682b5e")
-		(property "Reference" "#PWR0209"
-			(at 129.54 160.02 0)
+		(property "Reference" "#PWR209"
+			(at 129.54 161.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7420,7 +7500,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 132.08 154.9399 0)
+			(at 132.08 156.2099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7431,7 +7511,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 153.67 0)
+			(at 129.54 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7442,7 +7522,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 153.67 0)
+			(at 129.54 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7453,7 +7533,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 129.54 153.67 0)
+			(at 129.54 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7469,7 +7549,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0209")
+					(reference "#PWR209")
 					(unit 1)
 				)
 			)
@@ -7736,7 +7816,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 172.72 0)
+		(at 119.38 173.99 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7746,8 +7826,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "15b6c4f0-fa17-4e47-847a-460744636fc0")
-		(property "Reference" "#PWR0206"
-			(at 119.38 179.07 0)
+		(property "Reference" "#PWR206"
+			(at 119.38 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7758,7 +7838,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 121.92 173.9899 0)
+			(at 121.92 175.2599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7769,7 +7849,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 172.72 0)
+			(at 119.38 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7780,7 +7860,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 172.72 0)
+			(at 119.38 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7791,7 +7871,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 119.38 172.72 0)
+			(at 119.38 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7807,7 +7887,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0206")
+					(reference "#PWR206")
 					(unit 1)
 				)
 			)
@@ -8351,7 +8431,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 149.86 119.38 0)
+		(at 149.86 120.65 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8361,8 +8441,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21b70a3e-4eed-4f70-acc9-0f14c5d1210f")
-		(property "Reference" "#PWR0215"
-			(at 149.86 125.73 0)
+		(property "Reference" "#PWR215"
+			(at 149.86 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8373,7 +8453,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 152.4 120.6499 0)
+			(at 152.4 121.9199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8384,7 +8464,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 119.38 0)
+			(at 149.86 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8395,7 +8475,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 119.38 0)
+			(at 149.86 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8406,7 +8486,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 149.86 119.38 0)
+			(at 149.86 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8422,7 +8502,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0215")
+					(reference "#PWR215")
 					(unit 1)
 				)
 			)
@@ -8512,7 +8592,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 125.73 119.38 0)
+		(at 125.73 120.65 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8522,8 +8602,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "25344cfd-1736-4f0c-b3c9-08637dfb24df")
-		(property "Reference" "#PWR0208"
-			(at 125.73 125.73 0)
+		(property "Reference" "#PWR208"
+			(at 125.73 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8534,7 +8614,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 128.27 120.6499 0)
+			(at 128.27 121.9199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8545,7 +8625,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 125.73 119.38 0)
+			(at 125.73 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8556,7 +8636,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 125.73 119.38 0)
+			(at 125.73 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8567,7 +8647,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 125.73 119.38 0)
+			(at 125.73 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8583,7 +8663,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0208")
+					(reference "#PWR208")
 					(unit 1)
 				)
 			)
@@ -8601,7 +8681,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "26e9f766-969b-47ab-8b57-abdd927043cb")
-		(property "Reference" "Cx200"
+		(property "Reference" "C200"
 			(at 140.97 27.94 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8760,7 +8840,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "Cx200")
+					(reference "C200")
 					(unit 1)
 				)
 			)
@@ -8778,7 +8858,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2c5ae33f-c22d-4bbe-9171-e681cd22e2c5")
-		(property "Reference" "#PWR0204"
+		(property "Reference" "#PWR204"
 			(at 48.26 148.59 0)
 			(hide yes)
 			(show_name no)
@@ -8838,7 +8918,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0204")
+					(reference "#PWR204")
 					(unit 1)
 				)
 			)
@@ -8856,7 +8936,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2f10cfe4-4ec4-405e-92f0-ee651eb2baae")
-		(property "Reference" "#PWR0203"
+		(property "Reference" "#PWR203"
 			(at 54.61 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -8917,7 +8997,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0203")
+					(reference "#PWR203")
 					(unit 1)
 				)
 			)
@@ -9527,7 +9607,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 149.86 143.51 0)
+		(at 149.86 144.78 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9537,8 +9617,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4356a73e-51b5-44dd-a38d-2bcdd3493839")
-		(property "Reference" "#PWR0217"
-			(at 149.86 149.86 0)
+		(property "Reference" "#PWR217"
+			(at 149.86 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9549,7 +9629,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 152.4 144.7799 0)
+			(at 152.4 146.0499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9560,7 +9640,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 149.86 143.51 0)
+			(at 149.86 144.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9571,7 +9651,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 143.51 0)
+			(at 149.86 144.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9582,7 +9662,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 149.86 143.51 0)
+			(at 149.86 144.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9598,7 +9678,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0217")
+					(reference "#PWR217")
 					(unit 1)
 				)
 			)
@@ -9616,7 +9696,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4439aa77-8a54-4c8c-b395-ea23d70a0bde")
-		(property "Reference" "#PWR0200"
+		(property "Reference" "#PWR200"
 			(at 46.99 36.83 0)
 			(hide yes)
 			(show_name no)
@@ -9677,7 +9757,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0200")
+					(reference "#PWR200")
 					(unit 1)
 				)
 			)
@@ -9864,7 +9944,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 147.32 35.56 0)
+		(at 148.59 35.56 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9874,8 +9954,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "571f6fab-49a2-4103-b824-aedc2d856f23")
-		(property "Reference" "#PWR0213"
-			(at 147.32 41.91 0)
+		(property "Reference" "#PWR213"
+			(at 148.59 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9886,7 +9966,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 149.86 36.8299 0)
+			(at 151.13 36.8299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9897,7 +9977,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 147.32 35.56 0)
+			(at 148.59 35.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9908,7 +9988,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 35.56 0)
+			(at 148.59 35.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9919,7 +9999,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 147.32 35.56 0)
+			(at 148.59 35.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9935,7 +10015,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0213")
+					(reference "#PWR213")
 					(unit 1)
 				)
 			)
@@ -9963,7 +10043,7 @@
 				)
 			)
 		)
-		(property "Value" "470nH"
+		(property "Value" "L"
 			(at 143.51 71.12 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10391,7 +10471,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7256f5be-572e-47ed-9e35-7cbf9b19f64f")
-		(property "Reference" "#PWR0205"
+		(property "Reference" "#PWR205"
 			(at 48.26 179.07 0)
 			(hide yes)
 			(show_name no)
@@ -10451,7 +10531,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0205")
+					(reference "#PWR205")
 					(unit 1)
 				)
 			)
@@ -10469,7 +10549,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "732aded4-3c89-49aa-9d3e-c94034ac299f")
-		(property "Reference" "#PWR0214"
+		(property "Reference" "#PWR214"
 			(at 149.86 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -10530,7 +10610,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0214")
+					(reference "#PWR214")
 					(unit 1)
 				)
 			)
@@ -11264,7 +11344,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8cacac04-63f3-4fa8-ba9d-6fbf23cda5a1")
-		(property "Reference" "#PWR0218"
+		(property "Reference" "#PWR218"
 			(at 153.67 166.37 0)
 			(hide yes)
 			(show_name no)
@@ -11325,7 +11405,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0218")
+					(reference "#PWR218")
 					(unit 1)
 				)
 			)
@@ -11333,7 +11413,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 124.46 172.72 0)
+		(at 124.46 173.99 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11343,8 +11423,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9026862f-a645-4acd-b678-db3b4fe1a5f3")
-		(property "Reference" "#PWR0207"
-			(at 124.46 179.07 0)
+		(property "Reference" "#PWR207"
+			(at 124.46 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11355,7 +11435,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 127 173.9899 0)
+			(at 127 175.2599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11366,7 +11446,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 124.46 172.72 0)
+			(at 124.46 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11377,7 +11457,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 124.46 172.72 0)
+			(at 124.46 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11388,7 +11468,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 124.46 172.72 0)
+			(at 124.46 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11404,7 +11484,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0207")
+					(reference "#PWR207")
 					(unit 1)
 				)
 			)
@@ -11600,7 +11680,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "95d3f91e-b5c6-4dd3-ae40-a27746c7f7a0")
-		(property "Reference" "#PWR0201"
+		(property "Reference" "#PWR201"
 			(at 46.99 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -11661,7 +11741,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0201")
+					(reference "#PWR201")
 					(unit 1)
 				)
 			)
@@ -12114,7 +12194,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 62.484 98.806 90)
+			(at 57.15 94.488 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12450,7 +12530,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 138.43 119.38 0)
+		(at 138.43 120.65 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12460,8 +12540,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "accbc239-9ecc-4cb0-bb5b-71e6a474b01d")
-		(property "Reference" "#PWR0211"
-			(at 138.43 125.73 0)
+		(property "Reference" "#PWR211"
+			(at 138.43 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12472,7 +12552,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 140.97 120.6499 0)
+			(at 140.97 121.9199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12483,7 +12563,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 138.43 119.38 0)
+			(at 138.43 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12494,7 +12574,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 138.43 119.38 0)
+			(at 138.43 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12505,7 +12585,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 138.43 119.38 0)
+			(at 138.43 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12521,7 +12601,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0211")
+					(reference "#PWR211")
 					(unit 1)
 				)
 			)
@@ -12708,7 +12788,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 153.67 172.72 0)
+		(at 153.67 173.99 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12718,8 +12798,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bf2b9372-3fad-41af-a508-a8b37a8d659d")
-		(property "Reference" "#PWR0219"
-			(at 153.67 179.07 0)
+		(property "Reference" "#PWR219"
+			(at 153.67 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12730,7 +12810,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 156.21 173.9899 0)
+			(at 156.21 175.2599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12741,7 +12821,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 153.67 172.72 0)
+			(at 153.67 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12752,7 +12832,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 153.67 172.72 0)
+			(at 153.67 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12763,7 +12843,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 153.67 172.72 0)
+			(at 153.67 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12779,7 +12859,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0219")
+					(reference "#PWR219")
 					(unit 1)
 				)
 			)
@@ -12797,7 +12877,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d31b6ab4-325c-4e56-acc8-bcda56ca5581")
-		(property "Reference" "#PWR0210"
+		(property "Reference" "#PWR210"
 			(at 138.43 67.31 0)
 			(hide yes)
 			(show_name no)
@@ -12858,7 +12938,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0210")
+					(reference "#PWR210")
 					(unit 1)
 				)
 			)
@@ -12876,7 +12956,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d3d12583-b94a-46e6-ad77-aa562bb628ec")
-		(property "Reference" "R1B200"
+		(property "Reference" "R?"
 			(at 154.94 33.0199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13038,7 +13118,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "R1B200")
+					(reference "R?")
 					(unit 1)
 				)
 			)
@@ -13066,7 +13146,7 @@
 				)
 			)
 		)
-		(property "Value" "470nH"
+		(property "Value" "L"
 			(at 143.51 45.72 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13490,7 +13570,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e6e34509-99b7-49bf-8797-4e9ebfe964d7")
-		(property "Reference" "R1A200"
+		(property "Reference" "R?"
 			(at 154.94 83.8199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13652,7 +13732,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "R1A200")
+					(reference "R?")
 					(unit 1)
 				)
 			)
@@ -13670,7 +13750,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ea7049df-f27c-4ea0-a51a-de6b6c09e30c")
-		(property "Reference" "#PWR0202"
+		(property "Reference" "#PWR202"
 			(at 46.99 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -13731,7 +13811,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0202")
+					(reference "#PWR202")
 					(unit 1)
 				)
 			)
@@ -13759,7 +13839,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 62.23 85.09 90)
+			(at 57.15 80.518 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14096,7 +14176,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 139.7 172.72 0)
+		(at 139.7 173.99 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14106,8 +14186,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f35d8593-1bc0-4532-acd3-ffe8cbf62741")
-		(property "Reference" "#PWR0212"
-			(at 139.7 179.07 0)
+		(property "Reference" "#PWR212"
+			(at 139.7 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14118,7 +14198,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 142.24 173.9899 0)
+			(at 142.24 175.2599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14129,7 +14209,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 139.7 172.72 0)
+			(at 139.7 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14140,7 +14220,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 139.7 172.72 0)
+			(at 139.7 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14151,7 +14231,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 139.7 172.72 0)
+			(at 139.7 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14167,7 +14247,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0212")
+					(reference "#PWR212")
 					(unit 1)
 				)
 			)
@@ -14543,7 +14623,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fb9adc9b-a846-4d60-a306-11253666b0ac")
-		(property "Reference" "#PWR0216"
+		(property "Reference" "#PWR216"
 			(at 149.86 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -14604,7 +14684,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/48e8cd60-8354-42de-961d-2d15417f7563"
-					(reference "#PWR0216")
+					(reference "#PWR216")
 					(unit 1)
 				)
 			)
