@@ -474,7 +474,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+5V"
+		(symbol "0_Power:+5V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -502,7 +502,7 @@
 			(property "Value" "+5V"
 				(at 0 3.556 0)
 				(show_name no)
-				(do_not_autoplace no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -613,7 +613,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:GND"
+		(symbol "0_Power:GND"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -641,7 +641,7 @@
 			(property "Value" "GND"
 				(at 0 -3.81 0)
 				(show_name no)
-				(do_not_autoplace no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1240,7 +1240,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "063cfa97-6958-4727-be5c-22d4d009a1b5")
-		(property "Reference" "C?"
+		(property "Reference" "C302"
 			(at 144.78 88.8999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1401,14 +1401,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C302")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 171.45 78.74 0)
 		(unit 1)
 		(body_style 1)
@@ -1431,13 +1431,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 171.45 73.66 0)
+			(at 171.45 75.184 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -1486,7 +1487,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 110.49 130.81 0)
 		(unit 1)
 		(body_style 1)
@@ -1509,13 +1510,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 110.49 135.89 0)
+			(at 110.49 134.62 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -1575,7 +1577,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1e6478ab-5d55-4060-9e83-0b522dd59217")
-		(property "Reference" "C?"
+		(property "Reference" "C306"
 			(at 205.74 88.8999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1736,7 +1738,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C306")
 					(unit 1)
 				)
 			)
@@ -1754,7 +1756,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2435a75c-e347-4873-a878-a6f21c5eca42")
-		(property "Reference" "C?"
+		(property "Reference" "C303"
 			(at 144.78 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1915,14 +1917,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C303")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 201.93 113.03 0)
 		(unit 1)
 		(body_style 1)
@@ -1945,13 +1947,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 201.93 107.95 0)
+			(at 201.93 109.474 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2011,7 +2014,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3f304374-df9a-41b8-9a59-a0afd4dc5702")
-		(property "Reference" "C?"
+		(property "Reference" "C301"
 			(at 114.3 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2172,7 +2175,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C301")
 					(unit 1)
 				)
 			)
@@ -2190,7 +2193,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4121e1e8-6acd-4844-bd04-2217395f9027")
-		(property "Reference" "C?"
+		(property "Reference" "C300"
 			(at 114.3 88.8999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2351,14 +2354,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C300")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 110.49 78.74 0)
 		(unit 1)
 		(body_style 1)
@@ -2380,9 +2383,9 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 109.22 74.676 0)
+			(at 110.49 75.184 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2447,7 +2450,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "508cfbd6-70c9-43e3-a9ac-baa1dc72e795")
-		(property "Reference" "C?"
+		(property "Reference" "C307"
 			(at 205.74 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2608,7 +2611,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C307")
 					(unit 1)
 				)
 			)
@@ -2626,7 +2629,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "585dbc75-f2bb-4a41-911b-119a875c3df3")
-		(property "Reference" "D?"
+		(property "Reference" "D306"
 			(at 215.9 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2774,7 +2777,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D306")
 					(unit 1)
 				)
 			)
@@ -2792,7 +2795,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "59fef370-bf9f-444f-82c2-7fd67c6ca82f")
-		(property "Reference" "D?"
+		(property "Reference" "D301"
 			(at 124.46 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2940,14 +2943,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D301")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 135.89 83.82 0)
 		(unit 1)
 		(body_style 1)
@@ -2970,9 +2973,9 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 138.43 85.0899 0)
+			(at 135.89 87.63 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3026,7 +3029,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 171.45 130.81 0)
 		(unit 1)
 		(body_style 1)
@@ -3049,13 +3052,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 171.45 135.89 0)
+			(at 171.45 134.62 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3104,7 +3108,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 227.33 83.82 0)
 		(unit 1)
 		(body_style 1)
@@ -3127,13 +3131,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 227.33 88.9 0)
+			(at 227.33 87.63 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3182,7 +3187,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 140.97 96.52 0)
 		(unit 1)
 		(body_style 1)
@@ -3205,13 +3210,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 140.97 101.6 0)
+			(at 140.97 100.33 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3271,7 +3277,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6dad895c-dc42-4e21-903d-79fed7434278")
-		(property "Reference" "D?"
+		(property "Reference" "D302"
 			(at 154.94 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3419,7 +3425,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D302")
 					(unit 1)
 				)
 			)
@@ -3437,7 +3443,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6dcda193-d9ac-45bb-8ba2-ae6417ad354a")
-		(property "Reference" "C?"
+		(property "Reference" "C305"
 			(at 175.26 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3598,14 +3604,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C305")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 201.93 130.81 0)
 		(unit 1)
 		(body_style 1)
@@ -3628,13 +3634,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 201.93 135.89 0)
+			(at 201.93 134.62 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3694,7 +3701,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "76674830-997a-464a-9598-add375a76666")
-		(property "Reference" "D?"
+		(property "Reference" "D307"
 			(at 215.9 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3842,14 +3849,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D307")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 196.85 83.82 0)
 		(unit 1)
 		(body_style 1)
@@ -3872,13 +3879,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 196.85 88.9 0)
+			(at 196.85 87.63 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3927,7 +3935,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 166.37 118.11 0)
 		(unit 1)
 		(body_style 1)
@@ -3950,13 +3958,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 166.37 123.19 0)
+			(at 166.37 121.92 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4016,7 +4025,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "83f7fa85-bd79-4c57-855a-46e5ae1b9256")
-		(property "Reference" "C?"
+		(property "Reference" "C304"
 			(at 175.26 88.8999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4177,7 +4186,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "C?")
+					(reference "C304")
 					(unit 1)
 				)
 			)
@@ -4195,7 +4204,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8725e01d-6f9b-476b-bee5-20d8ab8a4602")
-		(property "Reference" "D?"
+		(property "Reference" "D300"
 			(at 124.46 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4343,14 +4352,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D300")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 110.49 96.52 0)
 		(unit 1)
 		(body_style 1)
@@ -4373,13 +4382,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 110.49 101.6 0)
+			(at 110.49 100.33 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4439,7 +4449,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8aae2309-5279-434e-911b-654b984e8a52")
-		(property "Reference" "D?"
+		(property "Reference" "D303"
 			(at 154.94 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4587,14 +4597,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D303")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 140.97 130.81 0)
 		(unit 1)
 		(body_style 1)
@@ -4617,13 +4627,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 140.97 135.89 0)
+			(at 140.97 134.62 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4672,7 +4683,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 196.85 118.11 0)
 		(unit 1)
 		(body_style 1)
@@ -4695,13 +4706,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 196.85 123.19 0)
+			(at 196.85 121.92 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4761,7 +4773,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a76f5301-6822-4b1a-93f4-4f282b46da97")
-		(property "Reference" "D?"
+		(property "Reference" "D305"
 			(at 185.42 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4909,14 +4921,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D305")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 135.89 118.11 0)
 		(unit 1)
 		(body_style 1)
@@ -4939,13 +4951,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 135.89 123.19 0)
+			(at 135.89 121.92 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4994,7 +5007,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 110.49 113.03 0)
 		(unit 1)
 		(body_style 1)
@@ -5017,13 +5030,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 110.49 107.95 0)
+			(at 110.49 109.474 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5072,7 +5086,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 171.45 113.03 0)
 		(unit 1)
 		(body_style 1)
@@ -5095,13 +5109,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 171.45 107.95 0)
+			(at 171.45 109.474 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5161,7 +5176,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "be0a833c-3d8a-461e-81b9-03475d7cb231")
-		(property "Reference" "D?"
+		(property "Reference" "D304"
 			(at 185.42 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5309,14 +5324,14 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "D?")
+					(reference "D304")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 201.93 96.52 0)
 		(unit 1)
 		(body_style 1)
@@ -5339,13 +5354,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 201.93 101.6 0)
+			(at 201.93 100.33 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5394,7 +5410,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 166.37 83.82 0)
 		(unit 1)
 		(body_style 1)
@@ -5417,13 +5433,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 166.37 88.9 0)
+			(at 166.37 87.63 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5472,7 +5489,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 227.33 118.11 0)
 		(unit 1)
 		(body_style 1)
@@ -5495,13 +5512,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 227.33 123.19 0)
+			(at 227.33 121.92 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5550,7 +5568,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 171.45 96.52 0)
 		(unit 1)
 		(body_style 1)
@@ -5573,13 +5591,14 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 171.45 101.6 0)
+			(at 171.45 100.33 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5628,7 +5647,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 140.97 78.74 0)
 		(unit 1)
 		(body_style 1)
@@ -5651,13 +5670,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 140.97 73.66 0)
+			(at 140.97 75.184 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5706,7 +5726,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 140.97 113.03 0)
 		(unit 1)
 		(body_style 1)
@@ -5729,13 +5749,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 140.97 107.95 0)
+			(at 140.97 109.474 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5784,7 +5805,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 201.93 78.74 0)
 		(unit 1)
 		(body_style 1)
@@ -5807,13 +5828,14 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 201.93 73.66 0)
+			(at 201.93 75.184 0)
 			(show_name no)
-			(do_not_autoplace no)
+			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""

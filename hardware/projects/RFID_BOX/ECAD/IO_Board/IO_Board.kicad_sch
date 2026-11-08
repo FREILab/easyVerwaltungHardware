@@ -11292,7 +11292,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+24V"
+		(symbol "0_Power:+24V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -11320,7 +11320,7 @@
 			(property "Value" "+24V"
 				(at 0 3.556 0)
 				(show_name no)
-				(do_not_autoplace no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -11430,8 +11430,8 @@
 				)
 			)
 			(embedded_fonts no)
-		)
-		(symbol "power:+5V"
+	)
+		(symbol "0_Power:+5V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -11459,7 +11459,7 @@
 			(property "Value" "+5V"
 				(at 0 3.556 0)
 				(show_name no)
-				(do_not_autoplace no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -11569,8 +11569,8 @@
 				)
 			)
 			(embedded_fonts no)
-		)
-		(symbol "power:Earth"
+	)
+		(symbol "0_Power:Earth"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -11598,7 +11598,7 @@
 			(property "Value" "Earth"
 				(at 0 -3.81 0)
 				(show_name no)
-				(do_not_autoplace no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -11720,8 +11720,8 @@
 				)
 			)
 			(embedded_fonts no)
-		)
-		(symbol "power:GND"
+	)
+		(symbol "0_Power:GND"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -11749,7 +11749,7 @@
 			(property "Value" "GND"
 				(at 0 -3.81 0)
 				(show_name no)
-				(do_not_autoplace no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -11835,7 +11835,7 @@
 				)
 			)
 			(embedded_fonts no)
-		)
+	)
 	)
 	(text "VIAS -- 20 um barrel plating, dT 5 K. \"per via\" is what one via\ncarries. Derate by 0.7 in dense via fields.\n\nVia | Drill  | Pad     | Aspect | per via\n----|--------|---------|--------|---------\nA   | 0.2 mm | 0.45 mm | 8:1    | 0.839 A\nB   | 0.3 mm | 0.6 mm  | 5.3:1  | 1.126 A\nC   | 0.6 mm | 1.0 mm  | 2.7:1  | 1.861 A\nD   | 1.0 mm | 1.4 mm  | 1.6:1  | 2.695 A"
 		(exclude_from_sim no)
@@ -17961,7 +17961,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 261.62 54.61 0)
 		(unit 1)
 		(body_style 1)
@@ -19554,7 +19554,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 199.39 100.33 0)
 		(unit 1)
 		(body_style 1)
@@ -19631,7 +19631,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 325.12 35.56 0)
 		(unit 1)
 		(body_style 1)
@@ -20030,7 +20030,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 383.54 54.61 0)
 		(unit 1)
 		(body_style 1)
@@ -20465,7 +20465,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 191.77 120.65 0)
 		(unit 1)
 		(body_style 1)
@@ -20542,7 +20542,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 87.63 134.62 0)
 		(unit 1)
 		(body_style 1)
@@ -20976,7 +20976,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 375.92 27.94 0)
 		(unit 1)
 		(body_style 1)
@@ -21445,7 +21445,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:Earth")
+		(lib_id "0_Power:Earth")
 		(at 31.75 210.82 0)
 		(unit 1)
 		(body_style 1)
@@ -21702,7 +21702,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 257.81 116.84 0)
 		(unit 1)
 		(body_style 1)
@@ -22220,7 +22220,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 378.46 119.38 0)
 		(unit 1)
 		(body_style 1)
@@ -22653,7 +22653,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 336.55 21.59 0)
 		(unit 1)
 		(body_style 1)
@@ -23060,7 +23060,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+24V")
+		(lib_id "0_Power:+24V")
 		(at 316.23 50.8 0)
 		(unit 1)
 		(body_style 1)
@@ -23137,7 +23137,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 364.49 90.17 0)
 		(unit 1)
 		(body_style 1)
@@ -23374,7 +23374,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 217.17 250.19 0)
 		(unit 1)
 		(body_style 1)
@@ -23628,7 +23628,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 271.78 128.27 0)
 		(unit 1)
 		(body_style 1)
@@ -23705,7 +23705,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 137.16 114.3 0)
 		(unit 1)
 		(body_style 1)
@@ -25033,7 +25033,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 266.7 44.45 0)
 		(unit 1)
 		(body_style 1)
@@ -25110,7 +25110,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 363.22 190.5 0)
 		(unit 1)
 		(body_style 1)
@@ -25187,7 +25187,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 124.46 114.3 0)
 		(unit 1)
 		(body_style 1)
@@ -25804,7 +25804,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 208.28 158.75 0)
 		(unit 1)
 		(body_style 1)
@@ -26061,7 +26061,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 250.19 54.61 0)
 		(unit 1)
 		(body_style 1)
@@ -26138,7 +26138,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 172.72 160.02 0)
 		(unit 1)
 		(body_style 1)
@@ -26543,7 +26543,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 110.49 114.3 0)
 		(unit 1)
 		(body_style 1)
@@ -26620,7 +26620,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 368.3 135.89 0)
 		(unit 1)
 		(body_style 1)
@@ -26697,7 +26697,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 331.47 35.56 0)
 		(unit 1)
 		(body_style 1)
@@ -26774,7 +26774,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:Earth")
+		(lib_id "0_Power:Earth")
 		(at 332.74 232.41 0)
 		(unit 1)
 		(body_style 1)
@@ -26851,7 +26851,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+24V")
+		(lib_id "0_Power:+24V")
 		(at 354.33 50.8 0)
 		(unit 1)
 		(body_style 1)
@@ -26928,7 +26928,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 104.14 100.33 0)
 		(unit 1)
 		(body_style 1)
@@ -27183,7 +27183,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 194.31 82.55 0)
 		(unit 1)
 		(body_style 1)
@@ -27260,7 +27260,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 254 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -27337,7 +27337,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+24V")
+		(lib_id "0_Power:+24V")
 		(at 215.9 43.18 0)
 		(unit 1)
 		(body_style 1)
@@ -27414,7 +27414,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 278.13 25.4 0)
 		(unit 1)
 		(body_style 1)
@@ -27491,7 +27491,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 316.23 97.79 0)
 		(unit 1)
 		(body_style 1)
@@ -27747,7 +27747,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 273.05 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -27824,7 +27824,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 160.02 160.02 0)
 		(unit 1)
 		(body_style 1)
@@ -28429,7 +28429,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 223.52 100.33 0)
 		(unit 1)
 		(body_style 1)
@@ -28865,7 +28865,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 208.28 82.55 0)
 		(unit 1)
 		(body_style 1)
@@ -29121,7 +29121,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+24V")
+		(lib_id "0_Power:+24V")
 		(at 382.27 27.94 0)
 		(unit 1)
 		(body_style 1)
@@ -29376,7 +29376,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 247.65 69.85 0)
 		(unit 1)
 		(body_style 1)
@@ -29711,7 +29711,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 207.01 57.15 0)
 		(unit 1)
 		(body_style 1)
@@ -29967,7 +29967,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 262.89 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -30993,7 +30993,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 210.82 100.33 0)
 		(unit 1)
 		(body_style 1)
@@ -31070,7 +31070,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 369.57 27.94 0)
 		(unit 1)
 		(body_style 1)
@@ -31147,7 +31147,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 363.22 119.38 0)
 		(unit 1)
 		(body_style 1)
@@ -31402,7 +31402,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 254 175.26 0)
 		(unit 1)
 		(body_style 1)
@@ -31822,7 +31822,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 189.23 57.15 0)
 		(unit 1)
 		(body_style 1)
@@ -31899,7 +31899,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:Earth")
+		(lib_id "0_Power:Earth")
 		(at 152.4 67.31 0)
 		(unit 1)
 		(body_style 1)
@@ -33032,7 +33032,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 379.73 172.72 0)
 		(unit 1)
 		(body_style 1)
@@ -33286,7 +33286,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 180.34 52.07 0)
 		(unit 1)
 		(body_style 1)
@@ -33363,7 +33363,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 220.98 82.55 0)
 		(unit 1)
 		(body_style 1)
@@ -34142,7 +34142,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 323.85 97.79 0)
 		(unit 1)
 		(body_style 1)
@@ -34398,7 +34398,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 318.77 189.23 0)
 		(unit 1)
 		(body_style 1)
@@ -34475,7 +34475,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 381 190.5 0)
 		(unit 1)
 		(body_style 1)
@@ -34731,7 +34731,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 278.13 35.56 0)
 		(unit 1)
 		(body_style 1)
@@ -34808,7 +34808,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "0_Power:GND")
 		(at 354.33 90.17 0)
 		(unit 1)
 		(body_style 1)
@@ -35064,7 +35064,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "0_Power:+5V")
 		(at 400.05 125.73 0)
 		(unit 1)
 		(body_style 1)
@@ -35141,7 +35141,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:Earth")
+		(lib_id "0_Power:Earth")
 		(at 137.16 67.31 0)
 		(unit 1)
 		(body_style 1)
