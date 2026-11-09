@@ -304,9 +304,6 @@ Die vollständige Liste steht im Schaltplan und in
   einem Master ableiten: ESP32-S3-WROOM-1, SN74AHCT125, IS31FL3236A,
   USBLC6-2SC6Y, USB4105-GF-A, der Display-ZIF und der FFC-Stecker
   SFW14S-2STE1LF. Teilenummern und Bestellnummern sind recherchiert.
-- **Drei Datenblätter fehlen**, ihre Quellen wehren automatische Abrufe ab:
-  ST USBLC6-2SC6Y, Hirose FH12-14S-0.5SH, EastRising ER-TFT020-3. Von Hand
-  nach `docs/Datasheets/ESD/`, `Connectors/` und `Display/` legen.
 - **Piezo PKLCS1212E40A1-R1 ist bei Digi-Key Last Time Buy** (Mouser 27.236
   Stück). Alternative mit aktivem Status wäre `CMT-1203-SMT-TR` von Same
   Sky — dafür ohne fertiges KiCad-Footprint und 3 dB leiser.
