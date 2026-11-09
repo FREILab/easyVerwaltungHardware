@@ -3176,7 +3176,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "15c57586-b937-4a9e-accc-00b0923d7c49")
-		(property "Reference" "#PWR0109"
+		(property "Reference" "#PWR0401"
 			(at 114.3 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -3302,7 +3302,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0109")
+					(reference "#PWR0401")
 					(unit 1)
 				)
 			)
@@ -3320,7 +3320,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "190c870a-c77e-413f-81d6-0334ae74ab86")
-		(property "Reference" "#PWR0114"
+		(property "Reference" "#PWR0405"
 			(at 185.42 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -3446,7 +3446,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0114")
+					(reference "#PWR0405")
 					(unit 1)
 				)
 			)
@@ -3464,7 +3464,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "424adbe1-f3db-46a6-ab43-c39471fb900b")
-		(property "Reference" "#PWR0112"
+		(property "Reference" "#PWR0404"
 			(at 163.83 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -3590,7 +3590,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0112")
+					(reference "#PWR0404")
 					(unit 1)
 				)
 			)
@@ -3608,7 +3608,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "45e1f9d4-f575-418d-9ff8-ab6f903b8948")
-		(property "Reference" "#PWR0110"
+		(property "Reference" "#PWR0402"
 			(at 152.4 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -3734,7 +3734,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0110")
+					(reference "#PWR0402")
 					(unit 1)
 				)
 			)
@@ -3752,7 +3752,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "4e9979a1-18fb-4bb1-bad9-650f4a9c251b")
-		(property "Reference" "J?"
+		(property "Reference" "J400"
 			(at 185.42 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3916,7 +3916,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "J?")
+					(reference "J400")
 					(unit 1)
 				)
 			)
@@ -3934,7 +3934,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5a117975-7906-4103-91eb-eb529d98e677")
-		(property "Reference" "#PWR0111"
+		(property "Reference" "#PWR0403"
 			(at 160.02 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -4060,7 +4060,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0111")
+					(reference "#PWR0403")
 					(unit 1)
 				)
 			)
@@ -4077,7 +4077,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "6f752c8c-347d-4242-84e9-efcd87f1de26")
-		(property "Reference" "R?"
+		(property "Reference" "R401"
 			(at 89.916 93.98 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4237,7 +4237,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "R?")
+					(reference "R401")
 					(unit 1)
 				)
 			)
@@ -4255,7 +4255,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7b22d3ec-2750-48d3-950e-367151da8f98")
-		(property "Reference" "#PWR0115"
+		(property "Reference" "#PWR0406"
 			(at 203.2 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -4381,7 +4381,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0115")
+					(reference "#PWR0406")
 					(unit 1)
 				)
 			)
@@ -4399,7 +4399,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "81b809c5-f217-4e30-bb9c-ffa250c816ce")
-		(property "Reference" "R?"
+		(property "Reference" "R404"
 			(at 205.74 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4411,14 +4411,13 @@
 			)
 		)
 		(property "Value" "1M"
-			(at 205.74 125.7299 0)
+			(at 205.74 125.7299 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
@@ -4561,7 +4560,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "R?")
+					(reference "R404")
 					(unit 1)
 				)
 			)
@@ -4579,7 +4578,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "936cb9d9-a7a2-464b-b34d-03f6997ff99c")
-		(property "Reference" "D?"
+		(property "Reference" "D400"
 			(at 115.9511 85.09 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4724,7 +4723,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "D?")
+					(reference "D400")
 					(unit 1)
 				)
 			)
@@ -4741,7 +4740,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "cf53501f-d304-4dda-8473-4f1374ccc2ee")
-		(property "Reference" "R?"
+		(property "Reference" "R400"
 			(at 89.916 91.44 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4901,7 +4900,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "R?")
+					(reference "R400")
 					(unit 1)
 				)
 			)
@@ -4919,7 +4918,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4199068-80b0-4a19-b4dd-1d27fe147320")
-		(property "Reference" "R?"
+		(property "Reference" "R403"
 			(at 162.56 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4931,14 +4930,13 @@
 			)
 		)
 		(property "Value" "5k1"
-			(at 162.56 115.5699 0)
+			(at 162.56 115.5699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -5081,7 +5079,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "R?")
+					(reference "R403")
 					(unit 1)
 				)
 			)
@@ -5098,7 +5096,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "df07ad3d-23ec-470e-a2a2-41a4451cd86f")
-		(property "Reference" "#PWR0108"
+		(property "Reference" "#PWR0400"
 			(at 114.3 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -5224,7 +5222,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "#PWR0108")
+					(reference "#PWR0400")
 					(unit 1)
 				)
 			)
@@ -5242,7 +5240,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "efac6db7-3c0a-4e05-95d4-5c4d8926e809")
-		(property "Reference" "C?"
+		(property "Reference" "C400"
 			(at 196.85 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5403,7 +5401,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "C?")
+					(reference "C400")
 					(unit 1)
 				)
 			)
@@ -5421,7 +5419,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f75a00f6-646a-4950-b3d7-bafafc11e9ac")
-		(property "Reference" "R?"
+		(property "Reference" "R402"
 			(at 154.94 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5433,14 +5431,13 @@
 			)
 		)
 		(property "Value" "5k1"
-			(at 154.94 115.5699 0)
+			(at 154.94 115.5699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -5583,7 +5580,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "R?")
+					(reference "R402")
 					(unit 1)
 				)
 			)

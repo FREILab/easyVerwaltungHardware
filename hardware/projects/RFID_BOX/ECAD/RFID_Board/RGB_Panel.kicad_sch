@@ -1551,7 +1551,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "13129aa9-4bb9-405d-9343-604d04b5624d")
-		(property "Reference" "#PWR0242"
+		(property "Reference" "#PWR0312"
 			(at 171.45 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -1677,7 +1677,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0242")
+					(reference "#PWR0312")
 					(unit 1)
 				)
 			)
@@ -1695,7 +1695,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1cf51601-8d9a-4901-af4f-f758496d4662")
-		(property "Reference" "#PWR0251"
+		(property "Reference" "#PWR0303"
 			(at 110.49 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -1821,7 +1821,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0251")
+					(reference "#PWR0303")
 					(unit 1)
 				)
 			)
@@ -2197,7 +2197,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3bf8e960-a263-4d17-8489-a99d58ec1da6")
-		(property "Reference" "#PWR0259"
+		(property "Reference" "#PWR0320"
 			(at 201.93 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -2323,7 +2323,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0259")
+					(reference "#PWR0320")
 					(unit 1)
 				)
 			)
@@ -2698,7 +2698,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "4cfc4d7e-b6a4-4e32-bd0e-655cf9a66887")
-		(property "Reference" "#PWR0239"
+		(property "Reference" "#PWR0300"
 			(at 110.49 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -2824,7 +2824,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0239")
+					(reference "#PWR0300")
 					(unit 1)
 				)
 			)
@@ -3039,6 +3039,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -3205,6 +3206,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -3353,7 +3355,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6487a6b0-4b88-4b8e-8894-045454409aa3")
-		(property "Reference" "#PWR0233"
+		(property "Reference" "#PWR0304"
 			(at 135.89 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -3479,7 +3481,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0233")
+					(reference "#PWR0304")
 					(unit 1)
 				)
 			)
@@ -3497,7 +3499,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6908d929-787d-4eda-818e-a13e8a3e2e79")
-		(property "Reference" "#PWR0257"
+		(property "Reference" "#PWR0315"
 			(at 171.45 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -3623,7 +3625,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0257")
+					(reference "#PWR0315")
 					(unit 1)
 				)
 			)
@@ -3641,7 +3643,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "69a955ec-aa6f-454a-807f-981683c83188")
-		(property "Reference" "#PWR0245"
+		(property "Reference" "#PWR0322"
 			(at 227.33 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -3767,7 +3769,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0245")
+					(reference "#PWR0322")
 					(unit 1)
 				)
 			)
@@ -3785,7 +3787,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6cf5ae36-41e8-4918-8189-7bc3189001e2")
-		(property "Reference" "#PWR0247"
+		(property "Reference" "#PWR0307"
 			(at 140.97 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -3911,7 +3913,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0247")
+					(reference "#PWR0307")
 					(unit 1)
 				)
 			)
@@ -3947,6 +3949,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -4274,7 +4277,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6e2f79a9-40c4-4687-88b9-ad379681d1b4")
-		(property "Reference" "#PWR0260"
+		(property "Reference" "#PWR0321"
 			(at 201.93 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -4400,7 +4403,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0260")
+					(reference "#PWR0321")
 					(unit 1)
 				)
 			)
@@ -4436,6 +4439,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -4584,7 +4588,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7d380534-b798-4468-ac45-d5d2442fcdaa")
-		(property "Reference" "#PWR0243"
+		(property "Reference" "#PWR0316"
 			(at 196.85 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -4710,7 +4714,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0243")
+					(reference "#PWR0316")
 					(unit 1)
 				)
 			)
@@ -4728,7 +4732,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7e15e709-c7c2-4f84-997d-73544babca13")
-		(property "Reference" "#PWR0255"
+		(property "Reference" "#PWR0311"
 			(at 166.37 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -4854,7 +4858,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0255")
+					(reference "#PWR0311")
 					(unit 1)
 				)
 			)
@@ -5069,6 +5073,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5217,7 +5222,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "89391122-bf16-44ab-b1c4-93fb7a58ffa4")
-		(property "Reference" "#PWR0246"
+		(property "Reference" "#PWR0301"
 			(at 110.49 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -5343,7 +5348,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0246")
+					(reference "#PWR0301")
 					(unit 1)
 				)
 			)
@@ -5379,6 +5384,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5527,7 +5533,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9624b296-8bef-40ff-9e7a-cd0244b85326")
-		(property "Reference" "#PWR0254"
+		(property "Reference" "#PWR0309"
 			(at 140.97 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -5653,7 +5659,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0254")
+					(reference "#PWR0309")
 					(unit 1)
 				)
 			)
@@ -5671,7 +5677,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a26756ab-10df-42b8-8e42-6edd65de9127")
-		(property "Reference" "#PWR0258"
+		(property "Reference" "#PWR0317"
 			(at 196.85 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -5797,7 +5803,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0258")
+					(reference "#PWR0317")
 					(unit 1)
 				)
 			)
@@ -5833,6 +5839,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5981,7 +5988,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a7c839a2-7ec4-437f-b4ad-60bc14775a23")
-		(property "Reference" "#PWR0252"
+		(property "Reference" "#PWR0305"
 			(at 135.89 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -6107,7 +6114,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0252")
+					(reference "#PWR0305")
 					(unit 1)
 				)
 			)
@@ -6125,7 +6132,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aa7cf776-83cf-4ed1-a9ae-4ee24ca13a19")
-		(property "Reference" "#PWR0250"
+		(property "Reference" "#PWR0302"
 			(at 110.49 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -6251,7 +6258,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0250")
+					(reference "#PWR0302")
 					(unit 1)
 				)
 			)
@@ -6269,7 +6276,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bc2a4bdb-43b5-41ee-8022-9303606a62e3")
-		(property "Reference" "#PWR0256"
+		(property "Reference" "#PWR0314"
 			(at 171.45 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -6395,7 +6402,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0256")
+					(reference "#PWR0314")
 					(unit 1)
 				)
 			)
@@ -6431,6 +6438,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -6579,7 +6587,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d0434b80-e7a6-4b6f-8ca2-cd4e1eb17883")
-		(property "Reference" "#PWR0249"
+		(property "Reference" "#PWR0319"
 			(at 201.93 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -6705,7 +6713,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0249")
+					(reference "#PWR0319")
 					(unit 1)
 				)
 			)
@@ -6723,7 +6731,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d5db24ff-c8c7-4047-8c60-cb7f782eccb7")
-		(property "Reference" "#PWR0241"
+		(property "Reference" "#PWR0310"
 			(at 166.37 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -6849,7 +6857,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0241")
+					(reference "#PWR0310")
 					(unit 1)
 				)
 			)
@@ -6867,7 +6875,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d85d0370-3afa-4d27-b9a9-7da945b8a119")
-		(property "Reference" "#PWR0261"
+		(property "Reference" "#PWR0323"
 			(at 227.33 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -6993,7 +7001,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0261")
+					(reference "#PWR0323")
 					(unit 1)
 				)
 			)
@@ -7011,7 +7019,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e1fe93e7-ed1d-4197-9bdf-2c8235d4e600")
-		(property "Reference" "#PWR0248"
+		(property "Reference" "#PWR0313"
 			(at 171.45 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -7137,7 +7145,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0248")
+					(reference "#PWR0313")
 					(unit 1)
 				)
 			)
@@ -7155,7 +7163,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ed0c947a-f7da-47c9-90bf-092ea047eef3")
-		(property "Reference" "#PWR0240"
+		(property "Reference" "#PWR0306"
 			(at 140.97 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -7281,7 +7289,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0240")
+					(reference "#PWR0306")
 					(unit 1)
 				)
 			)
@@ -7299,7 +7307,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f710d460-41ea-4577-bb66-f89937e86abf")
-		(property "Reference" "#PWR0253"
+		(property "Reference" "#PWR0308"
 			(at 140.97 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -7425,7 +7433,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0253")
+					(reference "#PWR0308")
 					(unit 1)
 				)
 			)
@@ -7443,7 +7451,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fd7318bc-1a5a-42e3-bb00-36591a510f1b")
-		(property "Reference" "#PWR0244"
+		(property "Reference" "#PWR0318"
 			(at 201.93 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -7569,7 +7577,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/5078c601-42e0-4826-9dec-726a7cc967fe"
-					(reference "#PWR0244")
+					(reference "#PWR0318")
 					(unit 1)
 				)
 			)

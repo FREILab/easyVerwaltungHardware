@@ -683,7 +683,7 @@
 					)
 				)
 				(pin passive line
-					(at 29.21 -7.62 180)
+					(at 21.59 -10.16 180)
 					(length 3.81)
 					(hide yes)
 					(name "n.c."
@@ -813,7 +813,7 @@
 				(pin passive line
 					(at 0 -7.62 0)
 					(length 3.81)
-					(name "SDA"
+					(name "MOSI"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -920,7 +920,7 @@
 					)
 				)
 				(pin passive line
-					(at 29.21 -7.62 180)
+					(at 21.59 -7.62 180)
 					(length 3.81)
 					(hide yes)
 					(name "n.c."
@@ -959,7 +959,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "0_Power:+2V8"
+		(symbol "0_Power:+3.3V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -984,7 +984,7 @@
 					)
 				)
 			)
-			(property "Value" "+2V8"
+			(property "Value" "+3.3V"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1016,7 +1016,7 @@
 					)
 				)
 			)
-			(property "Description" "Power symbol creates a global label with name \"+2V8\""
+			(property "Description" "Power symbol creates a global label with name \"+3.3V\""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1104,7 +1104,7 @@
 					)
 				)
 			)
-			(symbol "+2V8_0_1"
+			(symbol "+3.3V_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -1142,7 +1142,7 @@
 					)
 				)
 			)
-			(symbol "+2V8_1_1"
+			(symbol "+3.3V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -2697,7 +2697,7 @@
 		)
 		(uuid "f6c6b272-6360-4e6c-bb5d-6ec06b7e93da")
 	)
-	(label "I2C_SDA"
+	(label "SPI_MOSI"
 		(at 106.68 74.93 0)
 		(effects
 			(font
@@ -2727,7 +2727,7 @@
 		)
 		(uuid "3cb9b2f7-f032-4e61-b4c8-b6b44725a297")
 	)
-	(label "I2C_SCK"
+	(label "SPI_SCK"
 		(at 106.68 77.47 0)
 		(effects
 			(font
@@ -2747,7 +2747,7 @@
 		)
 		(uuid "4176d3ef-cfe4-4599-bef0-7f0ab482a2ff")
 	)
-	(label "LCD_CS"
+	(label "SPI_CS_LCD"
 		(at 106.68 80.01 0)
 		(effects
 			(font
@@ -2788,7 +2788,7 @@
 		)
 		(uuid "1541f563-7509-4221-a620-838e43ecec1a")
 	)
-	(hierarchical_label "I2C_SDA"
+	(hierarchical_label "SPI_MOSI"
 		(shape input)
 		(at 102.87 74.93 180)
 		(effects
@@ -2799,7 +2799,7 @@
 		)
 		(uuid "2b986a67-9bdb-433d-9a3e-d2a0c6c28d44")
 	)
-	(hierarchical_label "LCD_CS"
+	(hierarchical_label "SPI_CS_LCD"
 		(shape input)
 		(at 102.87 80.01 180)
 		(effects
@@ -2810,7 +2810,7 @@
 		)
 		(uuid "40884d9b-1aca-4a4d-9c7c-ce40df5c1dcb")
 	)
-	(hierarchical_label "I2C_SCK"
+	(hierarchical_label "SPI_SCK"
 		(shape input)
 		(at 102.87 77.47 180)
 		(effects
@@ -2855,7 +2855,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "00df2536-ecac-42c9-ad17-98cd5d00116c")
-		(property "Reference" "#PWR0101"
+		(property "Reference" "#PWR0504"
 			(at 175.26 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -2981,7 +2981,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0101")
+					(reference "#PWR0504")
 					(unit 1)
 				)
 			)
@@ -2999,7 +2999,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0503c427-d8e3-4a1c-8b3f-bb4b0a7254e3")
-		(property "Reference" "Q100"
+		(property "Reference" "Q500"
 			(at 140.97 105.4099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3143,7 +3143,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "Q100")
+					(reference "Q500")
 					(unit 1)
 				)
 			)
@@ -3161,7 +3161,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "11acc501-6d8b-4f67-b497-3f3010cf616b")
-		(property "Reference" "#PWR0284"
+		(property "Reference" "#PWR0500"
 			(at 118.11 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -3287,15 +3287,15 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0284")
+					(reference "#PWR0500")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "0_Power:+2V8")
-		(at 186.69 78.74 0)
+		(lib_id "0_Power:+3.3V")
+		(at 186.69 55.88 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3303,10 +3303,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "163bce97-8d16-46aa-a5c6-e42b8c182fcd")
-		(property "Reference" "#PWR0280"
-			(at 186.69 82.55 0)
+		(uuid "310b7da0-ee73-4dc1-bb30-ddbbc87dbf76")
+		(property "Reference" "#PWR0506"
+			(at 186.69 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3316,8 +3315,8 @@
 				)
 			)
 		)
-		(property "Value" "+2V8"
-			(at 186.69 75.184 0)
+		(property "Value" "+3.3V"
+			(at 186.69 52.324 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -3327,7 +3326,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3338,7 +3337,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3348,8 +3347,8 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+2V8\""
-			(at 186.69 78.74 0)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3360,7 +3359,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3371,7 +3370,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3382,7 +3381,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3393,7 +3392,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3404,7 +3403,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3415,7 +3414,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 186.69 78.74 0)
+			(at 186.69 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -3426,12 +3425,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "22363eec-1a0f-4271-8083-e444b5be3f15")
+			(uuid "e76de680-73ac-4e23-b543-b6ca6c4eb6c7")
 		)
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0280")
+					(reference "#PWR0506")
 					(unit 1)
 				)
 			)
@@ -3449,7 +3448,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3d0299ce-4197-4b01-9103-be8c813490ce")
-		(property "Reference" "R?"
+		(property "Reference" "R500"
 			(at 128.27 110.4899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3461,14 +3460,13 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 128.27 113.0299 0)
+			(at 128.27 113.0299 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -3611,7 +3609,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "R?")
+					(reference "R500")
 					(unit 1)
 				)
 			)
@@ -3629,7 +3627,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "471e277e-676e-4e78-b10c-e7a9bad962ca")
-		(property "Reference" "#PWR0100"
+		(property "Reference" "#PWR0505"
 			(at 175.26 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -3755,7 +3753,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0100")
+					(reference "#PWR0505")
 					(unit 1)
 				)
 			)
@@ -3773,7 +3771,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4a66d2e2-803e-49e5-8db3-525c544d2809")
-		(property "Reference" "C107"
+		(property "Reference" "C500"
 			(at 121.92 93.9799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3934,7 +3932,150 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "C107")
+					(reference "C500")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Power:+3.3V")
+		(at 186.69 78.74 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4d77fe8e-3f00-4ae4-8db4-835f62b8e2bc")
+		(property "Reference" "#PWR0510"
+			(at 186.69 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 186.69 75.184 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" ""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" ""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" ""
+			(at 186.69 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1ab3e4a1-59af-47d2-abbc-da6c5249f90b")
+		)
+		(instances
+			(project "RFID_Board"
+				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
+					(reference "#PWR0510")
 					(unit 1)
 				)
 			)
@@ -3952,7 +4093,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "54dfbe16-b337-44dd-abce-05633385c8a2")
-		(property "Reference" "C?"
+		(property "Reference" "C501"
 			(at 190.5 60.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4113,7 +4254,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "C?")
+					(reference "C501")
 					(unit 1)
 				)
 			)
@@ -4131,7 +4272,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5af25d3e-4ec5-402b-ba0c-76dab464f2bf")
-		(property "Reference" "#PWR0287"
+		(property "Reference" "#PWR0509"
 			(at 186.69 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -4257,7 +4398,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0287")
+					(reference "#PWR0509")
 					(unit 1)
 				)
 			)
@@ -4275,7 +4416,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "68d380bb-00a6-4f69-89e4-5abf107c726f")
-		(property "Reference" "M100"
+		(property "Reference" "M500"
 			(at 158.115 59.69 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4475,7 +4616,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "M100")
+					(reference "M500")
 					(unit 1)
 				)
 			)
@@ -4493,7 +4634,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "707e2bfa-d1da-4918-8777-3c4d5a99ab19")
-		(property "Reference" "R110"
+		(property "Reference" "R501"
 			(at 129.54 81.28 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4653,7 +4794,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "R110")
+					(reference "R501")
 					(unit 1)
 				)
 			)
@@ -4671,7 +4812,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8fc90883-a243-403e-be4a-609b5aa0bb65")
-		(property "Reference" "#PWR0105"
+		(property "Reference" "#PWR0507"
 			(at 186.69 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -4797,7 +4938,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0105")
+					(reference "#PWR0507")
 					(unit 1)
 				)
 			)
@@ -4815,7 +4956,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9236dec1-b485-4c20-959e-421aca110b52")
-		(property "Reference" "#PWR0285"
+		(property "Reference" "#PWR0503"
 			(at 137.16 118.11 0)
 			(hide yes)
 			(show_name no)
@@ -4941,7 +5082,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0285")
+					(reference "#PWR0503")
 					(unit 1)
 				)
 			)
@@ -4959,7 +5100,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9678eab3-0aad-4853-b7fa-bbd14eaccd97")
-		(property "Reference" "#PWR0103"
+		(property "Reference" "#PWR0502"
 			(at 125.73 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -5085,7 +5226,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0103")
+					(reference "#PWR0502")
 					(unit 1)
 				)
 			)
@@ -5103,7 +5244,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9f7462f8-cdb8-4e58-bf46-20e436b97b9a")
-		(property "Reference" "#PWR0286"
+		(property "Reference" "#PWR0501"
 			(at 118.11 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -5229,151 +5370,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0286")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "0_Power:+2V8")
-		(at 186.69 55.88 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "af34a0b1-e504-49a7-a390-78933586b698")
-		(property "Reference" "#PWR0104"
-			(at 186.69 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+2V8"
-			(at 186.69 52.324 0)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+2V8\""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" ""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" ""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" ""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" ""
-			(at 186.69 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a05da5f0-9786-4cc7-b486-dac26e2b5850")
-		)
-		(instances
-			(project "RFID_Board"
-				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "#PWR0104")
+					(reference "#PWR0501")
 					(unit 1)
 				)
 			)
@@ -5391,7 +5388,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f1711585-14b6-4988-8285-664c5e1b16bb")
-		(property "Reference" "C108"
+		(property "Reference" "C502"
 			(at 190.5 83.8199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5552,7 +5549,7 @@
 		(instances
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/fb7e30ac-b4b7-4f7b-b249-d5941ed75301"
-					(reference "C108")
+					(reference "C502")
 					(unit 1)
 				)
 			)

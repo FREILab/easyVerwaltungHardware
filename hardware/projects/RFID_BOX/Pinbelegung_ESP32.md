@@ -1,49 +1,66 @@
-# Pinbelegung ESP32-S3 (IC100) — vorläufig
+# Pinbelegung ESP32-S3 (IC100)
 
-Stand 2026-11-08, abgeglichen mit `ECAD/RFID_Board/*.kicad_sch` und J302 des I/O-Boards.
-Netznamen aus dem Schaltplan; noch nicht vergebene Namen sind *kursiv*.
+Stand 2026-11-09, abgeglichen mit `ECAD/RFID_Board/*.kicad_sch` und J302 des I/O-Boards.
 
 ## Belegung
 
 Modulpin = Pin am ESP32-S3-WROOM-1. Seite: L = links (Pin 1–14), U = unten (15–26),
-R = rechts (27–41), Antenne oben.
+R = rechts (27–41), Antenne oben. Stand: ✓ = verdrahtet, ○ = offen.
 
-| GPIO | Modulpin | Seite | Netz | Richtung | Funktion |
-|---|---|---|---|---|---|
-| 0 | 27 | R | — | in | Strapping, R101 gegen GND nicht bestückt (Recovery) |
-| 1 | 39 | R | *EXT_IO* | i/o | Reserve Extension Board, ADC1_CH0 |
-| 2 | 38 | R | RGB_LED_Data | out | LED-Leiste → IC101 Gatter 1 (1A, Pin 2), RMT |
-| 3 | 15 | U | — | — | frei, Strapping (JTAG-Quelle) |
-| 4 | 4 | L | *V24_SENSE* | analog | 24-V-Teilersignal vom I/O-Board, ADC1_CH3 |
-| 5 | 5 | L | ISO_EN | out | Versorgung Messinsel |
-| 6 | 6 | L | relay_en_LS | out | K300 Low-Side (Q300) |
-| 7 | 7 | L | *ESTOP_EN* | out | E-Stop Extension Board (K3) |
-| 8 | 12 | L | relay_en_HS | out | K300 High-Side (Q301) |
-| 9 | 17 | U | LCD_RS | out | Display Daten/Befehl |
-| 10 | 18 | U | LCD_CS | out | Display Chip Select |
-| 11 | 19 | U | SPI_MOSI | out | SPI2 IOMUX (FSPID), Display + NFC |
-| 12 | 20 | U | SPI_SCK | out | SPI2 IOMUX (FSPICLK), Display + NFC |
-| 13 | 21 | U | SPI_MISO | in | SPI2 IOMUX (FSPIQ), nur NFC |
-| 14 | 22 | U | SPI_CS_NFC | out | CLRC663 NSS, Pull-up R200 |
-| 15 | 8 | L | — | — | Y100 über R102 — belegt |
-| 16 | 9 | L | — | — | Y100 über R103 — belegt |
-| 17 | 10 | L | UART_MCU2MCP | out | UART1 TX → U300 → MCP39F511A |
-| 18 | 11 | L | UART_MCP2MCU | in | UART1 RX ← U300 |
-| 19 | 13 | L | ESP_USB_D- | — | J103 über R107 — belegt |
-| 20 | 14 | L | ESP_USB_D+ | — | J103 über R108 — belegt |
-| 21 | 23 | U | NFC_IRQ | in | CLRC663 IRQ |
-| 35–37 | 28–30 | R | — | — | Octal-PSRAM (N16R8) — nicht nutzbar |
-| 38 | 31 | R | *STOP* | in | Stopp-Taster gegen GND |
-| 39 | 32 | R | *I2C_SCL* | out | IS31FL3236A (IC104) |
-| 40 | 33 | R | *I2C_SDA* | i/o | IS31FL3236A (IC104) |
-| 41 | 34 | R | LCD_BL_PWM | out | Gate Q100, LEDC-PWM |
-| 42 | 35 | R | Buzzer_HS_en | out | Piezo → IC101 Gatter 2 (2A, Pin 5) |
-| 43 | 37 | R | TXD0 | out | J100, Konsole/Recovery — belegt |
-| 44 | 36 | R | RXD0 | in | J100 — belegt |
-| 45 | 26 | U | Buzzer_LS_en | out | Piezo → IC101 Gatter 3 (3A, Pin 9), gegenphasig |
-| 46 | 16 | U | — | — | frei, Strapping |
-| 47 | 24 | U | NFC_PDOWN | out | CLRC663 Power-Down, Pull-up R201 |
-| 48 | 25 | U | LCD_RST# | out | Display Reset |
+| Modulpin | Seite | GPIO | Netz | Richtung | Funktion | Stand |
+|---|---|---|---|---|---|---|
+| 1 | L | — | GND | — | | ✓ |
+| 2 | L | — | +3.3V | — | | ✓ |
+| 3 | L | — | EN | in | Reset, R100/C101, SW100 | ✓ |
+| 4 | L | 4 | V24_SENSE | analog | J102.5, ADC1_CH3 | ✓ |
+| 5 | L | 5 | ISO_EN | out | J102.4, Versorgung Messinsel | ✓ |
+| 6 | L | 6 | relay_en_LS | out | J102.10, K300 Low-Side (Q300) | ✓ |
+| 7 | L | 7 | aux_en | out | J102.9, Aux / E-Stop-Relais | ✓ |
+| 8 | L | 15 | — | — | frei, nur digital (ADC2) | |
+| 9 | L | 16 | EXT_IO | i/o | J102.11, Reserve Extension Board | ✓ |
+| 10 | L | 17 | UART_MCU2MCP | out | J102.6, UART1 TX → U300 | ✓ |
+| 11 | L | 18 | UART_MCP2MCU | in | J102.7, UART1 RX ← U300 | ✓ |
+| 12 | L | 8 | relay_en_HS | out | J102.2, K300 High-Side (Q301) | ✓ |
+| 13 | L | 19 | ESP_USB_D- | — | J103 über R400 | ✓ |
+| 14 | L | 20 | ESP_USB_D+ | — | J103 über R401 | ✓ |
+| 15 | U | 3 | — | — | frei, Strapping (JTAG-Quelle) | |
+| 16 | U | 46 | — | — | frei, Strapping | |
+| 17 | U | 9 | LCD_RS | out | M500.7 | ✓ |
+| 18 | U | 10 | SPI_CS_LCD | out | M500.12 | ✓ |
+| 19 | U | 11 | SPI_MOSI | out | SPI2 IOMUX, M500.8 + U200.28 | ✓ |
+| 20 | U | 12 | SPI_SCK | out | SPI2 IOMUX, M500.9 + U200.29 | ✓ |
+| 21 | U | 13 | SPI_MISO | in | SPI2 IOMUX, U200.30 | ✓ |
+| 22 | U | 14 | SPI_CS_NFC | out | U200.31, Pull-up R200 | ✓ |
+| 23 | U | 21 | NFC_IRQ | in | U200.32 | ✓ |
+| 24 | U | 47 | NFC_PDOWN | out | U200.21, Pull-up R201 | ✓ |
+| 25 | U | 48 | LCD_RST# | out | M500.6 | ✓ |
+| 26 | U | 45 | Buzzer_HS_en | out | IC101.5 (Gatter 2) | ✓ |
+| 27 | R | 0 | — | in | Strapping, R101 gegen GND nicht bestückt | ✓ |
+| 28–30 | R | 35–37 | — | — | Octal-PSRAM (N16R8) — nicht nutzbar | |
+| 31 | R | 38 | STOP | in | R103 1 kΩ → STOP_BTN (J101.1, Pull-up R102, C104 100 nF) | ✓ |
+| 32 | R | 39 | — | — | frei, reserviert für I²C SCL (Statusliste) | |
+| 33 | R | 40 | — | — | frei, reserviert für I²C SDA (Statusliste) | |
+| 34 | R | 41 | LCD_BL_PWM | out | Gate Q500, Pulldown R500; R501 43 Ω an 5 V → ≈ 46 mA | ✓ |
+| 35 | R | 42 | Buzzer_LS_en | out | IC101.9 (Gatter 3), gegenphasig | ✓ |
+| 36 | R | 44 | UART_PC2MCU | in | J100.3, UART0 | ✓ |
+| 37 | R | 43 | UART_MCU2PC | out | J100.2, UART0 | ✓ |
+| 38 | R | 2 | RGB_LED_Data | out | IC101.2 (Gatter 1), RMT | ✓ |
+| 39 | R | 1 | V3V3_IO_SENSE | analog | J102.8, ADC1_CH0 | ✓ |
+| 40–41 | R | — | GND | — | inkl. Thermal-Pad | ✓ |
+
+## Kabelstecker J102 (RFID-Board)
+
+| Pin | Netz | Pin | Netz |
+|---|---|---|---|
+| 1 | GND | 7 | UART_MCP2MCU |
+| 2 | relay_en_HS | 8 | V3V3_IO_SENSE |
+| 3 | +5V | 9 | aux_en |
+| 4 | ISO_EN | 10 | relay_en_LS |
+| 5 | V24_SENSE | 11 | EXT_IO |
+| 6 | UART_MCU2MCP | 12 | GND |
+
+J302 auf dem I/O-Board ist noch 10-polig mit der alten Belegung (+24V, +3V3) und muss
+1:1 auf diese Belegung umgestellt werden.
 
 ## Regeln der Zuordnung
 
@@ -54,22 +71,12 @@ R = rechts (27–41), Antenne oben.
 - Display und NFC teilen SPI2 auf den IOMUX-Pins (Display bis 80 MHz, CLRC663 bis
   10 MHz, getrennte CS).
 - GPIO 45 muss beim Booten LOW sein (VDD_SPI 3,3 V). Der interne Pulldown hält
-  Buzzer_LS_en dort, der Piezo bleibt still.
+  Buzzer_HS_en dort, der Piezo bleibt still.
 - UART1 für die Messinsel; UART0 bleibt Konsole an J100.
 - JTAG nur über USB-Serial-JTAG an J103; GPIO 39–42 sind normale GPIOs.
-- IS31FL3236A ohne SDB-Leitung: SDB per Pull-up auf 3V3, Abschalten per Register.
 
 ## Offen
 
-- **Display-Bus falsch benannt:** Pin 8 und 9 des Displays (M?) hängen an `I2C_SDA` /
-  `I2C_SCK`. Das Display ist 4-Wire SPI; die Pins heißen im Controller SDA/SCL, sind aber
-  MOSI und Takt. Auf `SPI_MOSI` / `SPI_SCK` legen. Die Namen `I2C_*` bleiben für IC104.
-- **Q100** braucht einen Gate-Pulldown (100 kΩ), sonst floatet die Beleuchtung bis zur
-  Initialisierung.
-- **Display-Pegel:** Das Display läuft auf 2,8 V (IC103), der ESP32 treibt 3,3 V. Gegen
-  das Datenblatt des ER-TFT020-3 prüfen; sonst Display-I/O auf 3V3.
-- **Kabel J104/J302:** Pinreihenfolge noch nicht festgelegt. Belegt: 5 V, GND, ISO_EN,
-  UART ×2, relay_en_HS/LS, V24_SENSE, ESTOP_EN, EXT_IO. Ob die zweite Messleitung neben
-  V24_SENSE gebraucht wird, ist offen; GPIO 1 kann analog lesen.
+- **J302 (I/O-Board)** auf die Belegung von J102 umstellen.
 - **Isolator F-Typ:** Wird U300 als ISOW7721FDFMR bestückt, sieht UART1-RX bei
   `ISO_EN` aus dauerhaft LOW — Empfänger in der Firmware abschalten.
