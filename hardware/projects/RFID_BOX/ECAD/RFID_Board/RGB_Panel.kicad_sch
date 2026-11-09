@@ -4,6 +4,13 @@
 	(generator_version "10.0")
 	(uuid "384d313c-6168-4ae7-894c-054beb9ed68b")
 	(paper "A4")
+	(title_block
+		(title "Schematic RFID Board - RGB Panel")
+		(date "2026-11-09")
+		(rev "V1.0")
+		(company "FREILab Freiburg e.V.")
+		(comment 1 "Marius Tetard")
+	)
 	(lib_symbols
 		(symbol "0_Capacitor_X7R:C_100nF_0603_100V"
 			(pin_numbers
@@ -908,6 +915,10 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ef2450d8-e2e1-4565-8145-8fe961c1a298")
+	)
+	(no_connect
+		(at 227.33 115.57)
+		(uuid "e3ad954a-18fe-47d1-8fed-997c184e5c66")
 	)
 	(wire
 		(pts
@@ -3039,7 +3050,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -3206,7 +3216,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -3949,7 +3958,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -4439,7 +4447,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5073,7 +5080,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5384,7 +5390,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5839,7 +5844,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -6438,7 +6442,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"

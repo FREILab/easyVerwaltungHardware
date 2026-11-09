@@ -253,7 +253,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": "V1.2"
+      "sch_revision": "V1.3"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -652,6 +652,9 @@
       "/AVDD": [
         "ISO_signals"
       ],
+      "/EXT_IO": [
+        "Signals"
+      ],
       "/GND1": [
         "Signals"
       ],
@@ -703,8 +706,17 @@
       "/PIN_N_SWITCHED": [
         "230V_ext"
       ],
+      "/PIN_PE": [
+        "PE"
+      ],
       "/PIN_SHUNT_N": [
         "230V_ext"
+      ],
+      "/V24_SENSE": [
+        "Signals"
+      ],
+      "/V3V3_IO_SENSE": [
+        "Signals"
       ],
       "/VDD": [
         "Signals"
@@ -714,6 +726,9 @@
       ],
       "/V_ISO_OUT": [
         "ISO_signals"
+      ],
+      "/aux_en": [
+        "Signals"
       ],
       "/relay_en_HS": [
         "Signals"
@@ -759,6 +774,9 @@
       "Net-(FB302-Pad2)": [
         "230V_ext"
       ],
+      "Net-(FB305-Pad1)": [
+        "ISO_signals"
+      ],
       "Net-(J301-Pin_1)": [
         "230V_ext"
       ],
@@ -766,10 +784,10 @@
         "230V_ext"
       ],
       "Net-(Q300-G)": [
+        "24V",
         "Signals"
       ],
       "Net-(Q301-G)": [
-        "24V",
         "Signals"
       ],
       "Net-(Q302-D)": [
@@ -777,6 +795,12 @@
       ],
       "Net-(Q302-G)": [
         "Signals"
+      ],
+      "Net-(R300-Pad2)": [
+        "230V_ext"
+      ],
+      "Net-(R301-Pad2)": [
+        "230V_ext"
       ],
       "Net-(R303-Pad2)": [
         "230V_ext"
@@ -788,6 +812,9 @@
         "230V_ext"
       ],
       "Net-(U300-EN)": [
+        "Signals"
+      ],
+      "Net-(U301-EN)": [
         "Signals"
       ],
       "Net-(U302-AVDD)": [
@@ -820,6 +847,33 @@
       "Net-(U302-nMCLR)": [
         "ISO_signals"
       ],
+      "Net-(U303-COMMONA)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-I1+)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-I1-)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-REFIN+{slash}OUT)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-UART_RX)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-UART_TX)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-V1+)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-V1-)": [
+        "ISO_signals"
+      ],
+      "Net-(U303-nMCLR)": [
+        "ISO_signals"
+      ],
       "PIN_PE": [
         "PE"
       ],
@@ -839,6 +893,9 @@
         "Signals"
       ],
       "unconnected-(U300-CC-Pad8)": [
+        "Signals"
+      ],
+      "unconnected-(U301-CC-Pad8)": [
         "Signals"
       ],
       "unconnected-(U302-AN_IN-Pad20)": [
@@ -875,6 +932,42 @@
         "ISO_signals"
       ],
       "unconnected-(U302-nDR-Pad28)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-AN_IN-Pad20)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-EVENT1-Pad1)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-EVENT2-Pad15)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-NC-Pad2)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-NC-Pad3)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-NC-Pad8)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-NC-Pad9)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-OSCI-Pad6)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-OSCO-Pad7)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-PWM-Pad14)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-ZCD-Pad22)": [
+        "ISO_signals"
+      ],
+      "unconnected-(U303-nDR-Pad28)": [
         "ISO_signals"
       ]
     },
@@ -1274,6 +1367,48 @@
           "label": "Automotive",
           "name": "Automotive",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Speed",
+          "name": "Speed",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Lifetime",
+          "name": "Lifetime",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "FootprintSymbol",
+          "name": "FootprintSymbol",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Voltage Rating",
+          "name": "Voltage Rating",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Tolerance",
+          "name": "Tolerance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Power",
+          "name": "Power",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Dielectric",
+          "name": "Dielectric",
+          "show": false
         }
       ],
       "filter_string": "",
@@ -1324,7 +1459,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-308,C311-329,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-358,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-308,R310-324",
+    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-329,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-358,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-327",
     "variants": []
   },
   "sheets": [

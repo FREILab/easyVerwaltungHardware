@@ -287,11 +287,12 @@ Die vollständige Liste steht im Schaltplan und in
   UART des ESP32 dann dauerhaft Break — die Firmware müsste den Empfänger
   abschalten, solange die Insel aus ist. Entweder das, oder den D-Typ
   vorbestellen.
-- **Verbindungskabel** festlegen: Länge und Querschnitt. Steckverbinder
-  stehen fest (JST PH, 12-polig, vorgecrimpte Adern); es führt 5 V, GND,
-  die Signale und zwei Messleitungen. Die 3,3 V entfallen, seit jedes Board
-  seinen eigenen Regler hat, und die 24 V ebenso — statt der Schiene geht
-  nur noch ein Teilersignal zur Überwachung hinüber.
+- **Verbindungskabel auf FFC umstellen** (J102 ↔ J302): 1,0 mm, 14-polig,
+  5 V und GND je doppelt.
+  - Bauteil `SFW14S-2STE1LF` in `0_Connector` anlegen.
+  - Dummy-Bauteil für das Kabel GCT `10-14-x-xxxx-C-4-08-4-T` anlegen.
+  - Länge und Kontaktseite (Typ A/D) in Fusion bestimmen.
+  - J102 und J302 auf 14 Pole umstellen.
 - **ZIF-Steckverbinder** für das Display auf dem RFID-Board vorsehen:
   14-polig, 0,5-mm-Raster, passend zum FPC des ER-TFT020-3. Ob die Kontakte
   oben oder unten liegen, entscheidet zwischen `FH12-14S-0.5SH(55)` und
@@ -301,8 +302,8 @@ Die vollständige Liste steht im Schaltplan und in
 
 - **Symbole für die mehrpoligen Teile** zeichnen; sie lassen sich nicht von
   einem Master ableiten: ESP32-S3-WROOM-1, SN74AHCT125, IS31FL3236A,
-  USBLC6-2SC6Y, USB4105-GF-A, der Display-ZIF und die JST-Stiftleiste
-  B12B-PH-K-S. Teilenummern und Bestellnummern sind recherchiert.
+  USBLC6-2SC6Y, USB4105-GF-A, der Display-ZIF und der FFC-Stecker
+  SFW14S-2STE1LF. Teilenummern und Bestellnummern sind recherchiert.
 - **Drei Datenblätter fehlen**, ihre Quellen wehren automatische Abrufe ab:
   ST USBLC6-2SC6Y, Hirose FH12-14S-0.5SH, EastRising ER-TFT020-3. Von Hand
   nach `docs/Datasheets/ESD/`, `Connectors/` und `Display/` legen.

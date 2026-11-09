@@ -240,7 +240,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "V1.0"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -467,7 +467,7 @@
       "pin_not_connected": "error",
       "pin_not_driven": "error",
       "pin_to_pin": "warning",
-      "power_pin_not_driven": "error",
+      "power_pin_not_driven": "ignore",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
@@ -532,7 +532,7 @@
     "page_layout_descr_file": ""
   },
   "schematic": {
-    "annotate_start_num": 99,
+    "annotate_start_num": 399,
     "annotation": {
       "method": 0,
       "sort_order": 0
@@ -611,12 +611,162 @@
           "label": "Datasheet",
           "name": "Datasheet",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 1",
+          "name": "Distributor 1",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 1 Order Number",
+          "name": "Distributor 1 Order Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 2",
+          "name": "Distributor 2",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Distributor 2 Order Number",
+          "name": "Distributor 2 Order Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "ESR",
+          "name": "ESR",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "FootprintSymbol",
+          "name": "FootprintSymbol",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Frequency",
+          "name": "Frequency",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Height",
+          "name": "Height",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Isat",
+          "name": "Isat",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Load Capacitance",
+          "name": "Load Capacitance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer",
+          "name": "Manufacturer",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer LCD",
+          "name": "Manufacturer LCD",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer Part Number",
+          "name": "Manufacturer Part Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer Part Number LCD",
+          "name": "Manufacturer Part Number LCD",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Power",
+          "name": "Power",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "SPL",
+          "name": "SPL",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Tolerance",
+          "name": "Tolerance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Voltage Rating",
+          "name": "Voltage Rating",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Dielectric",
+          "name": "Dielectric",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Datasheet LCD",
+          "name": "Datasheet LCD",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "DCR",
+          "name": "DCR",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": true,
-      "name": "Default Editing",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
@@ -661,7 +811,7 @@
         "uuid": "d506034a-00c4-4f3e-a3e1-9eb1bcd387d5"
       }
     ],
-    "used_designators": "Q100,Q500,R1A100,R1A200,J100-104,J400,M100,M500,R100-112,R200-209,R400-404,R500-501,BZ100,IC100-104,Cx100,Cx200,R1B100,R1B200,D100-101,D300-307,D400,#PWR1-20,#PWR100-144,#PWR200-288,#PWR300-323,#PWR400-406,#PWR500-510,Y100,Y200,SW100,U1,U100,U200,C100-117,C200-218,C300-307,C400,C500-502,L1-2,L100-101,L200-201,LED100,AE1,AE100,AE200",
+    "used_designators": "Q100,Q500,R1A100,R1A200,J100-104,J400,M100,M500,R100-112,R200-209,R400-404,R500-501,BZ100,IC100-104,Cx100,Cx200,R1B100,R1B200,D100-101,D300-307,D400-401,#PWR1-20,#PWR100-144,#PWR200-288,#PWR300-323,#PWR400-407,#PWR500-510,Y100,Y200,SW100,U1,U100,U200,C100-117,C200-218,C300-307,C400,C500-502,L1-2,L100-101,L200-201,LED100,AE1,AE100,AE200",
     "variants": []
   },
   "sheets": [

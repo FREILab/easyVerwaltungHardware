@@ -10,7 +10,7 @@ R = rechts (27–41), Antenne oben. Stand: ✓ = verdrahtet, ○ = offen.
 | Modulpin | Seite | GPIO | Netz | Richtung | Funktion | Stand |
 |---|---|---|---|---|---|---|
 | 1 | L | — | GND | — | | ✓ |
-| 2 | L | — | +3.3V | — | | ✓ |
+| 2 | L | — | +3V3 | — | | ✓ |
 | 3 | L | — | EN | in | Reset, R100/C101, SW100 | ✓ |
 | 4 | L | 4 | V24_SENSE | analog | J102.5, ADC1_CH3 | ✓ |
 | 5 | L | 5 | ISO_EN | out | J102.4, Versorgung Messinsel | ✓ |
