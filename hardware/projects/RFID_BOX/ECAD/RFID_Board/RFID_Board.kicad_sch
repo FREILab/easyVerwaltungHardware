@@ -1564,6 +1564,271 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "0_Diode:D_SS14"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SS14"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Diode_SMD:D_SMA"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/ss19-d.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "DIODE SCHOTTKY 40V 1A DO214AC"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "onsemi"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "SS14"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "512-SS14"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "SS14CT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Sim.Device" "D"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vf" "500mV@1A"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Imax" "1A"
+				(at 0 4.064 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "D_SS14_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_SS14_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "0_IC:IC_AP2114H-3.3TRG1"
 			(pin_names
 				(offset 1.016)
@@ -5011,12 +5276,6 @@
 		(uuid "4a2bc637-3c4e-44bf-b8a6-208b94200ee4")
 	)
 	(junction
-		(at 179.07 40.64)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5b0ee22e-13d8-4afa-a5d6-ae6a80d7bb35")
-	)
-	(junction
 		(at 20.32 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5027,6 +5286,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6df40110-74fb-40cf-9012-f8c4ded4fede")
+	)
+	(junction
+		(at 179.07 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "95795346-a5c2-47a4-9de3-8f7faede7677")
 	)
 	(junction
 		(at 57.15 40.64)
@@ -5442,7 +5707,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 35.56) (xy 179.07 40.64)
+			(xy 179.07 22.86) (xy 179.07 25.4)
 		)
 		(stroke
 			(width 0)
@@ -6229,6 +6494,16 @@
 			(type default)
 		)
 		(uuid "cb0908da-9772-4552-aec1-0bde603d902a")
+	)
+	(wire
+		(pts
+			(xy 179.07 33.02) (xy 179.07 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdbe1eb4-0766-4017-bd9f-09e4157d5afd")
 	)
 	(wire
 		(pts
@@ -7065,6 +7340,198 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Diode:D_SS14")
+		(at 179.07 29.21 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0c0a066a-3411-4f64-a8ed-38b7bacf4f23")
+		(property "Reference" "D100"
+			(at 181.61 27.9399 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SS14"
+			(at 181.61 30.4799 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMA"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/ss19-d.pdf"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DIODE SCHOTTKY 40V 1A DO214AC"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "onsemi"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "SS14"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "512-SS14"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "SS14CT-ND"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 179.07 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vf" "500mV@1A"
+			(at 181.61 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Imax" "1A"
+			(at 183.134 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5f22d5c0-fea4-42cc-93c5-cb19b004baa2")
+		)
+		(pin "2"
+			(uuid "e65b0331-4650-4a3c-87b6-6873a5035284")
+		)
+		(instances
+			(project "RFID_Board"
+				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5"
+					(reference "D100")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -13132,7 +13599,7 @@
 	)
 	(symbol
 		(lib_id "0_Power:+5V")
-		(at 179.07 35.56 0)
+		(at 179.07 22.86 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13143,7 +13610,7 @@
 		(fields_autoplaced yes)
 		(uuid "9bcb33ec-9c8a-4f5b-a7c2-8fe77dce5911")
 		(property "Reference" "#PWR0119"
-			(at 179.07 39.37 0)
+			(at 179.07 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13154,7 +13621,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 179.07 32.004 0)
+			(at 179.07 19.304 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -13164,7 +13631,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13175,7 +13642,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13186,7 +13653,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13197,7 +13664,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13208,7 +13675,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13219,7 +13686,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13230,7 +13697,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13241,7 +13708,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13252,7 +13719,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 179.07 35.56 0)
+			(at 179.07 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)

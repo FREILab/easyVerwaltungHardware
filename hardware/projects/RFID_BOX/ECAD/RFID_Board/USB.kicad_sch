@@ -975,7 +975,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "0_Diode:D_BAS16LT1G"
+		(symbol "0_Diode:D_SS14"
 			(pin_numbers
 				(hide yes)
 			)
@@ -998,7 +998,7 @@
 					)
 				)
 			)
-			(property "Value" "BAS16LT1G"
+			(property "Value" "SS14"
 				(at 0 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1008,7 +1008,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(property "Footprint" "Diode_SMD:D_SMA"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1019,7 +1019,7 @@
 					)
 				)
 			)
-			(property "Datasheet" ""
+			(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/ss19-d.pdf"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1030,7 +1030,7 @@
 					)
 				)
 			)
-			(property "Description" "Diode"
+			(property "Description" "DIODE SCHOTTKY 40V 1A DO214AC"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1052,7 +1052,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "BAS16LT1G"
+			(property "Manufacturer Part Number" "SS14"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1074,7 +1074,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" "863-BAS16LT1G"
+			(property "Distributor 1 Order Number" "512-SS14"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1096,7 +1096,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "BAS16LT1GOSCT-ND"
+			(property "Distributor 2 Order Number" "SS14CT-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1129,6 +1129,28 @@
 					)
 				)
 			)
+			(property "Vf" "500mV@1A"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Imax" "1A"
+				(at 0 4.064 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "ki_keywords" "diode"
 				(at 0 0 0)
 				(show_name no)
@@ -1140,18 +1162,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "D_BAS16LT1G_0_1"
+			(symbol "D_SS14_0_1"
 				(polyline
 					(pts
 						(xy -1.27 1.27) (xy -1.27 -1.27)
@@ -1189,11 +1200,11 @@
 					)
 				)
 			)
-			(symbol "D_BAS16LT1G_1_1"
+			(symbol "D_SS14_1_1"
 				(pin passive line
-					(at 3.81 0 180)
+					(at -3.81 0 0)
 					(length 2.54)
-					(name "A"
+					(name "K"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1209,16 +1220,16 @@
 					)
 				)
 				(pin passive line
-					(at -3.81 0 0)
+					(at 3.81 0 180)
 					(length 2.54)
-					(name "K"
+					(name "A"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "3"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3955,6 +3966,196 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Diode:D_SS14")
+		(at 153.67 77.47 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "406ab632-e72a-484e-b4d9-ef458aa676fb")
+		(property "Reference" "D401"
+			(at 153.67 71.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SS14"
+			(at 153.67 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMA"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/ss19-d.pdf"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "DIODE SCHOTTKY 40V 1A DO214AC"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "onsemi"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "SS14"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "512-SS14"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "SS14CT-ND"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 153.67 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vf" "500mV@1A"
+			(at 153.67 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Imax" "1A"
+			(at 153.67 73.406 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b5620222-1f27-4504-9d94-b9d6ccfa6040")
+		)
+		(pin "2"
+			(uuid "3052fa27-4d1a-4145-aae8-47e333611ce9")
+		)
+		(instances
+			(project "RFID_Board"
+				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
+					(reference "D401")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "0_Power:VBUS")
 		(at 163.83 74.93 0)
 		(unit 1)
@@ -6050,175 +6251,6 @@
 			(project "RFID_Board"
 				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
 					(reference "C400")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "0_Diode:D_BAS16LT1G")
-		(at 153.67 77.47 0)
-		(mirror x)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "f488de5b-f686-43d0-af3f-ea715f39543a")
-		(property "Reference" "D401"
-			(at 156.972 72.898 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "BAS16LT1G"
-			(at 154.9399 74.93 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Diode"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "onsemi"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer Part Number" "BAS16LT1G"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1" "Mouser"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 1 Order Number" "863-BAS16LT1G"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2" "Digi-Key"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Distributor 2 Order Number" "BAS16LT1GOSCT-ND"
-			(at 153.67 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "5f5d266c-f555-4ede-86b3-e2cf8f6f9d90")
-		)
-		(pin "1"
-			(uuid "7eed9686-88c1-4dce-86b2-a8ab4280f04d")
-		)
-		(instances
-			(project "RFID_Board"
-				(path "/d506034a-00c4-4f3e-a3e1-9eb1bcd387d5/3fb16352-6a8f-4acd-833e-0f2e6d68ac25"
-					(reference "D401")
 					(unit 1)
 				)
 			)

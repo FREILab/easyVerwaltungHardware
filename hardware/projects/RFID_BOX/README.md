@@ -124,47 +124,51 @@ Die gesamte Versorgung kommt aus dem Netz-Eingang 230 V auf dem I/O-Board
 und teilt sich dort in zwei Pfade:
 
 - **Lastpfad (nur I/O-Board 230V):** Netz-Eingang → Ausgangssicherung (F300)
-  → Lastrelais (K300) → Schaltausgang. Der Shunt (R300) liegt im
+  → Lastrelais (K300) → Schaltausgang. Der Shunt (R307) liegt im
   **N-Rückweg vor dem Relais**, damit die Messung unabhängig vom
   Schaltzustand betriebsbereit bleibt. K300 trennt L und N gemeinsam, weil
   die N/L-Zuordnung an der Werkstatt-Steckdose nicht garantiert eindeutig
   ist.
 - **Steuerpfad:** Netz-Eingang → Sicherung F302 → Gleichtaktdrossel (L300) →
-  Y-Kondensatorpaar (C309/C310, Mittelabgriff an PE) → isoliertes
-  AC/DC-Modul (U301, 24 V) → Regler auf 5 V (U306). Über das Kabel geht nur
+  Y-Kondensatorpaar (C305/C308, Mittelabgriff an PE) → isoliertes
+  AC/DC-Modul (U300, 24 V) → Regler auf 5 V (U302). Über das Kabel geht nur
   die 5-V-Schiene zum RFID-Board; **die 3,3 V erzeugt jede Platine selbst** —
-  U307 auf dem I/O-Board für die Eingangsseite des Isolators, U103 auf dem
+  IC304 auf dem I/O-Board für die Eingangsseite des Isolators, IC102 auf dem
   MCU-Board für ESP32, NFC-Frontend und Display. Der DC-DC im Isolator zieht
   seinen Strom damit lokal und nicht über 30 cm Kabel. Die 24-V-Schiene
   versorgt die Relaisspule und bleibt auf dem I/O-Board; zum MCU-Board geht
   statt der Schiene nur ein Teilersignal zur Überwachung. LED-Leiste und
   Buzzer laufen direkt auf 5 V.
+- **USB-C:** Das RFID-Board lässt sich auch allein über USB versorgen. VBUS
+  (D401) und die 5 V vom Kabel (D100) laufen über je eine Schottky-Diode SS14
+  auf +5V; keine Quelle speist in die andere zurück. Die Schiene liegt damit
+  rund 0,4 V unter 5 V — für den 74AHCT125 (min. 4,5 V) knapp ausreichend.
 
 Die **Lastmessung** liegt auf Netzpotential. Versorgung und UART laufen über
-den Digitalisolator U300 (ISOW7721) mit integriertem DC-DC-Wandler, gespeist
+den Digitalisolator U301 (ISOW7721) mit integriertem DC-DC-Wandler, gespeist
 aus der SELV-Seite — die Insel führt keinen eigenen Netzzweig. Über `ISO_EN`
-nimmt die Firmware der Insel die Versorgung und startet das Mess-IC U302 neu.
+nimmt die Firmware der Insel die Versorgung und startet das Mess-IC U303 neu.
 
 Die Erweiterungsboards stecken auf dem I/O-Board und werden aus dem
 Steuerpfad versorgt;
 ihre Feldseite bleibt galvanisch getrennt und wird extern gespeist.
 
 PE wird unverändert vom Netz-Eingang zum Schaltausgang durchgeschleift und
-trägt den Mittelabgriff von C309/C310. Das Gehäuse ist Kunststoff, es gibt
+trägt den Mittelabgriff von C305/C308. Das Gehäuse ist Kunststoff, es gibt
 keine Gehäusemasse.
 
 **Sicherungen.** Die Lastausgangssicherung (F300) ist gesockelt und nach dem
 Öffnen des Gehäuses ohne Löten tauschbar; eine Ersatzsicherung wird im
 Gehäuse mitgeführt. Die Gerätesicherung (F302) ist als dokumentierte
 Ausnahme fest verlötet (siehe [Anforderungen.md](Anforderungen.md), S5). Vor
-F302 liegt R323, ein Sicherungswiderstand mit 10 Ω, der den Kurzschlussstrom
+F302 liegt R303, ein Sicherungswiderstand mit 10 Ω, der den Kurzschlussstrom
 im Steuerzweig auf rund 25 A begrenzt — unter das Ausschaltvermögen von 35 A
 der MRT.
 
 **EMV.** Am Netz-Eingang liegen RV300 als Überspannungsschutz und C300 als
 X2-Kondensator; eine Entladekette aus drei Widerständen bringt die
 Steckerstifte in 0,17 s unter 60 V. Das Gleichtaktfilter aus L300 und
-C309/C310 sitzt im Steuerzweig direkt vor U301, also an der Störquelle;
+C305/C308 sitzt im Steuerzweig direkt vor U300, also an der Störquelle;
 der Lastpfad trägt kein Filterbauteil. Auslegungspunkt ist 150 kHz bei 20 dB
 Dämpfung. Drei Grenzen gelten dabei:
 
@@ -192,12 +196,12 @@ Aussagen, die man kennen muss:
   Relaistreiber der Hauptversorgung.
 - Das Enable bleibt vollständig auf der SELV-Seite. Die Relaisspule hängt an
   der isolierten 24-V-Schiene und wird von **zwei Schaltern in Reihe**
-  geführt: Low-Side-NMOS (Q300) und High-Side-PMOS (Q301) an getrennten
+  geführt: Low-Side-NMOS (Q301) und High-Side-PMOS (Q300) an getrennten
   GPIOs. Beide gehen im Ruhezustand sicher auf, und ein durchlegierter
   Schalter lässt sich über den anderen noch abschalten.
 - Die Hauptversorgung wird ausschliesslich vom ESP32 nach Ablauf der
   Nachlaufzeit abgeschaltet; das E-Stop-Relais öffnet sofort.
-- Die Isolationsbarriere quert nur die UART der Lastmessung, über U300 — er
+- Die Isolationsbarriere quert nur die UART der Lastmessung, über U301 — er
   führt zugleich die Versorgung der Insel hinüber.
 
 ```mermaid
@@ -265,7 +269,7 @@ Die vollständige Liste steht im Schaltplan und in
 | Lastrelais (K300) | TE Connectivity<br>T92S11D12-24 | 2-polig (N+L), 30 A Einschaltvermögen, verstärkte Isolation Spule/Kontakt 8 mm / 9,5 mm / 4 kVrms. Bauhöhe 30,7 mm |
 | Potentialfreier Kontakt, E-Stop (K2, K3) | Omron<br>G5V-1-2 DC24 | 100 mA / 24 V, Spule 24 V |
 | Display | EastRising<br>ER-TFT020-3 | 2" IPS, 240×320, 4-Wire SPI. Ersetzt das DT010ATFT bei gleichem Bustyp, 5,3-fache aktive Fläche. Nacktes Panel, Anschluss über steckbares FPC 14-pol / 0,5 mm |
-| Lastausgangssicherung + Ersatz (F301) | Bel Fuse<br>5HT 10-R | 10 A / 250 V träge, Keramik sandgefüllt, **Ausschaltvermögen 1500 A**. Die Glasrohrtype mit 100 A reicht nicht. Die VDE-Lizenz der Baureihe deckt nur 1–6,3 A, die 10 A laufen über UL, CSA und CCC |
+| Lastausgangssicherung + Ersatz (F300) | Bel Fuse<br>5HT 10-R | 10 A / 250 V träge, Keramik sandgefüllt, **Ausschaltvermögen 1500 A**. Die Glasrohrtype mit 100 A reicht nicht. Die VDE-Lizenz der Baureihe deckt nur 1–6,3 A, die 10 A laufen über UL, CSA und CCC |
 | Gerätesicherung (F302) | Bel Fuse<br>MRT 500-BULK | 500 mA / 250 V träge, IEC 60127-3. Fest verlötet, dokumentierte Ausnahme zu S5 |
 
 ## TODO
@@ -280,52 +284,34 @@ Die vollständige Liste steht im Schaltplan und in
   der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
 - Die Netzklassen im KiCad-Projekt tragen noch keine Breiten und Abstände;
   eine Klasse `3V3` fehlt, `+3V3` hängt derzeit in `Signals`.
-- **Isolator U300 entscheiden.** Der ISOW7721DFMR ist bei Mouser und
+- **Isolator U301 entscheiden.** Der ISOW7721DFMR ist bei Mouser und
   Digi-Key auf null, Status trotzdem „Aktiv". Lagernd ist nur der
   ISOW7721**F**DFMR, dessen Ausgänge bei stromloser Eingangsseite auf LOW
   statt HIGH gehen. Da `ISO_EN` die Insel im Betrieb abschaltet, sähe die
   UART des ESP32 dann dauerhaft Break — die Firmware müsste den Empfänger
   abschalten, solange die Insel aus ist. Entweder das, oder den D-Typ
   vorbestellen.
-- **Verbindungskabel auf FFC umstellen** (J102 ↔ J302): 1,0 mm, 14-polig,
-  5 V und GND je doppelt.
-  - Bauteil `SFW14S-2STE1LF` in `0_Connector` anlegen.
-  - Dummy-Bauteil für das Kabel GCT `10-14-x-xxxx-C-4-08-4-T` anlegen.
-  - Länge und Kontaktseite (Typ A/D) in Fusion bestimmen.
-  - J102 und J302 auf 14 Pole umstellen.
-- **ZIF-Steckverbinder** für das Display auf dem RFID-Board vorsehen:
-  14-polig, 0,5-mm-Raster, passend zum FPC des ER-TFT020-3. Ob die Kontakte
-  oben oder unten liegen, entscheidet zwischen `FH12-14S-0.5SH(55)` und
-  `SFV14R-2STE1HLF` — steht im Datenblatt des Displays, das noch fehlt.
+- **Verbindungskabel (FFC, J102 ↔ J302):** Dummy-Bauteil für das Kabel GCT
+  `10-14-x-xxxx-C-4-08-4-T` anlegen; Länge und Kontaktseite (Typ A/D) in
+  Fusion bestimmen. Pads 15/16 (Lötlaschen) des SFW14S haben keinen Pin im
+  Symbol.
 
 ### Offen aus der Bauteilplanung
 
-- **Symbole für die mehrpoligen Teile** zeichnen; sie lassen sich nicht von
-  einem Master ableiten: ESP32-S3-WROOM-1, SN74AHCT125, IS31FL3236A,
-  USBLC6-2SC6Y, USB4105-GF-A, der Display-ZIF und der FFC-Stecker
-  SFW14S-2STE1LF. Teilenummern und Bestellnummern sind recherchiert.
 - **Piezo PKLCS1212E40A1-R1 ist bei Digi-Key Last Time Buy** (Mouser 27.236
   Stück). Alternative mit aktivem Status wäre `CMT-1203-SMT-TR` von Same
   Sky — dafür ohne fertiges KiCad-Footprint und 3 dB leiser.
 - **Quarz Y200:** das Symbol hat zwei Pins, das Footprint vier Pads. Die
   beiden Gehäusepads bleiben ohne Netz. Sollen sie auf GND, muss der Master
   von `Device:Crystal_GND24` kommen.
-- **Bibliotheken `0_Crystal` und `0_Buzzer`** sind neu und stehen in
-  `MyCSLib/KiCad/sym-lib-table.snippet`; in KiCad einmal hinzufügen.
-- **MCU-Blatt (1xx) zeichnen:** Statusliste mit elf Punkten, Tongeber über
-  zwei Gatter des 74AHCT125, USB-C mit ESD, 3V3-Regler, RESET und BOOT auf
-  der Unterseite.
 - **I/O-Board 24V zeichnen:** zwei potentialfreie Kontakte für externes
   Hauptschütz und Aux-Ausgang. Die Kontakte müssen den Einschaltstrom einer
   Schützspule tragen — ein Signalrelais wie das G5V-1 reicht dafür nicht.
   Der Haupt-Kontakt braucht dieselbe Verriegelung aus zwei Schaltern wie
   K300, für Aux genügt ein Low-Side-Schalter.
-- **Extension-I/O fehlt im Kabel.** Das Flussbild führt eine Verbindung
-  ESP32 → Extension Board, J302 hat dafür keinen Pol. Einer der zwölf ist
-  als Reserve freigehalten.
-- **ERC des RFID-Boards:** Pin 14 des CLRC663 liegt auf zwei Netzen. Die
-  beiden VMID-Hälften des Symbols sind auf dem Blatt nicht verbunden, und
-  Cx200 hängt nur an einer davon.
+- **`aux_en` und `EXT_IO`** auf dem I/O-Board beschalten (E-Stop- bzw.
+  Extension-Header); sie enden derzeit an J302.
+- **Stopp-Taster auswählen** (Panel-Mount im Gehäuse, angeschlossen an J101).
 - **`antenna/README.md` nachziehen:** dort stehen C₀ mit 50 V und
   R<sub>S</sub> mit 2,4 Ω im 0603, bestückt sind 100 V und 2,49 Ω im 1206.
 - **Anforderung A1 nachziehen:** aus dem LED-Ring mit zwölf LEDs ist eine

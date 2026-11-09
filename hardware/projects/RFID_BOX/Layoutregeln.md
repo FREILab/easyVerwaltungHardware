@@ -55,7 +55,7 @@ gespeist. Die ISO-Insel gehört trotz 3,3-V-Pegeln zur Primärseite.
 
 - Lastpfad als Polygon ohne Lagenwechsel; an unvermeidbaren Engstellen
   mindestens 2,65 mm, Bauteilpads ausgenommen.
-- R300 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads, je ein Ferrit
+- R307 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads, je ein Ferrit
   (FB301, FB302) in beiden Sense-Leitungen.
 - Ferrite am Isolator FB303–FB307: VISOOUT→VISOIN, GND2_ISO→GND_ISO und in
   den Zuleitungen VIO und VDD.
@@ -64,9 +64,9 @@ gespeist. Die ISO-Insel gehört trotz 3,3-V-Pegeln zur Primärseite.
 - Entladekette an C300 aus drei Widerständen in Reihe, je mit Grenzspannung
   ≥ 150 V.
 - Keine ISO-Insel auf dem 24V-Board; der Relaistreiber ist auf beiden Boards
-  redundant aus Q300 und Q301 aufgebaut.
+  redundant aus Q301 und Q300 aufgebaut.
 - Die 8-mm-Barriere gilt auch auf dem 24V-Board, dort nur um Eingangsbereich
-  und U301 herum.
+  und U300 herum.
 - Die Abschnitte F302 → L300 und Shunt → Lastrelais tragen kein eigenes
   Netzlabel.
 
@@ -83,7 +83,7 @@ Lagen: **L1** Signal + Bauteile · **L2** GND durchgehend · **L3** Flächen
 | Antennenschleife | — | 1,0 mm, 0,5 mm Abstand | **keine** |
 | LED-Daten | Single-Wire nach 74AHCT125, 5 V | 0,25 mm | **1 × ⌀0,3 mm** |
 | Signale | SPI, I2C, UART, GPIO, IRQ/RST | 0,25 mm | **1 × ⌀0,3 mm** |
-| USB D+/D− | Service-Buchse J4 | 0,25 mm, eng gekoppelt | **keine** im Paar |
+| USB D+/D− | Service-Buchse J400 | 0,25 mm, eng gekoppelt | **keine** im Paar |
 | GND | `GND` | Lage L2, **unter der Antenne ausgespart** | Stitching ⌀0,3 mm, ≤ 5 mm am Modulrand |
 
 - Strom auf L2/L3 nur als Fläche, nie als Bahn.
@@ -107,8 +107,8 @@ Betrifft nur das I/O-Board; das RFID-Board liegt vollständig in SELV
 | Domäne | umfasst |
 |---|---|
 | **L**, **N** | Netzpole vor und hinter dem Relais, Netzklassen über `/PIN_L*` und `/PIN_N*` |
-| **PE** | Schutzleiter, über C309/C310 mit dem Steuerzweig gekoppelt — die beiden sind deshalb zwingend Y2 |
-| **ISO-Insel** | `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, UART zu U300, Shunt-Sense. Isoliert **gegen SELV**, nicht berührsicher: hängt über R300 am Lastpfad und über NT300 auf N-Potential |
+| **PE** | Schutzleiter, über C305/C308 mit dem Steuerzweig gekoppelt — die beiden sind deshalb zwingend Y2 |
+| **ISO-Insel** | `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, UART zu U301, Shunt-Sense. Isoliert **gegen SELV**, nicht berührsicher: hängt über R307 am Lastpfad und über NT300 auf N-Potential |
 | **SELV** | 24 V / 5 V / 3,3 V, Logik, Relaistreiber, gesamtes RFID-Board |
 | **FELD** | extern gespeiste Seite der Erweiterungsboards |
 
@@ -126,10 +126,10 @@ Abstandsmatrix, Luft- **und** Kriechstrecke:
 | **PE** | | | | | — | 8,0 mm |
 
 Die 0,5 mm gelten zwischen verschiedenen Netzen desselben Pols. Eine
-Ausnahme trägt der Regelsatz: innerhalb von U300 gelten 0,2 mm, weil dort
+Ausnahme trägt der Regelsatz: innerhalb von U301 gelten 0,2 mm, weil dort
 die Isolation vom Bauteil kommt und die Pads nur 7,25 mm auseinander liegen.
 
-- Die 8,0 mm liegen über der Norm und kommen von den Bauteilen (K300, U300).
+- Die 8,0 mm liegen über der Norm und kommen von den Bauteilen (K300, U301).
   **Nicht auf 5 mm reduzieren.**
 - Die ISO-Insel wird komplett von der Barriere umschlossen, auch wo auf ihr
   nur 3,3 V liegen.
@@ -141,7 +141,7 @@ die Isolation vom Bauteil kommt und die Pads nur 7,25 mm auseinander liegen.
   Kabels sind getrennt zu bemessen, die Breiten oben enden am Stecker.
 - Netzkupfer inkl. ISO-Insel ≥ 2,0 mm zu Kante, Bohrungen und Fräsungen;
   SELV ≥ 0,5 mm. Fräsnuten ≥ 1,0 mm breit.
-- **Kein Kupfer im Umkreis von 4 mm um VISOOUT und GND2 von U300** (Vorgabe
+- **Kein Kupfer im Umkreis von 4 mm um VISOOUT und GND2 von U301** (Vorgabe
   des Datenblatts, Bedingung für CISPR 32 Class B).
 - `GND2_ISO` und `GND_ISO` über einen Ferrit trennen; `GND_ISO` in
   Kelvin-Anbindung hart am Shunt-Knoten.

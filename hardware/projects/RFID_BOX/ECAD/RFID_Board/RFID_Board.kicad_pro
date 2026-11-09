@@ -532,7 +532,7 @@
     "page_layout_descr_file": ""
   },
   "schematic": {
-    "annotate_start_num": 399,
+    "annotate_start_num": 99,
     "annotation": {
       "method": 0,
       "sort_order": 0
@@ -760,6 +760,18 @@
           "group_by": false,
           "label": "Sim.Device",
           "name": "Sim.Device",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Vf",
+          "name": "Vf",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Imax",
+          "name": "Imax",
           "show": false
         }
       ],

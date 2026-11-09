@@ -12,17 +12,17 @@ R = rechts (27–41), Antenne oben. Stand: ✓ = verdrahtet, ○ = offen.
 | 1 | L | — | GND | — | | ✓ |
 | 2 | L | — | +3V3 | — | | ✓ |
 | 3 | L | — | EN | in | Reset, R100/C101, SW100 | ✓ |
-| 4 | L | 4 | V24_SENSE | analog | J102.5, ADC1_CH3 | ✓ |
-| 5 | L | 5 | ISO_EN | out | J102.4, Versorgung Messinsel | ✓ |
-| 6 | L | 6 | relay_en_LS | out | J102.10, K300 Low-Side (Q300) | ✓ |
-| 7 | L | 7 | aux_en | out | J102.9, Aux / E-Stop-Relais | ✓ |
+| 4 | L | 4 | V24_SENSE | analog | J102.6, ADC1_CH3, C105 100 nF | ✓ |
+| 5 | L | 5 | ISO_EN | out | J102.5, Versorgung Messinsel | ✓ |
+| 6 | L | 6 | relay_en_LS | out | J102.11, K300 Low-Side (Q301) | ✓ |
+| 7 | L | 7 | aux_en | out | J102.10, Aux / E-Stop-Relais | ✓ |
 | 8 | L | 15 | — | — | frei, nur digital (ADC2) | |
-| 9 | L | 16 | EXT_IO | i/o | J102.11, Reserve Extension Board | ✓ |
-| 10 | L | 17 | UART_MCU2MCP | out | J102.6, UART1 TX → U300 | ✓ |
-| 11 | L | 18 | UART_MCP2MCU | in | J102.7, UART1 RX ← U300 | ✓ |
-| 12 | L | 8 | relay_en_HS | out | J102.2, K300 High-Side (Q301) | ✓ |
-| 13 | L | 19 | ESP_USB_D- | — | J103 über R400 | ✓ |
-| 14 | L | 20 | ESP_USB_D+ | — | J103 über R401 | ✓ |
+| 9 | L | 16 | EXT_IO | i/o | J102.12, Reserve Extension Board | ✓ |
+| 10 | L | 17 | UART_MCU2MCP | out | J102.7, UART1 TX → U301 | ✓ |
+| 11 | L | 18 | UART_MCP2MCU | in | J102.8, UART1 RX ← U301 | ✓ |
+| 12 | L | 8 | relay_en_HS | out | J102.2, K300 High-Side (Q302 → Q300) | ✓ |
+| 13 | L | 19 | ESP_USB_D- | — | J400 über R400 | ✓ |
+| 14 | L | 20 | ESP_USB_D+ | — | J400 über R401 | ✓ |
 | 15 | U | 3 | — | — | frei, Strapping (JTAG-Quelle) | |
 | 16 | U | 46 | — | — | frei, Strapping | |
 | 17 | U | 9 | LCD_RS | out | M500.7 | ✓ |
@@ -45,22 +45,31 @@ R = rechts (27–41), Antenne oben. Stand: ✓ = verdrahtet, ○ = offen.
 | 36 | R | 44 | UART_PC2MCU | in | J100.3, UART0 | ✓ |
 | 37 | R | 43 | UART_MCU2PC | out | J100.2, UART0 | ✓ |
 | 38 | R | 2 | RGB_LED_Data | out | IC101.2 (Gatter 1), RMT | ✓ |
-| 39 | R | 1 | V3V3_IO_SENSE | analog | J102.8, ADC1_CH0 | ✓ |
+| 39 | R | 1 | V3V3_IO_SENSE | analog | J102.9, ADC1_CH0, C107 100 nF | ✓ |
 | 40–41 | R | — | GND | — | inkl. Thermal-Pad | ✓ |
 
 ## Kabelstecker J102 (RFID-Board)
 
-| Pin | Netz | Pin | Netz |
-|---|---|---|---|
-| 1 | GND | 7 | UART_MCP2MCU |
-| 2 | relay_en_HS | 8 | V3V3_IO_SENSE |
-| 3 | +5V | 9 | aux_en |
-| 4 | ISO_EN | 10 | relay_en_LS |
-| 5 | V24_SENSE | 11 | EXT_IO |
-| 6 | UART_MCU2MCP | 12 | GND |
+FFC 1,0 mm, 14-polig (SFW14S-2STE1LF). J302 auf dem I/O-Board ist gespiegelt belegt:
+J302-Pin = 15 − J102-Pin.
 
-J302 auf dem I/O-Board ist noch 10-polig mit der alten Belegung (+24V, +3V3) und muss
-1:1 auf diese Belegung umgestellt werden.
+| J102 | Netz | J302 |
+|---|---|---|
+| 1, 14 | GND | 14, 1 |
+| 2 | relay_en_HS | 13 |
+| 3, 4 | +5V (RFID-Board: über D100 auf +5V) | 12, 11 |
+| 5 | ISO_EN | 10 |
+| 6 | V24_SENSE | 9 |
+| 7 | UART_MCU2MCP | 8 |
+| 8 | UART_MCP2MCU | 7 |
+| 9 | V3V3_IO_SENSE | 6 |
+| 10 | aux_en | 5 |
+| 11 | relay_en_LS | 4 |
+| 12 | EXT_IO | 3 |
+| 13 | — (Reserve) | 2 |
+
+Teiler auf dem I/O-Board: V24_SENSE R314 47 kΩ / R315 5,1 kΩ (24 V → 2,35 V),
+V3V3_IO_SENSE R318 / R319 je 10 kΩ (3,3 V → 1,65 V).
 
 ## Regeln der Zuordnung
 
@@ -73,10 +82,9 @@ J302 auf dem I/O-Board ist noch 10-polig mit der alten Belegung (+24V, +3V3) und
 - GPIO 45 muss beim Booten LOW sein (VDD_SPI 3,3 V). Der interne Pulldown hält
   Buzzer_HS_en dort, der Piezo bleibt still.
 - UART1 für die Messinsel; UART0 bleibt Konsole an J100.
-- JTAG nur über USB-Serial-JTAG an J103; GPIO 39–42 sind normale GPIOs.
+- JTAG nur über USB-Serial-JTAG an J400; GPIO 39–42 sind normale GPIOs.
 
 ## Offen
 
-- **J302 (I/O-Board)** auf die Belegung von J102 umstellen.
-- **Isolator F-Typ:** Wird U300 als ISOW7721FDFMR bestückt, sieht UART1-RX bei
+- **Isolator F-Typ:** Wird U301 als ISOW7721FDFMR bestückt, sieht UART1-RX bei
   `ISO_EN` aus dauerhaft LOW — Empfänger in der Firmware abschalten.
