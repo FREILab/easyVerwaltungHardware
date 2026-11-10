@@ -845,25 +845,6 @@
 					)
 				)
 				(pin passive line
-					(at 13.97 25.4 180)
-					(length 5.08)
-					(hide yes)
-					(name "VBUS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "B4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
 					(at 17.78 15.24 180)
 					(length 7.62)
 					(hide yes)
@@ -4601,9 +4582,6 @@
 		(pin "B7"
 			(uuid "00572b6a-7f29-4f72-af5d-06dcb5843c10")
 		)
-		(pin "B4"
-			(uuid "4ee8045b-6d52-4bbd-bcdd-dcce643445db")
-		)
 		(pin "A4_B9"
 			(uuid "514c04d6-7bb4-4915-8623-b73dcbaca8a1")
 		)
@@ -5114,14 +5092,13 @@
 			)
 		)
 		(property "Value" "1M"
-			(at 205.74 125.7299 0)
+			(at 205.74 125.7299 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
@@ -5778,14 +5755,13 @@
 			)
 		)
 		(property "Value" "5k1"
-			(at 162.56 115.5699 0)
+			(at 162.56 115.5699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -6280,14 +6256,13 @@
 			)
 		)
 		(property "Value" "5k1"
-			(at 154.94 115.5699 0)
+			(at 154.94 115.5699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"

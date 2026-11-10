@@ -8093,6 +8093,7 @@
 		)
 	)
 	(symbol
+		(lib_name "IC_CLRC66303HNY_1")
 		(lib_id "0_IC:IC_CLRC66303HNY")
 		(at 71.12 129.54 0)
 		(unit 2)
@@ -8337,7 +8338,6 @@
 		)
 	)
 	(symbol
-		(lib_name "IC_CLRC66303HNY_1")
 		(lib_id "0_IC:IC_CLRC66303HNY")
 		(at 71.12 45.72 0)
 		(unit 1)
@@ -8604,13 +8604,14 @@
 			)
 		)
 		(property "Value" "1nF"
-			(at 140.97 17.78 90)
+			(at 140.97 17.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -8925,13 +8926,14 @@
 			)
 		)
 		(property "Value" "1nF"
-			(at 140.97 88.9 90)
+			(at 140.97 88.9 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -9282,14 +9284,13 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 132.08 86.3599 0)
+			(at 132.08 86.3599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -9928,13 +9929,14 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 140.97 30.48 90)
+			(at 140.97 30.48 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -10394,14 +10396,13 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 49.53 72.3899 0)
+			(at 49.53 72.3899 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -11393,7 +11394,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -11716,7 +11717,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -12362,7 +12363,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -12720,7 +12721,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
@@ -13502,14 +13503,13 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 49.53 39.3699 0)
+			(at 49.53 39.3699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -14010,7 +14010,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -14182,14 +14182,13 @@
 			)
 		)
 		(property "Value" "27.12MHz"
-			(at 58.42 165.0999 90)
+			(at 58.42 165.0999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "aa_MyParts:Y_XRCGB"
@@ -14358,14 +14357,14 @@
 			)
 		)
 		(property "Value" "NFC_Antenna_80x50"
-			(at 220.98 62.2299 90)
+			(at 220.98 62.2299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "aa_antennas:NFC_Loop_80x50_5T"
@@ -14794,14 +14793,13 @@
 			)
 		)
 		(property "Value" "12k"
-			(at 154.94 35.5599 0)
+			(at 154.94 35.5599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -14973,13 +14971,14 @@
 			)
 		)
 		(property "Value" "47pF"
-			(at 166.37 68.58 90)
+			(at 166.37 68.58 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -15150,13 +15149,14 @@
 			)
 		)
 		(property "Value" "47pF"
-			(at 166.37 43.18 90)
+			(at 166.37 43.18 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -15328,14 +15328,13 @@
 			)
 		)
 		(property "Value" "12k"
-			(at 154.94 86.3599 0)
+			(at 154.94 86.3599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -15829,14 +15828,13 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 132.08 30.4799 0)
+			(at 132.08 30.4799 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -16160,7 +16158,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -16339,7 +16337,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -16829,7 +16827,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"

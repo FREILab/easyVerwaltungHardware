@@ -712,6 +712,9 @@
       "/PIN_SHUNT_N": [
         "230V_ext"
       ],
+      "/REFIN+": [
+        "ISO_signals"
+      ],
       "/V24_SENSE": [
         "Signals"
       ],

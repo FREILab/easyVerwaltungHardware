@@ -3050,6 +3050,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -3216,6 +3217,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -3958,6 +3960,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -4447,6 +4450,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5080,6 +5084,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5390,6 +5395,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -5844,6 +5850,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
@@ -6442,6 +6449,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 			)
 		)
 		(property "Footprint" "aa_MyParts:LED_INPI20TATPRPGPB"
