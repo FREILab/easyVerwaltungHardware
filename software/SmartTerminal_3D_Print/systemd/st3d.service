@@ -1,0 +1,26 @@
+[Unit]
+Description=Smart Terminal 3D-Print
+After=network-online.target systemd-user-sessions.service
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=st3d
+Group=st3d
+SupplementaryGroups=video render input spi i2c gpio
+WorkingDirectory=@APP_DIR@
+Environment=PYTHONPATH=@APP_DIR@/src
+Environment=PYTHONUNBUFFERED=1
+Environment=QT_QPA_PLATFORM=eglfs
+Environment=QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+Environment=QT_QPA_EGLFS_HIDECURSOR=1
+Environment=XDG_RUNTIME_DIR=/run/st3d
+RuntimeDirectory=st3d
+RuntimeDirectoryMode=0700
+ExecStart=@APP_DIR@/.venv/bin/python -m st3d
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

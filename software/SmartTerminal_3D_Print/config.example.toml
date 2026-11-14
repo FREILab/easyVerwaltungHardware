@@ -1,0 +1,6 @@
+# Terminal-Konfiguration. Kopie als config.toml ablegen, config.toml nie committen.
+# install.sh legt sie unter /etc/st3d/config.toml an.
+
+[display]
+# Drehung der Oberfläche in Grad: 0, 90, 180, 270
+rotation = 0

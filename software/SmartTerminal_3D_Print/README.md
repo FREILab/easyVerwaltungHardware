@@ -1,53 +1,45 @@
-# SmartTerminal_3D_Print
+# Smart Terminal 3D-Print
 
-Dieses Verzeichnis ist ein Entwicklungsgeruest fuer das Smart Terminal 3D-Print.
+Konzept: [KONZEPT_ESSENTIALS.md](KONZEPT_ESSENTIALS.md)
 
-Ziel: schneller Entwicklungsstart mit einer lauffaehigen Basis, die die Architektur und den Lifecycle aus der Wiki abbildet.
+## Ersteinrichtung Pi
 
-## Was dieses Geruest bereits abbildet
+1. **Flashen** mit Raspberry Pi Imager:
+   - Raspberry Pi OS Lite (64-bit), Debian 13 (trixie)
+   - Hostname `3d-print-server`
+   - Benutzer anlegen, SSH mit öffentlichem Schlüssel aktivieren
+   - WLAN nur, falls kein LAN
+2. **Verbinden** per VS Code Remote-SSH auf `<benutzer>@3d-print-server.local`.
+3. **Repo holen** (nur dieser Ordner):
+   ```bash
+   sudo install -d -o "$USER" -g "$USER" /opt/easyVerwaltungHardware
+   git clone --filter=blob:none --sparse https://github.com/FREILab/easyVerwaltungHardware.git /opt/easyVerwaltungHardware
+   cd /opt/easyVerwaltungHardware
+   git sparse-checkout set software/SmartTerminal_3D_Print
+   git switch <branch oder tag>
+   ```
+4. **Installieren:**
+   ```bash
+   cd /opt/easyVerwaltungHardware/software/SmartTerminal_3D_Print
+   ./install.sh
+   ```
+5. **Konfiguration** in `/etc/st3d/config.toml` anpassen, danach `sudo systemctl restart st3d`.
 
-- Drei Container gemaess Wiki:
-  - backend (FastAPI)
-  - ui (nginx + statisches Frontend)
-  - device-agent (FastAPI als HAL-Scaffold)
-- OTA-Skripte und First-Boot-Skripte als Integrationsgeruest
-- Dev-Overrides fuer Remote-SSH-Workflow auf dem Pi
+## Betrieb
 
-## Was bewusst noch Platzhalter ist
+| Aufgabe | Befehl |
+|---|---|
+| Status | `systemctl status st3d` |
+| Logs live | `journalctl -u st3d -f` |
+| Neustart | `sudo systemctl restart st3d` |
 
-- Job-Queue, RFID-Session und Payment-Logik
-- Echte PrusaLink-Emulation und Drucker-Forwarding
-- Hardware-Ansteuerung fuer RFID, GPIO und I2C
-- Produktionsreifer CI/CD-Lifecycle
+## Entwicklung am Mac
 
-## Konsistenz zur Wiki
+```bash
+cd software/SmartTerminal_3D_Print
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+PYTHONPATH=src .venv/bin/python -m st3d
+```
 
-Dieses Geruest folgt den Rollen und Schnittstellen aus:
-- Smart Terminal: Dokumentation & Entwicklung
-- Smart Terminal - 3D-Print-Server: Dokumentation & Entwicklung
-- Deployment & Betrieb: Smart Terminal
-
-Wichtig: In der Entwicklung kann lokal mit `config/printers.dev.json` gearbeitet werden.
-Der Produktionspfad fuer Druckerzuordnung bleibt die server-/share-basierte Konfiguration aus der Wiki.
-
-## Lokaler Start (Entwicklung)
-
-1. Beispielkonfiguration kopieren:
-
-   cp config/terminal.example.env config/terminal.env
-   cp config/printers.example.json config/printers.dev.json
-
-2. Stack starten:
-
-   docker compose up --build
-
-3. Verfuegbare Endpunkte:
-
-- UI: http://localhost
-- Backend Health: http://localhost:8000/api/health
-- Printer API Health: http://localhost:8000/api/v1/health
-- Device Agent Health: http://localhost:8081/health
-
-## Leitlinie
-
-Solange Features noch fehlen, sollen Stubs explizit "scaffold" markieren statt Produktionsreife zu suggerieren.
+Konfiguration: `config.toml` im Projektordner oder `ST3D_CONFIG=<pfad>`.
