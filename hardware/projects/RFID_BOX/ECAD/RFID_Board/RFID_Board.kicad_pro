@@ -664,6 +664,8 @@
         "wire_width": 20
       },
       {
+        "diff_pair_gap": 0.5,
+        "diff_pair_width": 0.8,
         "name": "NFC_TX",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 3,
@@ -708,6 +710,12 @@
       "/ESP_USB_D-": [
         "USB"
       ],
+      "/NFC/TX+": [
+        "NFC_TX"
+      ],
+      "/NFC/TX-": [
+        "NFC_TX"
+      ],
       "/NFC/ant+": [
         "NFC_TX"
       ],
@@ -719,6 +727,15 @@
       ],
       "/USB/USB_D-": [
         "USB"
+      ],
+      "GND": [
+        "NFC_TX"
+      ],
+      "Net-(C207-Pad2)": [
+        "NFC_TX"
+      ],
+      "Net-(C209-Pad2)": [
+        "NFC_TX"
       ],
       "Net-(C212-Pad1)": [
         "NFC_TX"
@@ -738,10 +755,19 @@
       "Net-(D400-I{slash}O2-Pad3)": [
         "USB"
       ],
+      "Net-(IC200A-RXN)": [
+        "NFC_TX"
+      ],
+      "Net-(IC200A-RXP)": [
+        "NFC_TX"
+      ],
       "Net-(IC200A-TX1)": [
         "NFC_TX"
       ],
       "Net-(IC200A-TX2)": [
+        "NFC_TX"
+      ],
+      "Net-(IC200A-VMID)": [
         "NFC_TX"
       ],
       "VBUS": [

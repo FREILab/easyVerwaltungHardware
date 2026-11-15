@@ -4850,7 +4850,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "81b809c5-f217-4e30-bb9c-ffa250c816ce")
 		(property "Reference" "R404"
 			(at 205.74 123.1899 0)
@@ -4864,7 +4863,7 @@
 			)
 		)
 		(property "Value" "1M"
-			(at 205.74 125.7299 90)
+			(at 207.518 125.222 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5336,10 +5335,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "d4199068-80b0-4a19-b4dd-1d27fe147320")
 		(property "Reference" "R403"
-			(at 162.56 113.0299 0)
+			(at 161.798 112.776 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5350,7 +5348,7 @@
 			)
 		)
 		(property "Value" "5k1"
-			(at 162.56 115.5699 90)
+			(at 163.83 114.808 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5837,10 +5835,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f75a00f6-646a-4950-b3d7-bafafc11e9ac")
 		(property "Reference" "R402"
-			(at 154.94 113.0299 0)
+			(at 153.67 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5851,7 +5848,7 @@
 			)
 		)
 		(property "Value" "5k1"
-			(at 154.94 115.5699 90)
+			(at 155.448 114.808 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

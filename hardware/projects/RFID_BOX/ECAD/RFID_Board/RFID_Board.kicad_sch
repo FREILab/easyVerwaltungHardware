@@ -10849,7 +10849,8 @@
 			)
 		)
 		(property "Value" "Conn_01x04"
-			(at 88.138 189.992 0)
+			(at 88.9 190.5 90)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11115,7 +11116,7 @@
 			)
 		)
 		(property "Value" "SN74AHCT125DR"
-			(at 120.142 181.864 90)
+			(at 120.65 181.864 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -11296,7 +11297,7 @@
 			)
 		)
 		(property "Value" "SN74AHCT125DR"
-			(at 189.484 153.67 90)
+			(at 188.722 152.908 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -11659,7 +11660,7 @@
 			)
 		)
 		(property "Value" "SN74AHCT125DR"
-			(at 188.722 132.08 90)
+			(at 188.722 131.318 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects

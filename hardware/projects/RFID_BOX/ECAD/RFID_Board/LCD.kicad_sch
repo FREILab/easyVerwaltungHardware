@@ -3415,7 +3415,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "3d0299ce-4197-4b01-9103-be8c813490ce")
 		(property "Reference" "R500"
 			(at 128.27 110.4899 0)
@@ -3429,7 +3428,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 128.27 113.0299 90)
+			(at 130.048 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4595,10 +4594,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "707e2bfa-d1da-4918-8777-3c4d5a99ab19")
 		(property "Reference" "R501"
-			(at 129.54 81.28 90)
+			(at 129.286 82.55 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4608,7 +4606,7 @@
 			)
 		)
 		(property "Value" "43R"
-			(at 129.54 83.82 90)
+			(at 129.286 85.09 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

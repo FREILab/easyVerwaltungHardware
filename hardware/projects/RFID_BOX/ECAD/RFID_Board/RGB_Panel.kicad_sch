@@ -3030,7 +3030,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "585dbc75-f2bb-4a41-911b-119a875c3df3")
 		(property "Reference" "D306"
 			(at 215.9 73.66 0)
@@ -3043,7 +3042,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 215.9 76.2 0)
+			(at 208.788 76.454 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3197,7 +3196,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "59fef370-bf9f-444f-82c2-7fd67c6ca82f")
 		(property "Reference" "D301"
 			(at 124.46 107.95 0)
@@ -3210,7 +3208,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 124.46 110.49 0)
+			(at 117.348 110.744 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3940,7 +3938,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6dad895c-dc42-4e21-903d-79fed7434278")
 		(property "Reference" "D302"
 			(at 154.94 73.66 0)
@@ -3953,7 +3950,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 154.94 76.2 0)
+			(at 147.828 76.454 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4430,7 +4427,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "76674830-997a-464a-9598-add375a76666")
 		(property "Reference" "D307"
 			(at 215.9 107.95 0)
@@ -4443,7 +4439,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 215.9 110.49 0)
+			(at 208.788 110.744 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5064,7 +5060,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "8725e01d-6f9b-476b-bee5-20d8ab8a4602")
 		(property "Reference" "D300"
 			(at 124.46 73.66 0)
@@ -5077,7 +5072,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 124.46 76.2 0)
+			(at 117.348 76.454 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5375,7 +5370,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "8aae2309-5279-434e-911b-654b984e8a52")
 		(property "Reference" "D303"
 			(at 154.94 107.95 0)
@@ -5388,7 +5382,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 154.94 110.49 0)
+			(at 147.828 110.744 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5830,7 +5824,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "a76f5301-6822-4b1a-93f4-4f282b46da97")
 		(property "Reference" "D305"
 			(at 185.42 107.95 0)
@@ -5843,7 +5836,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 185.42 110.49 0)
+			(at 178.308 110.744 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6429,7 +6422,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "be0a833c-3d8a-461e-81b9-03475d7cb231")
 		(property "Reference" "D304"
 			(at 185.42 73.66 0)
@@ -6442,7 +6434,7 @@
 			)
 		)
 		(property "Value" "IN-PI20TATPRPGPB"
-			(at 185.42 76.2 0)
+			(at 178.308 76.454 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
