@@ -1,7 +1,9 @@
 # Antennen-Footprints RFID-Board
 
-Kandidaten für die 13,56-MHz-Leseschleife, erzeugt mit
-[KiCoil](https://jaseg.de/projects/kicoil). `./generate.sh` baut alle neu.
+13,56-MHz-Leseschleife, erzeugt mit [KiCoil](https://jaseg.de/projects/kicoil).
+**Bestückt: `NFC_Loop_80x50_5T`** aus MyCSLib (`aa_Antennas.pretty`). Die
+Footprints hier im Ordner sind die Kandidaten 2/3/4 Windungen; `./generate.sh`
+baut die Windungszahlen aus `TURNS`.
 
 ## Geometrie
 
@@ -29,24 +31,25 @@ Keepout-Rand**. Freie Größe ist nur die Windungszahl.
 | `NFC_Loop_80x50_2T` | 2 | 3,0 mm | 72 × 42 mm | 751 nH | 0,72 Ω | 130 MHz | 89 |
 | `NFC_Loop_80x50_3T` | 3 | 4,5 mm | 69 × 39 mm | 1430 nH | 1,08 Ω | 85 MHz | 113 |
 | `NFC_Loop_80x50_4T` | 4 | 6,0 mm | 66 × 36 mm | 2241 nH | 1,44 Ω | 64 MHz | 133 |
+| **`NFC_Loop_80x50_5T`** | **5** | **7,5 mm** | **63 × 33 mm** | **≈ 3,1 µH** | — | — | — |
 
 ![Vergleich](vergleich.png)
 
-L, R und f<sub>res</sub> aus dem **NFC Antenna Tool von NXP** (Reader, FR4,
-35 µm Kupfer, 1,6 mm, Er 4,3). Q<sub>0</sub> = ωL/R; der Dämpfungswiderstand
-zieht sie auf 20.
+L, R und f<sub>res</sub> für 2–4 Windungen aus dem **NFC Antenna Tool von
+NXP** (Reader, FR4, 35 µm Kupfer, 1,6 mm, Er 4,3). Q<sub>0</sub> = ωL/R; der
+Dämpfungswiderstand zieht sie auf 20. Für 5 Windungen liegt keine
+Tool-Rechnung vor; L ist KiCoils Wert × 2,37.
 
 Das Feld hängt nur mit N^0,17 von der Windungszahl ab, die Auswahl
 entscheidet also f<sub>res</sub> und das Transformationsverhältnis, nicht die
-Reichweite. 5 und 6 Windungen entfallen, sie lägen bei 3,1 und 4,0 µH.
+Reichweite.
 
 **KiCoils Induktivität im `descr`-Feld der Footprints ist falsch** — für
-diese Geometrie durchgehend Faktor 2,37 zu niedrig (313 / 605 / 946 nH).
-Betroffen ist nur die Zahl, nicht die Geometrie.
+diese Geometrie durchgehend Faktor 2,37 zu niedrig (313 / 605 / 946 /
+1314 nH für 2–5 Windungen). Betroffen ist nur die Zahl, nicht die Geometrie.
 
-**Erwartungswert für die Messung: 1,4 bis 2,4 µH.** Ausgelegt wird mit den
-1430 nH des Tools; die Abschätzformel im Datenblatt (14.1.4) liefert
-2400 nH. Die Anpassung muss die Spanne auffangen.
+**Erwartungswert für die Messung: ≈ 3,1 µH.** Die Anpassung wird aus dem
+gemessenen Wert gerechnet.
 
 ## Anschlüsse
 
@@ -59,7 +62,7 @@ Kante am Beginn des Eckradius sitzen.
 |---|---|---|
 | `1` | SMD auf F.Cu | äußeres Ende der Schleife |
 | `2` | SMD auf B.Cu, **gleiche Koordinate wie Pad 1** | inneres Ende |
-| `NC` | Durchkontaktierung | Übergang auf die Rückseite, um die Ringbreite nach innen versetzt (3 Wdg: (0, +19,5)) |
+| `NC` | Durchkontaktierung | Übergang auf die Rückseite, um die Ringbreite nach innen versetzt (5 Wdg: (0, +16,5)) |
 
 Die Spirale läuft auf F.Cu von außen nach innen, fällt über die
 Durchkontaktierung auf B.Cu und kehrt dort zum Einspeisepunkt zurück. Dieser
@@ -69,36 +72,37 @@ Punkt.
 
 ## Matching
 
-Synthese des NXP-Tools für **3 Windungen**, Reader **CLRC663**, Q = 20,
-Zielimpedanz 20 Ω, EMV-Eckfrequenz 21 MHz. Jeder Wert kommt **zweimal** vor,
-einmal je Zweig.
+Reader **CLRC663**, Q = 20, Zielimpedanz 20 Ω, EMV-Eckfrequenz 21 MHz.
+Jeder Wert kommt **zweimal** vor, einmal je Zweig (TX1 / TX2).
 
-| Position | Rechenwert | Bestückung | Anmerkung |
-|---|---:|---|---|
-| L₀ | 470 nH | 470 nH, **300 mA** ohne Sättigung | AN11019 |
-| C₀ | 122,2 pF | 120 pF C0G, 50 V | zulässig 120…200 pF |
-| C₁ | 47,0 pF | 47 pF C0G, 100 V | Serie |
-| C₂ | 124,9 pF | 120 pF ∥ 4,7 pF C0G, 100 V | parallel, **Trimmstelle** |
-| R<sub>S</sub> | 2,51 Ω | 2,4 Ω ±1 %, ≥ 0,25 W | Q damit 20,7 |
+| Position | Bauteile | Bestückung | Anmerkung |
+|---|---|---|---|
+| L₀ | L200 / L201 | 470 nH, **300 mA** ohne Sättigung | AN11019 |
+| C₀ | C212 / C213 | 120 pF C0G | zulässig 120…200 pF |
+| C₁ | C215 / C216 | 47 pF C0G | Serie |
+| C₂ | C217 / C218 | 120 pF C0G | parallel, **Trimmstelle** |
+| R<sub>S</sub> | R208 / R209 | 2,49 Ω | Dämpfung auf Q ≈ 20 |
+
+Die Werte sind Startwerte aus der NXP-Synthese für 3 Windungen (1430 nH).
+Bei ≈ 3,1 µH wird vor allem C₂ kleiner — nach der Messung von L und R neu
+rechnen.
 
 - **C0G/NP0, kein X7R** (AN11019). Nur C3 im Empfangszweig darf X7R sein.
 - **Toleranz unter ±1 %** für die Anpassbauteile.
 - Beide Zweige mit **demselben Bauteil**; Symmetrie vor Einzelgenauigkeit.
 - R<sub>S</sub> führt den vollen Antennenstrom: nicht drahtgewickelt.
-- C₁, C₂ und R<sub>S</sub> bekommen je **zwei parallele Plätze**, wie das
-  Demoboard in AN11019 Fig. 17. Umbestücken statt neu fertigen.
 
 ### Empfangszweig
 
 RXP (12) und RXN (13) bilden einen **differentiellen Empfänger**, ein Zweig
 je Antennenseite. Werte aus AN11019 Fig. 17:
 
-| Position | Wert | Funktion |
-|---|---|---|
-| R1A / R1B | **12 kΩ** | Serienwiderstand vom EMV-Filter-Knoten |
-| C3A / C3B | **1 nF** | Koppelkondensator, X7R genügt |
-| RV1 / RV2 | **1 kΩ** | gegen VMID |
-| C<sub>vmid</sub> | **100 nF** X7R | VMID gegen GND, dicht an Pin 14 |
+| Position | Bauteile | Wert | Funktion |
+|---|---|---|---|
+| R1A / R1B | R206 / R207 | **12 kΩ** | Serienwiderstand vom EMV-Filter-Knoten |
+| C3A / C3B | C207 / C209 | **1 nF** | Koppelkondensator, X7R genügt |
+| RV1 / RV2 | R204 / R205 | **1 kΩ** | gegen VMID |
+| C<sub>vmid</sub> | C208 | **100 nF** X7R | VMID gegen GND, dicht an Pin 14 |
 
 Reihenfolge je Zweig: Knoten hinter L₀ → R1 → C3 → RXP bzw. RXN, RV vom Pin
 gegen VMID. C<sub>vmid</sub> ist nirgends beziffert, 100 nF ist der Wert der
@@ -140,7 +144,6 @@ braucht `rsvg-convert` (Homebrew: `librsvg`).
 
 ## Offen
 
-- Windungszahl: 3 vorgeschlagen, nicht entschieden.
 - Abstimmung gilt erst im fertigen Gerät: das RFID-Board sitzt im Deckel,
   das I/O-Board in der unteren Schale, einige Zentimeter unter der Antenne.
 - Matching aus gemessenem L und R nachrechnen. Maßgeblich ist **AN11019**

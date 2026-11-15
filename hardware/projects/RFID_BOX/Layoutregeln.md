@@ -13,7 +13,7 @@ Fehlerbetrachtung in [FMEA.md](FMEA.md).
 |---|---|---|
 | I/O-Board 230V | 2 | **70 µm (2 oz)** — wegen des 8-A-Lastpfads |
 | I/O-Board 24V | 2 | 35 µm |
-| RFID-Board | **4** | 35 µm außen, 17,5 µm innen |
+| RFID-Board | **4** | 35 µm außen, 17,5 µm innen — JLC **JLC04161H-3313**, Impedanzkontrolle, FR-4 TG155 |
 
 Alle FR4, 1,6 mm. Untergrenzen: 0,2 mm Bahn/Abstand, 0,3 mm Bohrung, 0,5 mm
 Via, 0,5 mm Kupfer zur Boardkante, 1,0 mm Fräsnut.
@@ -77,13 +77,13 @@ Lagen: **L1** Signal + Bauteile · **L2** GND durchgehend · **L3** Flächen
 
 | Klasse | Netze | Breite | Vias |
 |---|---|---:|---|
-| 5 V | `+5V` (LED-Streifen, Buzzer) | 1,3 mm | **2 × ⌀0,6 mm** |
+| 5 V | `+5V` (LED-Streifen, Buzzer; ≤ 1 A über SS14) | 0,5 mm | **2 × ⌀0,3 mm** |
 | 3,3 V | `+3V3` (~285 mA Mittel, ~630 mA Spitze) | 0,5 mm | **2 × ⌀0,3 mm** |
 | Antennentreiber | TX1/TX2 → Matching → Antenne | ≥ 0,8 mm, symmetrisch | **keine** |
 | Antennenschleife | — | 1,0 mm, 0,5 mm Abstand | **keine** |
-| LED-Daten | Single-Wire nach 74AHCT125, 5 V | 0,25 mm | **1 × ⌀0,3 mm** |
-| Signale | SPI, I2C, UART, GPIO, IRQ/RST | 0,25 mm | **1 × ⌀0,3 mm** |
-| USB D+/D− | Service-Buchse J400 | 0,25 mm, eng gekoppelt | **keine** im Paar |
+| LED-Daten | Single-Wire nach 74AHCT125, 5 V | 0,2 mm | **1 × ⌀0,3 mm** |
+| Signale | SPI, I2C, UART, GPIO, IRQ/RST | 0,2 mm | **1 × ⌀0,3 mm** |
+| USB D+/D− | Service-Buchse J400 | 0,2 mm, 0,2 mm Abstand, 90 Ω diff | **keine** im Paar |
 | GND | `GND` | Lage L2, **unter der Antenne ausgespart** | Stitching ⌀0,3 mm, ≤ 5 mm am Modulrand |
 
 - Strom auf L2/L3 nur als Fläche, nie als Bahn.
@@ -96,8 +96,12 @@ Lagen: **L1** Signal + Bauteile · **L2** GND durchgehend · **L3** Flächen
   im TX-Pfad.
 - **Kupferfläche am Tab des 3V3-Reglers**, mindestens 100 mm² auf der
   3,3-V-Fläche. Ohne sie schaltet der Regler bei Lastspitzen ab.
-- USB Full Speed, keine Impedanzkontrolle: symmetrisch, < 50 mm, durchgehend
-  über L2, keine Stubs.
+- USB Full Speed, **90 Ω differenziell** auf L1 gegen L2: 0,2 mm Breite,
+  0,2 mm Abstand (gerechnet ca. 87 Ω, mit Lötstopplack ca. 84 Ω; Toleranz
+  USB FS ±15 %). Symmetrisch, < 50 mm, durchgehend über L2, keine Stubs.
+  Vor dem Routen im JLC-Impedanzrechner bestätigen.
+- TX-Pfad ohne Impedanzkontrolle — bei 13,56 MHz elektrisch kurz, die
+  Anpassung macht das Matching.
 
 ## 3. Domänen und Abstände
 

@@ -5239,6 +5239,42 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "PCB: JLCPCB JLC04161H-3313, 1.6 mm, FR-4 TG155, impedance control ordered.\nUSB D+/D-: 90 R diff, 0.2 / 0.2 mm, L1 ref L2."
+		(exclude_from_sim no)
+		(at 196.088 72.898 0)
+		(effects
+			(font
+				(face "PT Mono")
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bf07d6f5-052e-4dcf-bbfe-c8b94df2b616")
+	)
+	(text "VIAS -- 20 um barrel plating, dT 5 K. \"per via\" is what one via\ncarries. Derate by 0.7 in dense via fields.\n\nVia | Drill  | Pad     | Aspect | per via\n----|--------|---------|--------|---------\nB   | 0.3 mm | 0.6 mm  | 5.3:1  | 1.126 A"
+		(exclude_from_sim no)
+		(at 196.596 58.674 0)
+		(effects
+			(font
+				(face "PT Mono")
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c1fe60e6-e086-4d46-b423-282863e05d64")
+	)
+	(text "NET CLASS TRACK WIDTHS -- RFID BOARD\n4 layers, 35 um outer / 17.5 um inner, FR4 1.6 mm. IPC-2221 outer layer, dT = 5 K.\nL1 signal | L2 GND plane | L3 +3V3 / +5V planes | L4 signal.\nCurrent on L2/L3 as planes only, never as tracks. All nets SELV, 0.2 mm clearance.\n\nNet class   | I max   | Width  | Via\n------------|---------|--------|------\n5V          | 1.000 A | 0.5 mm | 2x B\n3V3         | 0.630 A | 0.5 mm | 2x B\nNFC_TX      | 0.250 A | 0.8 mm | none\nUSB         | 0.100 A | 0.2 mm | none\nSignals     | 0.100 A | 0.2 mm | 1x B\n\nNFC_TX: TX1/TX2 -> matching -> antenna, symmetric, equal length.\nUSB: diff pair D+/D-, tightly coupled, < 50 mm, no stubs."
+		(exclude_from_sim no)
+		(at 197.104 31.242 0)
+		(effects
+			(font
+				(face "PT Mono")
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fdb39f24-f2fa-44f5-8de3-5c1e0e0adff6")
+	)
 	(junction
 		(at 135.89 160.02)
 		(diameter 0)
@@ -5282,16 +5318,16 @@
 		(uuid "5eb3d104-4b0d-41fe-86dd-1e787201a2bd")
 	)
 	(junction
-		(at 196.85 91.44)
+		(at 201.93 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6df40110-74fb-40cf-9012-f8c4ded4fede")
 	)
 	(junction
-		(at 179.07 40.64)
+		(at 179.07 43.18)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "95795346-a5c2-47a4-9de3-8f7faede7677")
+		(uuid "7134ffa9-4f60-492f-9d07-e63fe603490a")
 	)
 	(junction
 		(at 57.15 40.64)
@@ -5387,7 +5423,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 100.33) (xy 196.85 104.14)
+			(xy 201.93 100.33) (xy 201.93 104.14)
 		)
 		(stroke
 			(width 0)
@@ -5527,7 +5563,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 88.9) (xy 196.85 91.44)
+			(xy 201.93 88.9) (xy 201.93 91.44)
 		)
 		(stroke
 			(width 0)
@@ -5627,6 +5663,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 43.18) (xy 179.07 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "242d3e66-ed7d-41c2-8d91-e8f10e01b030")
+	)
+	(wire
+		(pts
 			(xy 57.15 40.64) (xy 68.58 40.64)
 		)
 		(stroke
@@ -5707,7 +5753,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 22.86) (xy 179.07 25.4)
+			(xy 157.48 19.05) (xy 157.48 25.4)
 		)
 		(stroke
 			(width 0)
@@ -6067,6 +6113,16 @@
 	)
 	(wire
 		(pts
+			(xy 179.07 43.18) (xy 179.07 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "813c5def-ecbc-4128-9f3f-f7ea871b2afa")
+	)
+	(wire
+		(pts
 			(xy 44.45 54.61) (xy 44.45 52.07)
 		)
 		(stroke
@@ -6257,7 +6313,7 @@
 	)
 	(wire
 		(pts
-			(xy 190.5 91.44) (xy 196.85 91.44)
+			(xy 190.5 91.44) (xy 201.93 91.44)
 		)
 		(stroke
 			(width 0)
@@ -6284,16 +6340,6 @@
 			(type default)
 		)
 		(uuid "a7aab660-41cc-4e22-b83c-0f016db64864")
-	)
-	(wire
-		(pts
-			(xy 179.07 40.64) (xy 179.07 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a931a963-1975-4824-8b74-f74dcf9faf04")
 	)
 	(wire
 		(pts
@@ -6407,7 +6453,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 91.44) (xy 196.85 92.71)
+			(xy 201.93 91.44) (xy 201.93 92.71)
 		)
 		(stroke
 			(width 0)
@@ -6494,16 +6540,6 @@
 			(type default)
 		)
 		(uuid "cb0908da-9772-4552-aec1-0bde603d902a")
-	)
-	(wire
-		(pts
-			(xy 179.07 33.02) (xy 179.07 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdbe1eb4-0766-4017-bd9f-09e4157d5afd")
 	)
 	(wire
 		(pts
@@ -6694,6 +6730,16 @@
 			(type default)
 		)
 		(uuid "f19da92a-1511-4505-ba7d-2295d7b95902")
+	)
+	(wire
+		(pts
+			(xy 157.48 33.02) (xy 157.48 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f37c31e6-15ee-4388-ae92-d8c2c86bd364")
 	)
 	(wire
 		(pts
@@ -7275,6 +7321,16 @@
 		)
 		(uuid "fb75b29a-4ea2-4686-9fb1-640a55d1773a")
 	)
+	(label "+5V_IO"
+		(at 163.83 43.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fd2f68c8-790e-4349-8704-28d66022392a")
+	)
 	(global_label "3V3_IO_SENSE"
 		(shape input)
 		(at 63.5 139.7 0)
@@ -7323,9 +7379,114 @@
 			)
 		)
 	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 193.04 91.44 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6f6c8d8f-494b-468d-b9d8-7338732b49af")
+		(property "Netclass" "3V3"
+			(at 193.7385 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 22.86 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 157.48 39.37 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a18429ba-953a-405f-a101-52d9631ceec2")
+		(property "Netclass" "5V"
+			(at 154.94 38.6715 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -12.7 10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 157.48 24.13 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f934b0f1-e3d5-46eb-bf14-7a8791d5d494")
+		(property "Netclass" "5V"
+			(at 154.94 23.4315 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at -12.7 -5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
 	(symbol
 		(lib_id "0_Diode:D_SS14")
-		(at 179.07 29.21 270)
+		(at 157.48 29.21 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7333,10 +7494,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0c0a066a-3411-4f64-a8ed-38b7bacf4f23")
 		(property "Reference" "D100"
-			(at 181.61 27.9399 90)
+			(at 154.432 26.924 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7347,7 +7507,7 @@
 			)
 		)
 		(property "Value" "SS14"
-			(at 181.61 30.4799 0)
+			(at 160.274 29.464 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7357,7 +7517,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SMA"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7368,7 +7528,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/ss19-d.pdf"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7379,7 +7539,7 @@
 			)
 		)
 		(property "Description" "DIODE SCHOTTKY 40V 1A DO214AC"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7390,7 +7550,7 @@
 			)
 		)
 		(property "Manufacturer" "onsemi"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7401,7 +7561,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "SS14"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7412,7 +7572,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7423,7 +7583,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" "512-SS14"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7434,7 +7594,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7445,7 +7605,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" "SS14CT-ND"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7456,7 +7616,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7467,7 +7627,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 179.07 29.21 0)
+			(at 157.48 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7478,7 +7638,7 @@
 			)
 		)
 		(property "Vf" "500mV@1A"
-			(at 181.61 29.21 0)
+			(at 160.02 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -7489,7 +7649,7 @@
 			)
 		)
 		(property "Imax" "1A"
-			(at 183.134 29.21 0)
+			(at 161.544 29.21 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10058,7 +10218,7 @@
 	)
 	(symbol
 		(lib_id "0_Power:GND")
-		(at 196.85 104.14 0)
+		(at 201.93 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10069,7 +10229,7 @@
 		(fields_autoplaced yes)
 		(uuid "65cdba79-edb5-4da0-8972-283a77cc8334")
 		(property "Reference" "#PWR0125"
-			(at 196.85 110.49 0)
+			(at 201.93 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10080,7 +10240,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 196.85 107.95 0)
+			(at 201.93 107.95 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -10090,7 +10250,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10101,7 +10261,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10112,7 +10272,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10123,7 +10283,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10134,7 +10294,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10145,7 +10305,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10156,7 +10316,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10167,7 +10327,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -10178,7 +10338,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 196.85 104.14 0)
+			(at 201.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13578,7 +13738,7 @@
 	)
 	(symbol
 		(lib_id "0_Power:+5V")
-		(at 179.07 22.86 0)
+		(at 157.48 19.05 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13589,7 +13749,7 @@
 		(fields_autoplaced yes)
 		(uuid "9bcb33ec-9c8a-4f5b-a7c2-8fe77dce5911")
 		(property "Reference" "#PWR0119"
-			(at 179.07 26.67 0)
+			(at 157.48 22.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13600,7 +13760,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 179.07 19.304 0)
+			(at 157.48 15.494 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -13610,7 +13770,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13621,7 +13781,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13632,7 +13792,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13643,7 +13803,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13654,7 +13814,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13665,7 +13825,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13676,7 +13836,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13687,7 +13847,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -13698,7 +13858,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 179.07 22.86 0)
+			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14655,7 +14815,7 @@
 	)
 	(symbol
 		(lib_id "0_Power:+3V3")
-		(at 196.85 88.9 0)
+		(at 201.93 88.9 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14665,7 +14825,7 @@
 		(dnp no)
 		(uuid "ac256614-0b2b-4ba5-b02e-3c1cd7e300d4")
 		(property "Reference" "#PWR0124"
-			(at 196.85 92.71 0)
+			(at 201.93 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14676,7 +14836,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 196.85 85.344 0)
+			(at 201.93 85.344 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -14686,7 +14846,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14697,7 +14857,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14708,7 +14868,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14719,7 +14879,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14730,7 +14890,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14741,7 +14901,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14752,7 +14912,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14763,7 +14923,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -14774,7 +14934,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 196.85 88.9 0)
+			(at 201.93 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15732,7 +15892,7 @@
 	)
 	(symbol
 		(lib_id "0_Capacitor_X7R:C_10uF_0805_10V")
-		(at 196.85 96.52 0)
+		(at 201.93 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15743,7 +15903,7 @@
 		(fields_autoplaced yes)
 		(uuid "cfad2091-c02e-4d0a-a62d-27178e7ab982")
 		(property "Reference" "C108"
-			(at 200.66 95.2499 0)
+			(at 205.74 95.2499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15754,7 +15914,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 200.66 97.7899 0)
+			(at 205.74 97.7899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15765,7 +15925,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 197.8152 100.33 0)
+			(at 202.8952 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15776,7 +15936,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.de/datasheet/3/508/1/UPY_GPHC_X7R_6_3V_TO_250V.pdf"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15787,7 +15947,7 @@
 			)
 		)
 		(property "Description" "CAP CER 10UF 10V X7R 0805"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15798,7 +15958,7 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15809,7 +15969,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "CC0805KFX7R6BB106"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15820,7 +15980,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15831,7 +15991,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" "603-CC0805KFX7R6B106"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15842,7 +16002,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15853,7 +16013,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" "13-CC0805KFX7R6BB106CT-ND"
-			(at 196.85 96.52 0)
+			(at 201.93 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -15864,7 +16024,7 @@
 			)
 		)
 		(property "FootprintSymbol" "0805"
-			(at 198.12 92.964 90)
+			(at 203.2 92.964 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -15874,7 +16034,7 @@
 			)
 		)
 		(property "Dielectric" "X7R"
-			(at 198.12 99.568 90)
+			(at 203.2 99.568 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -15884,7 +16044,7 @@
 			)
 		)
 		(property "Voltage Rating" "10V"
-			(at 195.58 97.79 90)
+			(at 200.66 97.79 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -16242,10 +16402,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e2eb4de9-f825-4e15-883e-e38ba345faec")
 		(property "Reference" "J102"
-			(at 193.04 50.7999 0)
+			(at 187.452 31.496 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16257,6 +16416,7 @@
 		)
 		(property "Value" "1x14"
 			(at 193.04 53.3399 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
