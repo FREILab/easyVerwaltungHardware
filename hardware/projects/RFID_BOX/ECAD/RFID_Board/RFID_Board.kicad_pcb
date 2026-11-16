@@ -326,6 +326,12 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/68d380bb-00a6-4f69-89e4-5abf107c726f")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "6" "7" "8" "9" "12" "4" "3" "11" "10" "2" "5" "13" "con")
+			)
+		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -2650,19 +2656,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aa1b4fca-8a98-425b-ab0c-2d19d7c603a6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
 			(at 0 0 90)
 			(unlocked yes)
@@ -2767,9 +2760,28 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "107df748-9b51-434e-b7de-3340ae3bd880")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/771ddc21-6624-46ea-8f2a-3a91a2a98242")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -2990,6 +3002,22 @@
 		(path "/81486f3b-5b4d-4460-9cce-682b052d5c49")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "2" "3" "49" "1" "40" "41" "42" "43" "44" "45" "46" "47" "48" "4"
+					"5" "6" "7" "8" "9" "10" "11" "12" "13" "14"
+				)
+			)
+			(unit
+				(name "B")
+				(pins "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25" "26")
+			)
+			(unit
+				(name "C")
+				(pins "39" "38" "37" "36" "35" "34" "33" "32" "31" "30" "29" "28" "27")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3725,19 +3753,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Mouser"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "caa8d02c-27a3-4c50-a915-ccba82ef75ef")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Nexperia USA Inc."
 			(at 0 0 270)
 			(unlocked yes)
@@ -3816,9 +3831,28 @@
 				)
 			)
 		)
+		(property "Distributor 1" "Mouser"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "39d39221-51d6-40f0-a3d0-2716338f7c70")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/0503c427-d8e3-4a1c-8b3f-bb4b0a7254e3")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "3" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4181,19 +4215,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9c8cd402-4ebb-48cf-9802-bb301019c536")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06035K10FKEA"
 			(at 0 0 180)
 			(unlocked yes)
@@ -4298,9 +4319,28 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "008ae946-de8e-4cfb-ba8a-1370bdf73b33")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/d4199068-80b0-4a19-b4dd-1d27fe147320")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4439,19 +4479,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "28812caa-6ef7-4264-ad49-021a2db7700e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 270)
 			(unlocked yes)
@@ -4556,9 +4583,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "933ae44b-28de-47f7-978f-1d5ba6d898d5")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/9e175e28-1f19-4c1e-900f-2b83b74e9da0")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4697,19 +4743,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ec07e7c0-e37c-4d18-9237-77c0072811a6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
 			(at 0 0 270)
 			(unlocked yes)
@@ -4814,9 +4847,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "172b010c-7122-41eb-831d-bbdbabd16f5b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b74fa3b9-e0cb-49bb-8646-6cdf2db4735c")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5050,6 +5102,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/6dad895c-dc42-4e21-903d-79fed7434278")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5258,19 +5316,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "28e871f2-9c53-4228-93c5-2aea2f0c9be2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -5375,9 +5420,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d7d17173-755b-47c2-b4e4-97b9cc35615f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/3f304374-df9a-41b8-9a59-a0afd4dc5702")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5611,6 +5675,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/a76f5301-6822-4b1a-93f4-4f282b46da97")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5819,22 +5889,16 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "connector/pin_header_socket"
-			(at 0 0 270)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7e0e64b8-08f7-47c8-9993-6b80a0d9f3e7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/79752a0b-ea47-4364-b16d-53e3fedff363")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2" "3" "4")
+			)
+		)
 		(attr through_hole dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6078,19 +6142,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2a84715b-e218-42ff-96e7-7ccf3aff60a0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 270)
 			(unlocked yes)
@@ -6195,9 +6246,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "54aab9e3-dc93-4595-a278-22363b00721b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/eb7ba642-d3da-453e-a592-a22f3bc4766a")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6413,6 +6483,12 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/b92c4423-3980-4289-8617-e4b59dc280e9")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(clearance 0.5)
 		(zone_connect 0)
 		(attr exclude_from_pos_files exclude_from_bom)
@@ -9049,19 +9125,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0940c90f-84ee-41fa-aafe-a386accee817")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
 			(at 0 0 180)
 			(unlocked yes)
@@ -9166,9 +9229,28 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "092432bc-c0af-4198-a064-c75af762bcab")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/a0898515-3180-4120-805e-f96b38cbc102")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -9307,19 +9389,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "STMicroelectronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "802da761-ec7b-4988-9266-fbdc944cef31")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "USBLC6-2SC6Y"
 			(at 0 0 0)
 			(unlocked yes)
@@ -9385,10 +9454,29 @@
 				)
 			)
 		)
+		(property "Manufacturer" "STMicroelectronics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "912fa296-b1be-423d-b39f-063f4c6d4f57")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "SOT?23*")
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/936cb9d9-a7a2-464b-b34d-03f6997ff99c")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "3" "5" "2" "6" "4")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -9732,19 +9820,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "36606ecd-a697-4dac-8bed-428460042094")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -9849,9 +9924,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93a49d5f-20ef-4ece-9482-d38222ee6d44")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/2435a75c-e347-4873-a878-a6f21c5eca42")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -9990,19 +10084,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8ed1ad06-6bc2-4974-a63b-f44dddc79672")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW080543R0FKEA"
 			(at 0 0 90)
 			(unlocked yes)
@@ -10107,9 +10188,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c8f34d35-9c49-46f2-bcd8-0d4db7dc2f7d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/707e2bfa-d1da-4918-8777-3c4d5a99ab19")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10249,19 +10349,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "247940c1-719f-4bf0-97d3-694a63158938")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -10366,9 +10453,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9a6ffb59-7534-4e0b-ab6a-181bc313882c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/6dcda193-d9ac-45bb-8ba2-ae6417ad354a")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10507,19 +10613,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0c86185f-1830-4adb-91bb-13ce2f9da91f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
 			(at 0 0 270)
 			(unlocked yes)
@@ -10624,9 +10717,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ff7ced53-502a-40d0-85c0-ba2961ebd9da")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/3ca8a772-494c-41ab-96f8-f3a838de3550")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10860,6 +10972,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/59fef370-bf9f-444f-82c2-7fd67c6ca82f")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -11147,6 +11265,14 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/4e9979a1-18fb-4bb1-bad9-650f4a9c251b")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "SH" "A1_B12" "B1_A12" "A4_B9" "B4_A9" "A5" "B5" "A7" "B7" "A6"
+					"B6" "A8" "B8"
+				)
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_poly
@@ -11691,19 +11817,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4b2fb5d2-cd91-47d1-a125-a748a944c8b4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
 			(at 0 0 0)
 			(unlocked yes)
@@ -11808,9 +11921,28 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ac9bde28-37f9-4988-82ba-86d62b97fbdb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/99db0457-67d7-4674-ba59-4b671f2159ac")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -11949,19 +12081,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "825f7d8f-c763-47c7-ac7e-465762150350")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
 			(at 0 0 270)
 			(unlocked yes)
@@ -12066,9 +12185,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3594a3a7-39af-4042-9bc1-04d583b7effe")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/3d0299ce-4197-4b01-9103-be8c813490ce")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12207,19 +12345,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "add1475b-bf33-428a-a9f5-8aba154f7cd2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -12324,9 +12449,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "50de9fbd-ee8f-45b6-8ce8-28c9dc8f0646")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/528a694b-5105-453e-92a9-86f465870fc5")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12465,19 +12609,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ecf87de1-4944-4175-8907-8cfd52c5c0be")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06035K10FKEA"
 			(at 0 0 270)
 			(unlocked yes)
@@ -12582,9 +12713,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "531acfeb-729b-4247-94a4-0488d6aecf41")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/f75a00f6-646a-4950-b3d7-bafafc11e9ac")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12723,19 +12873,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8c993021-d2d4-4915-87d6-5a18d376a143")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 270)
 			(unlocked yes)
@@ -12840,9 +12977,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "389fae9e-ebca-40c2-96e1-675493cfaf8a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/8cce62ac-a318-4623-88c6-f232c71a3f16")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13118,6 +13274,12 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/406ab632-e72a-484e-b4d9-ef458aa676fb")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13386,19 +13548,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "85b2a3c1-43fb-41b5-b7e2-b7190bee06d1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "YAGEO"
 			(at 0 0 90)
 			(unlocked yes)
@@ -13503,9 +13652,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8b89cb29-cdc8-41f8-a4e7-dad268cebff9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/2e84750d-d0bf-48c2-9a27-8d010333bd7d")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13739,6 +13907,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/be0a833c-3d8a-461e-81b9-03475d7cb231")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13946,19 +14120,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "90812369-fd50-40f5-8d32-89d616695216")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "TDK"
 			(at 0 0 180)
 			(unlocked yes)
@@ -14063,9 +14224,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6bc3dcde-87b3-4f96-85f5-273b9131f8df")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/4a66d2e2-803e-49e5-8db3-525c544d2809")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14205,19 +14385,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4468f690-8b49-4963-96f5-1b81bd7b5417")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -14322,9 +14489,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7b8dff0d-544f-4b9b-83f7-7ce19c404c20")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/508cfbd6-70c9-43e3-a9ac-baa1dc72e795")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14463,19 +14649,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d96fc9c4-dcef-4b1a-804d-680073bc67e0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
 			(at 0 0 270)
 			(unlocked yes)
@@ -14580,9 +14753,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "bf949924-3d01-4216-8611-c5a21abceeea")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/f4cce458-acaf-48f7-a272-e91e6164b7e9")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14722,19 +14914,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9181fa17-c320-4e79-a67e-cfde5ef50442")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -14839,9 +15018,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9aee57b5-dd45-4ec5-acac-5f14a3707fa2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/83f7fa85-bd79-4c57-855a-46e5ae1b9256")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14981,19 +15179,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ad484761-14e8-459f-aeb7-26642d54aea5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -15098,9 +15283,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8926d728-20da-4610-a49e-27a501906c05")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/4121e1e8-6acd-4844-bd04-2217395f9027")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15324,6 +15528,12 @@
 		(path "/38aa14b5-df3d-4771-9409-1ee39c2234f0")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "3" "2" "1")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15679,6 +15889,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/76674830-997a-464a-9598-add375a76666")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15981,6 +16197,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/8725e01d-6f9b-476b-bee5-20d8ab8a4602")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -16188,19 +16410,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6c1f9cb4-8726-42ed-87de-4c755333f939")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -16305,9 +16514,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "fb86ff69-c9c0-4372-8d2b-6d229ed32941")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/d15d0e03-9d37-4bbf-8067-f7cb203f2824")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -16541,6 +16769,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/8aae2309-5279-434e-911b-654b984e8a52")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -16749,19 +16983,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3d9e99ed-f782-405b-be9e-2cfbd3e4402f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -16866,9 +17087,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c491fdd8-4fb4-4eff-b4e0-23c09e330138")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/1e6478ab-5d55-4060-9e83-0b522dd59217")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17102,6 +17342,12 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/585dbc75-f2bb-4a41-911b-119a875c3df3")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "4" "1" "2" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17310,19 +17556,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e70c48c0-4045-4321-a69d-a12284c96f47")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -17427,9 +17660,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "10ad75ae-02a2-43a0-8cca-1acdf81317db")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/063cfa97-6958-4727-be5c-22d4d009a1b5")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17567,19 +17819,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7316cfc4-70f4-4529-96f2-29f9b933eaec")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "YAGEO"
 			(at 0 0 270)
 			(unlocked yes)
@@ -17684,9 +17923,28 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "589284f2-6e01-45ad-b25f-cd6afbe5f1d6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/cfad2091-c02e-4d0a-a62d-27178e7ab982")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17911,6 +18169,12 @@
 		(path "/8534de84-4879-40d0-9849-c147b04e8d1e")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -18356,22 +18620,16 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "connector/pin_header_socket"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "618fcff5-e51d-478c-ad50-e708e09276b8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/e8f26701-8e83-44d9-8661-72a77ffe811c")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr through_hole dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -18593,19 +18851,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aa974388-9040-4a8e-b7b3-4c1b8eff8f70")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer" "Texas Instruments"
 			(at 0 0 270)
 			(unlocked yes)
@@ -18671,10 +18916,45 @@
 				)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "88a09ae8-bf9f-45b5-810b-24231741aeef")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "DIP*W7.62mm* SO14* SSOP?14* TSSOP?14* SOIC*3.9x8.7mm*P1.27mm*")
 		(path "/7a5907fd-cb59-43a3-a0be-c85960c93e80")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "2" "1" "3")
+			)
+			(unit
+				(name "B")
+				(pins "5" "4" "6")
+			)
+			(unit
+				(name "C")
+				(pins "9" "10" "8")
+			)
+			(unit
+				(name "D")
+				(pins "12" "13" "11")
+			)
+			(unit
+				(name "E")
+				(pins "14" "7")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -19085,19 +19365,6 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d6e447e3-9578-4996-8504-a921b493e5c5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
 			(at 0 0 90)
 			(unlocked yes)
@@ -19202,9 +19469,28 @@
 				)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "be504aa5-69c9-4def-a01c-b96bd21b376a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/274060d3-0639-4882-9708-a83bc659d576")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -19347,20 +19633,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a888a14e-3679-4dd3-ac18-2f48fc7660a1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A470FA16D"
 			(at 0 0 90)
 			(unlocked yes)
@@ -19473,9 +19745,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "6b17a42f-4a24-42f4-b679-7a376a9efd09")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/db26948d-a1a6-4301-a014-a3699f3813d0")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -19766,6 +20058,12 @@
 		(path "/0c0a066a-3411-4f64-a8ed-38b7bacf4f23")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20039,20 +20337,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "dc20dfb1-ef3e-4801-9d0c-c09b4000c76e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
 			(at 0 0 0)
 			(unlocked yes)
@@ -20165,9 +20449,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "fa7ec9a0-20bf-4373-ad4c-afca6dbaf23a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/202325ed-654d-41cb-84f2-915b5ecddc7c")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20311,20 +20615,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "d0affe0a-6a80-4dd2-9570-1878b8d4ab04")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
 			(at 0 0 180)
 			(unlocked yes)
@@ -20437,9 +20727,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "0db94668-575e-4382-a09f-809b5b87ee93")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/ec121b56-87c5-4d6f-baed-eace1037c856")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20583,20 +20893,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "05cc9b44-8401-4e69-badb-e93ab8d0995c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -20709,9 +21005,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "e22fcb7d-5181-4cf7-9160-0e3d4fb8edae")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/efac6db7-3c0a-4e05-95d4-5c4d8926e809")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20855,20 +21171,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "b48b23e5-1466-4f7b-a136-d3ea47029b02")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "LQW18CNR47J0HD"
 			(at 0 0 90)
 			(unlocked yes)
@@ -20967,9 +21269,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "aef6b2d0-e872-4195-9d6a-34a92174fd8a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/faf1dc26-3cdd-4aca-9728-65f0c3ca2e05")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21115,20 +21437,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "37814e8f-d365-44b9-856a-0e6f332cef51")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GRM21BR61A226ME51K"
 			(at 0 0 180)
 			(unlocked yes)
@@ -21241,9 +21549,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "1eeb38e8-951a-48da-80e2-af2fa9bee4bc")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/1348c476-f492-4ffa-b22a-04accd3e76d3")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21387,20 +21715,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "1536e860-6a7d-48c9-9e08-aa9a55230b14")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
 			(at 0 0 90)
 			(unlocked yes)
@@ -21513,9 +21827,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "9991a136-ef51-4cac-ab54-addc1409ca62")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/1b2c4f7d-584b-4a89-937e-a27be1ae7f08")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21659,20 +21993,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "eb2f44f8-1909-4f0f-bc32-34d2ffb9c34f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
 			(at 0 0 0)
 			(unlocked yes)
@@ -21785,9 +22105,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "4a27937b-864f-4d2b-9eb0-f570f30f20c1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/7e04942f-d8d6-4977-8fc5-3f945a4ff854")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21931,20 +22271,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "1bdcf4c3-20ab-4dff-bd53-444451a5ab3c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060310K0FKEAC"
 			(at 0 0 90)
 			(unlocked yes)
@@ -22057,9 +22383,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "50772724-319f-44b8-9115-29ef9b01a7c4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/2f740d1b-78ea-4c3b-8a47-69c582049d85")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -22203,20 +22549,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "91f190fd-0756-4c8f-9b6b-2ea72bcde1be")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 0)
 			(unlocked yes)
@@ -22329,9 +22661,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "ae0bf9f2-d4b4-459a-84e5-0ad83dd65c1d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/31a33210-4c9e-4d0c-bd20-cf0528f39ed6")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -22594,6 +22946,12 @@
 		(path "/1918c2f7-6a95-4cda-9bd7-948e85cc81bd")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -22935,20 +23293,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "ead3e1fd-1449-4f73-8a45-7c08749d6853")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GRM188Z71C225KE43J"
 			(at 0 0 180)
 			(unlocked yes)
@@ -23061,9 +23405,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "1594d71e-3230-430c-93e2-215f992941b9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/f6327825-380d-484e-8ef9-726b2522ad1a")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23207,20 +23571,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "513db22a-7e7e-44a7-a83c-7c8aeb55fa01")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 90)
 			(unlocked yes)
@@ -23333,9 +23683,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "b7cbf2a5-ee4a-4057-8104-162ed3e91791")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/f406a23f-c584-4bdb-836c-abcf017a6bfa")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23479,20 +23849,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "633c28a5-c17e-45b1-8066-aec2416a75da")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "LQW18CNR47J0HD"
 			(at 0 0 90)
 			(unlocked yes)
@@ -23591,9 +23947,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "741e8bb2-40c1-4b37-887d-b920ed257250")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/408e3c42-721b-46e8-9389-716e27cdeb1d")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23739,20 +24115,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "bac1d9c7-704c-4aa7-b59a-6431b3d49bf2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW12062R49FKEA"
 			(at 0 0 90)
 			(unlocked yes)
@@ -23865,9 +24227,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "c270e940-0543-4daf-844f-24de06c79b1e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/95c383bf-8423-4a62-b411-20b9ee6dd763")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24010,20 +24392,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "65db9632-5876-4ffa-a8e5-8913997b5338")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06031K00FKEAC"
 			(at 0 0 0)
 			(unlocked yes)
@@ -24136,9 +24504,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "db9e59c6-b79c-4e25-922f-d65126d2bc50")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/eeb86a16-30a6-4c01-8765-fa2405a8ed09")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24282,20 +24670,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "b142f037-f5b1-4a95-931e-4c0e8e4cc984")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW12061M00FKEA"
 			(at 0 0 0)
 			(unlocked yes)
@@ -24408,9 +24782,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "5475fd93-2fc5-4b5d-96ce-5d689af92ead")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/81b809c5-f217-4e30-bb9c-ffa250c816ce")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24554,20 +24948,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "860e536b-2be0-447a-8250-32c03af6eae7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 180)
 			(unlocked yes)
@@ -24680,9 +25060,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "c6da35da-e5fc-4266-b2c8-8a2c6a6ed677")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/16cf118d-5bd2-416e-a14a-ec2c7dd1f50a")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24826,20 +25226,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Vishay Dale"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "65666469-187a-414f-ac26-129e7fc3305d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060312K0FKEAC"
 			(at 0 0 180)
 			(unlocked yes)
@@ -24952,9 +25338,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Vishay Dale"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "5319697f-b4f7-4b4e-9f1b-9de1b6149f76")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/d3d12583-b94a-46e6-ad77-aa562bb628ec")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25098,20 +25504,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "5d1caecd-aad2-4510-9876-fdade8249afc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
 			(at 0 0 0)
 			(unlocked yes)
@@ -25224,9 +25616,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "0831e1af-c309-4928-9663-fe0b2d1ac33a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/fe0c031b-a50b-4212-868f-51ea5edf4b6b")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25370,20 +25782,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "4d52c293-7b5e-493f-8f87-73d0e105e476")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW12062R49FKEA"
 			(at 0 0 90)
 			(unlocked yes)
@@ -25496,9 +25894,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "bc4edad6-a4a5-4531-a7a5-a0eff21fdc02")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/3a18fd2b-5fe4-492c-a300-9ad352128476")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25642,20 +26060,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "d0594428-b32e-40ae-92a9-d84355bc57c8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A121FA16J"
 			(at 0 0 0)
 			(unlocked yes)
@@ -25768,9 +26172,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "6daf3d4d-5f4c-4a2d-a7e2-aff27e4b5c91")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/75445c74-39ad-4c44-9570-92cf4eceaf29")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25914,20 +26338,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "1411ed95-ac63-4341-8d52-a17d86f02589")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 180)
 			(unlocked yes)
@@ -26040,9 +26450,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "f5a5ae37-a1c9-4936-b683-4823a4c24090")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/0c657136-9ed5-49ad-8219-11b9bea81838")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26186,20 +26616,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "bebde1ce-8ef0-4da7-ae22-42803b21e8a3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 90)
 			(unlocked yes)
@@ -26312,9 +26728,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "de92ab3f-9c89-42df-8960-fa3b91bc3415")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/26e9f766-969b-47ab-8b57-abdd927043cb")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26458,20 +26894,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "e90c4b2d-b074-4cdd-a347-ea0ecbd003fe")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A470FA16D"
 			(at 0 0 90)
 			(unlocked yes)
@@ -26584,9 +27006,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "06c68577-2f2c-4cbe-9d7f-4a0282d9067e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/dcfbc489-e279-4ef0-a565-ea8515083dcd")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26730,20 +27172,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "c0031159-8634-45a1-9fdc-36e68e10fe64")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "TDK"
 			(at 0 0 270)
 			(unlocked yes)
@@ -26856,9 +27284,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "343e7a87-49bb-4cca-a488-9ec4870ffb08")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/fd44c5c9-bd90-48bc-bcc9-6a60f40279cc")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27002,20 +27450,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "e981136c-d2c6-48ea-a583-a2509fe39e00")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GRM188R71E474KA12D"
 			(at 0 0 90)
 			(unlocked yes)
@@ -27128,9 +27562,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "2555b005-09ce-4ad7-838e-c7e6f8308246")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/7769c65b-0a71-438b-beb3-6dbe526142de")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27274,20 +27728,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "7b046119-ffbc-4dcf-ab43-90a3d8706de3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A102JA16D"
 			(at 0 0 180)
 			(unlocked yes)
@@ -27400,9 +27840,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "c54b9864-b0a5-4d14-adad-d7cf930b5ce9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/162d0823-5f16-426e-8395-69e046fc9903")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27546,20 +28006,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "0a881d84-1177-461b-b716-451d2d0e1092")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "TDK"
 			(at 0 0 270)
 			(unlocked yes)
@@ -27672,9 +28118,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "850b4f87-54a8-49d4-86f3-68f8567fb53c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/f1711585-14b6-4988-8285-664c5e1b16bb")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27818,20 +28284,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "86e5726d-0b3a-490f-b83a-0c7419ec4204")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GRM31CR71E106KA12L"
 			(at 0 0 180)
 			(unlocked yes)
@@ -27944,9 +28396,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "bf29dcbd-94b3-4e5e-861d-8153160e7002")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/8718b4ea-77ad-4a35-bedf-79bd21f77c3f")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -28179,6 +28651,12 @@
 		(path "/e2eb4de9-f825-4e15-883e-e38ba345faec")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -28703,20 +29181,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "79551a2e-c26a-43dd-addc-24df12fe667c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 270)
 			(unlocked yes)
@@ -28829,9 +29293,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "280abe23-736b-4094-94b0-a5841e16e88b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/54dfbe16-b337-44dd-abce-05633385c8a2")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -28974,20 +29458,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 315)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "1e97bf36-42e7-4b1e-b3a4-aa8ecf05d5b7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "XRCGB27M120F3M10R0"
 			(at 0 0 315)
 			(unlocked yes)
@@ -29086,9 +29556,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 135)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "d82b4b08-1256-4750-8ab5-6976d1879cac")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/b63a905b-c380-426b-abeb-7600e29aeac7")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2" "4" "3")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -29256,20 +29746,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "67d43219-7c60-4e90-9980-28e4383d0b05")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 270)
 			(unlocked yes)
@@ -29382,9 +29858,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "2ee4937e-b2b9-4c07-a319-5685f7133a1d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/55a6d804-7f84-471c-b5a9-d52ff8e2bfe0")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -29528,20 +30024,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "736de18a-a856-47c9-9ad5-2833f804468e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GRM21BR61A226ME51K"
 			(at 0 0 180)
 			(unlocked yes)
@@ -29654,9 +30136,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "92bd5e88-addf-4809-b25b-ab9dd89957ef")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/b7981124-2058-4bb0-b506-6b4f4b31e7dd")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -29800,20 +30302,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "3ea08958-37d0-497b-906b-aa1dc1a920a9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW060312K0FKEAC"
 			(at 0 0 180)
 			(unlocked yes)
@@ -29926,9 +30414,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "3fc4fe07-2e1f-47e8-97ba-7c787bf84b71")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/e6e34509-99b7-49bf-8797-4e9ebfe964d7")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30072,20 +30580,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "c7c82e4b-1a0f-40f8-8b48-a956b0a17306")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GRM188R71E474KA12D"
 			(at 0 0 90)
 			(unlocked yes)
@@ -30198,9 +30692,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "77a77e77-a2c8-4e0d-9966-a6012d90ab7c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/b03449eb-e65d-4775-808f-7ed957351153")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30344,20 +30858,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a50dd00c-a7ee-4540-a9a4-3b1f58273709")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "CRCW06030000Z0EBC"
 			(at 0 0 180)
 			(unlocked yes)
@@ -30470,9 +30970,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "fe66fa28-f3bd-4543-8b3f-479e64a99469")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/a1f82095-808f-4a2d-be74-eca991929317")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30616,20 +31136,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Mouser"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "8bb8f161-2a07-425f-a214-cf4aea065b9e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "NXP USA Inc."
 			(at 0 0 45)
 			(unlocked yes)
@@ -30700,10 +31206,38 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 1" "Mouser"
+			(at 0 0 225)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "67a6bdfe-4e05-44e6-83c1-a504508c8a7c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "QFN28_MQ_MCH QFN28_MQ_MCH-M QFN28_MQ_MCH-L")
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/09fcf334-807d-4d11-9ada-9166aeb16b12")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "28" "29" "30" "31" "32" "23" "24" "21" "26" "27" "13" "14" "17"
+					"16" "15" "12"
+				)
+			)
+			(unit
+				(name "B")
+				(pins "1" "2" "3" "4" "5" "6" "10" "11" "22" "19" "20" "18" "25" "8"
+					"7" "9" "33"
+				)
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -31485,20 +32019,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Murata Electronics"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "0d28d29e-5a16-4cd9-8940-35afa30d17b4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer Part Number" "GCM1885C2A102JA16D"
 			(at 0 0 0)
 			(unlocked yes)
@@ -31611,9 +32131,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "dc9d1e95-6f9a-406c-837b-600e4eed0112")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/0b9128f1-09f5-42c9-9cbb-40569d46599c")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -31757,20 +32297,6 @@
 				(justify mirror)
 			)
 		)
-		(property "KiLib_Generator" "Digi-Key"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "8e229006-aaf2-4751-b68a-c02ec28d06ea")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Manufacturer" "Würth Elektronik"
 			(at 0 0 180)
 			(unlocked yes)
@@ -31883,9 +32409,29 @@
 				(justify mirror)
 			)
 		)
+		(property "Distributor 2" "Digi-Key"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "b6e7eece-55ef-4f0f-b012-2746ee2c0943")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/72234633-2443-4d32-bfdf-adc52da12947")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
