@@ -46,7 +46,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(property "Footprint" "aa_Passives:C_0603_1608Metric"
 				(at 0.9652 -3.81 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1405,7 +1405,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 141.9352 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -1872,7 +1872,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 202.8952 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -2051,7 +2051,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 141.9352 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -2374,7 +2374,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 111.4552 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -2553,7 +2553,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 111.4552 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -2875,7 +2875,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 202.8952 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -4128,7 +4128,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 172.4152 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -4905,7 +4905,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0603_1608Metric"
 			(at 172.4152 93.98 0)
 			(hide yes)
 			(show_name no)

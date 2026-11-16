@@ -46,7 +46,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+			(property "Footprint" "aa_Passives:C_1206_3216Metric"
 				(at 0.9652 -3.81 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -2578,7 +2578,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(property "Footprint" "aa_Passives:R_1206_3216Metric"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -2805,7 +2805,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(property "Footprint" "aa_Passives:R_0603_1608Metric"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -4872,7 +4872,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+		(property "Footprint" "aa_Passives:R_1206_3216Metric"
 			(at 201.422 124.46 90)
 			(hide yes)
 			(show_name no)
@@ -5357,7 +5357,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "aa_Passives:R_0603_1608Metric"
 			(at 158.242 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -5680,7 +5680,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+		(property "Footprint" "aa_Passives:C_1206_3216Metric"
 			(at 194.0052 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -5857,7 +5857,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "aa_Passives:R_0603_1608Metric"
 			(at 150.622 114.3 90)
 			(hide yes)
 			(show_name no)
