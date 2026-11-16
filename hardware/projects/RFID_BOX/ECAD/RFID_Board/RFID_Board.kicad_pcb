@@ -40424,7 +40424,7 @@
 	)
 	(via
 		(at 179.25664 84.481722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "GND")
@@ -40536,7 +40536,7 @@
 	)
 	(via
 		(at 148.5 46.2)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "GND")
@@ -40608,7 +40608,7 @@
 	)
 	(via
 		(at 148.5 51.6)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "GND")
@@ -40928,7 +40928,7 @@
 	)
 	(via
 		(at 148.5 50.2)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "GND")
@@ -41424,7 +41424,7 @@
 	)
 	(via
 		(at 166.3 69.3)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/LCD/LED-")
@@ -41496,7 +41496,7 @@
 	)
 	(via
 		(at 169.2 63)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/LCD/LED+")
@@ -41568,7 +41568,7 @@
 	)
 	(via
 		(at 165.6 55)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/LCD_RST#")
@@ -41599,7 +41599,7 @@
 		(uuid "fb31a5a9-f882-4dcd-ba28-11f8d2db07f5")
 	)
 	(segment
-		(start 165.7 44.7)
+		(start 165.662 44.745)
 		(end 165.745 44.655)
 		(width 0.2)
 		(layer "F.Cu")
@@ -41615,8 +41615,8 @@
 		(uuid "4ae8c8ee-cb24-4b56-93e6-07a1bb8cf2c8")
 	)
 	(via
-		(at 165.7 44.7)
-		(size 0.5)
+		(at 165.662 44.745)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/LCD_RS")
@@ -41624,7 +41624,7 @@
 	)
 	(segment
 		(start 163.5 46.9)
-		(end 165.7 44.7)
+		(end 165.662 44.745)
 		(width 0.2)
 		(layer "B.Cu")
 		(net "/LCD_RS")
@@ -41679,7 +41679,7 @@
 		(uuid "1314e0ec-88ad-4f4c-b335-11f9497a4157")
 	)
 	(segment
-		(start 161.761091 50.538909)
+		(start 161.796 50.574)
 		(end 160.7 51.6)
 		(width 0.2)
 		(layer "F.Cu")
@@ -41703,7 +41703,7 @@
 		(uuid "3ed757c5-4402-47f6-9969-7b7cb3a1a57d")
 	)
 	(segment
-		(start 161.761091 50.538909)
+		(start 161.796 50.574)
 		(end 161.761091 50.438909)
 		(width 0.2)
 		(layer "F.Cu")
@@ -41751,8 +41751,8 @@
 		(uuid "36489215-179b-40dd-a258-0048bc3f16f1")
 	)
 	(via
-		(at 161.761091 50.538909)
-		(size 0.5)
+		(at 161.796 50.574)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/SPI_MOSI")
@@ -41791,7 +41791,7 @@
 		(uuid "78f0d353-c856-49cf-8690-4794c0c7c8d0")
 	)
 	(segment
-		(start 161.761091 50.538909)
+		(start 161.796 50.574)
 		(end 161.638909 50.538909)
 		(width 0.2)
 		(layer "B.Cu")
@@ -41823,7 +41823,7 @@
 		(uuid "e83e0693-3c88-48ca-a851-c027fad1d112")
 	)
 	(segment
-		(start 162.95 50.95)
+		(start 162.873 50.765)
 		(end 162.95 49.95)
 		(width 0.2)
 		(layer "F.Cu")
@@ -41848,7 +41848,7 @@
 	)
 	(segment
 		(start 161.1 52.8)
-		(end 162.95 50.95)
+		(end 162.873 50.765)
 		(width 0.2)
 		(layer "F.Cu")
 		(net "/SPI_SCK")
@@ -41895,8 +41895,8 @@
 		(uuid "3bbc3c77-ceaf-4574-bb02-5e62913c59f9")
 	)
 	(via
-		(at 162.95 50.95)
-		(size 0.5)
+		(at 162.873 50.765)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/SPI_SCK")
@@ -41912,7 +41912,7 @@
 	)
 	(segment
 		(start 160.159999 48.159999)
-		(end 162.95 50.95)
+		(end 162.873 50.765)
 		(width 0.2)
 		(layer "B.Cu")
 		(net "/SPI_SCK")
@@ -42088,7 +42088,7 @@
 	)
 	(via
 		(at 156.8 47)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42096,7 +42096,7 @@
 	)
 	(via
 		(at 171.25 67.25)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42112,7 +42112,7 @@
 	)
 	(via
 		(at 176.2 78.6)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42120,7 +42120,7 @@
 	)
 	(via
 		(at 117.2 71.3)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42128,7 +42128,7 @@
 	)
 	(via
 		(at 176.4 75.4)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42136,7 +42136,7 @@
 	)
 	(via
 		(at 165.8 50.6)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42160,7 +42160,7 @@
 	)
 	(via
 		(at 180.85664 84.481722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+3V3")
@@ -42416,7 +42416,7 @@
 	)
 	(via
 		(at 166.5 45.6)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/SPI_CS_LCD")
@@ -42536,7 +42536,7 @@
 	)
 	(segment
 		(start 183.552017 43.8)
-		(end 183.53749 43.814527)
+		(end 183.502 43.85)
 		(width 0.2)
 		(layer "F.Cu")
 		(net "Net-(IC100A-EN)")
@@ -42583,8 +42583,8 @@
 		(uuid "b2edb8bf-11b4-46fa-9778-deac71406e6e")
 	)
 	(segment
-		(start 179.9 54.7)
-		(end 179.9 55.8)
+		(start 179.9 54.65)
+		(end 179.9 55.85)
 		(width 0.2)
 		(layer "F.Cu")
 		(net "Net-(IC100A-EN)")
@@ -42608,38 +42608,38 @@
 	)
 	(via
 		(at 179.7 66.1)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC100A-EN)")
 		(uuid "182d44e4-ddfc-475c-8fd1-234d51967a04")
 	)
 	(via
-		(at 179.9 55.8)
-		(size 0.5)
+		(at 179.9 55.85)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC100A-EN)")
 		(uuid "19eabb54-0c44-40bb-96d3-587769863a1e")
 	)
 	(via
-		(at 179.9 54.7)
-		(size 0.5)
+		(at 179.9 54.65)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC100A-EN)")
 		(uuid "44403311-83d6-48e0-b15f-f368ef20244e")
 	)
 	(via
-		(at 183.53749 43.814527)
-		(size 0.5)
+		(at 183.502 43.85)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC100A-EN)")
 		(uuid "a97f6d16-af02-45aa-93dc-de5757146ffb")
 	)
 	(segment
-		(start 179.9 55.8)
+		(start 179.9 55.85)
 		(end 179.7 56)
 		(width 0.2)
 		(layer "B.Cu")
@@ -42655,7 +42655,7 @@
 		(uuid "811bf6c2-75d7-4212-b770-b6a4fe5d7b74")
 	)
 	(segment
-		(start 183.53749 43.814527)
+		(start 183.502 43.85)
 		(end 183.53749 53.06251)
 		(width 0.2)
 		(layer "B.Cu")
@@ -42672,7 +42672,7 @@
 	)
 	(segment
 		(start 181.9 54.7)
-		(end 179.9 54.7)
+		(end 179.9 54.65)
 		(width 0.2)
 		(layer "B.Cu")
 		(net "Net-(IC100A-EN)")
@@ -42720,7 +42720,7 @@
 	)
 	(via
 		(at 182.8 42.8)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/V24_SENSE")
@@ -42776,7 +42776,7 @@
 	)
 	(via
 		(at 181.9 36.7)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/ISO_EN")
@@ -42864,7 +42864,7 @@
 	)
 	(via
 		(at 181.1 36.2)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/relay_en_LS")
@@ -42920,7 +42920,7 @@
 	)
 	(via
 		(at 178.7 38.2)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/aux_en")
@@ -42960,7 +42960,7 @@
 	)
 	(via
 		(at 176.6 42)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/EXT_IO")
@@ -42991,7 +42991,7 @@
 		(uuid "e4d0ca2d-43ba-43c6-81c4-4efd31ac7f16")
 	)
 	(segment
-		(start 177.855663 35.888249)
+		(start 177.926 35.959)
 		(end 177.311751 35.888249)
 		(width 0.2)
 		(layer "F.Cu")
@@ -43015,8 +43015,8 @@
 		(uuid "5f0b7467-7817-4d73-8ecb-87b1e284da82")
 	)
 	(via
-		(at 177.855663 35.888249)
-		(size 0.5)
+		(at 177.926 35.959)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/UART_MCU2MCP")
@@ -43031,7 +43031,7 @@
 		(uuid "9d09c918-8c4a-47a5-94cb-bfdc0ffceae8")
 	)
 	(segment
-		(start 177.855663 35.888249)
+		(start 177.926 35.959)
 		(end 177.855663 35.555663)
 		(width 0.2)
 		(layer "B.Cu")
@@ -43064,7 +43064,7 @@
 	)
 	(via
 		(at 174.6 38.3)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/UART_MCP2MCU")
@@ -43128,7 +43128,7 @@
 	)
 	(via
 		(at 172.7 38.7)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/relay_en_HS")
@@ -43840,7 +43840,7 @@
 	)
 	(via
 		(at 171.3 56.1)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/Buzzer_HS_en")
@@ -43848,7 +43848,7 @@
 	)
 	(via
 		(at 168.6 30)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/Buzzer_HS_en")
@@ -43984,7 +43984,7 @@
 	)
 	(via
 		(at 165.3 60)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/STOP")
@@ -43992,7 +43992,7 @@
 	)
 	(via
 		(at 118.9 71.3)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/STOP")
@@ -44152,7 +44152,7 @@
 	)
 	(via
 		(at 173.8 29.3)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/RGB_LED_Data")
@@ -44160,7 +44160,7 @@
 	)
 	(via
 		(at 184 56.1)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "/RGB_LED_Data")
@@ -44304,7 +44304,7 @@
 	)
 	(via
 		(at 185.525 56.075)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "3V3_IO_SENSE")
@@ -44768,7 +44768,7 @@
 	)
 	(via
 		(at 172.1 64.4)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "+5V")
@@ -46144,7 +46144,7 @@
 	)
 	(via
 		(at 169.65664 100.881722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC200A-VMID)")
@@ -46152,7 +46152,7 @@
 	)
 	(via
 		(at 180.05664 98.181722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC200A-VMID)")
@@ -46232,7 +46232,7 @@
 	)
 	(via
 		(at 181.15664 100.806722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC200A-RXP)")
@@ -46240,7 +46240,7 @@
 	)
 	(via
 		(at 180.75664 94.881722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC200A-RXP)")
@@ -46696,7 +46696,7 @@
 	)
 	(via
 		(at 181.05664 93.381722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC200B-AVDD)")
@@ -46704,7 +46704,7 @@
 	)
 	(via
 		(at 176.85664 87.481722)
-		(size 0.5)
+		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(IC200B-AVDD)")
