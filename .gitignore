@@ -35,3 +35,7 @@ _autosave-*
 # KiCoil — aus generate.sh erzeugte Konturen
 hardware/projects/RFID_BOX/ECAD/RFID_Board/antenna/*.svg
 /docs/Review
+
+# Python-Bytecode
+__pycache__/
+*.pyc
