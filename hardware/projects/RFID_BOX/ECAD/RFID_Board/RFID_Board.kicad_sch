@@ -3133,7 +3133,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+			(property "Footprint" "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -10859,7 +10859,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "aa_MyParts:PinHeader_1x04_P2.54mm_Vertical"
 			(at 77.47 189.23 0)
 			(hide yes)
 			(show_name no)
@@ -10944,7 +10944,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+		(property "Footprint" "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 210.82 154.94 0)
 			(hide yes)
 			(show_name no)
@@ -11125,7 +11125,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+		(property "Footprint" "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 110.49 179.07 0)
 			(hide yes)
 			(show_name no)
@@ -11306,7 +11306,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+		(property "Footprint" "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 179.07 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -11488,7 +11488,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+		(property "Footprint" "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 251.46 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -11669,7 +11669,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+		(property "Footprint" "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 179.07 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -16608,7 +16608,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "aa_MyParts:PinHeader_1x02_P2.54mm_Vertical"
 			(at 157.48 160.02 0)
 			(hide yes)
 			(show_name no)

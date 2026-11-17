@@ -3701,7 +3701,7 @@
 			)
 		)
 	)
-	(footprint "Package_TO_SOT_SMD:SOT-23"
+	(footprint "aa_MyParts:SOT-23"
 		(layer "F.Cu")
 		(uuid "18132c15-4b28-41cc-99fc-c959d9953b63")
 		(at 167.6 67.7 -90)
@@ -5836,7 +5836,7 @@
 			)
 		)
 	)
-	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
+	(footprint "aa_MyParts:PinHeader_1x04_P2.54mm_Vertical"
 		(locked yes)
 		(layer "F.Cu")
 		(uuid "409eb9ef-5200-483b-b505-504b04c77c4a")
@@ -9337,7 +9337,7 @@
 			)
 		)
 	)
-	(footprint "Package_TO_SOT_SMD:SOT-23-6"
+	(footprint "aa_MyParts:SOT-23-6"
 		(layer "F.Cu")
 		(uuid "53ac8f95-3c42-4d2b-878f-21e0b3708a8e")
 		(at 180.1 34.4)
@@ -17690,7 +17690,7 @@
 			)
 		)
 	)
-	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+	(footprint "aa_MyParts:PinHeader_1x02_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "f40d4b3a-27ac-4eeb-81fe-c3bb72e089e0")
 		(at 112.6 69.225)
@@ -17921,7 +17921,7 @@
 			)
 		)
 	)
-	(footprint "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+	(footprint "aa_MyParts:SOIC-14_3.9x8.7mm_P1.27mm"
 		(layer "F.Cu")
 		(uuid "f95977f4-cc31-4703-9317-ed89dbd768bf")
 		(at 171.3 29.8 -90)
@@ -20237,7 +20237,7 @@
 			)
 		)
 	)
-	(footprint "Inductor_SMD:L_0603_1608Metric"
+	(footprint "aa_MyParts:L_0603_1608Metric"
 		(layer "B.Cu")
 		(uuid "10ff6d08-1b90-46cb-963e-d4a0f3d9d644")
 		(at 177.65664 102.981722 -90)
@@ -22913,7 +22913,7 @@
 			)
 		)
 	)
-	(footprint "Inductor_SMD:L_0603_1608Metric"
+	(footprint "aa_MyParts:L_0603_1608Metric"
 		(layer "B.Cu")
 		(uuid "5ceb7050-c5ca-40c7-85c4-80b2a816551f")
 		(at 175.35664 103.081722 -90)

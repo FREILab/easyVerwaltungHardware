@@ -2005,7 +2005,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(property "Footprint" "aa_MyParts:SOT-23"
 				(at 5.08 2.54 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -2990,7 +2990,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "aa_MyParts:SOT-23"
 			(at 139.7 104.14 0)
 			(hide yes)
 			(show_name no)
