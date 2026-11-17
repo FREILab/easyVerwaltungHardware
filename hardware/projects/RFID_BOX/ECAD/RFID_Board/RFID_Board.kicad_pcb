@@ -326,12 +326,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/68d380bb-00a6-4f69-89e4-5abf107c726f")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "6" "7" "8" "9" "12" "4" "3" "11" "10" "2" "5" "13" "con")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -2539,7 +2533,7 @@
 			)
 		)
 		(group ""
-			(uuid "fb1bbb25-a6a4-4c0c-96a2-b46a319c94b8")
+			(uuid "22508c17-342a-438d-9576-72df7a654dc8")
 			(members "02fbda38-6c7d-464e-9911-2a8da4b83fb9" "1f13ce41-5fa1-447a-9a4a-0bc15dabd110"
 				"3628b3a5-ad2b-4a87-b819-b04cdf6f0ce5" "3b7328fe-be32-4398-8c14-643430f5da79"
 				"6d965e5f-d1d7-45d5-8bb3-7a506601f18f" "ab37bc90-9c9e-49ad-9226-a0a5e89db0bd"
@@ -2549,7 +2543,7 @@
 			)
 		)
 		(group ""
-			(uuid "22508c17-342a-438d-9576-72df7a654dc8")
+			(uuid "fb1bbb25-a6a4-4c0c-96a2-b46a319c94b8")
 			(members "00fee8ba-cbb1-4e6d-bef8-9c078d584dd5" "02f689b9-6766-4b85-8641-b0e38462d0e2"
 				"064b54d2-7af0-4845-b32c-cfc4f1254de3" "065800f4-b12c-4613-8d3c-626dbec59ba8"
 				"0852da5f-e042-4ded-9d35-741117e64a28" "0867c399-4acc-4660-b1fe-6f04760e5b5e"
@@ -2776,12 +2770,6 @@
 		(path "/771ddc21-6624-46ea-8f2a-3a91a2a98242")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3002,22 +2990,6 @@
 		(path "/81486f3b-5b4d-4460-9cce-682b052d5c49")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "2" "3" "49" "1" "40" "41" "42" "43" "44" "45" "46" "47" "48" "4"
-					"5" "6" "7" "8" "9" "10" "11" "12" "13" "14"
-				)
-			)
-			(unit
-				(name "B")
-				(pins "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25" "26")
-			)
-			(unit
-				(name "C")
-				(pins "39" "38" "37" "36" "35" "34" "33" "32" "31" "30" "29" "28" "27")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3847,12 +3819,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/0503c427-d8e3-4a1c-8b3f-bb4b0a7254e3")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "3" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4335,12 +4301,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/d4199068-80b0-4a19-b4dd-1d27fe147320")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4599,12 +4559,6 @@
 		(path "/9e175e28-1f19-4c1e-900f-2b83b74e9da0")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4863,12 +4817,6 @@
 		(path "/b74fa3b9-e0cb-49bb-8646-6cdf2db4735c")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5102,12 +5050,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/6dad895c-dc42-4e21-903d-79fed7434278")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5436,12 +5378,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/3f304374-df9a-41b8-9a59-a0afd4dc5702")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5675,12 +5611,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/a76f5301-6822-4b1a-93f4-4f282b46da97")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5893,12 +5823,6 @@
 		(path "/79752a0b-ea47-4364-b16d-53e3fedff363")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2" "3" "4")
-			)
-		)
 		(attr through_hole dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6262,12 +6186,6 @@
 		(path "/eb7ba642-d3da-453e-a592-a22f3bc4766a")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6483,12 +6401,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/b92c4423-3980-4289-8617-e4b59dc280e9")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(clearance 0.5)
 		(zone_connect 0)
 		(attr exclude_from_pos_files exclude_from_bom)
@@ -9245,12 +9157,6 @@
 		(path "/a0898515-3180-4120-805e-f96b38cbc102")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -9471,12 +9377,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/936cb9d9-a7a2-464b-b34d-03f6997ff99c")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "3" "5" "2" "6" "4")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -9940,12 +9840,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/2435a75c-e347-4873-a878-a6f21c5eca42")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10204,12 +10098,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/707e2bfa-d1da-4918-8777-3c4d5a99ab19")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10469,12 +10357,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/6dcda193-d9ac-45bb-8ba2-ae6417ad354a")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10733,12 +10615,6 @@
 		(path "/3ca8a772-494c-41ab-96f8-f3a838de3550")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -10972,12 +10848,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/59fef370-bf9f-444f-82c2-7fd67c6ca82f")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -11265,14 +11135,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/4e9979a1-18fb-4bb1-bad9-650f4a9c251b")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "SH" "A1_B12" "B1_A12" "A4_B9" "B4_A9" "A5" "B5" "A7" "B7" "A6"
-					"B6" "A8" "B8"
-				)
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_poly
@@ -11937,12 +11799,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/99db0457-67d7-4674-ba59-4b671f2159ac")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12201,12 +12057,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/3d0299ce-4197-4b01-9103-be8c813490ce")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12465,12 +12315,6 @@
 		(path "/528a694b-5105-453e-92a9-86f465870fc5")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12729,12 +12573,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/f75a00f6-646a-4950-b3d7-bafafc11e9ac")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -12993,12 +12831,6 @@
 		(path "/8cce62ac-a318-4623-88c6-f232c71a3f16")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13274,12 +13106,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/406ab632-e72a-484e-b4d9-ef458aa676fb")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13643,12 +13469,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/be0a833c-3d8a-461e-81b9-03475d7cb231")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -13976,12 +13796,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/4a66d2e2-803e-49e5-8db3-525c544d2809")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14241,12 +14055,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/508cfbd6-70c9-43e3-a9ac-baa1dc72e795")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14505,12 +14313,6 @@
 		(path "/f4cce458-acaf-48f7-a272-e91e6164b7e9")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -14770,12 +14572,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/83f7fa85-bd79-4c57-855a-46e5ae1b9256")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15035,12 +14831,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/4121e1e8-6acd-4844-bd04-2217395f9027")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15274,12 +15064,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/76674830-997a-464a-9598-add375a76666")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15582,12 +15366,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/8725e01d-6f9b-476b-bee5-20d8ab8a4602")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -15915,12 +15693,6 @@
 		(path "/d15d0e03-9d37-4bbf-8067-f7cb203f2824")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -16154,12 +15926,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/8aae2309-5279-434e-911b-654b984e8a52")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -16488,12 +16254,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/1e6478ab-5d55-4060-9e83-0b522dd59217")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -16727,12 +16487,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/585dbc75-f2bb-4a41-911b-119a875c3df3")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "4" "1" "2" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17061,12 +16815,6 @@
 		(path "/5078c601-42e0-4826-9dec-726a7cc967fe/063cfa97-6958-4727-be5c-22d4d009a1b5")
 		(sheetname "/RGB Panel/")
 		(sheetfile "RGB_Panel.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17291,12 +17039,6 @@
 		(path "/8534de84-4879-40d0-9849-c147b04e8d1e")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -17746,12 +17488,6 @@
 		(path "/e8f26701-8e83-44d9-8661-72a77ffe811c")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -18055,28 +17791,6 @@
 		(path "/7a5907fd-cb59-43a3-a0be-c85960c93e80")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "2" "1" "3")
-			)
-			(unit
-				(name "B")
-				(pins "5" "4" "6")
-			)
-			(unit
-				(name "C")
-				(pins "9" "10" "8")
-			)
-			(unit
-				(name "D")
-				(pins "12" "13" "11")
-			)
-			(unit
-				(name "E")
-				(pins "14" "7")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -18607,12 +18321,6 @@
 		(path "/274060d3-0639-4882-9708-a83bc659d576")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -18884,12 +18592,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/db26948d-a1a6-4301-a014-a3699f3813d0")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -19180,12 +18882,6 @@
 		(path "/0c0a066a-3411-4f64-a8ed-38b7bacf4f23")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -19588,12 +19284,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/202325ed-654d-41cb-84f2-915b5ecddc7c")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -19866,12 +19556,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/ec121b56-87c5-4d6f-baed-eace1037c856")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20144,12 +19828,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/efac6db7-3c0a-4e05-95d4-5c4d8926e809")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20408,12 +20086,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/faf1dc26-3cdd-4aca-9728-65f0c3ca2e05")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20688,12 +20360,6 @@
 		(path "/1348c476-f492-4ffa-b22a-04accd3e76d3")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -20966,12 +20632,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/1b2c4f7d-584b-4a89-937e-a27be1ae7f08")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21244,12 +20904,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/7e04942f-d8d6-4977-8fc5-3f945a4ff854")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21522,12 +21176,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/2f740d1b-78ea-4c3b-8a47-69c582049d85")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -21800,12 +21448,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/31a33210-4c9e-4d0c-bd20-cf0528f39ed6")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -22066,12 +21708,6 @@
 		(path "/1918c2f7-6a95-4cda-9bd7-948e85cc81bd")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -22542,12 +22178,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/f6327825-380d-484e-8ef9-726b2522ad1a")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -22820,12 +22450,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/f406a23f-c584-4bdb-836c-abcf017a6bfa")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23084,12 +22708,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/408e3c42-721b-46e8-9389-716e27cdeb1d")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23364,12 +22982,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/95c383bf-8423-4a62-b411-20b9ee6dd763")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23641,12 +23253,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/eeb86a16-30a6-4c01-8765-fa2405a8ed09")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -23919,12 +23525,6 @@
 		(path "/3fb16352-6a8f-4acd-833e-0f2e6d68ac25/81b809c5-f217-4e30-bb9c-ffa250c816ce")
 		(sheetname "/USB/")
 		(sheetfile "USB.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24197,12 +23797,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/16cf118d-5bd2-416e-a14a-ec2c7dd1f50a")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24475,12 +24069,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/d3d12583-b94a-46e6-ad77-aa562bb628ec")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -24753,12 +24341,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/fe0c031b-a50b-4212-868f-51ea5edf4b6b")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25031,12 +24613,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/3a18fd2b-5fe4-492c-a300-9ad352128476")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25309,12 +24885,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/75445c74-39ad-4c44-9570-92cf4eceaf29")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25587,12 +25157,6 @@
 		(path "/0c657136-9ed5-49ad-8219-11b9bea81838")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -25865,12 +25429,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/26e9f766-969b-47ab-8b57-abdd927043cb")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26143,12 +25701,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/dcfbc489-e279-4ef0-a565-ea8515083dcd")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26421,12 +25973,6 @@
 		(path "/2e84750d-d0bf-48c2-9a27-8d010333bd7d")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26699,12 +26245,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/fd44c5c9-bd90-48bc-bcc9-6a60f40279cc")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -26977,12 +26517,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/7769c65b-0a71-438b-beb3-6dbe526142de")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27255,12 +26789,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/162d0823-5f16-426e-8395-69e046fc9903")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27533,12 +27061,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/f1711585-14b6-4988-8285-664c5e1b16bb")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -27811,12 +27333,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/8718b4ea-77ad-4a35-bedf-79bd21f77c3f")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -28050,12 +27566,6 @@
 		(path "/e2eb4de9-f825-4e15-883e-e38ba345faec")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -28709,12 +28219,6 @@
 		(path "/fb7e30ac-b4b7-4f7b-b249-d5941ed75301/54dfbe16-b337-44dd-abce-05633385c8a2")
 		(sheetname "/LCD/")
 		(sheetfile "LCD.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -28972,12 +28476,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/b63a905b-c380-426b-abeb-7600e29aeac7")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2" "4" "3")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -29274,12 +28772,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/55a6d804-7f84-471c-b5a9-d52ff8e2bfe0")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -29514,12 +29006,6 @@
 		(path "/38aa14b5-df3d-4771-9409-1ee39c2234f0")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "3" "2" "1")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -29914,12 +29400,6 @@
 		(path "/b7981124-2058-4bb0-b506-6b4f4b31e7dd")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30192,12 +29672,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/e6e34509-99b7-49bf-8797-4e9ebfe964d7")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30470,12 +29944,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/b03449eb-e65d-4775-808f-7ed957351153")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30748,12 +30216,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/a1f82095-808f-4a2d-be74-eca991929317")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -30845,7 +30307,7 @@
 		(layer "B.Cu")
 		(uuid "e0b13f9a-d1c2-427e-b6b8-c6e404af76b5")
 		(at 177.45664 91.581722 -135)
-		(descr "HVQFN, 32 Pin (https://www.nxp.com/docs/en/package-information/SOT617-1.pdf)")
+		(descr "HVQFN, 32 Pin (https://www.nxp.com/docs/en/package-information/SOT617-1.pdf), 3D model QFN-32 EP3.3 (HVQFN-32 EP3.1 model missing in KiCad 3D library) (MyCSLib aa_MyParts)")
 		(tags "HVQFN NoLead")
 		(property "Reference" "IC200"
 			(at 0 3.83 45)
@@ -30985,20 +30447,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/09fcf334-807d-4d11-9ada-9166aeb16b12")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "28" "29" "30" "31" "32" "23" "24" "21" "26" "27" "13" "14" "17"
-					"16" "15" "12"
-				)
-			)
-			(unit
-				(name "B")
-				(pins "1" "2" "3" "4" "5" "6" "10" "11" "22" "19" "20" "18" "25" "8"
-					"7" "9" "33"
-				)
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -31703,6 +31151,7 @@
 		(pad "33" smd rect
 			(at 0 0 225)
 			(size 3.1 3.1)
+			(property pad_prop_heatsink)
 			(layers "B.Cu" "B.Mask")
 			(net "GND")
 			(pinfunction "VSS_33")
@@ -31907,12 +31356,6 @@
 		(path "/cfad2091-c02e-4d0a-a62d-27178e7ab982")
 		(sheetname "/")
 		(sheetfile "RFID_Board.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -32185,12 +31628,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/0b9128f1-09f5-42c9-9cbb-40569d46599c")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -32463,12 +31900,6 @@
 		(path "/48e8cd60-8354-42de-961d-2d15417f7563/72234633-2443-4d32-bfdf-adc52da12947")
 		(sheetname "/NFC/")
 		(sheetfile "NFC.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
