@@ -2713,7 +2713,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
+			(property "Footprint" "aa_MyParts:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
 				(at 33.274 13.97 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -5781,7 +5781,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
+			(property "Footprint" "aa_MyParts:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
 				(at 33.274 13.97 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -8405,6 +8405,7 @@
 		)
 	)
 	(symbol
+		(lib_name "IC_CLRC66303HNY_1")
 		(lib_id "0_IC:IC_CLRC66303HNY")
 		(at 71.12 129.54 0)
 		(unit 2)
@@ -8436,7 +8437,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
+		(property "Footprint" "aa_MyParts:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
 			(at 104.394 115.57 0)
 			(hide yes)
 			(show_name no)
@@ -8649,7 +8650,6 @@
 		)
 	)
 	(symbol
-		(lib_name "IC_CLRC66303HNY_1")
 		(lib_id "0_IC:IC_CLRC66303HNY")
 		(at 71.12 45.72 0)
 		(unit 1)
@@ -8681,7 +8681,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
+		(property "Footprint" "aa_MyParts:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm"
 			(at 104.394 31.75 0)
 			(hide yes)
 			(show_name no)

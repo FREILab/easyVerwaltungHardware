@@ -47,7 +47,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Buzzer_Beeper:Buzzer_Murata_PKLCS1212E"
+			(property "Footprint" "aa_MyParts:Buzzer_Murata_PKLCS1212E"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -8066,7 +8066,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Buzzer_Beeper:Buzzer_Murata_PKLCS1212E"
+		(property "Footprint" "aa_MyParts:Buzzer_Murata_PKLCS1212E"
 			(at 210.82 138.43 0)
 			(hide yes)
 			(show_name no)
