@@ -295,6 +295,15 @@ Die vollständige Liste steht im Schaltplan und in
   `10-14-x-xxxx-C-4-08-4-T` anlegen; Länge und Kontaktseite (Typ A/D) in
   Fusion bestimmen. Pads 15/16 (Lötlaschen) des SFW14S haben keinen Pin im
   Symbol.
+- **K300 prüfen (Marius):** Das Footprint T92S11D12-24 hat je Anschluss
+  zwei Pads. Die Öffner-Pads 3 und 7 trugen auf der Platine die veralteten
+  Netze `PIN_N_nc_1`/`PIN_L_nc_1`. Sie sind jetzt auf `PIN_N_nc`/`PIN_L_nc`
+  zusammengeführt. Prüfen, ob die Öffner-Kontakte unbeschaltet bleiben sollen
+  und ob die Pad-Paare zum Datenblatt passen.
+- **R301 und R308 auf 2010:** R301 ist jetzt TE `CRGP2010F330K` (impulsfest,
+  1,25 W; Vishay CRCW2010 gibt es bei Digi-Key nicht als Cut Tape), R308 ist
+  Vishay `CRCW2010499RFKEF`. Beide liegen mit 3,4 mm Padabstand über der
+  Grenze L↔N bzw. L↔Insel.
 
 ### Offen aus der Bauteilplanung
 

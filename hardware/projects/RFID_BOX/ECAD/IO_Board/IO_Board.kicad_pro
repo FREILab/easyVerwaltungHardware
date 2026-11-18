@@ -178,6 +178,7 @@
         {
           "td_allow_use_two_tracks": true,
           "td_curve_segcount": 0,
+          "td_enabled": false,
           "td_height_ratio": 1.0,
           "td_length_ratio": 0.5,
           "td_maxheight": 2.0,
@@ -189,6 +190,7 @@
         {
           "td_allow_use_two_tracks": true,
           "td_curve_segcount": 0,
+          "td_enabled": false,
           "td_height_ratio": 1.0,
           "td_length_ratio": 0.5,
           "td_maxheight": 2.0,
@@ -200,6 +202,7 @@
         {
           "td_allow_use_two_tracks": true,
           "td_curve_segcount": 0,
+          "td_enabled": false,
           "td_height_ratio": 1.0,
           "td_length_ratio": 0.5,
           "td_maxheight": 2.0,
@@ -499,6 +502,7 @@
       "pin_to_pin": "error",
       "power_pin_not_driven": "ignore",
       "same_local_global_label": "warning",
+      "same_local_global_power": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
       "similar_power": "warning",
@@ -633,7 +637,7 @@
     "meta": {
       "version": 5
     },
-    "net_colors": null,
+    "net_colors": {},
     "netclass_assignments": {
       "+24V": [
         "24V",
@@ -655,23 +659,8 @@
       "/EXT_IO": [
         "Signals"
       ],
-      "/GND1": [
-        "Signals"
-      ],
       "/GND2_ISO": [
         "ISO_signals"
-      ],
-      "/PIN_CTRL_F_L": [
-        "230V_int"
-      ],
-      "/PIN_CTRL_L": [
-        "230V_int"
-      ],
-      "/PIN_CTRL_N": [
-        "230V_int"
-      ],
-      "/PIN_FUSED_L": [
-        "230V_ext"
       ],
       "/PIN_L": [
         "230V_ext"
@@ -688,9 +677,6 @@
       "/PIN_L_FUSED": [
         "230V_ext"
       ],
-      "/PIN_L_SENSE": [
-        "230V_ext"
-      ],
       "/PIN_L_SWITCHED": [
         "230V_ext"
       ],
@@ -704,12 +690,6 @@
         "230V_ext"
       ],
       "/PIN_N_SWITCHED": [
-        "230V_ext"
-      ],
-      "/PIN_PE": [
-        "PE"
-      ],
-      "/PIN_SHUNT_N": [
         "230V_ext"
       ],
       "/REFIN+": [
@@ -739,9 +719,6 @@
       "/relay_en_LS": [
         "Signals"
       ],
-      "Earth": [
-        "PE"
-      ],
       "GND": [
         "Signals"
       ],
@@ -762,29 +739,11 @@
       "Net-(F302-Pad1)": [
         "230V_int"
       ],
-      "Net-(F302-Pad2)": [
-        "230V_int"
-      ],
-      "Net-(FB300-Pad1)": [
-        "230V_ext"
-      ],
-      "Net-(FB301-Pad1)": [
-        "ISO_signals"
-      ],
       "Net-(FB302-Pad1)": [
         "ISO_signals"
       ],
-      "Net-(FB302-Pad2)": [
-        "230V_ext"
-      ],
       "Net-(FB305-Pad1)": [
         "ISO_signals"
-      ],
-      "Net-(J301-Pin_1)": [
-        "230V_ext"
-      ],
-      "Net-(J301-Pin_3)": [
-        "230V_ext"
       ],
       "Net-(Q300-G)": [
         "24V",
@@ -800,55 +759,15 @@
         "Signals"
       ],
       "Net-(R300-Pad2)": [
-        "230V_ext"
+        "230V_ext",
+        "L"
       ],
       "Net-(R301-Pad2)": [
-        "230V_ext"
-      ],
-      "Net-(R303-Pad2)": [
-        "230V_ext"
-      ],
-      "Net-(R305-Pad2)": [
-        "230V_ext"
-      ],
-      "Net-(R310-Pad2)": [
-        "230V_ext"
-      ],
-      "Net-(U300-EN)": [
-        "Signals"
+        "230V_ext",
+        "N"
       ],
       "Net-(U301-EN)": [
         "Signals"
-      ],
-      "Net-(U302-AVDD)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-COMMONA)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-I1+)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-I1-)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-REFIN+{slash}OUT)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-UART_RX)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-UART_TX)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-V1+)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-V1-)": [
-        "ISO_signals"
-      ],
-      "Net-(U302-nMCLR)": [
-        "ISO_signals"
       ],
       "Net-(U303-COMMONA)": [
         "ISO_signals"
@@ -857,9 +776,6 @@
         "ISO_signals"
       ],
       "Net-(U303-I1-)": [
-        "ISO_signals"
-      ],
-      "Net-(U303-REFIN+{slash}OUT)": [
         "ISO_signals"
       ],
       "Net-(U303-UART_RX)": [
@@ -895,47 +811,8 @@
       "unconnected-(J302-Pin_2-Pad2)": [
         "Signals"
       ],
-      "unconnected-(U300-CC-Pad8)": [
-        "Signals"
-      ],
       "unconnected-(U301-CC-Pad8)": [
         "Signals"
-      ],
-      "unconnected-(U302-AN_IN-Pad20)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-EVENT1-Pad1)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-EVENT2-Pad15)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-NC-Pad2)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-NC-Pad3)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-NC-Pad8)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-NC-Pad9)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-OSCI-Pad6)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-OSCO-Pad7)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-PWM-Pad14)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-ZCD-Pad22)": [
-        "ISO_signals"
-      ],
-      "unconnected-(U302-nDR-Pad28)": [
-        "ISO_signals"
       ],
       "unconnected-(U303-AN_IN-Pad20)": [
         "ISO_signals"
@@ -982,6 +859,10 @@
       {
         "netclass": "L",
         "pattern": "/PIN_L*"
+      },
+      {
+        "netclass": "L",
+        "pattern": "Net-(F302-Pad1)"
       }
     ]
   },
@@ -1462,7 +1343,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "U3?1,NT300,TH1,TH101,TH300-301,F1-2,F101-103,F300-303,L1,L101,L300-303,LED1,LED101,PS1,PS101,PS300,#FLG300-306,K1-3,K101-102,K300-303,U1-8,U101-108,U300-306,C1,C101,C300-329,FB300-308,D300-302,#PWR1-2,#PWR101-102,#PWR300-358,Q300-302,RV1,RV101,RV300-301,J1-5,J101-102,J300-302,BZ1,BZ101,R1,R101,R300-327",
+    "used_designators": "#FLG300-306,#PWR1-2,#PWR101-102,#PWR300-358,BZ1,BZ101,C1,C101,C300-329,D300-302,F1-2,F101-103,F300-303,FB300-308,J1-5,J101-102,J300-302,K1-3,K101-102,K300-303,L1,L101,L300-303,LED1,LED101,NT300,PS1,PS101,PS300,Q300-302,R1,R101,R300-327,RV1,RV101,RV300-301,TH1,TH101,TH300-301,U1-8,U101-108,U300-306,U3?1",
     "variants": []
   },
   "sheets": [

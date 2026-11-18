@@ -2008,7 +2008,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Capacitor_THT:C_Disc_D12.5mm_W5.0mm_P7.50mm"
+			(property "Footprint" "aa_MyParts:C_Disc_D12.5mm_W5.0mm_P7.50mm"
 				(at 0.9652 -3.81 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -3213,7 +3213,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(property "Footprint" "aa_MyParts:SOT-23"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -3466,7 +3466,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Inductor_SMD:L_0402_1005Metric"
+			(property "Footprint" "aa_MyParts:L_0402_1005Metric"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -3729,7 +3729,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+			(property "Footprint" "aa_MyParts:L_0805_2012Metric"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -4493,7 +4493,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+			(property "Footprint" "aa_MyParts:SOT-223-3_TabPin2"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -4693,7 +4693,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm"
+			(property "Footprint" "aa_MyParts:SOIC-20W_7.5x12.8mm_P1.27mm"
 				(at 0 -34.29 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -10734,6 +10734,233 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "0_Resistor_1%:R_330k_2010"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "330k"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "aa_Passives:R_2010_5025Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=9-1773463-9&DocType=Data%20Sheet&DocLang=English&DocFormat=pdf&PartCntxt=3-2176325-7"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 330K OHM 1% 1.25W 2010 PULSE"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "TE Connectivity"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRGP2010F330K"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "279-CRGP2010F330K"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "A130690CT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "2010"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "1.25W"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_330k_2010_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_330k_2010_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "0_Resistor_1%:R_47k_0603"
 			(pin_numbers
 				(hide yes)
@@ -11188,6 +11415,233 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "0_Resistor_1%:R_499R_2010"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "499R"
+				(at 2.032 5.08 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "aa_Passives:R_2010_5025Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "RES 499 OHM 1% 3/4W 2010"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Vishay Dale"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "CRCW2010499RFKEF"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "71-CRCW2010-499-E3"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "541-499ACCT-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "2010"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Power" "750mW"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "1%"
+				(at -5.08 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_499R_2010_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_499R_2010_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "0_Resistor_1%:R_5k1_0603"
 			(pin_numbers
 				(hide yes)
@@ -11447,7 +11901,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Varistor:RV_Disc_D12mm_W5.1mm_P7.5mm"
+			(property "Footprint" "aa_MyParts:RV_Disc_D12mm_W5.1mm_P7.5mm"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -11967,7 +12421,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P15.24mm_Horizontal"
+			(property "Footprint" "aa_MyParts:R_Axial_DIN0207_L6.3mm_D2.5mm_P15.24mm_Horizontal"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -12204,7 +12658,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(property "Footprint" "aa_MyParts:SOT-23"
 				(at 5.08 2.54 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -12582,7 +13036,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(property "Footprint" "aa_MyParts:SOT-23"
 				(at 5.08 2.54 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -17539,6 +17993,80 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
+		(at 54.61 212.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b4ac66c4-9125-4d64-8fbe-a7a59980f78b")
+		(property "Netclass" "L"
+			(at 50.1015 212.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Component Class" ""
+			(at 54.61 212.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 54.61 222.25 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f3c828d2-e2f5-4e20-9295-3dd0e273ba09")
+		(property "Netclass" "N"
+			(at 50.1015 222.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Component Class" ""
+			(at 54.61 222.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
 		(at 322.58 237.49 180)
 		(fields_autoplaced yes)
 		(effects
@@ -18129,7 +18657,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "aa_MyParts:SOT-23"
 			(at 323.85 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -19013,7 +19541,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm"
+		(property "Footprint" "aa_MyParts:SOIC-20W_7.5x12.8mm_P1.27mm"
 			(at 167.64 170.18 0)
 			(hide yes)
 			(show_name no)
@@ -19387,7 +19915,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Varistor:RV_Disc_D12mm_W5.1mm_P7.5mm"
+		(property "Footprint" "aa_MyParts:RV_Disc_D12mm_W5.1mm_P7.5mm"
 			(at 41.402 217.17 90)
 			(hide yes)
 			(show_name no)
@@ -20089,7 +20617,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "aa_MyParts:SOT-23"
 			(at 313.69 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -20784,7 +21312,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0402_1005Metric"
+		(property "Footprint" "aa_MyParts:L_0402_1005Metric"
 			(at 234.95 71.628 90)
 			(hide yes)
 			(show_name no)
@@ -21588,7 +22116,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "aa_MyParts:SOT-23"
 			(at 351.79 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -21903,7 +22431,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board no)
-		(in_pos_files no)
+		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2d3cc47a-4589-4d56-84b6-37bb5d1688e4")
@@ -22540,7 +23068,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_Resistor_1%:R_499R_0805")
+		(lib_id "0_Resistor_1%:R_499R_2010")
 		(at 247.65 135.89 90)
 		(unit 1)
 		(body_style 1)
@@ -22571,7 +23099,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aa_Passives:R_0805_2012Metric"
+		(property "Footprint" "aa_Passives:R_2010_5025Metric"
 			(at 247.65 137.668 90)
 			(hide yes)
 			(show_name no)
@@ -22582,7 +23110,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
 			(at 247.65 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -22593,7 +23121,7 @@
 				)
 			)
 		)
-		(property "Description" "RES 499 OHM 1% 1/8W 0805"
+		(property "Description" "RES 499 OHM 1% 3/4W 2010"
 			(at 247.65 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -22615,7 +23143,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "CRCW0805499RFKEAC"
+		(property "Manufacturer Part Number" "CRCW2010499RFKEF"
 			(at 247.65 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -22637,7 +23165,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" "71-CRCW0805499RFKEAC"
+		(property "Distributor 1 Order Number" "71-CRCW2010-499-E3"
 			(at 247.65 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -22659,7 +23187,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "541-CRCW0805499RFKEACCT-ND"
+		(property "Distributor 2 Order Number" "541-499ACCT-ND"
 			(at 247.65 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -22670,7 +23198,7 @@
 				)
 			)
 		)
-		(property "FootprintSymbol" "0805"
+		(property "FootprintSymbol" "2010"
 			(at 247.65 135.89 90)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -22680,7 +23208,7 @@
 				)
 			)
 		)
-		(property "Power" "125mW"
+		(property "Power" "750mW"
 			(at 247.65 133.604 90)
 			(hide yes)
 			(show_name no)
@@ -23468,7 +23996,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+		(property "Footprint" "aa_MyParts:L_0805_2012Metric"
 			(at 253.492 210.82 90)
 			(hide yes)
 			(show_name no)
@@ -23932,7 +24460,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "aa_MyParts:NetTie-2_SMD_Pad0.5mm"
 			(at 217.17 242.57 0)
 			(hide yes)
 			(show_name no)
@@ -25777,7 +26305,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0402_1005Metric"
+		(property "Footprint" "aa_MyParts:L_0402_1005Metric"
 			(at 92.71 135.128 90)
 			(hide yes)
 			(show_name no)
@@ -27133,7 +27661,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P15.24mm_Horizontal"
+		(property "Footprint" "aa_MyParts:R_Axial_DIN0207_L6.3mm_D2.5mm_P15.24mm_Horizontal"
 			(at 82.55 46.228 90)
 			(hide yes)
 			(show_name no)
@@ -28455,7 +28983,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+		(property "Footprint" "aa_MyParts:L_0805_2012Metric"
 			(at 231.902 210.82 90)
 			(hide yes)
 			(show_name no)
@@ -29240,7 +29768,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0402_1005Metric"
+		(property "Footprint" "aa_MyParts:L_0402_1005Metric"
 			(at 234.95 90.678 90)
 			(hide yes)
 			(show_name no)
@@ -30427,7 +30955,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0402_1005Metric"
+		(property "Footprint" "aa_MyParts:L_0402_1005Metric"
 			(at 93.98 122.428 90)
 			(hide yes)
 			(show_name no)
@@ -31930,7 +32458,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D12.5mm_W5.0mm_P7.50mm"
+		(property "Footprint" "aa_MyParts:C_Disc_D12.5mm_W5.0mm_P7.50mm"
 			(at 153.3652 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -34756,7 +35284,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_Resistor_1%:R_330k_1206")
+		(lib_id "0_Resistor_1%:R_330k_2010")
 		(at 54.61 217.17 0)
 		(unit 1)
 		(body_style 1)
@@ -34788,7 +35316,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aa_Passives:R_1206_3216Metric"
+		(property "Footprint" "aa_Passives:R_2010_5025Metric"
 			(at 52.832 217.17 90)
 			(hide yes)
 			(show_name no)
@@ -34799,7 +35327,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.vishay.com/docs/20043/crcwhpe3.pdf"
+		(property "Datasheet" "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=9-1773463-9&DocType=Data%20Sheet&DocLang=English&DocFormat=pdf&PartCntxt=3-2176325-7"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -34810,7 +35338,7 @@
 				)
 			)
 		)
-		(property "Description" "RES 330K OHM 1% 3/4W 1206"
+		(property "Description" "RES 330K OHM 1% 1.25W 2010 PULSE"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -34821,7 +35349,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Vishay Dale"
+		(property "Manufacturer" "TE Connectivity"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -34832,7 +35360,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "CRCW1206330KFKEAHP"
+		(property "Manufacturer Part Number" "CRGP2010F330K"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -34854,7 +35382,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" "71-CRCW1206330KFKEAH"
+		(property "Distributor 1 Order Number" "279-CRGP2010F330K"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -34876,7 +35404,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "541-CRCW1206330KFKEAHPCT-ND"
+		(property "Distributor 2 Order Number" "A130690CT-ND"
 			(at 54.61 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -34887,7 +35415,7 @@
 				)
 			)
 		)
-		(property "FootprintSymbol" "1206"
+		(property "FootprintSymbol" "2010"
 			(at 54.61 217.17 90)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -34897,7 +35425,7 @@
 				)
 			)
 		)
-		(property "Power" "750mW"
+		(property "Power" "1.25W"
 			(at 56.896 217.17 90)
 			(hide yes)
 			(show_name no)
@@ -35379,7 +35907,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+		(property "Footprint" "aa_MyParts:SOT-223-3_TabPin2"
 			(at 308.61 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -37268,7 +37796,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "aa_MyParts:SOT-23"
 			(at 313.69 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -39250,7 +39778,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D12.5mm_W5.0mm_P7.50mm"
+		(property "Footprint" "aa_MyParts:C_Disc_D12.5mm_W5.0mm_P7.50mm"
 			(at 138.1252 64.77 0)
 			(hide yes)
 			(show_name no)

@@ -92,11 +92,34 @@
 	(constraint clearance (min 3.0mm))
 	(constraint creepage (min 3.0mm)))
 
-# -- U300 (ISOW7721DFMR): the package is the barrier. Its pads across the
+# -- Kupfer ohne Netz auf der Inselseite: U301 Pin 14/16 (NC) und die
+#    Kupferflaeche des Net-Ties NT300 zaehlen zur Insel, nicht zu SELV.
+(rule "island_nonet_to_SELV"
+	(condition "(((A.memberOfFootprint('U301') || A.memberOfFootprint('NT300')) && A.NetName == '') && !B.hasNetclass('L') && !B.hasNetclass('N') && !B.hasNetclass('ISO_signals') && !B.hasNetclass('PE')) || (((B.memberOfFootprint('U301') || B.memberOfFootprint('NT300')) && B.NetName == '') && !A.hasNetclass('L') && !A.hasNetclass('N') && !A.hasNetclass('ISO_signals') && !A.hasNetclass('PE'))")
+	(constraint clearance (min 8.0mm))
+	(constraint creepage (min 8.0mm)))
+
+(rule "island_nonet_to_L"
+	(condition "(((A.memberOfFootprint('U301') || A.memberOfFootprint('NT300')) && A.NetName == '') && B.hasNetclass('L')) || (((B.memberOfFootprint('U301') || B.memberOfFootprint('NT300')) && B.NetName == '') && A.hasNetclass('L'))")
+	(constraint clearance (min 3.0mm))
+	(constraint creepage (min 3.0mm)))
+
+(rule "island_nonet_to_island"
+	(condition "(((A.memberOfFootprint('U301') || A.memberOfFootprint('NT300')) && A.NetName == '') && (B.hasNetclass('ISO_signals') || B.hasNetclass('N') || B.NetName == '')) || (((B.memberOfFootprint('U301') || B.memberOfFootprint('NT300')) && B.NetName == '') && (A.hasNetclass('ISO_signals') || A.hasNetclass('N') || A.NetName == ''))")
+	(constraint clearance (min 0.3mm))
+	(constraint creepage (min 0.3mm)))
+
+# -- U303 (MCP39F511A, QFN 0,5 mm) auf der Insel: Pad-Abstand gibt das Gehaeuse vor
+(rule "island_inside_U303"
+	(condition "A.memberOfFootprint('U303') && B.memberOfFootprint('U303')")
+	(constraint clearance (min 0.15mm))
+	(constraint creepage (min 0.15mm)))
+
+# -- U301 (ISOW7721DFMR): the package is the barrier. Its pads across the
 #    barrier are 7.25 mm apart (Pad 1 /VIO to Pad 20 +3V3_ISO), below the
-#    8.0 mm board value. Both items must belong to U300, so a track crossing
+#    8.0 mm board value. Both items must belong to U301, so a track crossing
 #    the footprint is still checked against 8.0 mm. Must stay last.
-(rule "barrier_inside_U300"
-	(condition "A.memberOfFootprint('U300') && B.memberOfFootprint('U300')")
+(rule "barrier_inside_U301"
+	(condition "A.memberOfFootprint('U301') && B.memberOfFootprint('U301')")
 	(constraint clearance (min 0.2mm))
 	(constraint creepage (min 0.2mm)))
