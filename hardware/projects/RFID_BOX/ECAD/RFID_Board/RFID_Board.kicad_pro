@@ -70,7 +70,32 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "hole_clearance|157000000|111000000|179f4af7-cf09-45b6-8c13-a686777ac005|be445dcb-b946-4867-bfa1-3e0d0de532de",
+          ""
+        ],
+        [
+          "hole_clearance|157000000|111000000|4c57cbf8-089f-4e56-b34d-1c14272d52c5|be445dcb-b946-4867-bfa1-3e0d0de532de",
+          ""
+        ],
+        [
+          "hole_clearance|157000000|111000000|b31b88a1-f156-40a0-9e70-22dfd8f57fcd|be445dcb-b946-4867-bfa1-3e0d0de532de",
+          ""
+        ],
+        [
+          "hole_clearance|157000000|111000000|f4543935-e2a4-4bba-a5b3-ff1063c3b2e5|be445dcb-b946-4867-bfa1-3e0d0de532de",
+          ""
+        ],
+        [
+          "silk_edge_clearance|188010003|40100000|40f1c985-7ac0-4bee-842d-bf30bbe32d90|53d77d21-986d-43be-a30c-80e2a513792b",
+          ""
+        ],
+        [
+          "silk_edge_clearance|188010003|58100000|40f1c985-7ac0-4bee-842d-bf30bbe32d90|9fc2470e-f7b1-44dc-9513-fe7ae7f09172",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
