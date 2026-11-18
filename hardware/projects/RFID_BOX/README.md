@@ -292,9 +292,12 @@ Die vollständige Liste steht im Schaltplan und in
   abschalten, solange die Insel aus ist. Entweder das, oder den D-Typ
   vorbestellen.
 - **Verbindungskabel (FFC, J102 ↔ J302):** Dummy-Bauteil für das Kabel GCT
-  `10-14-x-xxxx-C-4-08-4-T` anlegen; Länge und Kontaktseite (Typ A/D) in
-  Fusion bestimmen. Pads 15/16 (Lötlaschen) des SFW14S haben keinen Pin im
-  Symbol.
+  `10-14-x-xxxx-C-4-08-4-T` anlegen; Länge in Fusion bestimmen. Kontaktseite
+  voraussichtlich Typ A (beide Enden gleiche Seite): J302 ist um 180°
+  gedreht, damit das Kabel ohne Verdrehung Pin n auf Pin 15−n legt und die
+  Padreihen beider Stecker auf derselben Seite liegen. Gegen die
+  Amphenol-Zeichnung prüfen. Pads 15/16 (Lötlaschen) des SFW14S haben keinen
+  Pin im Symbol.
 - **K300 prüfen (Marius):** Das Footprint T92S11D12-24 hat je Anschluss
   zwei Pads. Die Öffner-Pads 3 und 7 trugen auf der Platine die veralteten
   Netze `PIN_N_nc_1`/`PIN_L_nc_1`. Sie sind jetzt auf `PIN_N_nc`/`PIN_L_nc`
