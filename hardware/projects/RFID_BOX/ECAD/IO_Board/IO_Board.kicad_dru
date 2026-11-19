@@ -115,6 +115,16 @@
 	(constraint clearance (min 0.15mm))
 	(constraint creepage (min 0.15mm)))
 
+# -- mains copper incl. ISO island: 2.0 mm to board edge, cut-outs and holes
+#    (Layoutregeln 3); vias in mains nets at least 0.6 mm drill.
+(rule "mains_to_edge"
+	(condition "A.hasNetclass('L') || A.hasNetclass('N') || A.hasNetclass('ISO_signals')")
+	(constraint edge_clearance (min 2.0mm)))
+
+(rule "mains_via_drill"
+	(condition "A.Type == 'Via' && (A.hasNetclass('L') || A.hasNetclass('N'))")
+	(constraint hole_size (min 0.6mm)))
+
 # -- U301 (ISOW7721DFMR): the package is the barrier. Its pads across the
 #    barrier are 7.25 mm apart (Pad 1 /VIO to Pad 20 +3V3_ISO), below the
 #    8.0 mm board value. Both items must belong to U301, so a track crossing

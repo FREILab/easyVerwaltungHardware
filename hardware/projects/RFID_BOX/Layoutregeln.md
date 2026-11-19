@@ -56,9 +56,9 @@ gespeist. Die ISO-Insel gehört trotz 3,3-V-Pegeln zur Primärseite.
 - Lastpfad als Polygon ohne Lagenwechsel; an unvermeidbaren Engstellen
   mindestens 2,65 mm, Bauteilpads ausgenommen.
 - R307 in Kelvin-Anbindung, Sense-Abgriffe direkt an den Pads, je ein Ferrit
-  (FB301, FB302) in beiden Sense-Leitungen.
-- Ferrite am Isolator FB303–FB307: VISOOUT→VISOIN, GND2_ISO→GND_ISO und in
-  den Zuleitungen VIO und VDD.
+  (FB302 an `PIN_N`, FB305 an `PIN_N_SHUNT`) in beiden Sense-Leitungen.
+- Ferrite am Isolator: FB301 VISOOUT→`+3V3_ISO`, FB300 `GND2_ISO`→`GND_ISO`,
+  FB303 in VIO, FB304 in VDD.
 - Abblockung am Isolator je Versorgungspin 10 nF + 1 µF + 10 µF, **die 10 nF
   weniger als 1 mm vom Pin**, 0603.
 - Entladekette an C300 aus drei Widerständen in Reihe, je mit Grenzspannung

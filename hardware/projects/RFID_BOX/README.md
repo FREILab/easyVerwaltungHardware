@@ -282,8 +282,6 @@ Die vollständige Liste steht im Schaltplan und in
   vorsehen, damit sich Zweige zur Inbetriebnahme einzeln zuschalten lassen.
 - **Testpunkte** für die Inbetriebnahme vorsehen. In der Netzdomäne und auf
   der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
-- Die Netzklassen im KiCad-Projekt tragen noch keine Breiten und Abstände;
-  eine Klasse `3V3` fehlt, `+3V3` hängt derzeit in `Signals`.
 - **Isolator U301 entscheiden.** Der ISOW7721DFMR ist bei Mouser und
   Digi-Key auf null, Status trotzdem „Aktiv". Lagernd ist nur der
   ISOW7721**F**DFMR, dessen Ausgänge bei stromloser Eingangsseite auf LOW

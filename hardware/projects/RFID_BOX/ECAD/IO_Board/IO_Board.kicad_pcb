@@ -47,7 +47,7 @@
 			)
 			(layer "F.Cu"
 				(type "copper")
-				(thickness 0.035)
+				(thickness 0.07)
 			)
 			(layer "dielectric 1"
 				(type "core")
@@ -58,7 +58,7 @@
 			)
 			(layer "B.Cu"
 				(type "copper")
-				(thickness 0.035)
+				(thickness 0.07)
 			)
 			(layer "B.Mask"
 				(type "Bottom Solder Mask")
@@ -939,7 +939,7 @@
 	(footprint "aa_Passives:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0cd03f06-9953-461e-984b-78b5a3751735")
-		(at 164 107.045)
+		(at 162.8 107.045)
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "capacitor")
 		(property "Reference" "C303"
@@ -5783,7 +5783,7 @@
 	(footprint "aa_Passives:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4cc7cf3b-79ee-437e-bbed-ff91e973639a")
-		(at 160.1 106.445 90)
+		(at 158.9 106.445 90)
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "resistor")
 		(property "Reference" "R325"
@@ -9302,7 +9302,7 @@
 	(footprint "aa_Passives:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "77584810-4936-4817-baa7-387f4e6f2e2e")
-		(at 163.6 112.645)
+		(at 162.9 112.645)
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "resistor")
 		(property "Reference" "R327"
@@ -21907,7 +21907,7 @@
 	(footprint "aa_Passives:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "d56c00a7-19f8-4505-b895-469c8c3d00f7")
-		(at 163.9 105.545)
+		(at 162.7 105.545)
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "capacitor")
 		(property "Reference" "C306"
@@ -22165,7 +22165,7 @@
 	(footprint "aa_Passives:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "d63dbb8b-75b5-466f-83d6-741d135d3275")
-		(at 161.6 106.445 90)
+		(at 160.4 106.445 90)
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "resistor")
 		(property "Reference" "R326"
@@ -22768,7 +22768,7 @@
 	(footprint "aa_Passives:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "daf4a3c5-109d-4dc7-99ca-fd78101ca077")
-		(at 160.6 112.645 180)
+		(at 159.9 112.645 180)
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "capacitor")
 		(property "Reference" "C325"
@@ -23532,7 +23532,7 @@
 	(footprint "aa_Passives:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "df207a7b-a193-4849-8f1f-fa2964e7b4b3")
-		(at 163.9 108.945)
+		(at 162.7 108.945)
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), courtyard 0.15 mm (MyCSLib aa_Passives)")
 		(tags "capacitor")
 		(property "Reference" "C301"
@@ -27689,8 +27689,8 @@
 		(uuid "94995a8a-efc8-493f-82f9-72354c11fb88")
 	)
 	(gr_line
-		(start 76.2 53.045)
-		(end 76.2 143.045)
+		(start 75.2 53.045)
+		(end 75.2 143.045)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -27699,8 +27699,8 @@
 		(uuid "cbc57f55-1e95-45cb-9e22-8531daa55fae")
 	)
 	(gr_line
-		(start 76.2 151.545)
-		(end 76.2 143.045)
+		(start 75.2 151.545)
+		(end 75.2 143.045)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -27730,7 +27730,7 @@
 	)
 	(gr_line
 		(start 99.2 151.545)
-		(end 76.2 151.545)
+		(end 75.2 151.545)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -27793,7 +27793,7 @@
 	)
 	(gr_line
 		(start 166.2 53.045)
-		(end 76.2 53.045)
+		(end 75.2 53.045)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -28394,6 +28394,46 @@
 		(size 1)
 		(layer "Edge.Cuts")
 		(uuid "1fdb930b-29a6-4765-8763-6a25025f0f6c")
+	)
+	(zone
+		(layers "F.Cu" "B.Cu")
+		(uuid "b2e1007a-7009-4ac8-9937-172645ca1b4f")
+		(name "U301_4mm")
+		(hatch edge 0.5)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.25)
+		(keepout
+			(tracks allowed)
+			(vias allowed)
+			(pads allowed)
+			(copperpour not_allowed)
+			(footprints allowed)
+		)
+		(placement
+			(enabled no)
+			(sheetname "")
+		)
+		(fill
+			(thermal_gap 0.5)
+			(thermal_bridge_width 0.5)
+			(island_removal_mode 0)
+		)
+		(polygon
+			(pts
+				(xy 153.725 98.875) (xy 154.47516 98.94063) (xy 155.202527 99.135527) (xy 155.885 99.45377) (xy 156.501842 99.885688)
+				(xy 157.034311 100.418157) (xy 157.466229 101.035) (xy 157.784472 101.717472) (xy 157.979369 102.444839)
+				(xy 158.045 103.195) (xy 157.979369 103.94516) (xy 157.784472 104.672527) (xy 157.466229 105.354999)
+				(xy 157.034311 105.971842) (xy 156.501842 106.504311) (xy 155.885 106.936229) (xy 155.202527 107.254472)
+				(xy 154.47516 107.449369) (xy 153.725 107.514999) (xy 151.185 107.514999) (xy 150.434839 107.449369)
+				(xy 149.707472 107.254472) (xy 149.025 106.936229) (xy 148.408157 106.504311) (xy 147.875688 105.971842)
+				(xy 147.44377 105.354999) (xy 147.125527 104.672527) (xy 146.93063 103.94516) (xy 146.865 103.195)
+				(xy 146.93063 102.444839) (xy 147.125527 101.717472) (xy 147.44377 101.035) (xy 147.875688 100.418157)
+				(xy 148.408157 99.885688) (xy 149.025 99.45377) (xy 149.707472 99.135527) (xy 150.434839 98.94063)
+				(xy 151.185 98.875)
+			)
+		)
 	)
 	(group ""
 		(uuid "b94dcc32-76ad-4e82-a2d5-cccb0de7e194")
