@@ -301,10 +301,11 @@ Die vollständige Liste steht im Schaltplan und in
   Netze `PIN_N_nc_1`/`PIN_L_nc_1`. Sie sind jetzt auf `PIN_N_nc`/`PIN_L_nc`
   zusammengeführt. Prüfen, ob die Öffner-Kontakte unbeschaltet bleiben sollen
   und ob die Pad-Paare zum Datenblatt passen.
-- **R301 und R308 auf 2010:** R301 ist jetzt TE `CRGP2010F330K` (impulsfest,
-  1,25 W; Vishay CRCW2010 gibt es bei Digi-Key nicht als Cut Tape), R308 ist
-  Vishay `CRCW2010499RFKEF`. Beide liegen mit 3,4 mm Padabstand über der
-  Grenze L↔N bzw. L↔Insel.
+- **Entladekette R300–R302 und Spannungsteiler R328–R306–R308** sind je
+  3 × Vishay `CRCW1206330KFKEAHP` (1206, 330 kΩ). Die Mittelknoten tragen die
+  Netzklasse `BLEEDER_MID` und halten 1,5 mm zum Gegenpol und zur Insel
+  (Layoutregeln, Abschnitt 3). Teilerverhältnis der Spannungsmessung
+  990 kΩ zu 1 kΩ (R309‖R310).
 
 ### Offen aus der Bauteilplanung
 

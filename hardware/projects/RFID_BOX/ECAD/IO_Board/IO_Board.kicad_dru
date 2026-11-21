@@ -52,11 +52,31 @@
 	(constraint clearance (min 0.5mm))
 	(constraint creepage (min 0.5mm)))
 
+# -- across protective elements: 3.0 ----------------------------------------
+#    When R303, F302 or F301 opens, the full mains voltage is across the gap.
+#    Both sides keep the opposite-pole distance, pads and tracks alike.
+(rule "across_protective_element"
+	(condition "(A.NetName == '/PIN_L' && B.NetName == 'Net-(F302-Pad1)') || (A.NetName == 'Net-(F302-Pad1)' && B.NetName == '/PIN_L') || (A.NetName == 'Net-(F302-Pad1)' && B.NetName == '/PIN_L_CTRL_F') || (A.NetName == '/PIN_L_CTRL_F' && B.NetName == 'Net-(F302-Pad1)') || (A.NetName == '/PIN_L' && B.NetName == '/PIN_L_FUSED') || (A.NetName == '/PIN_L_FUSED' && B.NetName == '/PIN_L')")
+	(constraint clearance (min 3.0mm))
+	(constraint creepage (min 3.0mm)))
+
 # -- opposite poles: 3.0 ----------------------------------------------------
 (rule "mains_opposite_poles"
 	(condition "(A.hasNetclass('L') && B.hasNetclass('N')) || (A.hasNetclass('N') && B.hasNetclass('L'))")
 	(constraint clearance (min 3.0mm))
 	(constraint creepage (min 3.0mm)))
+
+# -- resistor chains, middle nodes against the opposite pole: 1.5 -----------
+#    BLEEDER_MID = middle nodes of the bleeder chain R300-R302
+#    (Net-(R300-Pad2) class L, Net-(R301-Pad2) class N) and of the voltage
+#    divider R328-R306-R308 (/PIN_L_DIV_HI, /PIN_L_DIV, class L).
+#    A flashover from a middle node is limited by at least one 330k resistor.
+#    1.5 mm still meets 2.5 kV clearance and 250 V PCB creepage. Direct L to N
+#    and L to island stay at 3.0.
+(rule "bleeder_mid_to_opposite_pole"
+	(condition "(A.hasNetclass('BLEEDER_MID') && ((A.hasNetclass('L') && B.hasNetclass('N')) || (A.hasNetclass('N') && B.hasNetclass('L')))) || (B.hasNetclass('BLEEDER_MID') && ((B.hasNetclass('L') && A.hasNetclass('N')) || (B.hasNetclass('N') && A.hasNetclass('L'))))")
+	(constraint clearance (min 1.5mm))
+	(constraint creepage (min 1.5mm)))
 
 # -- island is at N potential: 0.5 to N, 3.0 to L ---------------------------
 (rule "island_to_N"
@@ -68,6 +88,13 @@
 	(condition "(A.hasNetclass('ISO_signals') && B.hasNetclass('L')) || (A.hasNetclass('L') && B.hasNetclass('ISO_signals'))")
 	(constraint clearance (min 3.0mm))
 	(constraint creepage (min 3.0mm)))
+
+# -- L-side middle nodes of the resistor chains against the island: 1.5 -----
+#    island is at N potential, same reasoning as bleeder_mid_to_opposite_pole
+(rule "bleeder_mid_to_island"
+	(condition "(A.hasNetclass('BLEEDER_MID') && A.hasNetclass('L') && B.hasNetclass('ISO_signals')) || (B.hasNetclass('BLEEDER_MID') && B.hasNetclass('L') && A.hasNetclass('ISO_signals'))")
+	(constraint clearance (min 1.5mm))
+	(constraint creepage (min 1.5mm)))
 
 # -- inside the island: 0.3 -------------------------------------------------
 (rule "island_internal"

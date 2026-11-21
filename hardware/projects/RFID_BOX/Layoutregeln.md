@@ -43,7 +43,7 @@ gespeist. Die ISO-Insel gehört trotz 3,3-V-Pegeln zur Primärseite.
 |---|---|---:|---|---|
 | **P:** Lastpfad | `PIN_L`, `PIN_N`, `PIN_FUSED_L`, `PIN_*_SWITCHED` | 4,0 mm Polygon | kein Lagenwechsel; unvermeidbar **5 × ⌀1,0 mm** | nur 230V |
 | **P:** PE | `PIN_PE` | 4,0 / 1,0 mm | wie Lastpfad | beide |
-| **P:** Eingang + Steuerzweig | `PIN_CTRL_L/N`, auf dem 24V-Board auch `PIN_L`, `PIN_N` | 1,0 mm | **1 × ⌀0,6 mm** | beide |
+| **P:** Eingang + Steuerzweig | `PIN_CTRL_L/N`, auf dem 24V-Board auch `PIN_L`, `PIN_N` | 0,6 mm | **1 × ⌀0,6 mm** | beide |
 | **P:** ISO-Insel | `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, UART, Shunt-Sense | 0,4 mm | **1 × ⌀0,2 mm** | nur 230V |
 | **P:** GND ISO-Insel | `GND_ISO` | eigene Massefläche | Stitching ⌀0,2 mm | nur 230V |
 | **S:** 24 V | `+24V` | 0,8 mm | **1 × ⌀0,6 mm** | beide |
@@ -129,9 +129,21 @@ Abstandsmatrix, Luft- **und** Kriechstrecke:
 | **SELV** | | | | 0,2 mm | 0,2 mm | 2,0 mm |
 | **PE** | | | | | — | 8,0 mm |
 
-Die 0,5 mm gelten zwischen verschiedenen Netzen desselben Pols. Eine
-Ausnahme trägt der Regelsatz: innerhalb von U301 gelten 0,2 mm, weil dort
-die Isolation vom Bauteil kommt und die Pads nur 7,25 mm auseinander liegen.
+Die 0,5 mm gelten zwischen verschiedenen Netzen desselben Pols. Ausnahmen
+im Regelsatz:
+
+- Innerhalb von U301 gelten 0,2 mm, weil dort die Isolation vom Bauteil
+  kommt und die Pads nur 7,25 mm auseinander liegen.
+- Die Mittelknoten der Entladekette R300–R302 und des Spannungsteilers
+  R328–R306–R308 (Netzklasse `BLEEDER_MID`) halten 1,5 mm zum Gegenpol und
+  zur ISO-Insel: Ein Überschlag ist dort durch mindestens 330 kΩ begrenzt.
+  L gegen N und L gegen Insel bleiben bei 3,0 mm.
+  Beide Ketten bestehen aus drei Widerständen in Reihe (CRCW1206-HP,
+  330 kΩ, Umax 200 V), damit auch bei einem kurzgeschlossenen Widerstand
+  keiner über Umax kommt.
+- Über den Schutzbauteilen R303, F302 und F301 gelten zwischen beiden
+  Seiten 3,0 mm statt 0,5 mm: Nach dem Auslösen liegt dort die volle
+  Netzspannung an.
 
 - Die 8,0 mm liegen über der Norm und kommen von den Bauteilen (K300, U301).
   **Nicht auf 5 mm reduzieren.**

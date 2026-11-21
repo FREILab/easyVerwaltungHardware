@@ -620,7 +620,7 @@
         "pcb_color": "rgb(255, 0, 0)",
         "priority": 1,
         "schematic_color": "rgb(255, 0, 0)",
-        "track_width": 1.0,
+        "track_width": 0.6,
         "tuning_profile": "",
         "via_diameter": 1.0,
         "via_drill": 0.6,
@@ -658,6 +658,13 @@
         "via_diameter": 1.0,
         "via_drill": 0.6,
         "wire_width": 6
+      },
+      {
+        "name": "BLEEDER_MID",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 10,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "tuning_profile": ""
       },
       {
         "name": "ISO_signals",
@@ -743,7 +750,11 @@
         "230V_int"
       ],
       "/PIN_L_DIV": [
-        "230V_ext"
+        "230V_ext",
+        "BLEEDER_MID"
+      ],
+      "/PIN_L_DIV_HI": [
+        "BLEEDER_MID"
       ],
       "/PIN_L_FUSED": [
         "230V_ext"
@@ -808,7 +819,8 @@
         "Signals"
       ],
       "Net-(F302-Pad1)": [
-        "230V_int"
+        "230V_int",
+        "L"
       ],
       "Net-(FB302-Pad1)": [
         "ISO_signals"
@@ -831,10 +843,12 @@
       ],
       "Net-(R300-Pad2)": [
         "230V_ext",
+        "BLEEDER_MID",
         "L"
       ],
       "Net-(R301-Pad2)": [
         "230V_ext",
+        "BLEEDER_MID",
         "N"
       ],
       "Net-(U301-EN)": [
