@@ -613,6 +613,8 @@
         "schematic_color": "rgb(132, 0, 0)",
         "track_width": 4.0,
         "tuning_profile": "",
+        "via_diameter": 1.4,
+        "via_drill": 1.0,
         "wire_width": 12
       },
       {
@@ -628,7 +630,7 @@
       },
       {
         "name": "24V",
-        "pcb_color": "rgb(0, 0, 194)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 4,
         "schematic_color": "rgb(0, 0, 194)",
         "track_width": 0.8,
@@ -668,13 +670,13 @@
       },
       {
         "name": "ISO_signals",
-        "pcb_color": "rgb(0, 132, 132)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 3,
         "schematic_color": "rgb(0, 132, 132)",
         "track_width": 0.4,
         "tuning_profile": "",
-        "via_diameter": 0.45,
-        "via_drill": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
         "wire_width": 12
       },
       {
@@ -693,11 +695,13 @@
       },
       {
         "name": "PE",
-        "pcb_color": "rgb(0, 194, 0)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2,
         "schematic_color": "rgb(0, 194, 0)",
         "track_width": 4.0,
         "tuning_profile": "",
+        "via_diameter": 1.4,
+        "via_drill": 1.0,
         "wire_width": 12
       },
       {
@@ -715,7 +719,15 @@
     "meta": {
       "version": 5
     },
-    "net_colors": {},
+    "net_colors": {
+      "+24V": "rgb(132, 0, 132)",
+      "+3V3": "rgb(0, 132, 0)",
+      "+3V3_ISO": "rgb(204, 102, 0)",
+      "+5V": "rgb(255, 229, 191)",
+      "/GND2_ISO": "rgb(0, 72, 72)",
+      "GND": "rgb(0, 0, 194)",
+      "GND_ISO": "rgb(0, 194, 194)"
+    },
     "netclass_assignments": {
       "+24V": [
         "24V",

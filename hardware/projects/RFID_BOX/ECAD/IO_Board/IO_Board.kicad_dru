@@ -136,6 +136,25 @@
 	(constraint clearance (min 0.3mm))
 	(constraint creepage (min 0.3mm)))
 
+# -- U301 converter output: within 4 mm of VISOOUT (pin 12) and GND2 (pin 11)
+#    only the converter nets may run (ISOW7721 datasheet 8.4.1). Ground pour
+#    is blocked by the rule area U301_4mm itself.
+(rule "U301_4mm_converter_nets_only"
+	(condition "A.intersectsArea('U301_4mm') && A.NetName != '/V_ISO_OUT' && A.NetName != '/GND2_ISO' && A.NetName != 'GND_ISO'")
+	(constraint disallow track via))
+
+# -- U303 fan-out: island copper against U303 pads 0.2 (3.3 V, like SELV);
+#    0.3 cannot be met at 0.5 mm pitch. Tracks neck down to 0.25 mm inside
+#    the U303 courtyard.
+(rule "island_fanout_U303"
+	(condition "(A.memberOfFootprint('U303') || B.memberOfFootprint('U303')) && (A.hasNetclass('ISO_signals') || A.NetName == '') && (B.hasNetclass('ISO_signals') || B.NetName == '')")
+	(constraint clearance (min 0.2mm))
+	(constraint creepage (min 0.2mm)))
+
+(rule "neckdown_U303"
+	(condition "A.Type == 'Track' && A.intersectsCourtyard('U303')")
+	(constraint track_width (min 0.2mm) (opt 0.25mm)))
+
 # -- U303 (MCP39F511A, QFN 0,5 mm) auf der Insel: Pad-Abstand gibt das Gehaeuse vor
 (rule "island_inside_U303"
 	(condition "A.memberOfFootprint('U303') && B.memberOfFootprint('U303')")

@@ -44,8 +44,8 @@ gespeist. Die ISO-Insel gehört trotz 3,3-V-Pegeln zur Primärseite.
 | **P:** Lastpfad | `PIN_L`, `PIN_N`, `PIN_FUSED_L`, `PIN_*_SWITCHED` | 4,0 mm Polygon | kein Lagenwechsel; unvermeidbar **5 × ⌀1,0 mm** | nur 230V |
 | **P:** PE | `PIN_PE` | 4,0 / 1,0 mm | wie Lastpfad | beide |
 | **P:** Eingang + Steuerzweig | `PIN_CTRL_L/N`, auf dem 24V-Board auch `PIN_L`, `PIN_N` | 0,6 mm | **1 × ⌀0,6 mm** | beide |
-| **P:** ISO-Insel | `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, UART, Shunt-Sense | 0,4 mm | **1 × ⌀0,2 mm** | nur 230V |
-| **P:** GND ISO-Insel | `GND_ISO` | eigene Massefläche | Stitching ⌀0,2 mm | nur 230V |
+| **P:** ISO-Insel | `+3V3_ISO`, `GND_ISO`, `GND2_ISO`, UART, Shunt-Sense | 0,4 mm | **1 × ⌀0,3 mm** | nur 230V |
+| **P:** GND ISO-Insel | `GND_ISO` | eigene Massefläche | Stitching ⌀0,3 mm | nur 230V |
 | **S:** 24 V | `+24V` | 0,8 mm | **1 × ⌀0,6 mm** | beide |
 | **S:** 5 V | `+5V` | 1,0 / 1,3 mm | **2 × ⌀0,6 mm** | beide |
 | **S:** 3,3 V | `+3V3` | 0,5 mm | **1 × ⌀0,3 mm** | nur 230V |
@@ -134,6 +134,9 @@ im Regelsatz:
 
 - Innerhalb von U301 gelten 0,2 mm, weil dort die Isolation vom Bauteil
   kommt und die Pads nur 7,25 mm auseinander liegen.
+- An U303 (QFN, Raster 0,5 mm) gelten zwischen Inselkupfer und den Pads
+  0,2 mm statt 0,3 mm; Bahnen verjüngen sich in der Courtyard von U303 auf
+  0,25 mm.
 - Die Mittelknoten der Entladekette R300–R302 und des Spannungsteilers
   R328–R306–R308 (Netzklasse `BLEEDER_MID`) halten 1,5 mm zum Gegenpol und
   zur ISO-Insel: Ein Überschlag ist dort durch mindestens 330 kΩ begrenzt.
@@ -157,8 +160,10 @@ im Regelsatz:
   Kabels sind getrennt zu bemessen, die Breiten oben enden am Stecker.
 - Netzkupfer inkl. ISO-Insel ≥ 2,0 mm zu Kante, Bohrungen und Fräsungen;
   SELV ≥ 0,5 mm. Fräsnuten ≥ 1,0 mm breit.
-- **Kein Kupfer im Umkreis von 4 mm um VISOOUT und GND2 von U301** (Vorgabe
-  des Datenblatts, Bedingung für CISPR 32 Class B).
+- **Im Umkreis von 4 mm um VISOOUT und GND2 von U301 (Pin 12/11) keine
+  Kupferfläche und nur Bahnen von `/V_ISO_OUT`, `/GND2_ISO` und `GND_ISO`**
+  (Vorgabe des Datenblatts, Bedingung für CISPR 32 Class B). Regelfläche
+  `U301_4mm`, Regel `U301_4mm_converter_nets_only`.
 - `GND2_ISO` und `GND_ISO` über einen Ferrit trennen; `GND_ISO` in
   Kelvin-Anbindung hart am Shunt-Knoten.
 - L300 trennt die Wicklungen nur über das Rastermaß 4,0 mm ±0,5 — erfüllt
