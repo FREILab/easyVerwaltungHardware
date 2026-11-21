@@ -34,7 +34,8 @@ gerechnet. Es kommt nicht über Mouser oder Digi-Key, steht deshalb in
 keiner Preisdatenbank, und Versand sowie Einfuhr kommen oben drauf — die
 Distributorpreise daneben sind Nettopreise ab Lager.
 
-Nicht enthalten: Leiterplatten, Gehäuse, Bestückung.
+Nicht enthalten: Leiterplatten, Gehäuse, Bestückung. Kosten je Board mit
+Leiterplatte und Schablone für 5, 10 und 30 Stück stehen in [Kosten.md](Kosten.md).
 
 Die acht teuersten Einzelposten tragen 57,51 € davon, also zwei Drittel:
 

@@ -24,6 +24,7 @@
 > [Anforderungen.md](Anforderungen.md). Wo das Gerät teuer ist und was eine
 > Alternative kosten würde, führt [Kostenoptimierung.md](Kostenoptimierung.md)
 > mit — keine der Positionen dort hebt eine der vier Festlegungen auf.
+> Material- und Leiterplattenkosten je Board stehen in [Kosten.md](Kosten.md).
 
 ## Einleitung
 
@@ -319,7 +320,11 @@ Die vollständige Liste steht im Schaltplan und in
   Hauptschütz und Aux-Ausgang. Die Kontakte müssen den Einschaltstrom einer
   Schützspule tragen — ein Signalrelais wie das G5V-1 reicht dafür nicht.
   Der Haupt-Kontakt braucht dieselbe Verriegelung aus zwei Schaltern wie
-  K300, für Aux genügt ein Low-Side-Schalter.
+  K300, für Aux genügt ein Low-Side-Schalter. Beide Kontakte müssen
+  zusätzlich **12 V DC / 2 A** schalten können.
+- **PDF-Erstellung beschleunigen:** Tool bzw. Setup für Schaltplan-, Layout-
+  und Doku-PDFs und den Bau der Review-Pakete; das Erzeugen dauert bisher
+  jedes Mal lange.
 - **`aux_en` und `EXT_IO`** auf dem I/O-Board beschalten (E-Stop- bzw.
   Extension-Header); sie enden derzeit an J302.
 - **Stopp-Taster auswählen** (Panel-Mount im Gehäuse, angeschlossen an J101).
