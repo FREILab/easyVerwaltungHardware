@@ -6,8 +6,8 @@
 	(paper "A3")
 	(title_block
 		(title "Schematic I/O Board")
-		(date "2026-11-09")
-		(rev "V1.3")
+		(date "2026-11-21")
+		(rev "V1.0")
 		(company "FREILab Freiburg e.V.")
 		(comment 1 "Marius Tetard")
 	)
