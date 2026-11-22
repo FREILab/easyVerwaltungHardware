@@ -56,7 +56,11 @@ docker load < "$TMP"
 rm "$TMP"
 
 cd /opt/smart-terminal
-docker compose up -d
+if [ -f docker-compose.pi.yml ]; then
+  docker compose -f docker-compose.yml -f docker-compose.pi.yml up -d
+else
+  docker compose -f docker-compose.yml up -d
+fi
 
 echo "$REMOTE_VERSION" > "$CURRENT_VERSION_FILE"
 echo "Update to $REMOTE_VERSION complete."

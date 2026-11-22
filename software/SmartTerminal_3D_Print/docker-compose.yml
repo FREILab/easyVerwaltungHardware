@@ -1,40 +1,73 @@
+# Basis-Stack: läuft direkt auf Mac (Mock-Hardware) und Raspberry Pi.
+# Für echte Pi-Hardware zusätzlich docker-compose.pi.yml verwenden:
+#   docker compose -f docker-compose.yml -f docker-compose.pi.yml up -d
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
 
   backend:
     image: smart-terminal-backend:latest
     restart: always
-    ports:
-      - "8000:8000"   # interne API + PrusaLink-Emulation
+    logging: *default-logging
     env_file: config/terminal.env
+    environment:
+      DATA_DIR: /data
+      DEVICE_AGENT_URL: http://device-agent:8081
+    volumes:
+      - backend-data:/data
+    ports:
+      - "8000:8000"   # Direkter Zugriff auf Backend (Dev/Debug)
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2)"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
     networks:
       - internal
 
   ui:
     image: smart-terminal-ui:latest
     restart: always
+    logging: *default-logging
     ports:
-      - "80:80"       # Kiosk-Browser öffnet localhost
+      - "80:80"       # Kiosk-UI (1280x720) + /api/* Reverse-Proxy
+      - "8101:8101"   # PrusaLink-Emulation Slot 1
+      - "8102:8102"   # PrusaLink-Emulation Slot 2
+      - "8103:8103"   # PrusaLink-Emulation Slot 3
+      - "8104:8104"   # PrusaLink-Emulation Slot 4
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
     networks:
       - internal
 
   device-agent:
     image: smart-terminal-device-agent:latest
     restart: always
+    logging: *default-logging
     env_file: config/terminal.env
     ports:
-      - "8081:8081"   # Hardware-HAL REST/WebSocket (Scaffold)
-    devices:
-      - /dev/spidev0.0:/dev/spidev0.0        # RFID-Reader
-      - /dev/gpiochip0:/dev/gpiochip0        # Relais, LEDs, Taster
-      - /dev/i2c-1:/dev/i2c-1                # Sensoren + DSI Touch-Controller
-      - /dev/input/event0:/dev/input/event0  # Touch-Events
-    group_add:
-      - "spi"
-      - "gpio"
-      - "i2c"
-      - "input"
+      - "8081:8081"   # Hardware-HAL (REST + WebSocket)
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8081/health', timeout=2)"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
     networks:
       - internal
+
+volumes:
+  backend-data:
 
 networks:
   internal:

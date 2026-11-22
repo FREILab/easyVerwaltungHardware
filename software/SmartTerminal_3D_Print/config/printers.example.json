@@ -1,6 +1,46 @@
 [
-  { "id": "prusa-01", "name": "Prusa MK4 #1", "ip": "192.168.1.101", "token": "REPLACE_ME" },
-  { "id": "prusa-02", "name": "Prusa MK4 #2", "ip": "192.168.1.102", "token": "REPLACE_ME" },
-  { "id": "prusa-03", "name": "Prusa MK4 #3", "ip": "192.168.1.103", "token": "REPLACE_ME" },
-  { "id": "prusa-04", "name": "Prusa MK4 #4", "ip": "192.168.1.104", "token": "REPLACE_ME" }
+  {
+    "slot": 1,
+    "id": "prusa-01",
+    "name": "Drucker 1 (MK3.5)",
+    "model": "MK3.5",
+    "ip": "10.30.0.139",
+    "auth_type": "digest",
+    "username": "maker",
+    "password": "REPLACE_ME",
+    "api_key": ""
+  },
+  {
+    "slot": 2,
+    "id": "prusa-02",
+    "name": "Drucker 2 (MK4)",
+    "model": "MK4",
+    "ip": "10.30.0.140",
+    "auth_type": "digest",
+    "username": "maker",
+    "password": "REPLACE_ME",
+    "api_key": ""
+  },
+  {
+    "slot": 3,
+    "id": "prusa-03",
+    "name": "Drucker 3 (MK3S)",
+    "model": "MK3S",
+    "ip": "10.30.0.141",
+    "auth_type": "api_key",
+    "username": "",
+    "password": "",
+    "api_key": "REPLACE_ME"
+  },
+  {
+    "slot": 4,
+    "id": "prusa-04",
+    "name": "Drucker 4 (XL)",
+    "model": "XL",
+    "ip": "10.30.0.142",
+    "auth_type": "digest",
+    "username": "maker",
+    "password": "REPLACE_ME",
+    "api_key": ""
+  }
 ]

@@ -1,4 +1,4 @@
-# Dev-Overrides: aktiv wenn "docker compose up" ohne explizites -f aufgerufen wird.
+# Dev-Overrides: aktiv bei "docker compose up" ohne explizites -f.
 # Nicht in Produktion verwenden.
 
 services:
@@ -7,20 +7,22 @@ services:
     build: ./services/backend
     image: smart-terminal-backend:dev
     volumes:
-      - ./services/backend/src:/app  # Live-Reload via uvicorn --reload
-      - ./config:/config:ro          # printers.dev.json ohne Share-Zugriff
+      - ./services/backend/src:/app
+      - ./config:/config:ro
     environment:
       PRINTERS_CONFIG_FILE: /config/printers.dev.json
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload --timeout-graceful-shutdown 2
 
   ui:
     build: ./services/ui
     image: smart-terminal-ui:dev
     volumes:
-      - ./services/ui/src:/usr/share/nginx/html
+      - ./services/ui/src:/usr/share/nginx/html:ro
+      - ./services/ui/nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
   device-agent:
     build: ./services/device-agent
     image: smart-terminal-device-agent:dev
     volumes:
       - ./services/device-agent/src:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8081 --reload --timeout-graceful-shutdown 2
