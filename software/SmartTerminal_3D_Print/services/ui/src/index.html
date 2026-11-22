@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -7,79 +7,51 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app" class="app-shell">
-    <!-- Top Bar: Terminal Title + 4 Printer Status Tiles + Account Button -->
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-dot" id="conn-dot" title="Backend-Verbindung"></div>
-        <div>
-          <div class="brand-title" id="service-name">3D-Print Terminal</div>
-          <div class="brand-sub" id="clock">--:--</div>
-        </div>
+  <div class="hmi-root" id="hmi-root">
+    <!-- 1. Top Statusleiste: ‹ Zurück, Titel, Live-Uhr, 👁 Theme, 👤 Konto, ⚙ Setup -->
+    <header class="statusbar">
+      <div class="sb-left">
+        <button type="button" class="back-top-btn hidden" id="btn-back-top" aria-label="Zurück">‹ Zurück</button>
+        <span class="conn-dot" id="conn-dot" title="Backend-Verbindung"></span>
+        <span class="sb-title" id="sb-title">Warteschlange</span>
+        <span class="sb-sub" id="sb-sub"></span>
       </div>
-
-      <div class="printer-bar" id="printer-bar">
-        <!-- Populated dynamically -->
+      <div class="sb-right">
+        <span class="sb-clock" id="sb-clock">--:--</span>
+        <button type="button" class="sb-icon-btn" id="btn-theme-eye" title="Hell / Dunkel umschalten">👁</button>
+        <button type="button" class="sb-account-btn" id="btn-account">👤 Konto</button>
+        <button type="button" class="sb-icon-btn" id="btn-setup" title="Setup &amp; Einstellungen">⚙</button>
       </div>
-
-      <button class="btn btn-secondary btn-account" id="btn-open-account" type="button">
-        <span>Konto &amp; Guthaben</span>
-      </button>
     </header>
 
-    <!-- Main Queue View -->
-    <main class="queue-area">
-      <div class="queue-header">
-        <h1>Druck-Warteschlange</h1>
-        <span class="queue-hint">Jobs verfallen automatisch nach 5 Minuten</span>
-      </div>
+    <!-- 2. Hauptbereich (Warteschlange oder Vollbild-Workflow-Screen) -->
+    <main class="stage" id="stage"></main>
 
-      <div id="queue-list" class="queue-list"></div>
+    <!-- 3. Bottom Drucker-Dock (klickbare Drucker-Tasten) -->
+    <footer class="printer-dock" id="printer-dock"></footer>
 
-      <div id="queue-empty" class="queue-empty hidden">
-        <div class="empty-icon">🖨️</div>
-        <h2>Keine Druckjobs in der Warteschlange</h2>
-        <p>Sende deinen Job aus dem <strong>PrusaSlicer</strong> an Slot 1–4 (<code>:8101</code>–<code>:8104</code>).<br>
-        Er erscheint hier automatisch innerhalb weniger Sekunden.</p>
-      </div>
-    </main>
+    <!-- 4. Upload-Detail-Popup (öffnet beim Tippen auf laufenden Upload) -->
+    <div class="popup-backdrop hidden" id="upload-popup" role="dialog" aria-modal="true"></div>
 
-    <!-- Collapsible Dev/Mock Simulator Bar (only rendered in mock mode) -->
-    <footer id="dev-bar" class="dev-bar hidden">
-      <span class="dev-badge">DEV MOCK</span>
-      <button type="button" class="dev-btn" id="dev-upload">+ Test-Job (Slot 1)</button>
-      <button type="button" class="dev-btn" data-rfid="04AABBCCDD01">Karte: Marius (25€)</button>
-      <button type="button" class="dev-btn" data-rfid="04AABBCCDD02">Karte: Erika (0,15€)</button>
-      <button type="button" class="dev-btn" data-rfid="04AABBCCDD03">Karte: Ohne Freigabe</button>
-      <button type="button" class="dev-btn" data-rfid="04AABBCCDD99">Karte: BV / Einweiser</button>
+    <!-- 5. Drucker-Detail-Popup (öffnet beim Tippen auf Drucker-Kachel unten) -->
+    <div class="popup-backdrop hidden" id="printer-popup" role="dialog" aria-modal="true"></div>
+
+    <!-- 6. Einklappbarer DEV-Simulator (nur sichtbar wenn Backend im Mock-Modus) -->
+    <button type="button" class="dev-pill hidden" id="dev-pill">DEV</button>
+    <div class="dev-drawer hidden" id="dev-drawer">
+      <button type="button" class="dev-btn" id="dev-upload">+ Test-Job</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD01">Marius (25€)</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD02">Erika (0,15€)</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD03">Ohne Freigabe</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD99">BV-Karte</button>
       <button type="button" class="dev-btn" id="dev-toggle-p1">Drucker 1: Frei/Belegt</button>
-      <span class="dev-hint">PIN: 1234</span>
-    </footer>
-  </div>
-
-  <!-- Fullscreen Modal Overlay for Interactive Flows -->
-  <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true">
-    <div class="modal" id="modal-box">
-      <div class="modal-header">
-        <div class="modal-header-left">
-          <button type="button" class="modal-close-btn" id="modal-close" aria-label="Schließen">✕</button>
-          <h2 id="modal-title">Titel</h2>
-        </div>
-        <div class="timeout-ring hidden" id="timeout-ring">
-          <svg viewBox="0 0 44 44">
-            <circle class="ring-bg" cx="22" cy="22" r="19"></circle>
-            <circle class="ring-fg" id="ring-fg" cx="22" cy="22" r="19"></circle>
-          </svg>
-          <span id="ring-text">60</span>
-        </div>
-      </div>
-      <div class="modal-body" id="modal-body"></div>
-      <div class="modal-footer" id="modal-footer"></div>
+      <span class="dev-hint">PIN 1234</span>
+      <button type="button" class="dev-btn" id="dev-close">✕</button>
     </div>
-  </div>
 
-  <!-- Toast Banner for Short Status Messages -->
-  <div id="toast" class="toast hidden"></div>
+    <!-- 7. Toast -->
+    <div class="toast hidden" id="toast"></div>
+  </div>
 
   <script src="app.js"></script>
 </body>

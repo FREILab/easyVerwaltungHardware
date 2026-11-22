@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, File, HTTPException, Request, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import JSONResponse
 
 from jobs.parser import compute_job_price, parse_print_file
@@ -42,7 +42,20 @@ def _check_slicer_auth(request: Request) -> None:
     raise HTTPException(status_code=401, detail="Invalid or missing X-Api-Key")
 
 
-async def _ingest_print_file(request: Request, filename: str, temp_path: Path, size: int) -> dict[str, Any]:
+def _parse_print_after_upload(raw: str | None, default: bool = False) -> bool:
+    if raw is None:
+        return default
+    v = raw.strip().lower()
+    if v in {"?1", "1", "true", "yes", "on"}:
+        return True
+    if v in {"?0", "0", "false", "no", "off"}:
+        return False
+    return default
+
+
+async def _ingest_print_file(
+    request: Request, filename: str, temp_path: Path, size: int, *, print_after_upload: bool = True
+) -> dict[str, Any]:
     app_state = request.app.state
     settings = app_state.settings
     store = app_state.store
@@ -91,6 +104,7 @@ async def _ingest_print_file(request: Request, filename: str, temp_path: Path, s
         slicer_price_cents=pricing.slicer_price_cents,
         price_source=pricing.price_source,
         ttl_seconds=settings.job_ttl_seconds,
+        print_after_upload=print_after_upload,
     )
     app_state.events.publish("queue_updated", {"action": "uploaded", "jobId": job["id"], "slot": slot})
     logger.info(
@@ -222,7 +236,8 @@ async def prusalink_v1_upload(storage: str, filepath: str, request: Request) -> 
         dest.unlink(missing_ok=True)
         raise
 
-    job = await _ingest_print_file(request, safe_name, dest, total)
+    print_after = _parse_print_after_upload(request.headers.get("Print-After-Upload"), default=False)
+    job = await _ingest_print_file(request, safe_name, dest, total, print_after_upload=print_after)
     return JSONResponse(
         status_code=201,
         content={
@@ -237,7 +252,12 @@ async def prusalink_v1_upload(storage: str, filepath: str, request: Request) -> 
 
 @router.post("/api/files/{storage}")
 @router.post("/api/files/{storage}/")
-async def prusalink_multipart_upload(storage: str, request: Request, file: UploadFile = File(...)) -> JSONResponse:
+async def prusalink_multipart_upload(
+    storage: str,
+    request: Request,
+    file: UploadFile = File(...),
+    print_flag: str | None = Form(default=None, alias="print"),
+) -> JSONResponse:
     """Multipart upload used by PrusaSlicer (/api/files/local, /api/files/usb/, /api/files/sdcard/)."""
     _check_slicer_auth(request)
     settings = request.app.state.settings
@@ -267,7 +287,9 @@ async def prusalink_multipart_upload(storage: str, request: Request, file: Uploa
     finally:
         await file.close()
 
-    job = await _ingest_print_file(request, safe_name, dest, total)
+    raw_flag = print_flag if print_flag is not None else request.headers.get("Print-After-Upload")
+    print_after = _parse_print_after_upload(raw_flag, default=False)
+    job = await _ingest_print_file(request, safe_name, dest, total, print_after_upload=print_after)
     return JSONResponse(
         status_code=201,
         content={

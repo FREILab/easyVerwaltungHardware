@@ -33,9 +33,10 @@ class PrinterClient:
         printer: PrinterConfig,
         file_path: Path,
         filename: str,
+        print_after_upload: bool = True,
         on_progress: Callable[[int, int], None] | None = None,
     ) -> PrinterActionResult:
-        """Upload file to printer WITHOUT starting print (Print-After-Upload: ?0)."""
+        """Upload file to printer, forwarding Print-After-Upload (?1 / ?0) as requested by Slicer."""
         raise NotImplementedError
 
     async def start_print(self, printer: PrinterConfig, remote_path: str) -> PrinterActionResult:
@@ -57,7 +58,7 @@ def map_prusalink_state(raw_state: str) -> tuple[str, str | None]:
     if s == "PAUSED":
         return "PAUSED", None
     if s == "FINISHED":
-        return "ATTENTION", "Druck fertig – Bett leeren"
+        return "ATTENTION", "Fertig (am Drucker bestätigen)"
     if s in {"ATTENTION", "ERROR", "STOPPED"}:
         return "ATTENTION", s
     return "OFFLINE", f"Unbekannter Status: {s or 'leer'}"
@@ -70,6 +71,7 @@ class PrusaLinkClient(PrinterClient):
         self.status_timeout = status_timeout
         self.upload_timeout = upload_timeout
         self._storage_cache: dict[str, str] = {}
+        self._nozzle_cache: dict[str, float] = {}
 
     @staticmethod
     def _base_url(printer: PrinterConfig) -> str:
@@ -125,8 +127,23 @@ class PrusaLinkClient(PrinterClient):
             if storage.get("name") and not storage.get("read_only"):
                 self._storage_cache[printer.id] = str(storage["name"]).strip("/")
 
+            # Fetch nozzle_diameter once via /api/v1/info and cache it
+            nozzle_d = self._nozzle_cache.get(printer.id)
+            if nozzle_d is None:
+                try:
+                    async with httpx.AsyncClient(timeout=self.status_timeout) as c2:
+                        ir = await c2.get(f"{self._base_url(printer)}/api/v1/info", **auth_kw)
+                        if ir.status_code == 200:
+                            nd = ir.json().get("nozzle_diameter")
+                            if nd is not None:
+                                nozzle_d = float(nd)
+                                self._nozzle_cache[printer.id] = nozzle_d
+                except Exception:
+                    pass
+
             mapped_state, note = map_prusalink_state(str(p.get("state", "")))
             progress = job.get("progress")
+            time_rem = job.get("time_remaining")
             active_job = None
             if isinstance(job.get("file"), dict):
                 active_job = job["file"].get("display_name") or job["file"].get("name")
@@ -136,7 +153,11 @@ class PrusaLinkClient(PrinterClient):
                 progress=float(progress) if progress is not None else None,
                 active_job=active_job,
                 nozzle_temp=float(p["temp_nozzle"]) if p.get("temp_nozzle") is not None else None,
+                target_nozzle=float(p["target_nozzle"]) if p.get("target_nozzle") is not None else None,
                 bed_temp=float(p["temp_bed"]) if p.get("temp_bed") is not None else None,
+                target_bed=float(p["target_bed"]) if p.get("target_bed") is not None else None,
+                nozzle_diameter=nozzle_d,
+                time_remaining_s=int(time_rem) if time_rem is not None else None,
                 updated_at=time.time(),
                 error=note,
             )
@@ -149,6 +170,7 @@ class PrusaLinkClient(PrinterClient):
         printer: PrinterConfig,
         file_path: Path,
         filename: str,
+        print_after_upload: bool = True,
         on_progress: Callable[[int, int], None] | None = None,
     ) -> PrinterActionResult:
         if not file_path.exists():
@@ -196,14 +218,21 @@ class PrusaLinkClient(PrinterClient):
                     **auth_kw["headers"],
                     "Content-Type": "application/octet-stream",
                     "Content-Length": str(size),
-                    "Print-After-Upload": "?0",
+                    "Print-After-Upload": "?1" if print_after_upload else "?0",
                     "Overwrite": "?1",
                 }
                 resp = await client.put(url, content=_file_chunks(), headers=headers, auth=auth_kw["auth"])
                 if resp.status_code in {200, 201, 204}:
                     if on_progress:
                         on_progress(size, size)
-                    logger.info("Uploaded %s (%d bytes) to %s:/%s", filename, size, printer.id, remote_path)
+                    logger.info(
+                        "Uploaded %s (%d bytes, print_after_upload=%s) to %s:/%s",
+                        filename,
+                        size,
+                        print_after_upload,
+                        printer.id,
+                        remote_path,
+                    )
                     return PrinterActionResult(ok=True, remote_path=remote_path)
                 if resp.status_code == 409:
                     return PrinterActionResult(ok=False, reason="PRINTER_BUSY")
@@ -283,6 +312,7 @@ class MockPrinterClient(PrinterClient):
         printer: PrinterConfig,
         file_path: Path,
         filename: str,
+        print_after_upload: bool = True,
         on_progress: Callable[[int, int], None] | None = None,
     ) -> PrinterActionResult:
         st = await self.poll_status(printer)
@@ -296,6 +326,8 @@ class MockPrinterClient(PrinterClient):
                 on_progress(int(total * step / 100), total)
             if step < 100:
                 await asyncio.sleep(0.08)
+        if print_after_upload:
+            self.set_mock_state(printer.id, "PRINTING", active_job=filename)
         return PrinterActionResult(ok=True, remote_path=f"usb/{filename}")
 
     async def start_print(self, printer: PrinterConfig, remote_path: str) -> PrinterActionResult:

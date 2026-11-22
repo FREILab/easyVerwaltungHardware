@@ -53,6 +53,7 @@ class JobStore:
                     price_cents INTEGER NOT NULL,
                     slicer_price_cents INTEGER,
                     price_source TEXT NOT NULL,
+                    print_after_upload INTEGER NOT NULL DEFAULT 1,
                     status TEXT NOT NULL,
                     created_at REAL NOT NULL,
                     expires_at REAL NOT NULL,
@@ -82,6 +83,10 @@ class JobStore:
                 CREATE INDEX IF NOT EXISTS idx_audit_ts ON audit_log (ts DESC);
                 """
             )
+            # Safe migration for existing SQLite DBs
+            cols = {r["name"] for r in conn.execute("PRAGMA table_info(jobs)").fetchall()}
+            if "print_after_upload" not in cols:
+                conn.execute("ALTER TABLE jobs ADD COLUMN print_after_upload INTEGER NOT NULL DEFAULT 1")
             # Recover any jobs stuck in 'sending' after a sudden power loss
             conn.execute(
                 "UPDATE jobs SET status = 'queued' WHERE status = 'sending' AND expires_at > ?",
@@ -111,6 +116,7 @@ class JobStore:
         slicer_price_cents: int | None,
         price_source: str,
         ttl_seconds: int,
+        print_after_upload: bool = True,
     ) -> dict[str, Any]:
         now = time.time()
         expires_at = now + ttl_seconds
@@ -122,8 +128,8 @@ class JobStore:
                     file_path, file_size, thumbnail_path, thumbnail_ext,
                     filament_g, filament_type, estimated_time_s,
                     price_cents, slicer_price_cents, price_source,
-                    status, created_at, expires_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'queued', ?, ?)
+                    print_after_upload, status, created_at, expires_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'queued', ?, ?)
                 """,
                 (
                     job_id,
@@ -141,6 +147,7 @@ class JobStore:
                     price_cents,
                     slicer_price_cents,
                     price_source,
+                    1 if print_after_upload else 0,
                     now,
                     expires_at,
                 ),
@@ -322,6 +329,26 @@ class JobStore:
             for r in rows
         ]
 
+    def printer_lifetime_stats(self) -> dict[str, dict[str, float]]:
+        with self._lock, self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT printer_id,
+                       COALESCE(SUM(estimated_time_s), 0) AS total_s,
+                       COALESCE(SUM(filament_g), 0) AS total_g
+                FROM jobs
+                WHERE status = 'started'
+                GROUP BY printer_id
+                """
+            ).fetchall()
+        return {
+            r["printer_id"]: {
+                "hours": float(r["total_s"]) / 3600.0,
+                "grams": float(r["total_g"]),
+            }
+            for r in rows
+        }
+
     def health_ok(self) -> bool:
         try:
             with self._lock, self._connect() as conn:
@@ -362,6 +389,7 @@ class JobStore:
             "priceCents": row["price_cents"],
             "slicerPriceCents": row["slicer_price_cents"],
             "priceSource": row["price_source"],
+            "printAfterUpload": bool(row["print_after_upload"]),
             "status": row["status"],
             "createdAt": row["created_at"],
             "expiresAt": row["expires_at"],

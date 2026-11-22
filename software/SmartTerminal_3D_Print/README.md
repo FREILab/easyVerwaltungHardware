@@ -69,5 +69,5 @@ Laufendes Deploy vom Mac: `./scripts/deploy-pi.sh printmaster@smartterminal-dev.
 - [x] **Phase 1:** PrusaLink-Emulation, `.gcode`/`.bgcode`-Parser, SQLite-Queue, Touch-UI (`1280×720`) + Mocks
 - [x] **Phase 2:** Echter PrusaLink-Client (Status, Upload, Start) – live verbunden mit Prusa MINI
 - [ ] **Phase 3:** Echte `easyVerwaltung`-Anbindung (`authorize`, `charge`, `cancel`, `metadata`)
-- [ ] **Phase 4:** Pi-5-Hardware im `device-agent` (PN532, WS2812, Buzzer)
-- [ ] **Phase 5:** Kiosk-Betrieb, Ausfalltests (Netz/Drucker/Strom), OTA-Rollout
+- [ ] **Phase 4:** Pi-5-Hardware im `device-agent` (PN532, WS2812, Buzzer) + finales 5"-Werkstatt-UI
+- [ ] **Phase 5:** Kiosk-Betrieb, Ausfalltests (Netz/Drucker/Strom), OTA-Rollout & **Slicer-Profile umstellen** (`3D_Printer_and_Filament_Profiles/physical_printer/` auf `<Terminal-IP>:8101–8104` umbiegen + **Direktverbindungs-Backups** je Drucker als Notfall-Fallback im GitHub-Repo ablegen)

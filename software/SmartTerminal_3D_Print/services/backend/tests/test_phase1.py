@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from jobs.parser import compute_job_price, derive_display_name, parse_duration_seconds, parse_print_file
 from jobs.store import JobStore
 from printer.client import map_prusalink_state
+from printer.emulation import _parse_print_after_upload
 
 
 def _make_bgcode(print_meta_ini: str, png_bytes: bytes, compress_meta: bool = False) -> bytes:
@@ -152,6 +153,51 @@ class Phase1ParserAndStoreTests(unittest.TestCase):
         state, note = map_prusalink_state("FINISHED")
         self.assertEqual(state, "ATTENTION")
         self.assertIsNotNone(note)
+
+    def test_print_after_upload_parsing_and_store_stats(self) -> None:
+        self.assertTrue(_parse_print_after_upload("?1"))
+        self.assertTrue(_parse_print_after_upload("true"))
+        self.assertTrue(_parse_print_after_upload("1"))
+        self.assertFalse(_parse_print_after_upload("?0"))
+        self.assertFalse(_parse_print_after_upload("false"))
+        self.assertFalse(_parse_print_after_upload("0"))
+        self.assertFalse(_parse_print_after_upload(None))
+        self.assertFalse(_parse_print_after_upload(""))
+
+        with tempfile.TemporaryDirectory() as td:
+            store = JobStore(Path(td))
+            f = store.uploads_dir / "xl_part.gcode"
+            f.write_text("G28\n", encoding="utf-8")
+            job = store.add_job(
+                job_id="job_xl_1",
+                printer_slot=1,
+                printer_id="prusa-xl",
+                printer_name="Prusa XL",
+                filename="xl_part.gcode",
+                file_path=f,
+                file_size=4,
+                thumbnail_path=None,
+                thumbnail_ext=None,
+                filament_g=100.0,
+                filament_type="PLA",
+                estimated_time_s=3600,
+                price_cents=400,
+                slicer_price_cents=400,
+                price_source="slicer",
+                ttl_seconds=300,
+                print_after_upload=False,
+            )
+            self.assertFalse(job["printAfterUpload"])
+            store.mark_job_started(
+                "job_xl_1",
+                payment_mode="personal",
+                payment_ref="ref_1",
+                user_display_name="Max",
+            )
+            stats = store.printer_lifetime_stats()
+            self.assertIn("prusa-xl", stats)
+            self.assertAlmostEqual(stats["prusa-xl"]["hours"], 1.0, places=2)
+            self.assertAlmostEqual(stats["prusa-xl"]["grams"], 100.0, places=2)
 
 
 if __name__ == "__main__":

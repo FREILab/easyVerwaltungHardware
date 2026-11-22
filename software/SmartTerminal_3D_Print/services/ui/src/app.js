@@ -3,30 +3,43 @@
     document.documentElement.classList.add("kiosk");
   }
 
-  const RING_CIRCUMFERENCE = 2 * Math.PI * 19;
+  // Persisted theme: "light" (default for bright workshop) | "dark"
+  const savedTheme = localStorage.getItem("st3d_theme") === "dark" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+
+  const RING_CIRC = 113.1; // 2 * pi * 18
 
   const state = {
-    terminalId: "",
+    theme: savedTheme,
+    terminalId: "3dprint-01",
+    terminalIp: "localhost",
+    version: "0.3.0",
     serviceName: "SmartTerminal 3D-Print",
     printers: [],
     jobs: [],
     sections: [],
-    modes: { devMock: false },
-    features: { topup: false, approval: false },
+    modes: { devMock: false, printer: "mock" },
+    features: { topup: false, approval: false, allowNegativeBalance: true, maxNegativeBalanceCents: 2000 },
     connected: false,
-    // Interactive flow state
-    screen: "queue", // queue | rfid_wait | payment_confirm | insufficient | topup | club_section | pin_entry | sending | printer_busy | success | account | not_approved | bv_wait | approved_ok
+
+    // Screen state: queue | rfid_wait | payment_confirm | overdraft_confirm | topup | club_section | pin_entry | printer_busy | account | settings | admin | not_approved | bv_wait | approved_ok
+    screen: "queue",
     rfidPurpose: null, // "print" | "account"
     selectedJobId: null,
     selectedSectionId: null,
     pinMode: null, // "club" | "already_paid"
     pinValue: "",
     pinError: "",
-    sendingMode: "personal",
-    sendProgress: { stage: "uploading", percent: 0, sentBytes: 0, totalBytes: 0 },
     session: null,
     lastResult: null,
     topupReturnTo: "payment_confirm",
+    adminConfig: null,
+
+    // Popups on top of current screen
+    uploadPopupJobId: null,
+    printerPopupSlot: null,
+
+    // Timeout countdown
     timeoutEnd: null,
     timeoutTotal: 60,
     timeoutAction: null,
@@ -34,9 +47,41 @@
 
   const $ = (id) => document.getElementById(id);
 
+  // --- Formatting Helpers ---
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  }
+
   function fmtEur(cents) {
-    const val = (Number(cents || 0) / 100).toFixed(2).replace(".", ",");
-    return `${val} €`;
+    return `${(Number(cents || 0) / 100).toFixed(2).replace(".", ",")} €`;
+  }
+
+  function fmtDur(sec) {
+    sec = Math.max(0, Number(sec || 0));
+    if (sec === 0) return "–";
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    return h > 0 ? `${h}h ${m}m` : `${Math.max(1, m)} min`;
+  }
+
+  function fmtEta(sec) {
+    sec = Math.max(0, Number(sec || 0));
+    if (sec === 0) return "–";
+    const now = new Date();
+    const end = new Date(now.getTime() + sec * 1000);
+    const hhmm = end.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    return end.getDate() !== now.getDate() ? `Morgen ${hhmm}` : `ca. ${hhmm} Uhr`;
+  }
+
+  function fmtCountdown(sec) {
+    sec = Math.max(0, Math.floor(sec));
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2, "0")}`;
   }
 
   function fmtMB(bytes) {
@@ -52,75 +97,67 @@
     return `${Math.max(1, Math.round(bps / 1024))} KB/s`;
   }
 
-  function updateSendingProgressDOM() {
-    const fill = $("send-progress-fill");
-    const pctEl = $("send-progress-pct");
-    const bytesEl = $("send-progress-bytes");
-    const stageEl = $("send-stage-text");
-    const hintEl = $("send-mode-hint");
-    if (!fill) return;
-    const p = state.sendProgress || { stage: "uploading", percent: 0, sentBytes: 0, totalBytes: 0, bytesPerSec: 0 };
-    const pct = Math.max(0, Math.min(100, Math.round(p.percent || 0)));
-    fill.style.width = `${pct}%`;
-    pctEl.textContent = `${pct} %`;
-    const speed = fmtSpeed(p.bytesPerSec);
-    bytesEl.textContent =
-      p.totalBytes > 0
-        ? `${fmtMB(p.sentBytes)} / ${fmtMB(p.totalBytes)}${speed ? ` · ${speed}` : ""}`
-        : "";
-
-    if (p.stage === "starting") {
-      stageEl.textContent = "Druck wird am Drucker gestartet…";
-    } else if (p.stage === "charging") {
-      stageEl.textContent = "Zahlung wird gebucht…";
-    } else {
-      stageEl.textContent = "Datei wird an den Drucker übertragen…";
-    }
-    if (hintEl) {
-      hintEl.textContent =
-        "Fenster minimiert sich automatisch – die Übertragung läuft in der Warteschlange weiter.";
-    }
-  }
-
-  function fmtDuration(sec) {
-    sec = Math.max(0, Number(sec || 0));
-    if (sec === 0) return "–";
-    const h = Math.floor(sec / 3600);
+  function fmtOnTime(sec) {
+    if (sec == null) return "Offline";
+    const d = Math.floor(sec / 86400);
+    const h = Math.floor((sec % 86400) / 3600);
     const m = Math.floor((sec % 3600) / 60);
+    if (d > 0) return `${d}d ${h}h`;
     if (h > 0) return `${h}h ${m}m`;
     return `${Math.max(1, m)} min`;
   }
 
-  function fmtCountdown(sec) {
-    sec = Math.max(0, Math.floor(sec));
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  function fmtDateTime(ts) {
+    const d = new Date(Number(ts || 0) * 1000);
+    const date = d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+    const time = d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    return `${date} · ${time}`;
   }
 
-  function fmtTime(ts) {
-    const d = new Date(ts * 1000);
-    return d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+  function printerStatText(p) {
+    if (p.state === "READY") return "● Bereit";
+    if (p.state === "UPLOADING") return `▲ Überträgt ${Math.round(p.progress || 0)} %`;
+    if (p.state === "PRINTING") return p.progress != null ? `▲ Druckt ${Math.round(p.progress)} %` : "▲ Druckt";
+    if (p.state === "PAUSED") return "▲ Pausiert";
+    if (p.state === "ATTENTION") return `▲ ${p.error || "Prüfen"}`;
+    return "✕ Offline";
   }
 
-  function stateLabel(st) {
-    const map = {
-      READY: "Bereit",
-      UPLOADING: "Überträgt",
-      PRINTING: "Druckt",
-      PAUSED: "Pausiert",
-      ATTENTION: "Achtung",
-      OFFLINE: "Offline",
-    };
-    return map[st] || st;
+  function nfcIconSvg() {
+    return `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="8" y="22" width="38" height="36" rx="5" stroke-width="4" fill="var(--surface)"/>
+      <rect x="15" y="32" width="10" height="8" rx="1.5" stroke-width="2.6"/>
+      <line x1="15" y1="48" x2="36" y2="48" stroke-width="3"/>
+      <path d="M53 33a10 10 0 0 1 0 14" stroke-width="4"/>
+      <path d="M60 26a19 19 0 0 1 0 28" stroke-width="4"/>
+      <path d="M67 19a28 28 0 0 1 0 42" stroke-width="4"/>
+    </svg>`;
   }
 
-  function escapeHtml(s) {
-    return String(s ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
+  function printerSvg(model) {
+    const m = String(model || "").toUpperCase();
+    const isXL = m.includes("XL");
+    const isMini = m.includes("MINI");
+    const accent = "#ea580c";
+    if (isMini) {
+      return `<svg viewBox="0 0 120 110" width="100%" height="100%">
+        <rect x="14" y="88" width="92" height="12" rx="3" fill="var(--border-strong)"/>
+        <rect x="26" y="76" width="66" height="8" rx="2" fill="var(--text)" opacity="0.85"/>
+        <rect x="86" y="20" width="10" height="68" rx="2" fill="var(--text)" opacity="0.75"/>
+        <rect x="30" y="34" width="62" height="9" rx="2" fill="${accent}"/>
+        <rect x="48" y="43" width="16" height="18" rx="3" fill="var(--text)"/>
+        <polygon points="53,61 59,61 56,67" fill="${accent}"/>
+      </svg>`;
+    }
+    return `<svg viewBox="0 0 120 110" width="100%" height="100%">
+      <rect x="14" y="14" width="92" height="84" rx="5" fill="none" stroke="var(--text)" stroke-width="${isXL ? 7 : 6}" opacity="0.8"/>
+      <rect x="22" y="78" width="76" height="9" rx="2" fill="var(--border-strong)"/>
+      <rect x="20" y="38" width="80" height="7" rx="2" fill="${accent}"/>
+      <rect x="48" y="32" width="24" height="22" rx="3" fill="var(--text)"/>
+      ${isXL ? `<rect x="26" y="20" width="10" height="12" rx="2" fill="${accent}"/><rect x="40" y="20" width="10" height="12" rx="2" fill="${accent}"/><rect x="54" y="20" width="10" height="12" rx="2" fill="${accent}"/>` : ""}
+      <polygon points="56,54 64,54 60,61" fill="${accent}"/>
+      <rect x="24" y="92" width="26" height="10" rx="2" fill="${accent}"/>
+    </svg>`;
   }
 
   let toastTimer = null;
@@ -129,7 +166,15 @@
     el.textContent = msg;
     el.classList.remove("hidden");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.add("hidden"), 3500);
+    toastTimer = setTimeout(() => el.classList.add("hidden"), 3400);
+  }
+
+  function setTheme(next) {
+    state.theme = next === "dark" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", state.theme);
+    localStorage.setItem("st3d_theme", state.theme);
+    showToast(state.theme === "dark" ? "Ansicht: Dunkel" : "Ansicht: Hell");
+    if (state.screen === "settings") renderStage();
   }
 
   async function api(path, opts = {}) {
@@ -153,29 +198,43 @@
     if (!seconds) {
       state.timeoutEnd = null;
       state.timeoutAction = null;
-      $("timeout-ring").classList.add("hidden");
       return;
     }
     state.timeoutTotal = seconds;
     state.timeoutEnd = Date.now() + seconds * 1000;
     state.timeoutAction = onExpire;
-    $("timeout-ring").classList.remove("hidden");
-    updateTimeoutRing();
   }
 
-  function updateTimeoutRing() {
+  function updateTimeoutDOM() {
     if (!state.timeoutEnd) return;
     const remMs = state.timeoutEnd - Date.now();
     if (remMs <= 0) {
-      const action = state.timeoutAction;
+      const act = state.timeoutAction;
       setTimeoutRing(null, null);
-      if (action) action();
+      if (act) act();
       return;
     }
     const remSec = Math.ceil(remMs / 1000);
     const ratio = Math.max(0, Math.min(1, remMs / (state.timeoutTotal * 1000)));
-    $("ring-fg").style.strokeDashoffset = String(RING_CIRCUMFERENCE * (1 - ratio));
-    $("ring-text").textContent = String(remSec);
+    const fg = $("active-timeout-fg");
+    const txt = $("active-timeout-sec");
+    if (fg) fg.style.strokeDashoffset = String((RING_CIRC * (1 - ratio)).toFixed(1));
+    if (txt) txt.textContent = `${remSec} s`;
+  }
+
+  function timeoutPillHtml(label = "Timeout:") {
+    const rem = state.timeoutEnd ? Math.max(0, Math.ceil((state.timeoutEnd - Date.now()) / 1000)) : state.timeoutTotal;
+    return `
+      <div class="timeout-pill">
+        <div class="ring-badge">
+          <svg viewBox="0 0 40 40">
+            <circle class="ring-bg" cx="20" cy="20" r="18"></circle>
+            <circle class="ring-fg" id="active-timeout-fg" cx="20" cy="20" r="18" style="stroke-dashoffset:0;"></circle>
+          </svg>
+        </div>
+        <span class="timeout-pill-lbl">${label} <strong id="active-timeout-sec">${rem} s</strong></span>
+      </div>
+    `;
   }
 
   async function returnToQueue(cancelSess = true) {
@@ -190,18 +249,48 @@
     state.pinValue = "";
     state.pinError = "";
     setTimeoutRing(null, null);
-    renderModal();
+    renderAll();
+  }
+
+  function openScreen(name) {
+    state.screen = name;
+    state.printerPopupSlot = null;
+    state.uploadPopupJobId = null;
+    if (["rfid_wait", "bv_wait", "payment_confirm", "club_section", "pin_entry", "account", "topup"].includes(name)) {
+      setTimeoutRing(60, () => returnToQueue(true));
+    } else if (["overdraft_confirm", "not_approved", "printer_busy"].includes(name)) {
+      setTimeoutRing(30, () => returnToQueue(true));
+    } else if (name === "approved_ok") {
+      setTimeoutRing(4, () => openScreen(state.rfidPurpose === "print" ? "payment_confirm" : "account"));
+    } else {
+      setTimeoutRing(null, null);
+    }
+    renderAll();
+  }
+
+  function goBackOneStep() {
+    const s = state.screen;
+    if (s === "overdraft_confirm" || s === "club_section") return openScreen("payment_confirm");
+    if (s === "pin_entry") return openScreen(state.pinMode === "club" ? "club_section" : "payment_confirm");
+    if (s === "topup") return openScreen(state.topupReturnTo || "payment_confirm");
+    if (s === "printer_busy") return openScreen(state.session ? "payment_confirm" : "queue");
+    if (s === "bv_wait") return openScreen("not_approved");
+    if (s === "admin") return openScreen("settings");
+    return returnToQueue(true);
   }
 
   // --- Data Sync & SSE ---
   async function loadState() {
     try {
       const data = await api("/api/state");
-      state.terminalId = data.terminalId;
-      state.serviceName = data.serviceName || "3D-Print Terminal";
+      state.terminalId = data.terminalId || state.terminalId;
+      state.terminalIp = data.terminalIp || state.terminalIp;
+      state.version = data.version || state.version;
+      state.serviceName = data.serviceName || "SmartTerminal 3D-Print";
       state.printers = data.printers || [];
       state.jobs = (data.jobs || []).map((j) => ({
         ...j,
+        _ttlTotal: Math.max(60, Number(j.expiresAt - j.createdAt) || 300),
         _clientExpiresAt: Date.now() + (j.remainingSeconds || 0) * 1000,
       }));
       state.sections = data.sections || [];
@@ -209,22 +298,28 @@
       state.features = data.features || {};
       state.connected = true;
 
-      // If currently in a print flow and the selected job expired, inform user
       if (
         state.selectedJobId &&
-        ["rfid_wait", "payment_confirm", "insufficient", "overdraft_confirm", "club_section", "pin_entry"].includes(state.screen) &&
+        ["rfid_wait", "payment_confirm", "overdraft_confirm", "club_section", "pin_entry"].includes(state.screen) &&
         !selectedJob()
       ) {
         showToast("Der ausgewählte Druckjob ist abgelaufen.");
         await returnToQueue(true);
+        return;
       }
 
-      renderHeader();
-      renderQueue();
-      renderDevBar();
+      if (state.uploadPopupJobId && !state.jobs.some((j) => j.id === state.uploadPopupJobId && j.status === "sending")) {
+        state.uploadPopupJobId = null;
+      }
+
+      renderTopbar();
+      renderDock();
+      renderDevControls();
+      renderPopups();
+      if (state.screen === "queue") renderStage();
     } catch {
       state.connected = false;
-      renderHeader();
+      renderTopbar();
     }
   }
 
@@ -232,86 +327,69 @@
     const es = new EventSource("/api/events");
     es.addEventListener("connected", () => {
       state.connected = true;
-      renderHeader();
+      renderTopbar();
     });
     es.addEventListener("queue_updated", () => loadState());
     es.addEventListener("printers_updated", () => loadState());
+    es.addEventListener("rfid_scan", (ev) => {
+      try {
+        const uid = JSON.parse(ev.data)?.data?.uid;
+        if (uid) handleRfidScan(uid);
+      } catch {}
+    });
     es.addEventListener("job_progress", (ev) => {
       try {
-        const payload = JSON.parse(ev.data)?.data;
-        if (!payload) return;
-        // Update active modal progress if watching this job
-        if (payload.jobId === state.selectedJobId) {
-          state.sendProgress = {
-            stage: payload.stage || "uploading",
-            percent: Number(payload.percent || 0),
-            sentBytes: Number(payload.sentBytes || 0),
-            totalBytes: Number(payload.totalBytes || 0),
-            bytesPerSec: Number(payload.bytesPerSec || 0),
-          };
-          if (state.screen === "sending") updateSendingProgressDOM();
-        }
-        // Update inline progress on main queue card & printer tile
-        const job = state.jobs.find((j) => j.id === payload.jobId);
+        const p = JSON.parse(ev.data)?.data;
+        if (!p) return;
+        const job = state.jobs.find((j) => j.id === p.jobId);
         if (job) {
-          job.uploadProgress = payload;
-          const fill = document.querySelector(`[data-upload-fill="${payload.jobId}"]`);
-          const txt = document.querySelector(`[data-upload-text="${payload.jobId}"]`);
-          if (fill) fill.style.width = `${Math.round(payload.percent || 0)}%`;
-          if (txt) {
-            const sp = fmtSpeed(payload.bytesPerSec);
-            txt.textContent =
-              payload.stage === "starting"
-                ? "Starte Druck…"
-                : `Überträgt ${Math.round(payload.percent || 0)} % · ${fmtMB(payload.sentBytes)} / ${fmtMB(payload.totalBytes)}${sp ? ` · ${sp}` : ""}`;
-          }
+          job.uploadProgress = p;
+          const fill = document.querySelector(`[data-upload-fill="${p.jobId}"]`);
+          const pctEl = document.querySelector(`[data-upload-pct="${p.jobId}"]`);
+          const mbEl = document.querySelector(`[data-upload-mb="${p.jobId}"]`);
+          if (fill) fill.style.width = `${Math.round(p.percent || 0)}%`;
+          if (pctEl) pctEl.textContent = p.stage === "starting" ? "Startet…" : `${Math.round(p.percent || 0)} %`;
+          if (mbEl) mbEl.textContent = `${fmtMB(p.sentBytes)}/${fmtMB(p.totalBytes)}`;
         }
-        const printer = state.printers.find((p) => p.id === payload.printerId);
+        const printer = state.printers.find((x) => x.id === p.printerId);
         if (printer) {
           printer.state = "UPLOADING";
-          printer.progress = payload.percent;
+          printer.progress = p.percent;
           const pSub = document.querySelector(`[data-printer-sub="${printer.id}"]`);
-          if (pSub) pSub.textContent = `Überträgt · ${Math.round(payload.percent || 0)}%`;
+          if (pSub) pSub.textContent = `▲ Überträgt ${Math.round(p.percent || 0)} %`;
         }
+        if (state.uploadPopupJobId === p.jobId) renderUploadPopup();
       } catch {}
     });
     es.addEventListener("job_done", (ev) => {
       try {
-        const payload = JSON.parse(ev.data)?.data;
+        const p = JSON.parse(ev.data)?.data;
+        if (state.uploadPopupJobId === p?.jobId) state.uploadPopupJobId = null;
         loadState();
-        if (!payload) return;
-        if (state.screen === "sending" && payload.jobId === state.selectedJobId) {
-          state.lastResult = { ...(state.lastResult || {}), ...payload };
-          openScreen("success");
+        if (!p) return;
+        if (p.printAfterUpload === false) {
+          showToast(`✓ Auf Drucker ${p.printerSlot || ""} hochgeladen — am Drucker starten`);
         } else {
-          showToast(`Druck gestartet: ${payload.displayName || ""} auf ${payload.printerName || ""}`);
+          showToast(`✓ Druck gestartet: ${p.displayName || ""} (Drucker ${p.printerSlot || ""})`);
         }
       } catch {}
     });
     es.addEventListener("job_failed", (ev) => {
       try {
-        const payload = JSON.parse(ev.data)?.data;
+        const p = JSON.parse(ev.data)?.data;
+        if (state.uploadPopupJobId === p?.jobId) state.uploadPopupJobId = null;
         loadState();
-        if (!payload) return;
-        const msg = payload.charged
-          ? `Übertragung fehlgeschlagen (${payload.reason}) – beim erneuten Versuch „Bereits bezahlt“ nutzen.`
-          : `Übertragung fehlgeschlagen (${payload.reason}).`;
-        showToast(msg);
-        if (state.screen === "sending" && payload.jobId === state.selectedJobId) {
-          returnToQueue(false);
-        }
-      } catch {}
-    });
-    es.addEventListener("rfid_scan", (ev) => {
-      try {
-        const payload = JSON.parse(ev.data);
-        const uid = payload?.data?.uid;
-        if (uid) handleRfidScan(uid);
+        if (!p) return;
+        showToast(
+          p.charged
+            ? `Übertragung fehlgeschlagen (${p.reason}) — beim Neustart „Bereits bezahlt“ nutzen.`
+            : `Übertragung fehlgeschlagen (${p.reason}).`
+        );
       } catch {}
     });
     es.onerror = () => {
       state.connected = false;
-      renderHeader();
+      renderTopbar();
     };
   }
 
@@ -328,15 +406,8 @@
           return;
         }
         state.session = res.session;
-        if (!state.session.approved) {
-          openScreen("not_approved");
-          return;
-        }
-        if (state.rfidPurpose === "account") {
-          openScreen("account");
-        } else {
-          openScreen("payment_confirm");
-        }
+        if (!state.session.approved) return openScreen("not_approved");
+        openScreen(state.rfidPurpose === "account" ? "account" : "payment_confirm");
       } catch (err) {
         showToast(err.message);
       }
@@ -362,7 +433,6 @@
       return;
     }
 
-    // Convenience: scanning a card on the idle queue screen opens Account directly
     if (state.screen === "queue") {
       state.rfidPurpose = "account";
       state.screen = "rfid_wait";
@@ -370,23 +440,13 @@
     }
   }
 
-  // --- Job Actions ---
+  // --- Actions ---
   async function executeStart(mode, extra = {}) {
     const job = selectedJob();
     if (!job || !state.session) {
-      showToast("Job oder Sitzung nicht mehr gültig.");
+      showToast("Job oder Sitzung abgelaufen.");
       return returnToQueue(true);
     }
-    state.sendingMode = mode;
-    state.lastResult = null;
-    state.sendProgress = {
-      stage: mode === "personal" ? "charging" : "uploading",
-      percent: 0,
-      sentBytes: 0,
-      totalBytes: Number(job.fileSize || 0),
-      bytesPerSec: 0,
-    };
-    openScreen("sending");
     try {
       const res = await api(`/api/jobs/${encodeURIComponent(job.id)}/start`, {
         method: "POST",
@@ -399,55 +459,35 @@
         }),
       });
 
-      if (res.started && res.uploading) {
-        state.lastResult = res;
-        state.session = null;
-        state.sendProgress.stage = "uploading";
-        await loadState();
-        renderModal();
-        // Auto-minimize after 3s so the user sees payment confirmation and upload continues in queue
-        setTimeoutRing(3, () => returnToQueue(false));
-        return;
-      }
-
       if (res.started) {
-        state.lastResult = res;
         state.session = null;
+        const actionWord = job.printAfterUpload === false ? "Upload" : "Übertragung";
+        showToast(`✓ Freigegeben — ${actionWord} an Drucker ${job.printerSlot} läuft`);
+        await returnToQueue(false);
         await loadState();
-        openScreen("success");
         return;
       }
 
       if (res.reason === "PRINTER_BUSY" || res.reason === "PRINTER_OFFLINE") {
         state.lastResult = res;
-        openScreen("printer_busy");
-        return;
+        return openScreen("printer_busy");
       }
-
       if (res.reason === "INSUFFICIENT_BALANCE") {
         state.session.balanceCents = res.balanceCents;
-        state.lastResult = res;
-        openScreen("insufficient");
-        return;
+        return openScreen("payment_confirm");
       }
-
       if (res.reason === "PIN_INVALID" || res.reason === "PIN_REQUIRED") {
         state.pinValue = "";
-        state.pinError = "PIN ist falsch – bitte erneut versuchen.";
-        openScreen("pin_entry");
-        return;
+        state.pinError = "PIN ist falsch — bitte erneut versuchen.";
+        return renderStage();
       }
-
       if (res.reason === "JOB_EXPIRED") {
-        showToast("Job ist abgelaufen.");
+        showToast("Druckjob ist abgelaufen.");
         return returnToQueue(true);
       }
-
-      showToast(`Fehler: ${res.reason || "Unbekannter Fehler"}`);
-      openScreen("payment_confirm");
+      showToast(`Fehler: ${res.reason || "Unbekannt"}`);
     } catch (err) {
       showToast(err.message);
-      openScreen("payment_confirm");
     }
   }
 
@@ -459,518 +499,19 @@
         body: JSON.stringify({ sessionId: state.session.sessionId, amountCents }),
       });
       state.session = res.session;
-      showToast(`+${fmtEur(amountCents)} aufgeladen`);
-      openScreen(state.topupReturnTo);
+      showToast(`✓ +${fmtEur(amountCents)} aufgeladen`);
+      openScreen(state.topupReturnTo || "payment_confirm");
     } catch (err) {
       showToast(err.message);
     }
   }
 
-  // --- Screen Transitions ---
-  function openScreen(name) {
-    state.screen = name;
-    if (name === "rfid_wait" || name === "bv_wait") {
-      setTimeoutRing(60, () => returnToQueue(true));
-    } else if (name === "payment_confirm" || name === "club_section" || name === "pin_entry" || name === "account" || name === "topup") {
-      setTimeoutRing(60, () => returnToQueue(true));
-    } else if (name === "insufficient" || name === "not_approved" || name === "overdraft_confirm") {
-      setTimeoutRing(30, () => returnToQueue(true));
-    } else if (name === "success") {
-      setTimeoutRing(3, () => returnToQueue(false));
-    } else if (name === "approved_ok") {
-      setTimeoutRing(4, () => openScreen(state.rfidPurpose === "print" ? "payment_confirm" : "account"));
-    } else {
-      setTimeoutRing(null, null);
-    }
-    renderModal();
-  }
-
-  // --- Render Functions ---
-  function renderHeader() {
-    $("service-name").textContent = state.serviceName;
-    $("conn-dot").classList.toggle("offline", !state.connected);
-
-    const bar = $("printer-bar");
-    bar.style.gridTemplateColumns = `repeat(${Math.max(1, state.printers.length)}, minmax(0, 1fr))`;
-    bar.innerHTML = state.printers
-      .map((p) => {
-        const temp =
-          p.nozzleTemp != null && p.bedTemp != null
-            ? ` · ${Math.round(p.nozzleTemp)}°/${Math.round(p.bedTemp)}°`
-            : "";
-        let sub = stateLabel(p.state);
-        if (p.state === "UPLOADING") {
-          sub = `Überträgt · ${Math.round(p.progress || 0)}%`;
-        } else if (p.state === "PRINTING" && p.progress != null) {
-          sub = `${stateLabel(p.state)} · ${Math.round(p.progress)}%${temp}`;
-        } else if (p.state === "ATTENTION" && p.error) {
-          sub = p.error;
-        } else if (p.state !== "OFFLINE") {
-          sub = `${stateLabel(p.state)}${temp}`;
-        }
-        return `
-          <div class="printer-tile state-${escapeHtml(p.state)}">
-            <div class="printer-slot">${p.slot}</div>
-            <div class="printer-info">
-              <div class="printer-name">${escapeHtml(p.name)}</div>
-              <div class="printer-state" data-printer-sub="${escapeHtml(p.id)}">${escapeHtml(sub)}</div>
-            </div>
-          </div>
-        `;
-      })
-      .join("");
-  }
-
-  function renderQueue() {
-    const list = $("queue-list");
-    const empty = $("queue-empty");
-
-    if (!state.jobs.length) {
-      list.innerHTML = "";
-      empty.classList.remove("hidden");
-      return;
-    }
-
-    empty.classList.add("hidden");
-    list.innerHTML = state.jobs
-      .map((j) => {
-        const rem = Math.max(0, Math.floor((j._clientExpiresAt - Date.now()) / 1000));
-        const thumb = j.thumbnailUrl
-          ? `<img src="${escapeHtml(j.thumbnailUrl)}" alt="">`
-          : "🧊";
-        const warnClass = rem <= 60 ? "warn" : "";
-        const isSending = j.status === "sending";
-        const up = j.uploadProgress || { percent: 0, sentBytes: 0, totalBytes: j.fileSize || 0, bytesPerSec: 0 };
-        const sp = fmtSpeed(up.bytesPerSec);
-        const actionsHtml = isSending
-          ? `
-            <div class="job-upload-box">
-              <div class="job-upload-track">
-                <div class="job-upload-fill" data-upload-fill="${escapeHtml(j.id)}" style="width:${Math.round(up.percent || 0)}%"></div>
-              </div>
-              <div class="job-upload-text" data-upload-text="${escapeHtml(j.id)}">
-                Überträgt ${Math.round(up.percent || 0)} % · ${fmtMB(up.sentBytes)} / ${fmtMB(up.totalBytes || j.fileSize)}${sp ? ` · ${sp}` : ""}
-              </div>
-            </div>
-            <button type="button" class="btn btn-delete-danger" data-del-id="${escapeHtml(j.id)}" title="Übertragung abbrechen">✕</button>
-          `
-          : `
-            <div class="job-price">
-              <div class="job-price-val">${fmtEur(j.priceCents)}</div>
-              <div class="job-ttl ${warnClass}" data-ttl-id="${escapeHtml(j.id)}">Verfällt ${fmtCountdown(rem)}</div>
-            </div>
-            <button type="button" class="btn btn-primary" data-print-id="${escapeHtml(j.id)}">Drucken</button>
-            <button type="button" class="btn btn-delete-danger" data-del-id="${escapeHtml(j.id)}" title="Job entfernen">✕</button>
-          `;
-        return `
-          <div class="job-card-wrap">
-            <div class="job-swipe-bg">✕ ${isSending ? "Übertragung abbrechen" : "Job entfernen"}</div>
-            <div class="job-card" data-job-id="${escapeHtml(j.id)}">
-              <div class="job-thumb">${thumb}</div>
-              <div class="job-main">
-                <div class="job-title-row">
-                  <div class="job-filename">${escapeHtml(j.displayName || j.filename)}</div>
-                  <span class="pill">Slot ${j.printerSlot} · ${escapeHtml(j.printerName)}</span>
-                </div>
-                <div class="job-meta">
-                  <span>Upload: <strong>${fmtTime(j.createdAt)}</strong></span>
-                  <span>Dauer: <strong>${fmtDuration(j.estimatedTimeSeconds)}</strong></span>
-                  <span>Filament: <strong>${Number(j.filamentGrams || 0).toFixed(1)} g</strong> (${escapeHtml(j.filamentType)})</span>
-                </div>
-              </div>
-              <div class="job-actions">${actionsHtml}</div>
-            </div>
-          </div>
-        `;
-      })
-      .join("");
-  }
-
-  function renderDevBar() {
-    $("dev-bar").classList.toggle("hidden", !state.modes.devMock);
-    $("dev-toggle-p1").classList.toggle("hidden", state.modes.printer === "live");
-  }
-
-  function renderModal() {
-    const overlay = $("overlay");
-    if (state.screen === "queue") {
-      overlay.classList.add("hidden");
-      return;
-    }
-    overlay.classList.remove("hidden");
-    const closeBtn = $("modal-close");
-    const isUploading = state.screen === "sending" && Boolean(state.lastResult?.uploading);
-    const hideClose = state.screen === "sending" && !isUploading;
-    closeBtn.classList.toggle("hidden", hideClose);
-    closeBtn.classList.toggle("minimize", isUploading);
-    closeBtn.textContent = isUploading ? "−" : "✕";
-    closeBtn.setAttribute("aria-label", isUploading ? "Minimieren (läuft im Hintergrund weiter)" : "Abbrechen");
-
-    const title = $("modal-title");
-    const body = $("modal-body");
-    const footer = $("modal-footer");
-    const job = selectedJob();
-    const sess = state.session;
-
-    if (state.screen === "rfid_wait") {
-      title.textContent = "RFID-Karte vorhalten";
-      body.innerHTML = `
-        <div class="center-box">
-          <div class="rfid-pulse">📡</div>
-          <div style="font-size:21px;font-weight:700;">Bitte Mitgliedskarte an den Leser halten</div>
-          ${job ? `<div style="color:var(--muted);font-size:16px;">Job: <strong>${escapeHtml(job.displayName || job.filename)}</strong> (${fmtEur(job.priceCents)})</div>` : ""}
-        </div>
-      `;
-      footer.innerHTML = `<button class="btn btn-secondary" data-action="back-queue">Zurück</button>`;
-      return;
-    }
-
-    if (state.screen === "payment_confirm" && job && sess) {
-      const after = sess.balanceCents - job.priceCents;
-      const enough = after >= 0;
-      const maxNeg = Number(state.features.maxNegativeBalanceCents || 0);
-      const canOverdraft =
-        !enough && Boolean(state.features.allowNegativeBalance) && (maxNeg === 0 || after >= -maxNeg);
-      title.textContent = "Zahlung & Druck bestätigen";
-      body.innerHTML = `
-        <div style="font-size:16px;color:var(--muted);margin-bottom:12px;">
-          Nutzer: <strong style="color:var(--text);">${escapeHtml(sess.user.display_name)}</strong> ·
-          Job: <strong style="color:var(--text);">${escapeHtml(job.displayName || job.filename)}</strong> (${escapeHtml(job.printerName)})
-        </div>
-        <div class="summary-grid">
-          <div class="stat-card">
-            <div class="stat-label">Aktuelles Guthaben</div>
-            <div class="stat-value ${sess.balanceCents < 0 ? "negative" : ""}">${fmtEur(sess.balanceCents)}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Druckkosten (${Number(job.filamentGrams).toFixed(1)} g)</div>
-            <div class="stat-value">${fmtEur(job.priceCents)}</div>
-          </div>
-          <div class="stat-card" style="grid-column: span 2;">
-            <div class="stat-label">Guthaben nach Druck</div>
-            <div class="stat-value ${enough ? "positive" : "negative"}">${fmtEur(after)}</div>
-          </div>
-        </div>
-        ${
-          !enough
-            ? canOverdraft
-              ? `<div class="alert-box alert-warn">Guthaben reicht nicht aus (es fehlen ${fmtEur(-after)}). Du kannst aufladen oder auf Guthaben-Minus trotzdem drucken.</div>`
-              : `<div class="alert-box alert-error">Guthaben reicht nicht aus (es fehlen ${fmtEur(-after)}) — Überziehungslimit überschritten. Bitte zuerst aufladen.</div>`
-            : ""
-        }
-      `;
-      footer.innerHTML = `
-        <button class="btn btn-ghost" data-action="back-queue">Zurück</button>
-        <button class="btn btn-secondary" data-action="open-already-paid">Bereits bezahlt</button>
-        <button class="btn btn-blue" data-action="open-club">Vereinsdruck</button>
-        ${
-          enough
-            ? `<button class="btn btn-primary" data-action="start-personal">Druck starten (${fmtEur(job.priceCents)})</button>`
-            : `
-              ${state.features.topup ? `<button class="btn btn-primary" data-action="open-topup-print">Guthaben aufladen</button>` : ""}
-              ${canOverdraft ? `<button class="btn btn-amber" data-action="open-overdraft-confirm">Trotzdem drucken</button>` : ""}
-            `
-        }
-      `;
-      return;
-    }
-
-    if (state.screen === "insufficient" && job && sess) {
-      const missing = Math.max(0, job.priceCents - sess.balanceCents);
-      const after = sess.balanceCents - job.priceCents;
-      const maxNeg = Number(state.features.maxNegativeBalanceCents || 0);
-      const canOverdraft =
-        Boolean(state.features.allowNegativeBalance) && (maxNeg === 0 || after >= -maxNeg);
-      title.textContent = "Guthaben zu gering";
-      body.innerHTML = `
-        <div class="center-box">
-          <div style="font-size:52px;">⚠️</div>
-          <div style="font-size:24px;font-weight:800;">Es fehlen ${fmtEur(missing)}</div>
-          <div style="font-size:16px;color:var(--muted);">
-            Aktuelles Guthaben: ${fmtEur(sess.balanceCents)} · Druckkosten: ${fmtEur(job.priceCents)}
-          </div>
-          ${
-            !canOverdraft && state.features.allowNegativeBalance
-              ? `<div class="alert-box alert-error">Max. Überziehungslimit (${fmtEur(-maxNeg)}) würde überschritten. Bitte zuerst aufladen.</div>`
-              : !state.features.topup
-              ? `<div class="alert-box alert-warn">Aufladen erfolgt über easyVerwaltung im Browser.</div>`
-              : ""
-          }
-        </div>
-      `;
-      footer.innerHTML = `
-        <button class="btn btn-secondary" data-action="back-payment">Zurück</button>
-        ${canOverdraft ? `<button class="btn btn-amber" data-action="open-overdraft-confirm">Trotzdem drucken</button>` : ""}
-        ${state.features.topup ? `<button class="btn btn-primary" data-action="open-topup-print">Guthaben aufladen</button>` : ""}
-      `;
-      return;
-    }
-
-    if (state.screen === "overdraft_confirm" && job && sess) {
-      const after = sess.balanceCents - job.priceCents;
-      title.textContent = "Auf Guthaben-Minus drucken?";
-      body.innerHTML = `
-        <div class="alert-box alert-warn">
-          Dein Guthaben reicht für diesen Druck nicht aus. Dein Kontostand gerät dadurch ins Minus — bitte lade dein Guthaben zeitnah wieder auf.
-        </div>
-        <div class="summary-grid">
-          <div class="stat-card">
-            <div class="stat-label">Aktuelles Guthaben</div>
-            <div class="stat-value">${fmtEur(sess.balanceCents)}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Druckkosten</div>
-            <div class="stat-value">${fmtEur(job.priceCents)}</div>
-          </div>
-          <div class="stat-card" style="grid-column: span 2;">
-            <div class="stat-label">Neuer Kontostand nach Druck</div>
-            <div class="stat-value negative">${fmtEur(after)}</div>
-          </div>
-        </div>
-      `;
-      footer.innerHTML = `
-        <button class="btn btn-secondary" data-action="back-payment">Zurück</button>
-        <button class="btn btn-amber" data-action="start-personal-overdraft">Dennoch drucken – ich lade später auf</button>
-      `;
-      return;
-    }
-
-    if (state.screen === "topup" && sess) {
-      title.textContent = "Guthaben aufladen";
-      body.innerHTML = `
-        <div style="font-size:16px;color:var(--muted);margin-bottom:14px;">
-          Aktuelles Guthaben von <strong style="color:var(--text);">${escapeHtml(sess.user.display_name)}</strong>:
-          <strong style="color:var(--primary);font-size:20px;">${fmtEur(sess.balanceCents)}</strong>
-        </div>
-        <div class="choice-grid">
-          <button class="btn btn-blue choice-btn" data-topup="500">+ 5,00 € aufladen</button>
-          <button class="btn btn-blue choice-btn" data-topup="1000">+ 10,00 € aufladen</button>
-          <button class="btn btn-blue choice-btn" data-topup="2000">+ 20,00 € aufladen</button>
-          <button class="btn btn-blue choice-btn" data-topup="5000">+ 50,00 € aufladen</button>
-        </div>
-      `;
-      footer.innerHTML = `<button class="btn btn-secondary" data-action="topup-back">Zurück</button>`;
-      return;
-    }
-
-    if (state.screen === "club_section") {
-      title.textContent = "Vereinsdruck — Bereich wählen";
-      body.innerHTML = `
-        <div class="choice-grid">
-          ${state.sections
-            .map(
-              (s) => `
-              <button class="btn btn-secondary choice-btn" data-section-id="${escapeHtml(s.sectionId)}">
-                🏛️ ${escapeHtml(s.name)}
-              </button>
-            `
-            )
-            .join("")}
-        </div>
-      `;
-      footer.innerHTML = `<button class="btn btn-secondary" data-action="back-payment">Zurück</button>`;
-      return;
-    }
-
-    if (state.screen === "pin_entry") {
-      const isClub = state.pinMode === "club";
-      const sec = state.sections.find((s) => s.sectionId === state.selectedSectionId);
-      title.textContent = isClub ? "Vereinsdruck bestätigen (PIN)" : "Bereits bezahlt bestätigen (PIN)";
-      const dots = Array.from({ length: 4 }, (_, i) => `<div class="pin-dot ${i < state.pinValue.length ? "filled" : ""}"></div>`).join("");
-      body.innerHTML = `
-        <div class="pin-layout">
-          <div>
-            <div style="font-size:17px;line-height:1.5;margin-bottom:12px;">
-              ${
-                isClub
-                  ? `Vereinsdruck für Bereich <strong>${escapeHtml(sec?.name || "")}</strong>.<br>Bitte persönliche PIN eingeben.`
-                  : `Ich bestätige, dass dieser Druck nach einem Fehldruck <strong>bereits bezahlt</strong> wurde.<br>Bitte persönliche PIN eingeben.`
-              }
-            </div>
-            <div class="pin-dots">${dots}</div>
-            ${state.pinError ? `<div class="alert-box alert-error">${escapeHtml(state.pinError)}</div>` : ""}
-          </div>
-          <div class="numpad">
-            ${["1","2","3","4","5","6","7","8","9","⌫","0","✓"]
-              .map((k) => `<button type="button" class="btn ${k === "✓" ? "btn-primary" : "btn-secondary"}" data-key="${k}">${k}</button>`)
-              .join("")}
-          </div>
-        </div>
-      `;
-      footer.innerHTML = `<button class="btn btn-secondary" data-action="${isClub ? "open-club" : "back-payment"}">Zurück</button>`;
-      return;
-    }
-
-    if (state.screen === "sending") {
-      const r = state.lastResult;
-      let paidBanner = "";
-      if (r?.uploading) {
-        if (r.mode === "club") {
-          paidBanner = `<div class="alert-box alert-ok" style="width:min(560px,100%);">✅ Vereinsdruck (${escapeHtml(r.sectionName || "")}) bestätigt</div>`;
-        } else if (r.mode === "already_paid") {
-          paidBanner = `<div class="alert-box alert-ok" style="width:min(560px,100%);">✅ Nachdruck (Bereits bezahlt) – keine erneute Abbuchung</div>`;
-        } else {
-          paidBanner = `<div class="alert-box alert-ok" style="width:min(560px,100%);">✅ Bezahlt: ${fmtEur(r.chargedCents)} · Kontostand: ${fmtEur(r.remainingBalanceCents)}</div>`;
-        }
-      }
-      title.textContent = "Druck wird an Drucker gesendet…";
-      body.innerHTML = `
-        <div class="center-box">
-          ${paidBanner}
-          <div style="font-size:18px;font-weight:700;" id="send-stage-text"></div>
-          <div class="progress-wrap">
-            <div class="progress-track">
-              <div class="progress-fill" id="send-progress-fill"></div>
-            </div>
-            <div class="progress-meta">
-              <span id="send-progress-pct">0 %</span>
-              <span class="progress-bytes" id="send-progress-bytes"></span>
-            </div>
-          </div>
-          <div style="font-size:14px;color:var(--muted);" id="send-mode-hint"></div>
-        </div>
-      `;
-      footer.innerHTML = r?.uploading
-        ? `
-          <button class="btn btn-danger" style="margin-right:auto;" data-action="abort-upload">Übertragung abbrechen</button>
-          <button class="btn btn-amber" data-action="close-success">Im Hintergrund weiterladen</button>
-        `
-        : "";
-      updateSendingProgressDOM();
-      return;
-    }
-
-    if (state.screen === "printer_busy") {
-      const isOffline = state.lastResult?.reason === "PRINTER_OFFLINE";
-      title.textContent = isOffline ? "Drucker nicht erreichbar" : "Drucker belegt";
-      body.innerHTML = `
-        <div class="center-box">
-          <div style="font-size:52px;">🔴</div>
-          <div style="font-size:20px;font-weight:700;">
-            ${isOffline ? "Der Zieldrucker ist aktuell offline." : "Der Zieldrucker druckt bereits oder wartet auf Bestätigung."}
-          </div>
-          <div class="alert-box alert-ok">Es wurde kein Guthaben abgebucht.</div>
-        </div>
-      `;
-      footer.innerHTML = `
-        <button class="btn btn-ghost" data-action="back-queue">Abbrechen</button>
-        <button class="btn btn-secondary" data-action="back-payment">Zurück</button>
-      `;
-      return;
-    }
-
-    if (state.screen === "success") {
-      const r = state.lastResult || {};
-      const detail =
-        r.mode === "club"
-          ? `Vereinsdruck (${escapeHtml(r.sectionName || "")})`
-          : r.mode === "already_paid"
-          ? "Nachdruck (Bereits bezahlt)"
-          : `Abgebucht: <strong>${fmtEur(r.chargedCents)}</strong> · Kontostand: <strong style="color:${r.remainingBalanceCents < 0 ? "var(--amber)" : "var(--text)"}">${fmtEur(r.remainingBalanceCents)}</strong>${r.remainingBalanceCents < 0 ? " (bitte bald aufladen)" : ""}`;
-      title.textContent = "Druck gestartet";
-      body.innerHTML = `
-        <div class="center-box">
-          <div style="font-size:58px;">✅</div>
-          <div style="font-size:24px;font-weight:800;">Auftrag an ${escapeHtml(r.printerName || "Drucker")} gesendet</div>
-          <div style="font-size:18px;color:var(--muted);">${detail}</div>
-        </div>
-      `;
-      footer.innerHTML = `<button class="btn btn-primary" data-action="close-success">Zur Warteschlange</button>`;
-      return;
-    }
-
-    if (state.screen === "account" && sess) {
-      title.textContent = "Konto & Guthaben";
-      const txs = (sess.transactions || [])
-        .map(
-          (t) => `
-          <div class="tx-row">
-            <span>${escapeHtml(t.title)}</span>
-            <strong style="color:${t.amountCents >= 0 ? "var(--primary)" : "var(--text)"}">
-              ${t.amountCents >= 0 ? "+" : ""}${fmtEur(t.amountCents)}
-            </strong>
-          </div>
-        `
-        )
-        .join("");
-      body.innerHTML = `
-        <div class="summary-grid">
-          <div class="stat-card">
-            <div class="stat-label">Mitglied</div>
-            <div class="stat-value" style="font-size:21px;">${escapeHtml(sess.user.display_name)}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Aktuelles Guthaben</div>
-            <div class="stat-value ${sess.balanceCents < 0 ? "negative" : "positive"}">${fmtEur(sess.balanceCents)}</div>
-          </div>
-        </div>
-        <div style="font-size:14px;color:var(--muted);margin-bottom:8px;">Letzte Buchungen</div>
-        <div class="tx-list">${txs || `<div class="tx-row"><span>Keine Buchungen vorhanden</span></div>`}</div>
-      `;
-      footer.innerHTML = `
-        ${state.features.topup ? `<button class="btn btn-blue" data-action="open-topup-account">Guthaben aufladen</button>` : ""}
-        <button class="btn btn-secondary" data-action="back-queue">Schließen</button>
-      `;
-      return;
-    }
-
-    if (state.screen === "not_approved" && sess) {
-      title.textContent = "Keine 3D-Druck-Freigabe";
-      body.innerHTML = `
-        <div class="center-box">
-          <div style="font-size:52px;">🚫</div>
-          <div style="font-size:20px;font-weight:700;">Hallo ${escapeHtml(sess.user.display_name)}, für dein Konto ist noch keine 3D-Druck-Einweisung hinterlegt.</div>
-          <div style="color:var(--muted);font-size:16px;">Bitte lass dich von einer berechtigten Person (BV / Einweiser) freischalten.</div>
-        </div>
-      `;
-      footer.innerHTML = `
-        <button class="btn btn-secondary" data-action="back-queue">Zurück</button>
-        ${state.features.approval ? `<button class="btn btn-primary" data-action="open-bv-wait">Freigabe beantragen</button>` : ""}
-      `;
-      return;
-    }
-
-    if (state.screen === "bv_wait") {
-      title.textContent = "BV / Einweisungs-Karte vorhalten";
-      body.innerHTML = `
-        <div class="center-box">
-          <div class="rfid-pulse">🔑</div>
-          <div style="font-size:20px;font-weight:700;">Bitte berechtigte Einweisungs-Karte scannen</div>
-        </div>
-      `;
-      footer.innerHTML = `<button class="btn btn-secondary" data-action="back-not-approved">Zurück</button>`;
-      return;
-    }
-
-    if (state.screen === "approved_ok") {
-      title.textContent = "Nutzer freigeschaltet";
-      body.innerHTML = `
-        <div class="center-box">
-          <div style="font-size:56px;">✅</div>
-          <div style="font-size:22px;font-weight:800;">Freigabe erfolgreich erteilt</div>
-          <div style="color:var(--muted);">Durch: ${escapeHtml(state.lastResult?.instructorName || "Einweiser")}</div>
-        </div>
-      `;
-      footer.innerHTML = "";
-    }
-  }
-
-  // --- Event Delegation ---
-  $("modal-close").addEventListener("click", () => {
-    returnToQueue(state.screen !== "success");
-  });
-
-  $("btn-open-account").addEventListener("click", () => {
-    state.selectedJobId = null;
-    state.rfidPurpose = "account";
-    openScreen("rfid_wait");
-  });
-
   async function cancelOrAbortJob(jobId) {
     try {
       const res = await api(`/api/jobs/${encodeURIComponent(jobId)}`, { method: "DELETE" });
+      if (state.uploadPopupJobId === jobId) state.uploadPopupJobId = null;
       if (res.wasUploading) {
-        showToast("Übertragung abgebrochen — falls bereits bezahlt, beim Neustart „Bereits bezahlt“ nutzen.");
+        showToast("Übertragung abgebrochen — falls bezahlt, beim Neustart „Bereits bezahlt“ nutzen.");
       }
       await loadState();
     } catch (err) {
@@ -978,7 +519,710 @@
     }
   }
 
-  $("queue-list").addEventListener("click", async (ev) => {
+  // --- Rendering ---
+  function initMarquees() {
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".job-name-wrap").forEach((wrap) => {
+        const span = wrap.querySelector(".job-name");
+        if (!span) return;
+        const overflow = Math.ceil(span.scrollWidth - wrap.clientWidth);
+        if (overflow > 4) {
+          wrap.classList.add("is-overflowing");
+          wrap.style.setProperty("--marquee-dist", `${overflow + 12}px`);
+          const dur = Math.max(4.5, Math.min(12, 3 + overflow / 35));
+          wrap.style.setProperty("--marquee-dur", `${dur.toFixed(1)}s`);
+        } else {
+          wrap.classList.remove("is-overflowing");
+        }
+      });
+    });
+  }
+
+  function renderTopbar() {
+    $("conn-dot").classList.toggle("offline", !state.connected);
+    const backBtn = $("btn-back-top");
+    const accBtn = $("btn-account");
+    const setupBtn = $("btn-setup");
+    const titleEl = $("sb-title");
+    const subEl = $("sb-sub");
+
+    const isHome = state.screen === "queue";
+    const isAccount = state.screen === "account";
+    const isSettings = state.screen === "settings";
+    const isSettingsGroup = isSettings || state.screen === "admin";
+
+    backBtn.classList.toggle("hidden", isHome || isAccount || isSettings);
+    accBtn.classList.toggle("is-home", isAccount);
+    accBtn.textContent = isAccount ? "⌂ Home" : "👤 Konto";
+    setupBtn.classList.toggle("is-home", isSettingsGroup);
+    setupBtn.textContent = isSettingsGroup ? "⌂" : "⚙";
+
+    const titles = {
+      queue: ["Warteschlange", state.jobs.length ? `· ${state.jobs.length} ${state.jobs.length === 1 ? "Job" : "Jobs"}` : ""],
+      rfid_wait: ["RFID-Karte vorhalten", selectedJob() ? `· ${selectedJob().displayName}` : "· Konto"],
+      payment_confirm: ["Zahlung bestätigen", state.session ? `· ${state.session.user.display_name}` : ""],
+      overdraft_confirm: ["Auf Guthaben-Minus drucken?", state.session ? `· ${state.session.user.display_name}` : ""],
+      topup: ["Guthaben aufladen", state.session ? `· ${state.session.user.display_name}` : ""],
+      club_section: ["Vereinsdruck — Bereich", ""],
+      pin_entry: ["PIN bestätigen", state.pinMode === "club" ? "· Vereinsdruck" : "· Bereits bezahlt"],
+      printer_busy: ["Drucker nicht bereit", ""],
+      account: ["Konto & Guthaben", state.session ? `· ${state.session.user.display_name}` : ""],
+      settings: ["Setup & Einstellungen", `· ${state.terminalId}`],
+      admin: ["Admin", "· Server & Token"],
+      not_approved: ["Keine 3D-Druck-Freigabe", ""],
+      bv_wait: ["Einweisungs-Karte vorhalten", ""],
+      approved_ok: ["Nutzer freigeschaltet", ""],
+    };
+    const [t, s] = titles[state.screen] || ["SmartTerminal", ""];
+    titleEl.textContent = t;
+    subEl.textContent = s;
+  }
+
+  function renderDock() {
+    const dock = $("printer-dock");
+    dock.style.gridTemplateColumns = `repeat(${Math.max(1, state.printers.length)}, minmax(0, 1fr))`;
+    dock.innerHTML = state.printers
+      .map(
+        (p) => `
+        <div class="p-tile st-${escapeHtml(p.state)}" data-open-printer="${p.slot}">
+          <div class="p-body">
+            <div class="p-name">Drucker ${p.slot} <span class="p-model">${escapeHtml(p.model || p.name)}</span></div>
+            <div class="p-stat" data-printer-sub="${escapeHtml(p.id)}">${escapeHtml(printerStatText(p))}</div>
+          </div>
+        </div>
+      `
+      )
+      .join("");
+  }
+
+  function renderStage() {
+    const stage = $("stage");
+    const job = selectedJob();
+    const sess = state.session;
+
+    if (state.screen === "queue") {
+      if (!state.jobs.length) {
+        stage.innerHTML = `
+          <div class="queue-empty">
+            <div class="empty-icon">🖨️</div>
+            <h2>Warte auf Druckaufträge</h2>
+            <p>Sende deinen Auftrag im <strong>PrusaSlicer</strong> per <strong>Upload</strong> oder <strong>Upload &amp; Print</strong> an den gewünschten Drucker.</p>
+          </div>
+        `;
+        return;
+      }
+
+      stage.innerHTML = `
+        <div class="queue-wrap">
+          <div class="queue-scroll" id="queue-scroll">
+            ${state.jobs
+              .map((j) => {
+                const isSending = j.status === "sending";
+                const thumb = j.thumbnailUrl ? `<img src="${escapeHtml(j.thumbnailUrl)}" alt="">` : "🧊";
+                if (isSending) {
+                  const up = j.uploadProgress || { percent: 0, sentBytes: 0, totalBytes: j.fileSize || 0 };
+                  return `
+                    <div class="job-card-wrap">
+                      <div class="job-swipe-bg">✕ Übertragung abbrechen</div>
+                      <div class="job-card is-uploading" data-job-id="${escapeHtml(j.id)}" data-open-upload="${escapeHtml(j.id)}">
+                        <div class="job-thumb">${thumb}</div>
+                        <div class="job-info">
+                          <div class="job-row1">
+                            <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
+                            <span class="slot-badge">Drucker ${j.printerSlot}</span>
+                          </div>
+                          <div class="job-meta">
+                            <span>Dauer <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
+                            <span>Antippen für Details…</span>
+                          </div>
+                        </div>
+                        <div class="job-cta">
+                          <div class="inline-up">
+                            <div class="inline-up-track">
+                              <div class="inline-up-fill" data-upload-fill="${escapeHtml(j.id)}" style="width:${Math.round(up.percent || 0)}%"></div>
+                            </div>
+                            <div class="inline-up-txt">
+                              <span data-upload-pct="${escapeHtml(j.id)}">${Math.round(up.percent || 0)} %</span>
+                              <span data-upload-mb="${escapeHtml(j.id)}">${fmtMB(up.sentBytes)}/${fmtMB(up.totalBytes || j.fileSize)}</span>
+                            </div>
+                          </div>
+                          <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Übertragung abbrechen">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }
+
+                const rem = Math.max(0, Math.floor((j._clientExpiresAt - Date.now()) / 1000));
+                const pct = Math.max(0, Math.min(100, (rem / (j._ttlTotal || 300)) * 100));
+                const dash = ((100 - pct) * 0.628).toFixed(1);
+                const warn = rem <= 60;
+                const ctaLabel = j.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
+                return `
+                  <div class="job-card-wrap">
+                    <div class="job-swipe-bg">✕ Job entfernen</div>
+                    <div class="job-card" data-job-id="${escapeHtml(j.id)}">
+                      <div class="job-thumb">${thumb}</div>
+                      <div class="job-info">
+                        <div class="job-row1">
+                          <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
+                          <span class="slot-badge">Drucker ${j.printerSlot}</span>
+                        </div>
+                        <div class="job-meta">
+                          <span>Dauer <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
+                          <span class="ttl-chip ${warn ? "warn" : ""}" data-ttl-wrap="${escapeHtml(j.id)}">
+                            <svg class="ttl-ring" viewBox="0 0 24 24">
+                              <circle cx="12" cy="12" r="10" fill="none" stroke="var(--border)" stroke-width="3.5"></circle>
+                              <circle data-ttl-fg="${escapeHtml(j.id)}" cx="12" cy="12" r="10" fill="none" stroke="${warn ? "var(--orange)" : "var(--blue)"}" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="62.8" stroke-dashoffset="${dash}"></circle>
+                            </svg>
+                            <span data-ttl-txt="${escapeHtml(j.id)}">Timeout: ${fmtCountdown(rem)}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="job-cta">
+                        <button type="button" class="btn-print-job" data-print-id="${escapeHtml(j.id)}">
+                          <span class="lbl">${ctaLabel}</span>
+                          <span class="prc">${fmtEur(j.priceCents)}</span>
+                        </button>
+                        <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Job entfernen">✕</button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `;
+      initMarquees();
+      return;
+    }
+
+    if (state.screen === "rfid_wait") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="rfid-center">
+            <div class="rfid-circle">${nfcIconSvg()}</div>
+            <div class="rfid-text">
+              <h2>Bitte Mitgliedskarte scannen</h2>
+              ${
+                job
+                  ? `<p>Job: <strong>${escapeHtml(job.displayName || job.filename)}</strong> (Drucker ${job.printerSlot})<br>
+                     Kosten: <strong>${fmtEur(job.priceCents)}</strong> · Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong></p>`
+                  : `<p>Halte deine Karte an den Leser, um dein Konto &amp; Guthaben anzuzeigen.</p>`
+              }
+              <div style="margin-top:2cqh;">${timeoutPillHtml("Timeout:")}</div>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "payment_confirm" && job && sess) {
+      const after = sess.balanceCents - job.priceCents;
+      const enough = after >= 0;
+      const maxNeg = Number(state.features.maxNegativeBalanceCents || 0);
+      const canOverdraft = !enough && Boolean(state.features.allowNegativeBalance) && (maxNeg === 0 || after >= -maxNeg);
+      const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
+      const verb = job.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
+      const modeHint = job.printAfterUpload === false ? " · Nur Upload (Start am Drucker)" : "";
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel pay-top-with-thumb">
+            <div class="pay-thumb">${thumb}</div>
+            <div style="display:flex;flex-direction:column;gap:1.4cqh;min-width:0;">
+              <div class="pay-head">
+                <div style="min-width:0;">
+                  <div class="pay-job-title">${escapeHtml(job.displayName || job.filename)}</div>
+                  <div class="pay-job-sub">Drucker ${job.printerSlot} · ${Number(job.filamentGrams || 0).toFixed(1)} g ${escapeHtml(job.filamentType)} · Dauer ${fmtDur(job.estimatedTimeSeconds)}${modeHint}</div>
+                </div>
+                <div class="pay-eta-pill">⏱ Fertig ${fmtEta(job.estimatedTimeSeconds)}</div>
+              </div>
+              <div class="pay-numbers">
+                <div>
+                  <div class="num-lbl">Guthaben</div>
+                  <div class="num-val ${sess.balanceCents < 0 ? "neg" : ""}">${fmtEur(sess.balanceCents)}</div>
+                </div>
+                <div>
+                  <div class="num-lbl">Druckkosten</div>
+                  <div class="num-val">${fmtEur(job.priceCents)}</div>
+                </div>
+                <div>
+                  <div class="num-lbl">Danach auf Konto</div>
+                  <div class="num-val ${enough ? "pos" : "neg"}">${fmtEur(after)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pay-actions">
+            <div class="pay-secondary-stack">
+              <button type="button" class="btn btn-secondary" data-action="open-club">🏛️ Vereinsdruck</button>
+              <button type="button" class="btn btn-secondary" data-action="open-already-paid">✓ Bereits bezahlt</button>
+            </div>
+            ${
+              enough
+                ? `<button type="button" class="btn btn-primary pay-cta-big" data-action="start-personal">${verb} · ${fmtEur(job.priceCents)}</button>`
+                : `
+                  <div class="pay-primary-split" style="${!state.features.topup || !canOverdraft ? "grid-template-columns:1fr;" : ""}">
+                    ${state.features.topup ? `<button type="button" class="btn btn-blue" style="font-size:3.6cqh;" data-action="open-topup-print">+ Aufladen</button>` : ""}
+                    ${canOverdraft ? `<button type="button" class="btn btn-orange" style="font-size:3.9cqh;" data-action="open-overdraft">Trotzdem ${verb.toLowerCase()} →</button>` : ""}
+                  </div>
+                `
+            }
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "overdraft_confirm" && job && sess) {
+      const after = sess.balanceCents - job.priceCents;
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="border-color:var(--orange-border);">
+            <div style="font-size:4.1cqh;font-weight:800;color:var(--orange-ink);">
+              ⚠ Guthaben reicht nicht aus — dein Konto gerät ins Minus.
+            </div>
+            <div class="pay-numbers">
+              <div><div class="num-lbl">Aktuell</div><div class="num-val">${fmtEur(sess.balanceCents)}</div></div>
+              <div><div class="num-lbl">Druckkosten</div><div class="num-val">${fmtEur(job.priceCents)}</div></div>
+              <div><div class="num-lbl">Neuer Kontostand</div><div class="num-val neg">${fmtEur(after)}</div></div>
+            </div>
+            <div style="font-size:3.1cqh;color:var(--muted);font-weight:600;">
+              Geschätztes Druckende: <strong>${fmtEta(job.estimatedTimeSeconds)}</strong> · Bitte lade dein Guthaben zeitnah wieder auf.
+            </div>
+          </div>
+          <div class="pay-actions">
+            <div class="pay-secondary-stack">
+              <button type="button" class="btn btn-secondary" data-action="open-club">🏛️ Vereinsdruck</button>
+              <button type="button" class="btn btn-secondary" data-action="open-already-paid">✓ Bereits bezahlt</button>
+            </div>
+            <button type="button" class="btn btn-orange" style="font-size:4.1cqh;" data-action="start-personal-overdraft">Dennoch drucken – ich lade später auf</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "topup" && sess) {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex-direction:row;align-items:center;justify-content:space-between;">
+            <div style="font-size:3.8cqh;font-weight:800;">${escapeHtml(sess.user.display_name)}</div>
+            <div style="font-size:4.4cqh;font-weight:900;color:var(--green);">Aktuell: ${fmtEur(sess.balanceCents)}</div>
+          </div>
+          <div class="choice-grid">
+            <button type="button" class="btn btn-blue" data-topup="500">+ 5,00 €</button>
+            <button type="button" class="btn btn-blue" data-topup="1000">+ 10,00 €</button>
+            <button type="button" class="btn btn-blue" data-topup="2000">+ 20,00 €</button>
+            <button type="button" class="btn btn-blue" data-topup="5000">+ 50,00 €</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "club_section") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="choice-grid">
+            ${state.sections
+              .map(
+                (s) => `
+                <button type="button" class="btn btn-secondary" data-section-id="${escapeHtml(s.sectionId)}">
+                  🏛️ ${escapeHtml(s.name)}
+                </button>
+              `
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "pin_entry" && job) {
+      const isClub = state.pinMode === "club";
+      const sec = state.sections.find((s) => s.sectionId === state.selectedSectionId);
+      const dots = Array.from({ length: 4 }, (_, i) => `<div class="pin-dot ${i < state.pinValue.length ? "filled" : ""}"></div>`).join("");
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="pin-grid">
+            <div class="pin-left">
+              <div>
+                <h2>Persönliche PIN</h2>
+                <p>${
+                  isClub
+                    ? `Vereinsdruck für <strong>${escapeHtml(sec?.name || "")}</strong> · <strong>${escapeHtml(job.displayName)}</strong>.`
+                    : `Ich bestätige den Nachdruck (<strong>Bereits bezahlt</strong>) für <strong>${escapeHtml(job.displayName)}</strong>.`
+                }<br>Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong>.</p>
+                <div class="pin-dots">${dots}</div>
+                ${state.pinError ? `<div class="pin-err">${escapeHtml(state.pinError)}</div>` : ""}
+              </div>
+              <div style="align-self:flex-start;">${timeoutPillHtml("Timeout:")}</div>
+            </div>
+            <div class="numpad">
+              ${["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0", "✓"]
+                .map((k) => {
+                  const cls = k === "✓" ? "btn-primary" : k === "⌫" ? "btn-back" : "btn-secondary";
+                  return `<button type="button" class="btn ${cls}" data-pin-key="${k}">${k}</button>`;
+                })
+                .join("")}
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "printer_busy") {
+      const isOffline = state.lastResult?.reason === "PRINTER_OFFLINE";
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
+            <div style="font-size:10cqh;">🔴</div>
+            <div style="font-size:4.8cqh;font-weight:900;">${isOffline ? "Drucker ist offline" : "Drucker ist belegt"}</div>
+            <div style="font-size:3.5cqh;color:var(--green);font-weight:800;">✓ Es wurde kein Guthaben abgebucht.</div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "account" && sess) {
+      const txs = (sess.transactions || [])
+        .map((t) => {
+          const cls = t.amountCents > 0 ? "plus" : t.amountCents === 0 ? "zero" : "";
+          const amt = t.amountCents > 0 ? `+${fmtEur(t.amountCents)}` : fmtEur(t.amountCents);
+          return `
+            <div class="tx-item">
+              <div class="tx-left">
+                <div class="tx-title">${escapeHtml(t.title)}</div>
+                <div class="tx-meta">${fmtDateTime(t.ts)}</div>
+              </div>
+              <div class="tx-amount ${cls}">${amt}</div>
+            </div>
+          `;
+        })
+        .join("");
+
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;min-height:0;gap:1.4cqh;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:2cqw;border-bottom:1px solid var(--border);padding-bottom:1.2cqh;">
+              <div>
+                <div class="num-lbl">Mitglied</div>
+                <div style="font-size:4.6cqh;font-weight:900;">${escapeHtml(sess.user.display_name)}</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="num-lbl">Aktuelles Guthaben</div>
+                <div class="num-val ${sess.balanceCents < 0 ? "neg" : "pos"}" style="font-size:5.2cqh;">${fmtEur(sess.balanceCents)}</div>
+              </div>
+              ${state.features.topup ? `<button type="button" class="btn btn-blue" style="height:10.5cqh;padding:0 2.2cqw;font-size:3.4cqh;" data-action="open-topup-account">+ Aufladen</button>` : ""}
+            </div>
+            <div class="num-lbl">Letzte Drucke &amp; Buchungen</div>
+            <div class="tx-scroll">
+              ${txs || `<div class="tx-item"><span class="tx-meta">Keine Buchungen vorhanden</span></div>`}
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "settings") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;justify-content:space-between;">
+            <div style="font-size:3.6cqh;font-weight:800;">Anzeige-Modus</div>
+            <div class="settings-grid">
+              <button type="button" class="theme-card ${state.theme === "light" ? "active" : ""}" data-set-theme="light">
+                <span style="font-size:6cqh;">☀️</span>
+                <span>Hell (Standard)</span>
+              </button>
+              <button type="button" class="theme-card ${state.theme === "dark" ? "active" : ""}" data-set-theme="dark">
+                <span style="font-size:6cqh;">🌙</span>
+                <span>Dunkel</span>
+              </button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1.5cqw;border-top:1px solid var(--border);padding-top:1.5cqh;">
+              <div style="font-size:3cqh;color:var(--muted);">
+                Terminal: <strong>${escapeHtml(state.terminalId)}</strong> · IP: <strong>${escapeHtml(state.terminalIp)}</strong> · v${escapeHtml(state.version)}
+              </div>
+              <button type="button" class="btn btn-secondary" style="height:11cqh;padding:0 2.6cqw;font-size:3.5cqh;" data-action="open-admin">🔐 Admin</button>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "admin") {
+      const cfg = state.adminConfig || {
+        terminalId: state.terminalId,
+        easyverwaltungUrl: "",
+        easyverwaltungServiceId: "",
+        hasToken: false,
+      };
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;justify-content:space-between;">
+            <div class="admin-grid">
+              <div class="field-box">
+                <label>Terminal-ID</label>
+                <input class="field-input" id="adm-terminal-id" type="text" value="${escapeHtml(cfg.terminalId)}">
+              </div>
+              <div class="field-box">
+                <label>easyVerwaltung Service-ID</label>
+                <input class="field-input" id="adm-service-id" type="text" value="${escapeHtml(cfg.easyverwaltungServiceId)}">
+              </div>
+              <div class="field-box">
+                <label>Server-URL</label>
+                <input class="field-input" id="adm-server-url" type="text" value="${escapeHtml(cfg.easyverwaltungUrl)}" placeholder="https://verwaltung.freilab.de">
+              </div>
+              <div class="field-box">
+                <label>Service-Token (${cfg.hasToken ? "gesetzt" : "nicht gesetzt"})</label>
+                <input class="field-input" id="adm-token" type="password" value="" placeholder="${cfg.hasToken ? "•••••••• (leer = behalten)" : "Token eingeben"}">
+              </div>
+            </div>
+            <div style="font-size:2.8cqh;color:var(--muted);font-weight:600;">
+              💡 Tipp für lange Tokens: Auch im Browser unter <strong>http://${escapeHtml(state.terminalIp)}</strong> → ⚙ → Admin konfigurierbar.
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:1.6cqw;height:14cqh;">
+            <button type="button" class="btn btn-blue" style="font-size:3.5cqh;" data-action="admin-test">Verbindung testen</button>
+            <button type="button" class="btn btn-primary" style="font-size:3.9cqh;" data-action="admin-save">Speichern</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "not_approved" && sess) {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
+            <div style="font-size:9cqh;">🚫</div>
+            <div style="font-size:4.4cqh;font-weight:900;">Keine 3D-Druck-Freigabe für ${escapeHtml(sess.user.display_name)}</div>
+            <div style="font-size:3.2cqh;color:var(--muted);">Bitte lass dich von einer berechtigten Person (BV / Einweiser) freischalten.</div>
+          </div>
+          ${state.features.approval ? `<button type="button" class="btn btn-primary" style="height:15cqh;font-size:4cqh;" data-action="open-bv-wait">Freigabe vor Ort beantragen</button>` : ""}
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "bv_wait") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="rfid-center">
+            <div class="rfid-circle">${nfcIconSvg()}</div>
+            <div class="rfid-text">
+              <h2>Einweisungs-Karte vorhalten</h2>
+              <p>Bitte berechtigte BV- / Einweiser-Karte an den Leser halten.</p>
+              <div style="margin-top:2cqh;">${timeoutPillHtml("Timeout:")}</div>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "approved_ok") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
+            <div style="font-size:10cqh;">✅</div>
+            <div style="font-size:4.8cqh;font-weight:900;">Nutzer freigeschaltet</div>
+            <div style="font-size:3.3cqh;color:var(--muted);">Durch: ${escapeHtml(state.lastResult?.instructorName || "Einweiser")}</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function renderUploadPopup() {
+    const el = $("upload-popup");
+    const job = state.jobs.find((j) => j.id === state.uploadPopupJobId && j.status === "sending");
+    if (!job) {
+      el.classList.add("hidden");
+      return;
+    }
+    const up = job.uploadProgress || { percent: 0, sentBytes: 0, totalBytes: job.fileSize || 0, bytesPerSec: 0 };
+    const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
+    const speed = fmtSpeed(up.bytesPerSec);
+    el.classList.remove("hidden");
+    el.innerHTML = `
+      <div class="popup-card">
+        <div class="popup-head">
+          <div class="popup-head-left">
+            <button type="button" class="btn-minimize" data-close-upload="1" title="Minimieren">−</button>
+            <h3>Übertragung an Drucker ${job.printerSlot}</h3>
+          </div>
+        </div>
+        <div class="popup-body">
+          <div class="upload-preview">${thumb}</div>
+          <div class="upload-details">
+            <div>
+              <div class="upload-job-name">${escapeHtml(job.displayName || job.filename)}</div>
+              <div class="upload-meta-line">
+                <span class="ok-check">✓ Freigegeben</span>
+                <span>· Dauer <strong>${fmtDur(job.estimatedTimeSeconds)}</strong></span>
+                <span>· Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong></span>
+              </div>
+            </div>
+            <div class="big-prog-track"><div class="big-prog-fill" style="width:${Math.round(up.percent || 0)}%"></div></div>
+            <div class="big-prog-meta">
+              <span>${Math.round(up.percent || 0)} % übertragen</span>
+              <span>${fmtMB(up.sentBytes)} / ${fmtMB(up.totalBytes || job.fileSize)}${speed ? ` · ${speed}` : ""}</span>
+            </div>
+          </div>
+        </div>
+        <div class="popup-foot">
+          <button type="button" class="btn btn-danger-soft" data-abort-upload="${escapeHtml(job.id)}">✕ Übertragung abbrechen</button>
+          <button type="button" class="btn btn-orange" data-close-upload="1">− Im Hintergrund weiterladen</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPrinterPopup() {
+    const el = $("printer-popup");
+    if (state.printerPopupSlot == null) {
+      el.classList.add("hidden");
+      return;
+    }
+    const p = state.printers.find((x) => x.slot === state.printerPopupSlot);
+    if (!p) {
+      el.classList.add("hidden");
+      return;
+    }
+    const nozzleStr = p.nozzleDiameter ? `${String(p.nozzleDiameter).replace(".", ",")} mm` : "–";
+    const nozzleTemp = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)}°/${Math.round(p.targetNozzle || 0)}°` : "–";
+    const bedTemp = p.bedTemp != null ? `${Math.round(p.bedTemp)}°/${Math.round(p.targetBed || 0)}°` : "–";
+    const totalH = p.totalPrintHours != null ? `${p.totalPrintHours.toLocaleString("de-DE")} h` : "–";
+    const totalKm = p.totalFilamentKm != null ? `${p.totalFilamentKm.toLocaleString("de-DE")} km` : "–";
+    const hasActive = (p.state === "PRINTING" || p.state === "UPLOADING") && (p.activeJob || p.uploadProgress);
+    const activeName = p.activeJob || state.jobs.find((j) => j.id === p.uploadProgress?.jobId)?.displayName || "Auftrag";
+    const remTxt = p.timeRemainingSeconds ? `Restzeit: ${fmtDur(p.timeRemainingSeconds)} · Fertig ${fmtEta(p.timeRemainingSeconds)}` : "";
+
+    el.classList.remove("hidden");
+    el.innerHTML = `
+      <div class="popup-card" style="width:85cqw;">
+        <div class="popup-head">
+          <div class="popup-head-left">
+            <button type="button" class="back-top-btn" style="height:8.2cqh;" data-close-printer="1">‹ Zurück</button>
+            <h3>Drucker ${p.slot} · ${escapeHtml(p.model || p.name)}</h3>
+          </div>
+          <span class="p-status-pill st-${escapeHtml(p.state)}">${escapeHtml(printerStatText(p))}</span>
+        </div>
+        <div class="printer-popup-body">
+          <div class="printer-photo">
+            <div style="width:17cqw;height:15cqw;">${printerSvg(p.model || p.name)}</div>
+            <div style="font-size:2.6cqh;font-weight:800;color:var(--muted);">${escapeHtml(p.ip || "–")}</div>
+          </div>
+          <div class="printer-spec-grid">
+            <div class="spec-chip"><div class="spec-k">Düse &amp; Temp.</div><div class="spec-v">${nozzleStr} · ${nozzleTemp}</div></div>
+            <div class="spec-chip"><div class="spec-k">Heizbett</div><div class="spec-v">${bedTemp}</div></div>
+            <div class="spec-chip"><div class="spec-k">Druckraum (mm)</div><div class="spec-v">${escapeHtml(p.buildVolume || "–")}</div></div>
+            <div class="spec-chip"><div class="spec-k">On-Time</div><div class="spec-v">${fmtOnTime(p.onTimeSeconds)}</div></div>
+            <div class="spec-chip"><div class="spec-k">Gesamt-Druckzeit</div><div class="spec-v">${totalH}</div></div>
+            <div class="spec-chip"><div class="spec-k">Gesamt-Filament</div><div class="spec-v">${totalKm}</div></div>
+            ${
+              hasActive
+                ? `
+                  <div class="p-job-banner">
+                    <div style="display:flex;justify-content:space-between;font-size:3cqh;font-weight:800;">
+                      <span>${p.state === "UPLOADING" ? "Überträgt:" : "Aktiver Druck:"} ${escapeHtml(activeName)}</span>
+                      <span>${Math.round(p.progress || 0)} %</span>
+                    </div>
+                    ${remTxt ? `<div style="font-size:2.7cqh;font-weight:700;color:var(--orange-ink);">${remTxt}</div>` : ""}
+                  </div>
+                `
+                : `
+                  <div class="spec-chip" style="grid-column:span 3;display:flex;justify-content:space-between;align-items:center;">
+                    <span class="spec-k">Aktiver Druck</span>
+                    <span style="font-size:3cqh;font-weight:800;color:var(--muted);">${p.state === "OFFLINE" ? "Drucker nicht erreichbar" : "Kein laufender Auftrag"}</span>
+                  </div>
+                `
+            }
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPopups() {
+    renderUploadPopup();
+    renderPrinterPopup();
+  }
+
+  function renderDevControls() {
+    const show = Boolean(state.modes.devMock) && state.screen !== "admin";
+    const drawerOpen = !$("dev-drawer").classList.contains("hidden");
+    $("dev-pill").classList.toggle("hidden", !show || drawerOpen);
+    $("dev-toggle-p1").classList.toggle("hidden", state.modes.printer === "live");
+    if (!show) $("dev-drawer").classList.add("hidden");
+  }
+
+  function renderAll() {
+    renderTopbar();
+    renderStage();
+    renderDock();
+    renderPopups();
+    renderDevControls();
+  }
+
+  // --- Events ---
+  $("btn-back-top").addEventListener("click", goBackOneStep);
+  $("btn-theme-eye").addEventListener("click", () => setTheme(state.theme === "light" ? "dark" : "light"));
+
+  $("btn-account").addEventListener("click", () => {
+    if (state.screen === "account") return returnToQueue(true);
+    state.selectedJobId = null;
+    state.rfidPurpose = "account";
+    openScreen(state.session ? "account" : "rfid_wait");
+  });
+
+  $("btn-setup").addEventListener("click", () => {
+    if (state.screen === "settings" || state.screen === "admin") return returnToQueue(false);
+    openScreen("settings");
+  });
+
+  $("printer-dock").addEventListener("click", (ev) => {
+    const tile = ev.target.closest("[data-open-printer]");
+    if (!tile) return;
+    state.printerPopupSlot = Number(tile.dataset.openPrinter);
+    renderPrinterPopup();
+  });
+
+  $("printer-popup").addEventListener("click", (ev) => {
+    if (ev.target.id === "printer-popup" || ev.target.closest("[data-close-printer]")) {
+      state.printerPopupSlot = null;
+      renderPrinterPopup();
+    }
+  });
+
+  $("upload-popup").addEventListener("click", async (ev) => {
+    const abortBtn = ev.target.closest("[data-abort-upload]");
+    if (abortBtn) {
+      await cancelOrAbortJob(abortBtn.dataset.abortUpload);
+      return;
+    }
+    if (ev.target.id === "upload-popup" || ev.target.closest("[data-close-upload]")) {
+      state.uploadPopupJobId = null;
+      renderUploadPopup();
+    }
+  });
+
+  $("stage").addEventListener("click", async (ev) => {
+    const delBtn = ev.target.closest("[data-del-id]");
+    if (delBtn) {
+      ev.stopPropagation();
+      await cancelOrAbortJob(delBtn.dataset.delId);
+      return;
+    }
     const printBtn = ev.target.closest("[data-print-id]");
     if (printBtn) {
       state.selectedJobId = printBtn.dataset.printId;
@@ -986,20 +1230,116 @@
       openScreen("rfid_wait");
       return;
     }
-    const delBtn = ev.target.closest("[data-del-id]");
-    if (delBtn) {
-      await cancelOrAbortJob(delBtn.dataset.delId);
+    const upCard = ev.target.closest("[data-open-upload]");
+    if (upCard) {
+      state.uploadPopupJobId = upCard.dataset.openUpload;
+      renderUploadPopup();
+      return;
+    }
+    const themeBtn = ev.target.closest("[data-set-theme]");
+    if (themeBtn) {
+      setTheme(themeBtn.dataset.setTheme);
+      return;
+    }
+    const secBtn = ev.target.closest("[data-section-id]");
+    if (secBtn) {
+      state.selectedSectionId = secBtn.dataset.sectionId;
+      state.pinMode = "club";
+      state.pinValue = "";
+      state.pinError = "";
+      openScreen("pin_entry");
+      return;
+    }
+    const topupBtn = ev.target.closest("[data-topup]");
+    if (topupBtn) {
+      await executeTopup(Number(topupBtn.dataset.topup));
+      return;
+    }
+    const pinBtn = ev.target.closest("[data-pin-key]");
+    if (pinBtn) {
+      const k = pinBtn.dataset.pinKey;
+      state.pinError = "";
+      if (k === "⌫") {
+        state.pinValue = state.pinValue.slice(0, -1);
+        renderStage();
+      } else if (k === "✓") {
+        if (state.pinValue.length < 4) {
+          state.pinError = "Bitte mindestens 4 Ziffern eingeben.";
+          renderStage();
+          return;
+        }
+        await executeStart(state.pinMode, { pin: state.pinValue, sectionId: state.selectedSectionId });
+      } else if (state.pinValue.length < 8) {
+        state.pinValue += k;
+        renderStage();
+      }
+      return;
+    }
+    const actBtn = ev.target.closest("[data-action]");
+    if (actBtn) {
+      const a = actBtn.dataset.action;
+      if (a === "start-personal") return executeStart("personal");
+      if (a === "open-overdraft") return openScreen("overdraft_confirm");
+      if (a === "start-personal-overdraft") return executeStart("personal", { allowOverdraft: true });
+      if (a === "open-club") return openScreen("club_section");
+      if (a === "open-already-paid") {
+        state.pinMode = "already_paid";
+        state.pinValue = "";
+        state.pinError = "";
+        return openScreen("pin_entry");
+      }
+      if (a === "open-topup-print") {
+        state.topupReturnTo = "payment_confirm";
+        return openScreen("topup");
+      }
+      if (a === "open-topup-account") {
+        state.topupReturnTo = "account";
+        return openScreen("topup");
+      }
+      if (a === "open-bv-wait") return openScreen("bv_wait");
+      if (a === "open-admin") {
+        try {
+          state.adminConfig = await api("/api/admin/config");
+        } catch {}
+        return openScreen("admin");
+      }
+      if (a === "admin-test") {
+        try {
+          const r = await api("/api/admin/test-connection", { method: "POST" });
+          showToast(r.ok ? `✓ ${r.message}` : `✕ ${r.message}`);
+        } catch (err) {
+          showToast(err.message);
+        }
+        return;
+      }
+      if (a === "admin-save") {
+        try {
+          const payload = {
+            terminalId: $("adm-terminal-id").value.trim() || state.terminalId,
+            easyverwaltungServiceId: $("adm-service-id").value.trim(),
+            easyverwaltungUrl: $("adm-server-url").value.trim(),
+            easyverwaltungServiceToken: $("adm-token").value.trim() || null,
+          };
+          const r = await api("/api/admin/config", { method: "POST", body: JSON.stringify(payload) });
+          state.adminConfig = r.config;
+          state.terminalId = r.config.terminalId;
+          showToast("✓ Server-ID & Token gespeichert");
+          openScreen("settings");
+        } catch (err) {
+          showToast(err.message);
+        }
+      }
     }
   });
 
-  // Touch swipe-left on job cards to remove job or abort running transfer
+  // Touch swipe-left on job cards
   let swipeCard = null;
   let swipeStartX = 0;
   let swipeStartY = 0;
   let swipeDx = 0;
   let swipeLocked = false;
 
-  $("queue-list").addEventListener("touchstart", (ev) => {
+  $("stage").addEventListener("touchstart", (ev) => {
     if (ev.touches.length !== 1) return;
     const card = ev.target.closest(".job-card");
     if (!card) return;
@@ -1010,7 +1350,7 @@
     swipeLocked = false;
   }, { passive: true });
 
-  $("queue-list").addEventListener("touchmove", (ev) => {
+  $("stage").addEventListener("touchmove", (ev) => {
     if (!swipeCard || ev.touches.length !== 1) return;
     const dx = ev.touches[0].clientX - swipeStartX;
     const dy = ev.touches[0].clientY - swipeStartY;
@@ -1030,13 +1370,13 @@
     }
   }, { passive: true });
 
-  $("queue-list").addEventListener("touchend", async () => {
+  $("stage").addEventListener("touchend", async () => {
     if (!swipeCard) return;
     const card = swipeCard;
     const dx = swipeDx;
     swipeCard = null;
     card.classList.remove("swiping");
-    if (dx <= -100) {
+    if (dx <= -95) {
       card.style.transform = "translateX(-100%)";
       await cancelOrAbortJob(card.dataset.jobId);
     } else {
@@ -1044,142 +1384,70 @@
     }
   });
 
-  $("overlay").addEventListener("click", async (ev) => {
-    const actionBtn = ev.target.closest("[data-action]");
-    if (actionBtn) {
-      const a = actionBtn.dataset.action;
-      if (a === "back-queue") return returnToQueue(true);
-      if (a === "close-success") return returnToQueue(false);
-      if (a === "abort-upload") {
-        const jid = state.selectedJobId;
-        await returnToQueue(false);
-        if (jid) await cancelOrAbortJob(jid);
-        return;
-      }
-      if (a === "back-payment") return openScreen("payment_confirm");
-      if (a === "open-insufficient") return openScreen("insufficient");
-      if (a === "open-overdraft-confirm") return openScreen("overdraft_confirm");
-      if (a === "start-personal-overdraft") return executeStart("personal", { allowOverdraft: true });
-      if (a === "open-topup-print") {
-        state.topupReturnTo = "payment_confirm";
-        return openScreen("topup");
-      }
-      if (a === "open-topup-account") {
-        state.topupReturnTo = "account";
-        return openScreen("topup");
-      }
-      if (a === "topup-back") return openScreen(state.topupReturnTo);
-      if (a === "open-club") return openScreen("club_section");
-      if (a === "open-already-paid") {
-        state.pinMode = "already_paid";
-        state.pinValue = "";
-        state.pinError = "";
-        return openScreen("pin_entry");
-      }
-      if (a === "start-personal") return executeStart("personal");
-      if (a === "open-bv-wait") return openScreen("bv_wait");
-      if (a === "back-not-approved") return openScreen("not_approved");
-      return;
-    }
-
-    const secBtn = ev.target.closest("[data-section-id]");
-    if (secBtn) {
-      state.selectedSectionId = secBtn.dataset.sectionId;
-      state.pinMode = "club";
-      state.pinValue = "";
-      state.pinError = "";
-      openScreen("pin_entry");
-      return;
-    }
-
-    const topupBtn = ev.target.closest("[data-topup]");
-    if (topupBtn) {
-      await executeTopup(Number(topupBtn.dataset.topup));
-      return;
-    }
-
-    const keyBtn = ev.target.closest("[data-key]");
-    if (keyBtn) {
-      const k = keyBtn.dataset.key;
-      state.pinError = "";
-      if (k === "⌫") {
-        state.pinValue = state.pinValue.slice(0, -1);
-        renderModal();
-      } else if (k === "✓") {
-        if (state.pinValue.length < 4) {
-          state.pinError = "Bitte mindestens 4 Ziffern eingeben.";
-          renderModal();
-          return;
-        }
-        await executeStart(state.pinMode, {
-          pin: state.pinValue,
-          sectionId: state.selectedSectionId,
-        });
-      } else if (state.pinValue.length < 8) {
-        state.pinValue += k;
-        renderModal();
-      }
-    }
+  // Collapsible DEV Drawer
+  $("dev-pill").addEventListener("click", () => {
+    $("dev-drawer").classList.remove("hidden");
+    $("dev-pill").classList.add("hidden");
   });
-
-  // --- Dev Mock Bar Events ---
+  $("dev-close").addEventListener("click", () => {
+    $("dev-drawer").classList.add("hidden");
+    renderDevControls();
+  });
   $("dev-upload").addEventListener("click", async () => {
     try {
       await api("/api/dev/upload-sample", { method: "POST", body: JSON.stringify({ slot: 1 }) });
-      showToast("Test-Job auf Slot 1 hochgeladen");
+      showToast("Test-Job auf Drucker 1 hochgeladen");
     } catch (err) {
       showToast(err.message);
     }
   });
-
   $("dev-toggle-p1").addEventListener("click", async () => {
     const p1 = state.printers.find((p) => p.slot === 1);
     if (!p1) return;
     const next = p1.state === "READY" ? "PRINTING" : "READY";
     try {
-      await api("/api/dev/printer-state", {
-        method: "POST",
-        body: JSON.stringify({ printerId: p1.id, state: next }),
-      });
-      showToast(`${p1.name}: ${stateLabel(next)}`);
+      await api("/api/dev/printer-state", { method: "POST", body: JSON.stringify({ printerId: p1.id, state: next }) });
     } catch (err) {
       showToast(err.message);
     }
   });
-
-  $("dev-bar").addEventListener("click", async (ev) => {
+  $("dev-drawer").addEventListener("click", async (ev) => {
     const btn = ev.target.closest("[data-rfid]");
     if (!btn) return;
     try {
-      await api("/api/dev/simulate-rfid", {
-        method: "POST",
-        body: JSON.stringify({ uid: btn.dataset.rfid }),
-      });
+      await api("/api/dev/simulate-rfid", { method: "POST", body: JSON.stringify({ uid: btn.dataset.rfid }) });
     } catch (err) {
       showToast(err.message);
     }
   });
 
-  // --- Periodic Tick (Clock, Job TTL Countdown, Modal Timeout Ring) ---
+  // Periodic tick: Clock, Job TTL rings, active timeout ring
   setInterval(() => {
-    $("clock").textContent = new Date().toLocaleTimeString("de-DE", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-    updateTimeoutRing();
-    for (const j of state.jobs) {
-      const el = document.querySelector(`[data-ttl-id="${j.id}"]`);
-      if (!el) continue;
-      const rem = Math.max(0, Math.floor((j._clientExpiresAt - Date.now()) / 1000));
-      el.textContent = `Verfällt ${fmtCountdown(rem)}`;
-      el.classList.toggle("warn", rem <= 60);
+    $("sb-clock").textContent = new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    updateTimeoutDOM();
+    if (state.screen === "queue") {
+      for (const j of state.jobs) {
+        if (j.status === "sending") continue;
+        const rem = Math.max(0, Math.floor((j._clientExpiresAt - Date.now()) / 1000));
+        const pct = Math.max(0, Math.min(100, (rem / (j._ttlTotal || 300)) * 100));
+        const txt = document.querySelector(`[data-ttl-txt="${j.id}"]`);
+        const fg = document.querySelector(`[data-ttl-fg="${j.id}"]`);
+        const wrap = document.querySelector(`[data-ttl-wrap="${j.id}"]`);
+        if (txt) txt.textContent = `Timeout: ${fmtCountdown(rem)}`;
+        if (fg) {
+          fg.style.strokeDashoffset = ((100 - pct) * 0.628).toFixed(1);
+          fg.setAttribute("stroke", rem <= 60 ? "var(--orange)" : "var(--blue)");
+        }
+        if (wrap) wrap.classList.toggle("warn", rem <= 60);
+      }
     }
   }, 500);
 
-  // Fallback periodic state refresh (safety net if SSE ever stalls)
-  setInterval(loadState, 15000);
+  window.addEventListener("resize", () => {
+    if (state.screen === "queue") initMarquees();
+  });
 
+  setInterval(loadState, 15000);
   loadState();
   connectSSE();
 })();

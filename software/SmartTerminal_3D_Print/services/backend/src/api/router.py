@@ -2,12 +2,16 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import json
 import logging
+import os
+import socket
 import time
 import uuid
 from pathlib import Path
 from typing import Any
 
+import httpx
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
@@ -61,6 +65,42 @@ class DevUploadSampleRequest(BaseModel):
     slicerCostEur: float = 0.57
 
 
+class AdminConfigUpdate(BaseModel):
+    terminalId: str = Field(..., min_length=1, max_length=64)
+    easyverwaltungUrl: str = Field(default="", max_length=256)
+    easyverwaltungServiceId: str = Field(default="", max_length=64)
+    easyverwaltungServiceToken: str | None = Field(default=None, max_length=256)
+
+
+def _detect_local_ip() -> str:
+    override = os.getenv("TERMINAL_IP", "").strip()
+    if override:
+        return override
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except OSError:
+        return "localhost"
+
+
+def _load_admin_overrides(data_dir: Path) -> dict[str, Any]:
+    path = data_dir / "admin_config.json"
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _save_admin_overrides(data_dir: Path, payload: dict[str, Any]) -> None:
+    path = data_dir / "admin_config.json"
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
 def _get_session(request: Request, session_id: str) -> TerminalSession:
     sessions: dict[str, TerminalSession] = request.app.state.sessions
     sess = sessions.get(session_id)
@@ -103,7 +143,8 @@ async def terminal_state(request: Request) -> dict[str, Any]:
     uploads_by_job = {u["jobId"]: u for u in uploads_by_printer.values()}
 
     printers = []
-    for p in st.registry.serialize():
+    lifetime_stats = st.store.printer_lifetime_stats()
+    for p in st.registry.serialize(lifetime_stats):
         up = uploads_by_printer.get(p["id"])
         if up:
             p = {**p, "state": "UPLOADING", "canAcceptJob": False, "progress": up["percent"], "uploadProgress": up}
@@ -116,8 +157,11 @@ async def terminal_state(request: Request) -> dict[str, Any]:
             j = {**j, "uploadProgress": up}
         jobs.append(j)
 
+    overrides = _load_admin_overrides(st.settings.data_dir)
     return {
-        "terminalId": st.settings.terminal_id,
+        "terminalId": overrides.get("terminalId") or st.settings.terminal_id,
+        "terminalIp": _detect_local_ip(),
+        "version": "0.3.0",
         "serviceName": meta.get("service", {}).get("name", "SmartTerminal 3D-Print"),
         "printers": printers,
         "jobs": jobs,
@@ -328,10 +372,15 @@ async def _run_printer_transfer(
         app_state.events.publish("job_progress", prog)
 
     try:
+        should_start = bool(job.get("printAfterUpload", True))
         _emit_upload_progress(0, total_bytes)
         await app_state.device_client.send_led("sending")
         upload_res = await app_state.printer_client.upload_file(
-            printer, Path(job["filePath"]), job["filename"], on_progress=_emit_upload_progress
+            printer,
+            Path(job["filePath"]),
+            job["filename"],
+            print_after_upload=should_start,
+            on_progress=_emit_upload_progress,
         )
         if not upload_res.ok:
             reason = upload_res.reason or "UPLOAD_FAILED"
@@ -339,46 +388,6 @@ async def _run_printer_transfer(
             app_state.store.mark_job_failed(job_id)
             app_state.store.log_event(
                 "print_transfer_failed",
-                job_id=job_id,
-                printer_id=printer.id,
-                user_id=user_id,
-                user_name=user_display_name,
-                amount_cents=charged_cents,
-                details={"reason": reason, "paymentRef": payment_ref, "mode": mode},
-            )
-            await app_state.device_client.send_beeper("error")
-            await app_state.device_client.send_led("error")
-            app_state.events.publish(
-                "job_failed",
-                {
-                    "jobId": job_id,
-                    "printerName": printer.name,
-                    "displayName": job.get("displayName", job["filename"]),
-                    "reason": reason,
-                    "charged": charged_cents > 0,
-                },
-            )
-            return
-
-        starting_prog = {
-            "jobId": job_id,
-            "printerId": printer.id,
-            "stage": "starting",
-            "percent": 100,
-            "sentBytes": total_bytes,
-            "totalBytes": total_bytes,
-            "bytesPerSec": 0,
-        }
-        app_state.active_uploads[printer.id] = starting_prog
-        app_state.events.publish("job_progress", starting_prog)
-
-        start_res = await app_state.printer_client.start_print(printer, upload_res.remote_path)
-        if not start_res.ok:
-            reason = start_res.reason or "PRINT_START_FAILED"
-            logger.error("Background start_print failed for %s on %s: %s", job_id, printer.id, reason)
-            app_state.store.mark_job_failed(job_id)
-            app_state.store.log_event(
-                "print_start_failed",
                 job_id=job_id,
                 printer_id=printer.id,
                 user_id=user_id,
@@ -409,13 +418,13 @@ async def _run_printer_transfer(
             section_name=section_name,
         )
         app_state.store.log_event(
-            "print_started",
+            "print_started" if should_start else "file_uploaded_only",
             job_id=job_id,
             printer_id=printer.id,
             user_id=user_id,
             user_name=user_display_name,
             amount_cents=charged_cents,
-            details={"mode": mode, "paymentRef": payment_ref, "sectionName": section_name},
+            details={"mode": mode, "paymentRef": payment_ref, "sectionName": section_name, "printAfterUpload": should_start},
         )
         new_status = await app_state.printer_client.poll_status(printer)
         app_state.registry.set_status(printer.id, new_status)
@@ -426,10 +435,12 @@ async def _run_printer_transfer(
             {
                 "jobId": job_id,
                 "printerName": printer.name,
+                "printerSlot": printer.slot,
                 "displayName": job.get("displayName", job["filename"]),
                 "mode": mode,
                 "chargedCents": charged_cents,
                 "sectionName": section_name,
+                "printAfterUpload": should_start,
             },
         )
     except asyncio.CancelledError:
@@ -631,6 +642,73 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
 @router.get("/audit")
 def recent_audit(request: Request) -> dict[str, Any]:
     return {"items": request.app.state.store.recent_audit(30)}
+
+
+@router.get("/admin/config")
+def get_admin_config(request: Request) -> dict[str, Any]:
+    st = request.app.state
+    ov = _load_admin_overrides(st.settings.data_dir)
+    token = ov.get("easyverwaltungServiceToken") or st.settings.easyverwaltung_service_token
+    return {
+        "terminalId": ov.get("terminalId") or st.settings.terminal_id,
+        "easyverwaltungUrl": ov.get("easyverwaltungUrl", st.settings.easyverwaltung_url),
+        "easyverwaltungServiceId": ov.get("easyverwaltungServiceId", st.settings.easyverwaltung_service_id),
+        "hasToken": bool(token and token != "REPLACE_ME"),
+        "terminalIp": _detect_local_ip(),
+        "paymentMode": st.settings.payment_mode,
+        "version": "0.3.0",
+    }
+
+
+@router.post("/admin/config")
+def update_admin_config(body: AdminConfigUpdate, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    ov = _load_admin_overrides(st.settings.data_dir)
+    ov["terminalId"] = body.terminalId.strip()
+    ov["easyverwaltungUrl"] = body.easyverwaltungUrl.strip().rstrip("/")
+    ov["easyverwaltungServiceId"] = body.easyverwaltungServiceId.strip()
+    if body.easyverwaltungServiceToken is not None and body.easyverwaltungServiceToken.strip():
+        ov["easyverwaltungServiceToken"] = body.easyverwaltungServiceToken.strip()
+    _save_admin_overrides(st.settings.data_dir, ov)
+    st.store.log_event(
+        "admin_config_updated",
+        details={
+            "terminalId": ov["terminalId"],
+            "serviceId": ov["easyverwaltungServiceId"],
+            "tokenUpdated": bool(body.easyverwaltungServiceToken and body.easyverwaltungServiceToken.strip()),
+        },
+    )
+    return {"ok": True, "config": get_admin_config(request)}
+
+
+@router.post("/admin/test-connection")
+async def test_admin_connection(request: Request) -> dict[str, Any]:
+    st = request.app.state
+    ov = _load_admin_overrides(st.settings.data_dir)
+    url = (ov.get("easyverwaltungUrl") or st.settings.easyverwaltung_url or "").strip().rstrip("/")
+    service_id = (ov.get("easyverwaltungServiceId") or st.settings.easyverwaltung_service_id or "").strip()
+    token = (ov.get("easyverwaltungServiceToken") or st.settings.easyverwaltung_service_token or "").strip()
+
+    if st.settings.payment_mode == "mock" and (not url or "localhost:8001" in url):
+        return {"ok": True, "mode": "mock", "message": "Mock-Modus aktiv (OK)"}
+    if not url or not token or token == "REPLACE_ME":
+        return {"ok": False, "message": "Server-URL oder Token fehlt."}
+
+    try:
+        async with httpx.AsyncClient(timeout=4.0) as client:
+            params = {"serviceId": service_id} if service_id else {}
+            resp = await client.post(
+                f"{url}/api/service/health",
+                params=params,
+                headers={"X-Service-Token": token, "Accept": "application/json"},
+            )
+            data = resp.json() if resp.headers.get("content-type", "").startswith("application/json") else {}
+            if resp.status_code == 200 and data.get("active"):
+                return {"ok": True, "message": f"Verbunden: {data.get('serviceName') or service_id} (active)"}
+            reason = data.get("reasonCode") or data.get("error", {}).get("code") or f"HTTP {resp.status_code}"
+            return {"ok": False, "message": f"Abgelehnt: {reason}"}
+    except Exception as exc:
+        return {"ok": False, "message": f"Nicht erreichbar: {type(exc).__name__}"}
 
 
 # --- Dev / Mock Simulator Endpoints (only active in mock modes) ---

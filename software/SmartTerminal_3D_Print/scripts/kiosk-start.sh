@@ -8,10 +8,22 @@ ROTATE="${DISPLAY_ROTATE:-270}"
 SCALE="${KIOSK_SCALE:-1.5}"
 TARGET_URL="${KIOSK_URL:-http://127.0.0.1/?kiosk=1}"
 
-# DSI-Ausgang ermitteln (Pi 5: typisch DSI-2 oder DSI-1) und ins Querformat drehen
+# DSI-Ausgang ermitteln (Pi 5: typisch DSI-2 oder DSI-1), drehen und Touch darauf mappen
 DSI_OUT=$(wlr-randr 2>/dev/null | awk '/^DSI-/{print $1; exit}' || true)
+TOUCH_NAME=$(awk -F'"' '/Name=.*[Tt]ouch/{print $2; exit}' /proc/bus/input/devices 2>/dev/null || true)
 if [ -n "$DSI_OUT" ]; then
   wlr-randr --output "$DSI_OUT" --transform "$ROTATE" || true
+  mkdir -p "$HOME/.config/labwc"
+  cat >"$HOME/.config/labwc/rc.xml" <<EOF
+<?xml version="1.0"?>
+<labwc_config>
+  <touch deviceName="${TOUCH_NAME}" mapToOutput="${DSI_OUT}" mouseEmulation="yes" />
+  <windowRules>
+    <windowRule identifier="*" serverDecoration="no" />
+  </windowRules>
+</labwc_config>
+EOF
+  labwc --reconfigure || true
 fi
 
 # Warten bis nginx/UI erreichbar ist (max. 60 s), damit keine Fehlerseite erscheint
@@ -40,7 +52,7 @@ exec "$BROWSER" \
   --no-first-run \
   --disable-session-crashed-bubble \
   --disable-restore-session-state \
-  --disable-features=TranslateUI \
+  --disable-features=Translate,TranslateUI \
   --check-for-update-interval=31536000 \
   --autoplay-policy=no-user-gesture-required \
   --user-data-dir=/tmp/chromium-kiosk \
