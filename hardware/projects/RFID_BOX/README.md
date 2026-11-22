@@ -279,6 +279,11 @@ Die vollständige Liste steht im Schaltplan und in
   in [Review_IO_Board.md](Review_IO_Board.md) (noch nichts umgesetzt) —
   insbesondere Wichtigkeit 3: Y-Kondensator ≥ 1 nF / 250 VAC zwischen `GND`
   und `PIN_PE` (#1) sowie Abstand `R302`/`Net-(R301-Pad2)` zu `GND_ISO` (#2).
+- **Review RFID-Board (Marc Ihle) abarbeiten:** 15 offene Punkte dokumentiert
+  in [Review_RFID_Board.md](Review_RFID_Board.md) (noch nichts umgesetzt) —
+  insbesondere Wichtigkeit 4: `SPI-MOSI`/`SCK` aus dem Spulenbereich über die
+  `GND`-Plane ziehen (#10), sowie Wichtigkeit 3: Stroko zwischen `D400` und
+  ESP `IC100A` (#3) und TVS-Diode an `VBUS`/`D401` (#4).
 - **Zweiten Taster neben dem Stopp-Taster vorsehen:** zweiten Taster am
   Gehäuse neben dem Stopp-Taster einplanen und auf dem RFID-Board mit
   Anschluss (z. B. J101 erweitern oder separater Header), Beschaltung analog
