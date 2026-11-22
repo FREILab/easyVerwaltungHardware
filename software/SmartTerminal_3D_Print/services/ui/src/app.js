@@ -1,4 +1,8 @@
 (() => {
+  if (new URLSearchParams(window.location.search).get("kiosk") === "1") {
+    document.documentElement.classList.add("kiosk");
+  }
+
   const RING_CIRCUMFERENCE = 2 * Math.PI * 19;
 
   const state = {

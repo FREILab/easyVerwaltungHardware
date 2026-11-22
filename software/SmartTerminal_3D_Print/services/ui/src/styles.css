@@ -32,6 +32,7 @@ html, body {
 }
 
 .hidden { display: none !important; }
+html.kiosk, html.kiosk * { cursor: none !important; }
 
 .app-shell {
   display: flex;
@@ -44,8 +45,8 @@ html, body {
 .topbar {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 18px;
+  gap: 10px;
+  padding: 10px 14px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
@@ -54,8 +55,8 @@ html, body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-width: 185px;
+  gap: 8px;
+  min-width: 135px;
 }
 
 .brand-dot {
@@ -73,7 +74,7 @@ html, body {
 }
 
 .brand-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.15;
 }
@@ -87,19 +88,19 @@ html, body {
 .printer-bar {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
   flex: 1;
 }
 
 .printer-tile {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 7px 10px;
   border-radius: 10px;
   background: var(--surface-2);
   border: 1px solid var(--border);
-  min-height: 58px;
+  min-height: 54px;
 }
 
 .printer-tile.state-READY { border-left: 5px solid var(--primary); }
@@ -152,11 +153,11 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 56px;
-  padding: 0 22px;
+  min-height: 52px;
+  padding: 0 18px;
   border: 1px solid transparent;
   border-radius: 12px;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   color: var(--text);
@@ -423,18 +424,18 @@ html, body {
   background: rgba(5, 8, 13, 0.82);
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 12px;
   z-index: 100;
 }
 
 .modal {
-  width: min(820px, 100%);
-  max-height: 92vh;
+  width: min(780px, 100%);
+  max-height: 94vh;
   display: flex;
   flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 16px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
   overflow: hidden;
 }
@@ -444,7 +445,7 @@ html, body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 20px;
+  padding: 12px 16px;
   background: var(--surface-2);
   border-bottom: 1px solid var(--border);
 }
@@ -494,7 +495,7 @@ html, body {
 .modal-header h2 { margin: 0; font-size: 22px; }
 
 .modal-body {
-  padding: 22px 24px;
+  padding: 14px 18px;
   overflow-y: auto;
   flex: 1;
 }
@@ -502,9 +503,9 @@ html, body {
 .modal-footer {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   justify-content: flex-end;
-  padding: 16px 24px;
+  padding: 12px 18px;
   background: var(--surface-2);
   border-top: 1px solid var(--border);
 }
@@ -728,8 +729,8 @@ html, body {
 }
 
 .numpad .btn {
-  min-height: 62px;
-  font-size: 22px;
+  min-height: 54px;
+  font-size: 21px;
   padding: 0;
 }
 

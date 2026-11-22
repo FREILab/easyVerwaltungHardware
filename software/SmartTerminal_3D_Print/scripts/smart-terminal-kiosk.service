@@ -18,6 +18,7 @@ StandardError=journal
 Environment=XDG_RUNTIME_DIR=/run/user/__KIOSK_UID__
 Environment=WLR_LIBINPUT_NO_DEVICES=1
 Environment=DISPLAY_ROTATE=__DISPLAY_ROTATE__
+Environment=KIOSK_SCALE=__KIOSK_SCALE__
 ExecStartPre=/bin/mkdir -p /run/user/__KIOSK_UID__
 ExecStartPre=/bin/chown __KIOSK_USER__:__KIOSK_USER__ /run/user/__KIOSK_UID__
 ExecStartPre=/bin/chmod 0700 /run/user/__KIOSK_UID__

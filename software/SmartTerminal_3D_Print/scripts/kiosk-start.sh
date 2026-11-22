@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
 # Wird von labwc beim Start des Kiosk-Services ausgeführt.
-# Dreht das Waveshare 5" DSI Display auf Querformat (1280x720), wartet kurz auf den
-# lokalen UI-Container und startet Chromium im Vollbild-Kiosk-Modus.
+# Dreht das Waveshare 5" DSI Display auf Querformat (1280x720), setzt Touch-Skalierung
+# für 5"-Displays und startet Chromium im Vollbild-Kiosk-Modus.
 set -euo pipefail
 
-ROTATE="${DISPLAY_ROTATE:-90}"
-TARGET_URL="${KIOSK_URL:-http://127.0.0.1}"
+ROTATE="${DISPLAY_ROTATE:-270}"
+SCALE="${KIOSK_SCALE:-1.5}"
+TARGET_URL="${KIOSK_URL:-http://127.0.0.1/?kiosk=1}"
 
-# DSI-Ausgang ermitteln (typisch DSI-1 oder DSI-2) und ins Querformat drehen
+# DSI-Ausgang ermitteln (Pi 5: typisch DSI-2 oder DSI-1) und ins Querformat drehen
 DSI_OUT=$(wlr-randr 2>/dev/null | awk '/^DSI-/{print $1; exit}' || true)
 if [ -n "$DSI_OUT" ]; then
   wlr-randr --output "$DSI_OUT" --transform "$ROTATE" || true
 fi
 
 # Warten bis nginx/UI erreichbar ist (max. 60 s), damit keine Fehlerseite erscheint
+HEALTH_URL="${TARGET_URL%%\?*}"
+HEALTH_URL="${HEALTH_URL%/}/healthz"
 for _ in $(seq 1 60); do
-  if curl -sf "${TARGET_URL}/healthz" >/dev/null 2>&1; then
+  if curl -sf "$HEALTH_URL" >/dev/null 2>&1; then
     break
   fi
   sleep 1
@@ -27,6 +30,7 @@ BROWSER=$(command -v chromium || command -v chromium-browser)
 exec "$BROWSER" \
   --kiosk \
   --ozone-platform=wayland \
+  --force-device-scale-factor="$SCALE" \
   --enable-features=OverlayScrollbar \
   --touch-events=enabled \
   --disable-pinch \

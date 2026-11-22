@@ -27,9 +27,10 @@ Nach dem ersten Boot per SSH verbinden:
 ssh printmaster@smartterminal-dev.local
 ```
 
-Auf dem Pi Repo klonen und Setup starten:
+Auf dem Pi `git` installieren, Repo klonen und Setup starten:
 
 ```bash
+sudo apt-get update && sudo apt-get install -y git
 git clone https://github.com/FREILab/easyVerwaltungHardware.git ~/easyVerwaltungHardware
 bash ~/easyVerwaltungHardware/software/SmartTerminal_3D_Print/scripts/setup-pi.sh
 sudo reboot

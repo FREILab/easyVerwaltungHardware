@@ -17,7 +17,8 @@
 set -euo pipefail
 
 DSI_PORT="${DSI_PORT:-dsi1}"
-DISPLAY_ROTATE="${DISPLAY_ROTATE:-90}"
+DISPLAY_ROTATE="${DISPLAY_ROTATE:-270}"
+KIOSK_SCALE="${KIOSK_SCALE:-1.5}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 KIOSK_USER="${SUDO_USER:-$USER}"
@@ -86,6 +87,10 @@ append_if_missing "dtoverlay=vc4-kms-v3d" "$BOOT_CONFIG"
 sudo sed -i '/^dtoverlay=vc4-kms-dsi-waveshare-panel/d' "$BOOT_CONFIG"
 echo "$PANEL_LINE" | sudo tee -a "$BOOT_CONFIG" >/dev/null
 
+# i2c-dev Modul dauerhaft laden, damit /dev/i2c-1 beim Boot existiert
+echo "i2c-dev" | sudo tee /etc/modules-load.d/i2c-dev.conf >/dev/null
+sudo modprobe i2c-dev || true
+
 # --- 4. 24/7-Härtung: Hardware-Watchdog + RAM-Journald + WLAN PowerSave aus ---
 echo "→ 24/7-Härtung aktivieren (Watchdog, RAM-Logs, WLAN PowerSave aus)..."
 sudo mkdir -p /etc/systemd/system.conf.d
@@ -113,7 +118,7 @@ mkdir -p "$KIOSK_HOME/.config/labwc"
 cat >"$KIOSK_HOME/.config/labwc/rc.xml" <<'EOF'
 <?xml version="1.0"?>
 <labwc_config>
-  <touch deviceName="" mapToOutput="DSI-1" mouseEmulation="no" />
+  <touch deviceName="" mouseEmulation="no" />
   <windowRules>
     <windowRule identifier="*" serverDecoration="no" />
   </windowRules>
@@ -145,6 +150,7 @@ sed \
   -e "s|__KIOSK_USER__|${KIOSK_USER}|g" \
   -e "s|__KIOSK_UID__|${KIOSK_UID}|g" \
   -e "s|__DISPLAY_ROTATE__|${DISPLAY_ROTATE}|g" \
+  -e "s|__KIOSK_SCALE__|${KIOSK_SCALE}|g" \
   "$SCRIPT_DIR/smart-terminal-kiosk.service" \
   | sudo tee /etc/systemd/system/smart-terminal-kiosk.service >/dev/null
 
