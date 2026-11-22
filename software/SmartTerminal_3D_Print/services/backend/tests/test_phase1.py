@@ -153,6 +153,7 @@ class Phase1ParserAndStoreTests(unittest.TestCase):
         state, note = map_prusalink_state("FINISHED")
         self.assertEqual(state, "ATTENTION")
         self.assertIsNotNone(note)
+        self.assertEqual(map_prusalink_state("ATTENTION"), ("ATTENTION", "Dialog am Drucker"))
 
     def test_print_after_upload_parsing_and_store_stats(self) -> None:
         self.assertTrue(_parse_print_after_upload("?1"))
@@ -198,6 +199,20 @@ class Phase1ParserAndStoreTests(unittest.TestCase):
             self.assertIn("prusa-xl", stats)
             self.assertAlmostEqual(stats["prusa-xl"]["hours"], 1.0, places=2)
             self.assertAlmostEqual(stats["prusa-xl"]["grams"], 100.0, places=2)
+
+            latest = store.latest_started_jobs_by_printer()
+            self.assertEqual(latest["prusa-xl"]["userDisplayName"], "Max")
+
+            p0 = store.get_power_state("prusa-xl")
+            self.assertEqual(p0["powerState"], "ON")
+            self.assertFalse(p0["pendingShutdown"])
+            store.set_power_state("prusa-xl", pending_shutdown=True)
+            p1 = store.get_power_state("prusa-xl")
+            self.assertTrue(p1["pendingShutdown"])
+            store.set_power_state("prusa-xl", power_state="OFF", pending_shutdown=False)
+            p2 = store.get_power_state("prusa-xl")
+            self.assertEqual(p2["powerState"], "OFF")
+            self.assertFalse(p2["pendingShutdown"])
 
 
 if __name__ == "__main__":

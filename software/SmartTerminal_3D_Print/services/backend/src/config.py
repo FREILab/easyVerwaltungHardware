@@ -29,6 +29,8 @@ class Settings:
     hardware_mode: str
     payment_mode: str
     printer_mode: str
+    power_mode: str
+    hotend_cooldown_temp_c: float
     device_agent_url: str
     easyverwaltung_url: str
     easyverwaltung_service_id: str
@@ -64,6 +66,8 @@ def load_settings() -> Settings:
         hardware_mode=os.getenv("HARDWARE_MODE", "mock").strip().lower() or "mock",
         payment_mode=os.getenv("PAYMENT_MODE", "mock").strip().lower() or "mock",
         printer_mode=os.getenv("PRINTER_MODE", "mock").strip().lower() or "mock",
+        power_mode=os.getenv("POWER_MODE", "mock").strip().lower() or "mock",
+        hotend_cooldown_temp_c=float(os.getenv("HOTEND_COOLDOWN_TEMP_C", "50").strip() or "50"),
         device_agent_url=os.getenv("DEVICE_AGENT_URL", "http://device-agent:8081").rstrip("/"),
         easyverwaltung_url=os.getenv("EASYVERWALTUNG_URL", "").rstrip("/"),
         easyverwaltung_service_id=os.getenv("EASYVERWALTUNG_SERVICE_ID", "").strip(),

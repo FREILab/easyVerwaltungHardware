@@ -24,8 +24,9 @@
 
     // Screen state: queue | rfid_wait | payment_confirm | overdraft_confirm | topup | club_section | pin_entry | printer_busy | account | settings | admin | not_approved | bv_wait | approved_ok
     screen: "queue",
-    rfidPurpose: null, // "print" | "account"
+    rfidPurpose: null, // "print" | "account" | "power_on"
     selectedJobId: null,
+    powerPrinterId: null,
     selectedSectionId: null,
     pinMode: null, // "club" | "already_paid"
     pinValue: "",
@@ -38,6 +39,7 @@
     // Popups on top of current screen
     uploadPopupJobId: null,
     printerPopupSlot: null,
+    donePopup: null, // { displayName, printerSlot, printAfterUpload }
 
     // Timeout countdown
     timeoutEnd: null,
@@ -115,11 +117,17 @@
   }
 
   function printerStatText(p) {
+    if (p.pendingShutdown) {
+      const t = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)}°` : "heiß";
+      return `🌡 Kühlt ab (${t} → Aus)`;
+    }
+    if (p.powerState === "OFF" && p.state === "OFFLINE") return "⏻ Ausgeschaltet";
+    if (p.powerState === "BOOTING" && p.state === "OFFLINE") return "▲ Startet…";
     if (p.state === "READY") return "● Bereit";
     if (p.state === "UPLOADING") return `▲ Überträgt ${Math.round(p.progress || 0)} %`;
     if (p.state === "PRINTING") return p.progress != null ? `▲ Druckt ${Math.round(p.progress)} %` : "▲ Druckt";
     if (p.state === "PAUSED") return "▲ Pausiert";
-    if (p.state === "ATTENTION") return `▲ ${p.error || "Prüfen"}`;
+    if (p.state === "ATTENTION") return `▲ ${p.error || "Dialog am Drucker"}`;
     return "✕ Offline";
   }
 
@@ -280,7 +288,10 @@
     } else if (["overdraft_confirm", "not_approved", "printer_busy"].includes(name)) {
       setTimeoutRing(30, () => returnToQueue(true));
     } else if (name === "approved_ok") {
-      setTimeoutRing(4, () => openScreen(state.rfidPurpose === "print" ? "payment_confirm" : "account"));
+      setTimeoutRing(4, () => {
+        if (state.rfidPurpose === "power_on") return executePowerOn();
+        openScreen(state.rfidPurpose === "print" ? "payment_confirm" : "account");
+      });
     } else {
       setTimeoutRing(null, null);
     }
@@ -350,6 +361,15 @@
     });
     es.addEventListener("queue_updated", () => loadState());
     es.addEventListener("printers_updated", () => loadState());
+    es.addEventListener("printer_power_changed", (ev) => {
+      try {
+        const p = JSON.parse(ev.data)?.data;
+        loadState();
+        if (p?.action === "powered_off" && p?.reason === "COOLDOWN_COMPLETE") {
+          showToast(`⏻ Drucker ${p.printerSlot || ""} abgekühlt und automatisch ausgeschaltet`);
+        }
+      } catch {}
+    });
     es.addEventListener("rfid_scan", (ev) => {
       try {
         const uid = JSON.parse(ev.data)?.data?.uid;
@@ -386,11 +406,11 @@
         if (state.uploadPopupJobId === p?.jobId) state.uploadPopupJobId = null;
         loadState();
         if (!p) return;
-        if (p.printAfterUpload === false) {
-          showToast(`✓ Auf Drucker ${p.printerSlot || ""} hochgeladen — am Drucker starten`);
-        } else {
-          showToast(`✓ Druck gestartet: ${p.displayName || ""} (Drucker ${p.printerSlot || ""})`);
-        }
+        showDonePopup({
+          displayName: p.displayName || "",
+          printerSlot: p.printerSlot || "",
+          printAfterUpload: p.printAfterUpload !== false,
+        });
       } catch {}
     });
     es.addEventListener("job_failed", (ev) => {
@@ -426,6 +446,7 @@
         }
         state.session = res.session;
         if (!state.session.approved) return openScreen("not_approved");
+        if (state.rfidPurpose === "power_on") return executePowerOn();
         openScreen(state.rfidPurpose === "account" ? "account" : "payment_confirm");
       } catch (err) {
         showToast(err.message);
@@ -538,6 +559,69 @@
     }
   }
 
+  async function executePowerOn() {
+    const pid = state.powerPrinterId;
+    const p = state.printers.find((x) => x.id === pid);
+    if (!pid || !state.session) {
+      showToast("Sitzung abgelaufen.");
+      return returnToQueue(true);
+    }
+    try {
+      const res = await api(`/api/printers/${encodeURIComponent(pid)}/power/on`, {
+        method: "POST",
+        body: JSON.stringify({ sessionId: state.session.sessionId }),
+      });
+      if (!res.ok) {
+        if (res.reason === "NOT_APPROVED") return openScreen("not_approved");
+        showToast(`Einschalten fehlgeschlagen (${res.reason || "Fehler"})`);
+        return returnToQueue(true);
+      }
+      state.session = null;
+      state.powerPrinterId = null;
+      showToast(`✓ Drucker ${p ? p.slot : ""} eingeschaltet${res.state === "OFFLINE" ? " — fährt hoch…" : ""}`);
+      await returnToQueue(false);
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function executePowerOff(printerId) {
+    const p = state.printers.find((x) => x.id === printerId);
+    try {
+      const res = await api(`/api/printers/${encodeURIComponent(printerId)}/power/off`, { method: "POST" });
+      if (!res.ok) {
+        const msgMap = {
+          PRINTER_PRINTING: "Drucker druckt gerade — Ausschalten gesperrt.",
+          PRINTER_UPLOADING: "Übertragung läuft — Ausschalten gesperrt.",
+        };
+        showToast(msgMap[res.reason] || `Ausschalten fehlgeschlagen (${res.reason || "Fehler"})`);
+        return;
+      }
+      if (res.action === "cooldown_scheduled") {
+        showToast(
+          `🌡 Hotend ${Math.round(res.nozzleTemp)} °C (> ${Math.round(res.thresholdC)} °C) — Drucker ${p ? p.slot : ""} schaltet nach Abkühlen aus`
+        );
+      } else {
+        showToast(`⏻ Drucker ${p ? p.slot : ""} ausgeschaltet`);
+        state.printerPopupSlot = null;
+      }
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function executeCancelShutdown(printerId) {
+    try {
+      await api(`/api/printers/${encodeURIComponent(printerId)}/power/cancel-shutdown`, { method: "POST" });
+      showToast("Automatisches Ausschalten abgebrochen");
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
   // --- Rendering ---
   function initMarquees() {
     requestAnimationFrame(() => {
@@ -569,16 +653,25 @@
     const isAccount = state.screen === "account";
     const isSettings = state.screen === "settings";
     const isSettingsGroup = isSettings || state.screen === "admin";
+    const accShowsHome = !isHome && !isSettingsGroup;
 
     backBtn.classList.toggle("hidden", isHome || isAccount || isSettings);
-    accBtn.classList.toggle("is-home", isAccount);
-    accBtn.textContent = isAccount ? "⌂ Home" : "👤 Konto";
+    accBtn.classList.toggle("is-home", accShowsHome);
+    accBtn.textContent = accShowsHome ? "⌂ Home" : "👤 Konto";
     setupBtn.classList.toggle("is-home", isSettingsGroup);
     setupBtn.textContent = isSettingsGroup ? "⌂" : "⚙";
 
+    const powerPrinter = state.printers.find((x) => x.id === state.powerPrinterId);
+    const rfidSub =
+      state.rfidPurpose === "power_on" && powerPrinter
+        ? `· Drucker ${powerPrinter.slot} einschalten`
+        : selectedJob()
+          ? `· ${selectedJob().displayName}`
+          : "· Konto";
+
     const titles = {
       queue: ["Warteschlange", state.jobs.length ? `· ${state.jobs.length} ${state.jobs.length === 1 ? "Job" : "Jobs"}` : ""],
-      rfid_wait: ["RFID-Karte vorhalten", selectedJob() ? `· ${selectedJob().displayName}` : "· Konto"],
+      rfid_wait: ["RFID-Karte vorhalten", rfidSub],
       payment_confirm: ["Zahlung bestätigen", state.session ? `· ${state.session.user.display_name}` : ""],
       overdraft_confirm: ["Auf Guthaben-Minus drucken?", state.session ? `· ${state.session.user.display_name}` : ""],
       topup: ["Guthaben aufladen", state.session ? `· ${state.session.user.display_name}` : ""],
@@ -718,18 +811,22 @@
     }
 
     if (state.screen === "rfid_wait") {
+      const powerPrinter = state.printers.find((x) => x.id === state.powerPrinterId);
+      let descHtml = `<p>Halte deine Karte an den Leser, um dein Konto &amp; Guthaben anzuzeigen.</p>`;
+      if (state.rfidPurpose === "power_on" && powerPrinter) {
+        descHtml = `<p><strong>Drucker ${powerPrinter.slot} (${escapeHtml(powerPrinter.model || powerPrinter.name)})</strong> über easyVerwaltung einschalten.<br>
+           Bitte Mitgliedskarte mit 3D-Druck-Freigabe vorhalten.</p>`;
+      } else if (job) {
+        descHtml = `<p>Job: <strong>${escapeHtml(job.displayName || job.filename)}</strong> (Drucker ${job.printerSlot})<br>
+           Kosten: <strong>${fmtEur(job.priceCents)}</strong> · Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong></p>`;
+      }
       stage.innerHTML = `
         <div class="subscreen">
           <div class="rfid-center">
             <div class="rfid-circle">${nfcIconSvg()}</div>
             <div class="rfid-text">
               <h2>Bitte Mitgliedskarte scannen</h2>
-              ${
-                job
-                  ? `<p>Job: <strong>${escapeHtml(job.displayName || job.filename)}</strong> (Drucker ${job.printerSlot})<br>
-                     Kosten: <strong>${fmtEur(job.priceCents)}</strong> · Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong></p>`
-                  : `<p>Halte deine Karte an den Leser, um dein Konto &amp; Guthaben anzuzeigen.</p>`
-              }
+              ${descHtml}
               <div style="margin-top:2cqh;">${timeoutPillHtml("Timeout:")}</div>
             </div>
           </div>
@@ -1122,13 +1219,60 @@
     const bedTemp = p.bedTemp != null ? `${Math.round(p.bedTemp)}°/${Math.round(p.targetBed || 0)}°` : "–";
     const totalH = p.totalPrintHours != null ? `${p.totalPrintHours.toLocaleString("de-DE")} h` : "–";
     const totalKm = p.totalFilamentKm != null ? `${p.totalFilamentKm.toLocaleString("de-DE")} km` : "–";
-    const hasActive = (p.state === "PRINTING" || p.state === "UPLOADING") && (p.activeJob || p.uploadProgress);
+    const hasActive = (p.state === "PRINTING" || p.state === "UPLOADING" || p.state === "PAUSED") && (p.activeJob || p.uploadProgress);
     const activeName = p.activeJob || state.jobs.find((j) => j.id === p.uploadProgress?.jobId)?.displayName || "Auftrag";
-    const remTxt = p.timeRemainingSeconds ? `Restzeit: ${fmtDur(p.timeRemainingSeconds)} · Fertig ${fmtEta(p.timeRemainingSeconds)}` : "";
+    const ownerLabel = p.activeJobOwner
+      ? p.activeJobSection
+        ? `${p.activeJobOwner} (Verein: ${p.activeJobSection})`
+        : p.activeJobOwner
+      : "Direkt am Drucker";
+    const remTxt = p.timeRemainingSeconds
+      ? `Verbleibend: ${fmtDur(p.timeRemainingSeconds)} (Fertig ${fmtEta(p.timeRemainingSeconds)})`
+      : "";
+    const thresh = Math.round(p.shutdownTempThresholdC || 50);
+    const isHot = p.nozzleTemp != null && p.nozzleTemp > thresh;
+    const isOff = p.state === "OFFLINE" || p.powerState === "OFF";
+    const isBusyPower = p.state === "PRINTING" || p.state === "UPLOADING";
+
+    let powerFootHtml = "";
+    if (p.pendingShutdown) {
+      const curT = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)} °C` : "heiß";
+      powerFootHtml = `
+        <div class="popup-foot power-foot">
+          <div class="cooldown-note">🌡 Kühlt ab (${curT} → ≤ ${thresh} °C) — schaltet automatisch aus</div>
+          <button type="button" class="btn btn-secondary" data-power-cancel="${escapeHtml(p.id)}">Abbrechen</button>
+        </div>
+      `;
+    } else if (isOff) {
+      powerFootHtml = `
+        <div class="popup-foot power-foot">
+          <div class="power-hint">Einschalten erfordert Mitgliedskarte (RFID)</div>
+          <button type="button" class="btn btn-primary" data-power-on="${escapeHtml(p.id)}">⏻ Einschalten (RFID)</button>
+        </div>
+      `;
+    } else if (isBusyPower) {
+      powerFootHtml = `
+        <div class="popup-foot power-foot">
+          <div class="power-hint">Drucker aktiv — Ausschalten während Druck gesperrt</div>
+          <button type="button" class="btn btn-secondary" disabled>⏻ Ausschalten</button>
+        </div>
+      `;
+    } else {
+      powerFootHtml = `
+        <div class="popup-foot power-foot">
+          <div class="power-hint">${
+            isHot
+              ? `🌡 Hotend ${Math.round(p.nozzleTemp)} °C (> ${thresh} °C) — schaltet nach Abkühlen ab`
+              : `Stromversorgung über easyVerwaltung`
+          }</div>
+          <button type="button" class="btn btn-danger-soft" data-power-off="${escapeHtml(p.id)}">⏻ ${isHot ? "Nach Abkühlen aus" : "Ausschalten"}</button>
+        </div>
+      `;
+    }
 
     el.classList.remove("hidden");
     el.innerHTML = `
-      <div class="popup-card" style="width:85cqw;">
+      <div class="popup-card" style="width:86cqw;">
         <div class="popup-head">
           <div class="popup-head-left">
             <button type="button" class="back-top-btn" style="height:8.2cqh;" data-close-printer="1">‹ Zurück</button>
@@ -1138,7 +1282,7 @@
         </div>
         <div class="printer-popup-body">
           <div class="printer-photo">
-            <div style="width:17cqw;height:15cqw;">${printerSvg(p.model || p.name)}</div>
+            <div style="width:17cqw;height:14cqw;">${printerSvg(p.model || p.name)}</div>
             <div style="font-size:2.6cqh;font-weight:800;color:var(--muted);">${escapeHtml(p.ip || "–")}</div>
           </div>
           <div class="printer-spec-grid">
@@ -1152,22 +1296,69 @@
               hasActive
                 ? `
                   <div class="p-job-banner">
-                    <div style="display:flex;justify-content:space-between;font-size:3cqh;font-weight:800;">
-                      <span>${p.state === "UPLOADING" ? "Überträgt:" : "Aktiver Druck:"} ${escapeHtml(activeName)}</span>
-                      <span>${Math.round(p.progress || 0)} %</span>
+                    <div style="display:flex;justify-content:space-between;gap:1cqw;font-size:3cqh;font-weight:800;">
+                      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.state === "UPLOADING" ? "Überträgt:" : p.state === "PAUSED" ? "Pausiert:" : "Aktiver Druck:"} ${escapeHtml(activeName)}</span>
+                      <span style="flex-shrink:0;">${Math.round(p.progress || 0)} %</span>
                     </div>
-                    ${remTxt ? `<div style="font-size:2.7cqh;font-weight:700;color:var(--orange-ink);">${remTxt}</div>` : ""}
+                    <div class="p-job-meta-row">
+                      <span>👤 Verantwortlich: <strong>${escapeHtml(ownerLabel)}</strong></span>
+                      ${remTxt ? `<span>⏱ ${escapeHtml(remTxt)}</span>` : ""}
+                    </div>
                   </div>
                 `
                 : `
                   <div class="spec-chip" style="grid-column:span 3;display:flex;justify-content:space-between;align-items:center;">
                     <span class="spec-k">Aktiver Druck</span>
-                    <span style="font-size:3cqh;font-weight:800;color:var(--muted);">${p.state === "OFFLINE" ? "Drucker nicht erreichbar" : "Kein laufender Auftrag"}</span>
+                    <span style="font-size:3cqh;font-weight:800;color:var(--muted);">${p.powerState === "OFF" ? "Drucker ausgeschaltet" : p.state === "OFFLINE" ? "Drucker nicht erreichbar" : "Kein laufender Auftrag"}</span>
                   </div>
                 `
             }
           </div>
         </div>
+        ${powerFootHtml}
+      </div>
+    `;
+  }
+
+  let donePopupTimer = null;
+  function showDonePopup(info) {
+    state.donePopup = info;
+    renderDonePopup();
+    clearTimeout(donePopupTimer);
+    donePopupTimer = setTimeout(() => {
+      closeDonePopup();
+    }, 4000);
+  }
+
+  function closeDonePopup() {
+    clearTimeout(donePopupTimer);
+    if (!state.donePopup) return;
+    state.donePopup = null;
+    renderDonePopup();
+    if (state.screen !== "queue") {
+      returnToQueue(false);
+    }
+  }
+
+  function renderDonePopup() {
+    const el = $("done-popup");
+    if (!el) return;
+    const d = state.donePopup;
+    if (!d) {
+      el.classList.add("hidden");
+      return;
+    }
+    el.classList.remove("hidden");
+    const slotTxt = d.printerSlot ? `Drucker ${d.printerSlot}` : "den Drucker";
+    const subTxt = d.printAfterUpload
+      ? `${d.displayName ? `„${escapeHtml(d.displayName)}“ — ` : ""}Druck wurde gestartet.`
+      : `${d.displayName ? `„${escapeHtml(d.displayName)}“ — ` : ""}Datei gespeichert (Start am Drucker).`;
+    el.innerHTML = `
+      <div class="popup-card done-card">
+        <div class="done-icon">✓</div>
+        <h3>Druckjob erfolgreich an ${escapeHtml(slotTxt)} übertragen</h3>
+        <p>${subTxt}</p>
+        <button type="button" class="btn btn-primary" data-close-done="1">OK</button>
       </div>
     `;
   }
@@ -1175,6 +1366,7 @@
   function renderPopups() {
     renderUploadPopup();
     renderPrinterPopup();
+    renderDonePopup();
   }
 
   function renderDevControls() {
@@ -1198,8 +1390,11 @@
   $("btn-theme-eye").addEventListener("click", () => setTheme(state.theme === "light" ? "dark" : "light"));
 
   $("btn-account").addEventListener("click", () => {
-    if (state.screen === "account") return returnToQueue(true);
+    if (state.screen !== "queue" && state.screen !== "settings" && state.screen !== "admin") {
+      return returnToQueue(true);
+    }
     state.selectedJobId = null;
+    state.powerPrinterId = null;
     state.rfidPurpose = "account";
     openScreen(state.session ? "account" : "rfid_wait");
   });
@@ -1216,7 +1411,26 @@
     renderPrinterPopup();
   });
 
-  $("printer-popup").addEventListener("click", (ev) => {
+  $("printer-popup").addEventListener("click", async (ev) => {
+    const onBtn = ev.target.closest("[data-power-on]");
+    if (onBtn) {
+      state.powerPrinterId = onBtn.dataset.powerOn;
+      state.selectedJobId = null;
+      state.rfidPurpose = "power_on";
+      state.printerPopupSlot = null;
+      openScreen("rfid_wait");
+      return;
+    }
+    const offBtn = ev.target.closest("[data-power-off]");
+    if (offBtn) {
+      await executePowerOff(offBtn.dataset.powerOff);
+      return;
+    }
+    const cancelBtn = ev.target.closest("[data-power-cancel]");
+    if (cancelBtn) {
+      await executeCancelShutdown(cancelBtn.dataset.powerCancel);
+      return;
+    }
     if (ev.target.id === "printer-popup" || ev.target.closest("[data-close-printer]")) {
       state.printerPopupSlot = null;
       renderPrinterPopup();
@@ -1232,6 +1446,12 @@
     if (ev.target.id === "upload-popup" || ev.target.closest("[data-close-upload]")) {
       state.uploadPopupJobId = null;
       renderUploadPopup();
+    }
+  });
+
+  $("done-popup").addEventListener("click", (ev) => {
+    if (ev.target.id === "done-popup" || ev.target.closest("[data-close-done]")) {
+      closeDonePopup();
     }
   });
 

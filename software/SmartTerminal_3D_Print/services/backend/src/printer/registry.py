@@ -36,6 +36,7 @@ class PrinterConfig:
     build_volume: str = ""
     base_print_hours: float = 0.0
     base_filament_km: float = 0.0
+    power_control_id: str | None = None
 
 
 @dataclass
@@ -50,6 +51,9 @@ class PrinterStatus:
     nozzle_diameter: float | None = None
     time_remaining_s: int | None = None
     online_since: float | None = None
+    power_state: str = "ON"  # ON | OFF | BOOTING
+    pending_shutdown: bool = False
+    shutdown_temp_threshold_c: float = 50.0
     updated_at: float = field(default_factory=time.time)
     error: str | None = None
 
@@ -118,6 +122,7 @@ class PrinterRegistry:
                 build_volume=vol,
                 base_print_hours=float(item.get("base_print_hours") or 0.0),
                 base_filament_km=float(item.get("base_filament_km") or 0.0),
+                power_control_id=str(item.get("power_control_id") or "").strip() or None,
             )
             parsed[slot] = cfg
             self._statuses.setdefault(pid, PrinterStatus(state="READY"))
@@ -186,6 +191,9 @@ class PrinterRegistry:
                     "onTimeSeconds": on_time_s,
                     "totalPrintHours": total_hours if total_hours > 0 else None,
                     "totalFilamentKm": total_km if total_km > 0 else None,
+                    "powerState": st.power_state,
+                    "pendingShutdown": st.pending_shutdown,
+                    "shutdownTempThresholdC": st.shutdown_temp_threshold_c,
                     "error": st.error,
                     "updatedAt": st.updated_at,
                 }

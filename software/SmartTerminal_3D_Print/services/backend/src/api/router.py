@@ -72,6 +72,15 @@ class AdminConfigUpdate(BaseModel):
     easyverwaltungServiceToken: str | None = Field(default=None, max_length=256)
 
 
+class PrinterPowerOnRequest(BaseModel):
+    sessionId: str
+
+
+class DevPrinterTempRequest(BaseModel):
+    printerId: str
+    nozzleTemp: float | None = None  # None clears override
+
+
 def _detect_local_ip() -> str:
     override = os.getenv("TERMINAL_IP", "").strip()
     if override:
@@ -144,10 +153,43 @@ async def terminal_state(request: Request) -> dict[str, Any]:
 
     printers = []
     lifetime_stats = st.store.printer_lifetime_stats()
+    latest_jobs = st.store.latest_started_jobs_by_printer()
+    now_ts = time.time()
     for p in st.registry.serialize(lifetime_stats):
         up = uploads_by_printer.get(p["id"])
+        last = latest_jobs.get(p["id"])
         if up:
-            p = {**p, "state": "UPLOADING", "canAcceptJob": False, "progress": up["percent"], "uploadProgress": up}
+            p = {
+                **p,
+                "state": "UPLOADING",
+                "canAcceptJob": False,
+                "progress": up["percent"],
+                "uploadProgress": up,
+                "activeJob": up.get("displayName") or p.get("activeJob"),
+                "activeJobOwner": up.get("userDisplayName") or None,
+                "activeJobSection": up.get("sectionName") or None,
+                "timeRemainingSeconds": up.get("estimatedTimeSeconds") or p.get("timeRemainingSeconds"),
+            }
+        elif p["state"] in {"PRINTING", "PAUSED"}:
+            owner = last["userDisplayName"] if last and last.get("userDisplayName") else None
+            sec_name = last.get("sectionName") if last else None
+            rem_s = p.get("timeRemainingSeconds")
+            if rem_s is None and last and last.get("estimatedTimeSeconds") and last.get("startedAt"):
+                elapsed = max(0, int(now_ts - last["startedAt"]))
+                rem_s = max(0, last["estimatedTimeSeconds"] - elapsed)
+            p = {
+                **p,
+                "activeJob": p.get("activeJob") or (last["displayName"] if last else None),
+                "activeJobOwner": owner,
+                "activeJobSection": sec_name,
+                "timeRemainingSeconds": rem_s,
+            }
+        elif p["state"] == "ATTENTION" and last and last.get("userDisplayName"):
+            p = {
+                **p,
+                "activeJobOwner": last["userDisplayName"],
+                "activeJobSection": last.get("sectionName"),
+            }
         printers.append(p)
 
     jobs = []
@@ -362,6 +404,10 @@ async def _run_printer_transfer(
         prog = {
             "jobId": job_id,
             "printerId": printer.id,
+            "displayName": job.get("displayName", job["filename"]),
+            "userDisplayName": user_display_name,
+            "sectionName": section_name,
+            "estimatedTimeSeconds": int(job.get("estimatedTimeSeconds") or 0),
             "stage": "uploading",
             "percent": pct,
             "sentBytes": sent,
@@ -590,6 +636,10 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
         )
 
     # Step 3: Hand off file upload + print start to background task and return immediately
+    # Cancel any pending cooldown shutdown on this printer since a new job is starting
+    st.store.set_power_state(printer.id, power_state="ON", pending_shutdown=False)
+    cur_st = st.registry.get_status(printer.id)
+    cur_st.pending_shutdown = False
     st.store.set_job_status(job_id, "sending")
     user_id = sess.user.get("user_id")
     user_display_name = sess.user.get("display_name", "")
@@ -599,6 +649,10 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
     st.active_uploads[printer.id] = {
         "jobId": job_id,
         "printerId": printer.id,
+        "displayName": job.get("displayName", job["filename"]),
+        "userDisplayName": user_display_name,
+        "sectionName": section_name,
+        "estimatedTimeSeconds": int(job.get("estimatedTimeSeconds") or 0),
         "stage": "uploading",
         "percent": 0,
         "sentBytes": 0,
@@ -637,6 +691,138 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
         "sectionName": section_name,
         "printerName": printer.name,
     }
+
+
+@router.post("/printers/{printer_id}/power/on")
+async def printer_power_on(printer_id: str, body: PrinterPowerOnRequest, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    sess = _get_session(request, body.sessionId)
+    if not sess.approved_for_3d_print:
+        return {"ok": False, "reason": "NOT_APPROVED"}
+
+    printer = st.registry.get_by_id(printer_id)
+    if not printer:
+        raise HTTPException(status_code=404, detail="Drucker nicht gefunden")
+
+    res = await st.power_control.power_on(printer, rfid=sess.rfid_uid, user=sess.user)
+    if not res.ok:
+        await st.device_client.send_beeper("error")
+        return {"ok": False, "reason": res.reason or "POWER_ON_FAILED"}
+
+    # Clean up payment authorization since it was only used to verify RFID/qualification
+    await st.payment.cancel_authorization(
+        payment_authorization_id=sess.payment_authorization_id,
+        reason="PRINTER_POWER_ON",
+    )
+    st.sessions.pop(body.sessionId, None)
+
+    st.store.set_power_state(printer.id, power_state="BOOTING", pending_shutdown=False)
+    st.store.log_event(
+        "printer_powered_on",
+        printer_id=printer.id,
+        user_id=sess.user.get("user_id"),
+        user_name=sess.user.get("display_name"),
+    )
+
+    # Immediately re-poll so mock or fast-responding printers appear READY right away
+    new_st = await st.printer_client.poll_status(printer)
+    if printer.id in st.dev_nozzle_overrides:
+        new_st.nozzle_temp = float(st.dev_nozzle_overrides[printer.id])
+    new_st.shutdown_temp_threshold_c = st.settings.hotend_cooldown_temp_c
+    new_st.pending_shutdown = False
+    if new_st.state != "OFFLINE":
+        new_st.power_state = "ON"
+        st.store.set_power_state(printer.id, power_state="ON", pending_shutdown=False)
+    else:
+        new_st.power_state = "BOOTING"
+        new_st.error = "Startet…"
+    st.registry.set_status(printer.id, new_st)
+
+    await st.device_client.send_beeper("ok")
+    await st.device_client.send_led("idle")
+    st.events.publish("printers_updated", {"printerId": printer.id, "state": new_st.state})
+    return {"ok": True, "action": "powered_on", "printerId": printer.id, "state": new_st.state}
+
+
+@router.post("/printers/{printer_id}/power/off")
+async def printer_power_off(printer_id: str, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    printer = st.registry.get_by_id(printer_id)
+    if not printer:
+        raise HTTPException(status_code=404, detail="Drucker nicht gefunden")
+
+    if printer.id in st.active_uploads:
+        await st.device_client.send_beeper("error")
+        return {"ok": False, "reason": "PRINTER_UPLOADING"}
+
+    live_st = await st.printer_client.poll_status(printer)
+    if printer.id in st.dev_nozzle_overrides:
+        live_st.nozzle_temp = float(st.dev_nozzle_overrides[printer.id])
+    thresh = st.settings.hotend_cooldown_temp_c
+    live_st.shutdown_temp_threshold_c = thresh
+
+    if live_st.state == "PRINTING":
+        st.registry.set_status(printer.id, live_st)
+        await st.device_client.send_beeper("error")
+        return {"ok": False, "reason": "PRINTER_PRINTING"}
+
+    # Thermal protection: wait until hotend cooled down to <= threshold (default 50°C)
+    if live_st.nozzle_temp is not None and live_st.nozzle_temp > thresh:
+        st.store.set_power_state(printer.id, power_state="ON", pending_shutdown=True)
+        live_st.power_state = "ON"
+        live_st.pending_shutdown = True
+        st.registry.set_status(printer.id, live_st)
+        st.store.log_event(
+            "printer_shutdown_scheduled",
+            printer_id=printer.id,
+            details={"nozzleTemp": live_st.nozzle_temp, "thresholdC": thresh},
+        )
+        await st.device_client.send_beeper("ok")
+        st.events.publish("printers_updated", {"printerId": printer.id, "state": live_st.state})
+        return {
+            "ok": True,
+            "action": "cooldown_scheduled",
+            "printerId": printer.id,
+            "nozzleTemp": live_st.nozzle_temp,
+            "thresholdC": thresh,
+        }
+
+    res = await st.power_control.power_off(printer, reason="USER_REQUEST")
+    if not res.ok:
+        await st.device_client.send_beeper("error")
+        return {"ok": False, "reason": res.reason or "POWER_OFF_FAILED"}
+
+    st.store.set_power_state(printer.id, power_state="OFF", pending_shutdown=False)
+    st.store.log_event(
+        "printer_powered_off",
+        printer_id=printer.id,
+        details={"reason": "USER_REQUEST", "nozzleTemp": live_st.nozzle_temp},
+    )
+    live_st.power_state = "OFF"
+    live_st.pending_shutdown = False
+    if st.settings.power_mode == "mock":
+        live_st.state = "OFFLINE"
+        live_st.error = "Ausgeschaltet"
+    st.registry.set_status(printer.id, live_st)
+
+    await st.device_client.send_beeper("ok")
+    st.events.publish("printers_updated", {"printerId": printer.id, "state": live_st.state})
+    return {"ok": True, "action": "powered_off", "printerId": printer.id}
+
+
+@router.post("/printers/{printer_id}/power/cancel-shutdown")
+async def printer_cancel_shutdown(printer_id: str, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    printer = st.registry.get_by_id(printer_id)
+    if not printer:
+        raise HTTPException(status_code=404, detail="Drucker nicht gefunden")
+
+    st.store.set_power_state(printer.id, pending_shutdown=False)
+    cur = st.registry.get_status(printer.id)
+    cur.pending_shutdown = False
+    st.store.log_event("printer_shutdown_cancelled", printer_id=printer.id)
+    st.events.publish("printers_updated", {"printerId": printer.id, "state": cur.state})
+    return {"ok": True, "printerId": printer.id}
 
 
 @router.get("/audit")
@@ -735,6 +921,22 @@ async def dev_printer_state(body: DevPrinterStateRequest, request: Request) -> d
     st.registry.set_status(body.printerId, new_st)
     st.events.publish("printers_updated", {"printerId": body.printerId, "state": new_st.state})
     return {"ok": True, "printerId": body.printerId, "state": new_st.state}
+
+
+@router.post("/dev/printer-temp")
+async def dev_set_printer_temp(body: DevPrinterTempRequest, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    if not st.settings.is_dev_mock:
+        raise HTTPException(status_code=403, detail="Dev endpoints disabled in live mode")
+    if body.nozzleTemp is None:
+        st.dev_nozzle_overrides.pop(body.printerId, None)
+    else:
+        st.dev_nozzle_overrides[body.printerId] = float(body.nozzleTemp)
+    cur = st.registry.get_status(body.printerId)
+    if body.nozzleTemp is not None:
+        cur.nozzle_temp = float(body.nozzleTemp)
+    st.events.publish("printers_updated", {"printerId": body.printerId, "state": cur.state})
+    return {"ok": True, "printerId": body.printerId, "nozzleTemp": body.nozzleTemp}
 
 
 @router.post("/dev/upload-sample")

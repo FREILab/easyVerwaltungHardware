@@ -81,6 +81,13 @@ class JobStore:
                 );
 
                 CREATE INDEX IF NOT EXISTS idx_audit_ts ON audit_log (ts DESC);
+
+                CREATE TABLE IF NOT EXISTS printer_power_state (
+                    printer_id TEXT PRIMARY KEY,
+                    power_state TEXT NOT NULL DEFAULT 'ON',
+                    pending_shutdown INTEGER NOT NULL DEFAULT 0,
+                    updated_at REAL NOT NULL
+                );
                 """
             )
             # Safe migration for existing SQLite DBs
@@ -348,6 +355,74 @@ class JobStore:
             }
             for r in rows
         }
+
+    def latest_started_jobs_by_printer(self) -> dict[str, dict[str, Any]]:
+        """Return the most recently started job per printer (for displaying owner & fallback ETA)."""
+        with self._lock, self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT j.printer_id, j.filename, j.user_display_name, j.section_name,
+                       j.payment_mode, j.started_at, j.estimated_time_s
+                FROM jobs j
+                INNER JOIN (
+                    SELECT printer_id, MAX(started_at) AS max_started
+                    FROM jobs
+                    WHERE status = 'started'
+                    GROUP BY printer_id
+                ) m ON j.printer_id = m.printer_id AND j.started_at = m.max_started
+                """
+            ).fetchall()
+        return {
+            r["printer_id"]: {
+                "filename": r["filename"],
+                "displayName": derive_display_name(r["filename"]),
+                "userDisplayName": r["user_display_name"] or "",
+                "sectionName": r["section_name"],
+                "paymentMode": r["payment_mode"],
+                "startedAt": float(r["started_at"] or 0.0),
+                "estimatedTimeSeconds": int(r["estimated_time_s"] or 0),
+            }
+            for r in rows
+        }
+
+    def get_power_state(self, printer_id: str) -> dict[str, Any]:
+        with self._lock, self._connect() as conn:
+            row = conn.execute(
+                "SELECT power_state, pending_shutdown, updated_at FROM printer_power_state WHERE printer_id = ?",
+                (printer_id,),
+            ).fetchone()
+        if not row:
+            return {"powerState": "ON", "pendingShutdown": False, "updatedAt": 0.0}
+        return {
+            "powerState": str(row["power_state"] or "ON"),
+            "pendingShutdown": bool(row["pending_shutdown"]),
+            "updatedAt": float(row["updated_at"] or 0.0),
+        }
+
+    def set_power_state(
+        self,
+        printer_id: str,
+        *,
+        power_state: str | None = None,
+        pending_shutdown: bool | None = None,
+    ) -> dict[str, Any]:
+        cur = self.get_power_state(printer_id)
+        new_ps = power_state if power_state is not None else cur["powerState"]
+        new_pend = pending_shutdown if pending_shutdown is not None else cur["pendingShutdown"]
+        now = time.time()
+        with self._lock, self._connect() as conn:
+            conn.execute(
+                """
+                INSERT INTO printer_power_state (printer_id, power_state, pending_shutdown, updated_at)
+                VALUES (?, ?, ?, ?)
+                ON CONFLICT(printer_id) DO UPDATE SET
+                    power_state = excluded.power_state,
+                    pending_shutdown = excluded.pending_shutdown,
+                    updated_at = excluded.updated_at
+                """,
+                (printer_id, new_ps, 1 if new_pend else 0, now),
+            )
+        return {"powerState": new_ps, "pendingShutdown": new_pend, "updatedAt": now}
 
     def health_ok(self) -> bool:
         try:

@@ -59,8 +59,12 @@ def map_prusalink_state(raw_state: str) -> tuple[str, str | None]:
         return "PAUSED", None
     if s == "FINISHED":
         return "ATTENTION", "Fertig (am Drucker bestätigen)"
-    if s in {"ATTENTION", "ERROR", "STOPPED"}:
-        return "ATTENTION", s
+    if s == "ATTENTION":
+        return "ATTENTION", "Dialog am Drucker"
+    if s == "ERROR":
+        return "ATTENTION", "Fehler am Drucker"
+    if s == "STOPPED":
+        return "ATTENTION", "Druck gestoppt"
     return "OFFLINE", f"Unbekannter Status: {s or 'leer'}"
 
 
