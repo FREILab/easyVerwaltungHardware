@@ -11,6 +11,7 @@ x-logging: &default-logging
 services:
 
   backend:
+    build: ./services/backend
     image: smart-terminal-backend:latest
     restart: always
     logging: *default-logging
@@ -20,6 +21,7 @@ services:
       DEVICE_AGENT_URL: http://device-agent:8081
     volumes:
       - backend-data:/data
+      - ./config:/config:ro
     ports:
       - "8000:8000"   # Direkter Zugriff auf Backend (Dev/Debug)
     healthcheck:
@@ -32,6 +34,7 @@ services:
       - internal
 
   ui:
+    build: ./services/ui
     image: smart-terminal-ui:latest
     restart: always
     logging: *default-logging
@@ -51,6 +54,7 @@ services:
       - internal
 
   device-agent:
+    build: ./services/device-agent
     image: smart-terminal-device-agent:latest
     restart: always
     logging: *default-logging

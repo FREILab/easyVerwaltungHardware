@@ -47,10 +47,16 @@ cp config/printers.example.json config/printers.dev.json
 docker compose up --build
 ```
 
-### 3. Starten auf dem Raspberry Pi 5 (mit echter Hardware)
+### 3. Raspberry Pi 5 (24/7-Kiosk)
+Komplette Schritt-für-Schritt-Anleitung (Imager, `printmaster`, DSI-Display, Setup & Deploy): **[scripts/README.md](scripts/README.md)**
+
+Kurzform nach dem Flashen von **Raspberry Pi OS Lite (64-bit)**:
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.pi.yml up -d --build
+git clone https://github.com/FREILab/easyVerwaltungHardware.git ~/easyVerwaltungHardware
+bash ~/easyVerwaltungHardware/software/SmartTerminal_3D_Print/scripts/setup-pi.sh
+sudo reboot
 ```
+Laufendes Deploy vom Mac: `./scripts/deploy-pi.sh printmaster@smartterminal-dev.local`
 
 ### 4. Health-Endpunkte
 - UI: `http://localhost` (Health: `http://localhost/healthz`)

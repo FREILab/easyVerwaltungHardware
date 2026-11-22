@@ -1,0 +1,16 @@
+[Unit]
+Description=SmartTerminal 3D-Print Docker Stack
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=__PROJECT_DIR__
+ExecStart=/usr/bin/docker compose -f docker-compose.yml -f docker-compose.pi.yml up -d
+ExecStop=/usr/bin/docker compose -f docker-compose.yml -f docker-compose.pi.yml down
+TimeoutStartSec=180
+
+[Install]
+WantedBy=multi-user.target

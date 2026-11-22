@@ -1,0 +1,29 @@
+[Unit]
+Description=SmartTerminal 3D-Print Kiosk (Wayland labwc + Chromium)
+After=systemd-user-sessions.service smart-terminal-stack.service seatd.service
+Wants=smart-terminal-stack.service seatd.service
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=__KIOSK_USER__
+PAMName=login
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+StandardInput=tty
+StandardOutput=journal
+StandardError=journal
+Environment=XDG_RUNTIME_DIR=/run/user/__KIOSK_UID__
+Environment=WLR_LIBINPUT_NO_DEVICES=1
+Environment=DISPLAY_ROTATE=__DISPLAY_ROTATE__
+ExecStartPre=/bin/mkdir -p /run/user/__KIOSK_UID__
+ExecStartPre=/bin/chown __KIOSK_USER__:__KIOSK_USER__ /run/user/__KIOSK_UID__
+ExecStartPre=/bin/chmod 0700 /run/user/__KIOSK_UID__
+ExecStart=/usr/bin/labwc -s /usr/local/lib/smart-terminal/kiosk-start.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
