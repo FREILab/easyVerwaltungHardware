@@ -275,6 +275,15 @@ Die vollständige Liste steht im Schaltplan und in
 
 ## TODO
 
+- **Review I/O-Board (Marc Ihle) abarbeiten:** 9 offene Punkte dokumentiert
+  in [Review_IO_Board.md](Review_IO_Board.md) (noch nichts umgesetzt) —
+  insbesondere Wichtigkeit 3: Y-Kondensator ≥ 1 nF / 250 VAC zwischen `GND`
+  und `PIN_PE` (#1) sowie Abstand `R302`/`Net-(R301-Pad2)` zu `GND_ISO` (#2).
+- **Zweiten Taster neben dem Stopp-Taster vorsehen:** zweiten Taster am
+  Gehäuse neben dem Stopp-Taster einplanen und auf dem RFID-Board mit
+  Anschluss (z. B. J101 erweitern oder separater Header), Beschaltung analog
+  `STOP` (Pull-up, Serienwiderstand, Entprell-Kondensator) und freiem
+  ESP32-GPIO (z. B. GPIO 15) anbinden.
 - RV300 liegt vor F300 und F302 und ist damit ungesichert. Ein Varistor am
   Lebensdauerende versagt niederohmig; vorgelagert wirkt nur der
   Leitungsschutzschalter im Werkstattverteiler. Thermisch geschützten
