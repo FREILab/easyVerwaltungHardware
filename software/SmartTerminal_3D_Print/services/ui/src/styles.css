@@ -490,7 +490,12 @@ html.kiosk, html.kiosk * { cursor: none !important; }
   color: var(--muted);
   padding: 0 5cqw;
 }
-.queue-empty .empty-icon { font-size: 11cqh; }
+.queue-empty .empty-icon {
+  width: 17cqh;
+  height: 15.5cqh;
+  display: grid;
+  place-items: center;
+}
 .queue-empty h2 { margin: 0; font-size: 5.2cqh; color: var(--text); }
 .queue-empty p { margin: 0; font-size: 3.3cqh; line-height: 1.45; }
 .queue-empty code {

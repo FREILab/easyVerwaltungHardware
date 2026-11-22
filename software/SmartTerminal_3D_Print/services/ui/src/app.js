@@ -134,6 +134,25 @@
     </svg>`;
   }
 
+  function printer3dIconSvg() {
+    return `<svg viewBox="0 0 96 88" width="100%" height="100%" aria-hidden="true">
+      <!-- Outer gantry frame -->
+      <rect x="10" y="10" width="76" height="68" rx="6" fill="none" stroke="var(--text)" stroke-width="5" opacity="0.82"/>
+      <!-- Base / print bed -->
+      <rect x="6" y="74" width="84" height="8" rx="3" fill="var(--text)" opacity="0.88"/>
+      <rect x="20" y="65" width="56" height="5" rx="2" fill="var(--border-strong)"/>
+      <!-- X-axis rail -->
+      <line x1="12" y1="28" x2="84" y2="28" stroke="#ea580c" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- Extruder carriage & nozzle -->
+      <rect x="38" y="19" width="20" height="17" rx="3" fill="var(--text)"/>
+      <polygon points="44,36 52,36 48,43" fill="#ea580c"/>
+      <!-- 3D cube on build plate -->
+      <polygon points="48,45 60,51 48,57 36,51" fill="#fb923c"/>
+      <polygon points="36,51 48,57 48,65 36,59" fill="#ea580c"/>
+      <polygon points="60,51 48,57 48,65 60,59" fill="#c2410c"/>
+    </svg>`;
+  }
+
   function printerSvg(model) {
     const m = String(model || "").toUpperCase();
     const isXL = m.includes("XL");
@@ -604,7 +623,7 @@
       if (!state.jobs.length) {
         stage.innerHTML = `
           <div class="queue-empty">
-            <div class="empty-icon">🖨️</div>
+            <div class="empty-icon">${printer3dIconSvg()}</div>
             <h2>Warte auf Druckaufträge</h2>
             <p>Sende deinen Auftrag im <strong>PrusaSlicer</strong> per <strong>Upload</strong> oder <strong>Upload &amp; Print</strong> an den gewünschten Drucker.</p>
           </div>
