@@ -27,9 +27,9 @@ EOF
   labwc --reconfigure || true
 fi
 
-# Warten bis nginx/UI erreichbar ist (max. 60 s), damit keine Fehlerseite erscheint
+# Warten bis UI + Backend erreichbar sind (max. 60 s), damit keine 502/Fehlerseite erscheint
 HEALTH_URL="${TARGET_URL%%\?*}"
-HEALTH_URL="${HEALTH_URL%/}/healthz"
+HEALTH_URL="${HEALTH_URL%/}/api/health"
 for _ in $(seq 1 60); do
   if curl -sf "$HEALTH_URL" >/dev/null 2>&1; then
     break

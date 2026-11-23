@@ -468,11 +468,28 @@
     }
   }
 
+  let eventSource = null;
+  let sseReconnectTimer = null;
+
+  function scheduleSseReconnect() {
+    if (sseReconnectTimer) return;
+    sseReconnectTimer = setTimeout(() => {
+      sseReconnectTimer = null;
+      connectEvents();
+    }, 2000);
+  }
+
   function connectEvents() {
+    if (eventSource) {
+      try { eventSource.close(); } catch {}
+      eventSource = null;
+    }
     const es = new EventSource("/api/events");
+    eventSource = es;
     es.addEventListener("connected", () => {
       state.connected = true;
       renderTopbar();
+      loadState();
     });
     es.addEventListener("queue_updated", async (ev) => {
       let payload = {};
@@ -572,6 +589,10 @@
     es.onerror = () => {
       state.connected = false;
       renderTopbar();
+      // Always force clean reconnect (HTML5 EventSource never auto-retries after HTTP 502/503!)
+      try { es.close(); } catch {}
+      if (eventSource === es) eventSource = null;
+      scheduleSseReconnect();
     };
   }
 
