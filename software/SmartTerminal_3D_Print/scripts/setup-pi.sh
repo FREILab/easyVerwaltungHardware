@@ -18,7 +18,7 @@ set -euo pipefail
 
 DSI_PORT="${DSI_PORT:-dsi1}"
 DISPLAY_ROTATE="${DISPLAY_ROTATE:-normal}"
-KIOSK_SCALE="${KIOSK_SCALE:-1.5}"
+KIOSK_SCALE="${KIOSK_SCALE:-1}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 KIOSK_USER="${SUDO_USER:-$USER}"

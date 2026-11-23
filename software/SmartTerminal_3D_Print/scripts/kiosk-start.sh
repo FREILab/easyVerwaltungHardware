@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # Wird von labwc beim Start des Kiosk-Services ausgeführt.
-# Betreibt das Waveshare 5" DSI Display im nativen Hochkant-Format (720x1280), setzt
-# HiDPI-Skalierung (1,5x = 480x854 logisch) und startet Chromium im Vollbild-Kiosk-Modus.
+# Betreibt das Waveshare 5" DSI Display im nativen Hochkant-Format (720x1280) bei 1:1-Skalierung
+# (UI nutzt cqw/cqh-Container-Einheiten; verhindert Chromium 500-DIP-Mindestbreite/Clipping)
+# und startet Chromium im Vollbild-Kiosk-Modus.
 set -euo pipefail
 
 # normal (0) oder 180 für Hochkant (je nach Einbaurichtung des DSI-Kabels)
 ROTATE="${DISPLAY_ROTATE:-normal}"
 [ "$ROTATE" = "0" ] && ROTATE="normal"
-SCALE="${KIOSK_SCALE:-1.5}"
+SCALE="${KIOSK_SCALE:-1}"
 TARGET_URL="${KIOSK_URL:-http://127.0.0.1/?kiosk=1}"
 
 # DSI-Ausgang ermitteln (Pi 5: typisch DSI-2 oder DSI-1), drehen und Touch darauf mappen
@@ -47,6 +48,8 @@ printf '{"translate":{"enabled":false},"intl":{"accept_languages":"de-DE,de,en"}
 
 exec "$BROWSER" \
   --kiosk \
+  --window-position=0,0 \
+  --window-size=720,1280 \
   --lang=de-DE \
   --ozone-platform=wayland \
   --force-device-scale-factor="$SCALE" \
