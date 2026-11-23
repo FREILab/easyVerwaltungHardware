@@ -4,6 +4,7 @@
 services:
 
   device-agent:
+    privileged: true   # Schreibzugriff auf /sys/class/backlight (symlinks in /sys/devices) + GPIO/SPI/PWM
     environment:
       HARDWARE_MODE: pi
     devices:
