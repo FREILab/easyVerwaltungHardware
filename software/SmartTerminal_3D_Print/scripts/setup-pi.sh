@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Idempotentes Setup-Skript für Raspberry Pi 5 (Raspberry Pi OS Lite 64-bit).
 # Richtet ein:
-#   - Waveshare 5" DSI LCD (D) + Querformat + Touch-Mapping
+#   - Waveshare 5" DSI LCD (D) + Hochkant-Format (720×1280) + Touch-Mapping
 #   - SPI & I2C (für PN532 / Sensoren)
 #   - 24/7-Härtung (Hardware-Watchdog, RAM-Logs gegen SD-Verschleiß, WLAN-PowerSave aus)
 #   - Docker + Wayland-Kiosk (labwc + Chromium, ohne Desktop-Ballast)
@@ -12,12 +12,12 @@
 #   bash ~/easyVerwaltungHardware/software/SmartTerminal_3D_Print/scripts/setup-pi.sh
 #
 # Optionale Parameter:
-#   DSI_PORT=dsi1|dsi0        (Default: dsi1)
-#   DISPLAY_ROTATE=90|270     (Default: 90; bei kopfstehendem Bild auf 270 setzen)
+#   DSI_PORT=dsi1|dsi0         (Default: dsi1)
+#   DISPLAY_ROTATE=normal|180  (Default: normal = Hochkant 720×1280; bei kopfstehendem Bild 180)
 set -euo pipefail
 
 DSI_PORT="${DSI_PORT:-dsi1}"
-DISPLAY_ROTATE="${DISPLAY_ROTATE:-270}"
+DISPLAY_ROTATE="${DISPLAY_ROTATE:-normal}"
 KIOSK_SCALE="${KIOSK_SCALE:-1.5}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -168,4 +168,4 @@ echo "✓ Pi-5-Setup abgeschlossen!"
 echo "  Nächste Schritte:"
 echo "  1. Prüfe ggf. $PROJECT_DIR/config/printers.dev.json und config/terminal.env"
 echo "  2. Neustart ausführen: sudo reboot"
-echo "  3. Falls das Bild auf dem Kopf steht: DISPLAY_ROTATE=270 bash $0 && sudo reboot"
+echo "  3. Falls das Bild auf dem Kopf steht: DISPLAY_ROTATE=180 bash $0 && sudo reboot"

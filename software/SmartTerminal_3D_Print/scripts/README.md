@@ -61,9 +61,9 @@ Nach Änderungen & `git push` auf dem Mac reicht ein Befehl:
 
 ## 6. Kurz-Troubleshooting
 
-- **Bild steht auf dem Kopf:**
+- **Bild steht auf dem Kopf (Hochkant):**
   ```bash
-  DISPLAY_ROTATE=270 bash ~/easyVerwaltungHardware/software/SmartTerminal_3D_Print/scripts/setup-pi.sh && sudo reboot
+  DISPLAY_ROTATE=180 bash ~/easyVerwaltungHardware/software/SmartTerminal_3D_Print/scripts/setup-pi.sh && sudo reboot
   ```
 - **DSI-Kabel steckt an DSI0 statt DSI1:**
   ```bash

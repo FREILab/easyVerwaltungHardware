@@ -4,8 +4,9 @@
 # HiDPI-Skalierung (1,5x = 480x854 logisch) und startet Chromium im Vollbild-Kiosk-Modus.
 set -euo pipefail
 
-# 0 oder 180 für Hochkant (je nach Einbaurichtung des DSI-Kabels)
-ROTATE="${DISPLAY_ROTATE:-0}"
+# normal (0) oder 180 für Hochkant (je nach Einbaurichtung des DSI-Kabels)
+ROTATE="${DISPLAY_ROTATE:-normal}"
+[ "$ROTATE" = "0" ] && ROTATE="normal"
 SCALE="${KIOSK_SCALE:-1.5}"
 TARGET_URL="${KIOSK_URL:-http://127.0.0.1/?kiosk=1}"
 
