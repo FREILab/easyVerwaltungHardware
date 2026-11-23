@@ -199,8 +199,13 @@
     document.documentElement.setAttribute("data-theme", state.theme);
     localStorage.setItem("st3d_theme", state.theme);
     updateBrandLogo();
-    showToast(state.theme === "dark" ? "Ansicht: Dunkel" : "Ansicht: Hell");
-    if (state.screen === "settings") renderStage();
+    if (state.screen === "settings") {
+      document.querySelectorAll("[data-set-theme]").forEach((btn) => {
+        const active = btn.dataset.setTheme === state.theme;
+        btn.classList.toggle("btn-primary", active);
+        btn.classList.toggle("btn-secondary", !active);
+      });
+    }
   }
 
   async function api(path, opts = {}) {
@@ -1798,21 +1803,27 @@
     if (dimBtn) {
       state.displaySettings.dimDelaySeconds = Number(dimBtn.dataset.dimDelay);
       persistDisplaySettings();
-      renderStage();
+      document.querySelectorAll("[data-dim-delay]").forEach((b) =>
+        b.classList.toggle("active", Number(b.dataset.dimDelay) === state.displaySettings.dimDelaySeconds)
+      );
       return;
     }
     const sleepBtn = ev.target.closest("[data-sleep-delay]");
     if (sleepBtn) {
       state.displaySettings.sleepDelaySeconds = Number(sleepBtn.dataset.sleepDelay);
       persistDisplaySettings();
-      renderStage();
+      document.querySelectorAll("[data-sleep-delay]").forEach((b) =>
+        b.classList.toggle("active", Number(b.dataset.sleepDelay) === state.displaySettings.sleepDelaySeconds)
+      );
       return;
     }
     const buzBtn = ev.target.closest("[data-buzzer-mode]");
     if (buzBtn) {
       state.displaySettings.buzzerMode = buzBtn.dataset.buzzerMode;
       persistDisplaySettings();
-      renderStage();
+      document.querySelectorAll("[data-buzzer-mode]").forEach((b) =>
+        b.classList.toggle("active", b.dataset.buzzerMode === state.displaySettings.buzzerMode)
+      );
       return;
     }
     const adminTabBtn = ev.target.closest("[data-admin-tab]");
