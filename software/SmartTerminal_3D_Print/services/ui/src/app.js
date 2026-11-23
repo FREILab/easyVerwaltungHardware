@@ -238,17 +238,14 @@
   // --- Display Power / Dimming / 30-min Burn-In Sleep ---
   function applyPowerOverlay() {
     const ov = $("power-overlay");
-    const pill = $("power-wake-pill");
     if (!ov) return;
     ov.classList.remove("hidden", "mode-dim", "mode-sleep");
     if (state.powerState === "active") {
       ov.classList.add("hidden");
     } else if (state.powerState === "dim") {
       ov.classList.add("mode-dim");
-      if (pill) pill.textContent = "👆 Tippen zum Aufwecken";
     } else {
       ov.classList.add("mode-sleep");
-      if (pill) pill.textContent = "";
     }
   }
 

@@ -963,24 +963,10 @@ input[type="range"] {
   position: absolute;
   inset: 0;
   z-index: 80;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 14cqh;
   cursor: pointer;
 }
 .power-overlay.mode-dim { background: rgba(0, 0, 0, 0.55); }
 .power-overlay.mode-sleep { background: #000000; }
-.power-wake-pill {
-  background: rgba(15, 23, 42, 0.8);
-  color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 2cqw 4.5cqw;
-  border-radius: 999px;
-  font-size: 3.4cqw;
-  font-weight: 800;
-}
-.power-overlay.mode-sleep .power-wake-pill { opacity: 0; } /* Pure pitch black for zero burn-in */
 
 /* =====================================================================
    8. COLLAPSIBLE DEV SIMULATOR & TOAST
