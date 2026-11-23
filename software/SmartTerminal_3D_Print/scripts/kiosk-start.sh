@@ -40,8 +40,13 @@ done
 # Passendes Chromium-Binary finden (Bookworm: chromium-browser, Trixie: chromium)
 BROWSER=$(command -v chromium || command -v chromium-browser)
 
+# Translate-Popup zuverlässig in den Profil-Einstellungen deaktivieren
+mkdir -p /tmp/chromium-kiosk/Default
+printf '{"translate":{"enabled":false},"intl":{"accept_languages":"de-DE,de,en"}}\n' > /tmp/chromium-kiosk/Default/Preferences
+
 exec "$BROWSER" \
   --kiosk \
+  --lang=de-DE \
   --ozone-platform=wayland \
   --force-device-scale-factor="$SCALE" \
   --enable-features=OverlayScrollbar \
