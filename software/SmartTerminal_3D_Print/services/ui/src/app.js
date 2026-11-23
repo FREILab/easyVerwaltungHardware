@@ -3,7 +3,6 @@
     document.documentElement.classList.add("kiosk");
   }
 
-  // Persisted theme: "light" (default for bright workshop) | "dark"
   const savedTheme = localStorage.getItem("st3d_theme") === "dark" ? "dark" : "light";
   document.documentElement.setAttribute("data-theme", savedTheme);
 
@@ -13,18 +12,21 @@
     theme: savedTheme,
     terminalId: "3dprint-01",
     terminalIp: "localhost",
-    version: "0.3.0",
+    version: "0.4.0",
     serviceName: "SmartTerminal 3D-Print",
     printers: [],
     jobs: [],
     sections: [],
     modes: { devMock: false, printer: "mock" },
     features: { topup: false, approval: false, allowNegativeBalance: true, maxNegativeBalanceCents: 2000 },
+    displaySettings: { brightness: 90, dimDelaySeconds: 120, sleepDelaySeconds: 1800, buzzerMode: "all" },
     connected: false,
 
-    // Screen state: queue | rfid_wait | payment_confirm | overdraft_confirm | topup | club_section | pin_entry | printer_busy | account | settings | admin | not_approved | bv_wait | approved_ok
+    // Screen: queue | rfid_wait | payment_confirm | overdraft_confirm | topup | club_section | pin_entry | printer_busy | account | settings | admin | not_approved | bv_wait | approved_ok
     screen: "queue",
-    rfidPurpose: null, // "print" | "account" | "power_on"
+    rfidPurpose: null, // "print" | "account" | "power_on" | "admin"
+    rfidAutoTriggered: false,
+    rfidError: "",
     selectedJobId: null,
     powerPrinterId: null,
     selectedSectionId: null,
@@ -34,17 +36,27 @@
     session: null,
     lastResult: null,
     topupReturnTo: "payment_confirm",
-    adminConfig: null,
 
-    // Popups on top of current screen
+    // BV Admin state
+    adminCode: null,
+    adminUser: null,
+    adminTab: "history", // "history" | "config"
+    adminConfig: null,
+    adminHistory: [],
+
+    // Popups
     uploadPopupJobId: null,
     printerPopupSlot: null,
-    donePopup: null, // { displayName, printerSlot, printAfterUpload }
+    donePopup: null,
 
-    // Timeout countdown
+    // Timeout ring
     timeoutEnd: null,
     timeoutTotal: 60,
     timeoutAction: null,
+
+    // Display power state: "active" | "dim" | "sleep"
+    powerState: "active",
+    lastActivityAt: Date.now(),
   };
 
   const $ = (id) => document.getElementById(id);
@@ -76,7 +88,7 @@
     const now = new Date();
     const end = new Date(now.getTime() + sec * 1000);
     const hhmm = end.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
-    return end.getDate() !== now.getDate() ? `Morgen ${hhmm}` : `ca. ${hhmm} Uhr`;
+    return end.getDate() !== now.getDate() ? `Morgen ${hhmm}` : `ca. ${hhmm}`;
   }
 
   function fmtCountdown(sec) {
@@ -100,7 +112,7 @@
   }
 
   function fmtOnTime(sec) {
-    if (sec == null) return "Offline";
+    if (sec == null) return "Aus";
     const d = Math.floor(sec / 86400);
     const h = Math.floor((sec % 86400) / 3600);
     const m = Math.floor((sec % 3600) / 60);
@@ -110,8 +122,9 @@
   }
 
   function fmtDateTime(ts) {
-    const d = new Date(Number(ts || 0) * 1000);
-    const date = d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+    if (!ts) return "–";
+    const d = new Date(Number(ts) * 1000);
+    const date = d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" });
     const time = d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
     return `${date} · ${time}`;
   }
@@ -119,16 +132,27 @@
   function printerStatText(p) {
     if (p.pendingShutdown) {
       const t = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)}°` : "heiß";
-      return `🌡 Kühlt ab (${t} → Aus)`;
+      return `🌡 Kühlt ${t} → Aus`;
     }
     if (p.powerState === "OFF" && p.state === "OFFLINE") return "⏻ Ausgeschaltet";
     if (p.powerState === "BOOTING" && p.state === "OFFLINE") return "▲ Startet…";
     if (p.state === "READY") return "● Bereit";
-    if (p.state === "UPLOADING") return `▲ Überträgt ${Math.round(p.progress || 0)} %`;
+    if (p.state === "UPLOADING") return `▲ Upload ${Math.round(p.progress || 0)} %`;
     if (p.state === "PRINTING") return p.progress != null ? `▲ Druckt ${Math.round(p.progress)} %` : "▲ Druckt";
     if (p.state === "PAUSED") return "▲ Pausiert";
     if (p.state === "ATTENTION") return `▲ ${p.error || "Dialog am Drucker"}`;
     return "✕ Offline";
+  }
+
+  function printerShortPill(p) {
+    if (p.pendingShutdown) return "Kühlt ab";
+    if (p.powerState === "OFF" && p.state === "OFFLINE") return "Aus";
+    if (p.state === "READY") return "Bereit";
+    if (p.state === "UPLOADING") return "Upload";
+    if (p.state === "PRINTING") return "Druckt";
+    if (p.state === "PAUSED") return "Pausiert";
+    if (p.state === "ATTENTION") return "Dialog";
+    return "Offline";
   }
 
   function nfcIconSvg() {
@@ -144,46 +168,15 @@
 
   function printer3dIconSvg() {
     return `<svg viewBox="0 0 96 88" width="100%" height="100%" aria-hidden="true">
-      <!-- Outer gantry frame -->
       <rect x="10" y="10" width="76" height="68" rx="6" fill="none" stroke="var(--text)" stroke-width="5" opacity="0.82"/>
-      <!-- Base / print bed -->
       <rect x="6" y="74" width="84" height="8" rx="3" fill="var(--text)" opacity="0.88"/>
       <rect x="20" y="65" width="56" height="5" rx="2" fill="var(--border-strong)"/>
-      <!-- X-axis rail -->
       <line x1="12" y1="28" x2="84" y2="28" stroke="#ea580c" stroke-width="4.5" stroke-linecap="round"/>
-      <!-- Extruder carriage & nozzle -->
       <rect x="38" y="19" width="20" height="17" rx="3" fill="var(--text)"/>
       <polygon points="44,36 52,36 48,43" fill="#ea580c"/>
-      <!-- 3D cube on build plate -->
       <polygon points="48,45 60,51 48,57 36,51" fill="#fb923c"/>
       <polygon points="36,51 48,57 48,65 36,59" fill="#ea580c"/>
       <polygon points="60,51 48,57 48,65 60,59" fill="#c2410c"/>
-    </svg>`;
-  }
-
-  function printerSvg(model) {
-    const m = String(model || "").toUpperCase();
-    const isXL = m.includes("XL");
-    const isMini = m.includes("MINI");
-    const accent = "#ea580c";
-    if (isMini) {
-      return `<svg viewBox="0 0 120 110" width="100%" height="100%">
-        <rect x="14" y="88" width="92" height="12" rx="3" fill="var(--border-strong)"/>
-        <rect x="26" y="76" width="66" height="8" rx="2" fill="var(--text)" opacity="0.85"/>
-        <rect x="86" y="20" width="10" height="68" rx="2" fill="var(--text)" opacity="0.75"/>
-        <rect x="30" y="34" width="62" height="9" rx="2" fill="${accent}"/>
-        <rect x="48" y="43" width="16" height="18" rx="3" fill="var(--text)"/>
-        <polygon points="53,61 59,61 56,67" fill="${accent}"/>
-      </svg>`;
-    }
-    return `<svg viewBox="0 0 120 110" width="100%" height="100%">
-      <rect x="14" y="14" width="92" height="84" rx="5" fill="none" stroke="var(--text)" stroke-width="${isXL ? 7 : 6}" opacity="0.8"/>
-      <rect x="22" y="78" width="76" height="9" rx="2" fill="var(--border-strong)"/>
-      <rect x="20" y="38" width="80" height="7" rx="2" fill="${accent}"/>
-      <rect x="48" y="32" width="24" height="22" rx="3" fill="var(--text)"/>
-      ${isXL ? `<rect x="26" y="20" width="10" height="12" rx="2" fill="${accent}"/><rect x="40" y="20" width="10" height="12" rx="2" fill="${accent}"/><rect x="54" y="20" width="10" height="12" rx="2" fill="${accent}"/>` : ""}
-      <polygon points="56,54 64,54 60,61" fill="${accent}"/>
-      <rect x="24" y="92" width="26" height="10" rx="2" fill="${accent}"/>
     </svg>`;
   }
 
@@ -193,20 +186,27 @@
     el.textContent = msg;
     el.classList.remove("hidden");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.add("hidden"), 3400);
+    toastTimer = setTimeout(() => el.classList.add("hidden"), 3200);
   }
 
-  function setTheme(next) {
-    state.theme = next === "dark" ? "dark" : "light";
+  function updateBrandLogo() {
+    const logo = $("brand-logo");
+    if (logo) logo.src = state.theme === "dark" ? "assets/freilab-logo-dark.svg" : "assets/freilab-logo.svg";
+  }
+
+  function setTheme(theme) {
+    state.theme = theme === "dark" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", state.theme);
     localStorage.setItem("st3d_theme", state.theme);
+    updateBrandLogo();
     showToast(state.theme === "dark" ? "Ansicht: Dunkel" : "Ansicht: Hell");
     if (state.screen === "settings") renderStage();
   }
 
   async function api(path, opts = {}) {
+    const extraHeaders = opts.adminCode ? { "X-Admin-Code": opts.adminCode } : {};
     const res = await fetch(path, {
-      headers: { "Content-Type": "application/json", ...(opts.headers || {}) },
+      headers: { "Content-Type": "application/json", ...extraHeaders, ...(opts.headers || {}) },
       ...opts,
     });
     const data = await res.json().catch(() => ({}));
@@ -215,6 +215,67 @@
       throw new Error(msg);
     }
     return data;
+  }
+
+  function fireTouchFeedback() {
+    if (state.displaySettings.buzzerMode !== "all") return;
+    fetch("/api/feedback/touch", { method: "POST" }).catch(() => {});
+  }
+
+  function setLedHint(mode) {
+    fetch("/api/feedback/led", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mode }),
+    }).catch(() => {});
+  }
+
+  // --- Display Power / Dimming / 30-min Burn-In Sleep ---
+  function applyPowerOverlay() {
+    const ov = $("power-overlay");
+    const pill = $("power-wake-pill");
+    if (!ov) return;
+    ov.classList.remove("hidden", "mode-dim", "mode-sleep");
+    if (state.powerState === "active") {
+      ov.classList.add("hidden");
+    } else if (state.powerState === "dim") {
+      ov.classList.add("mode-dim");
+      if (pill) pill.textContent = "👆 Tippen zum Aufwecken";
+    } else {
+      ov.classList.add("mode-sleep");
+      if (pill) pill.textContent = "";
+    }
+  }
+
+  function setDisplayPower(target) {
+    if (state.powerState === target) return;
+    state.powerState = target;
+    applyPowerOverlay();
+    fetch("/api/display/power", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state: target }),
+    }).catch(() => {});
+  }
+
+  function markActivity(wakeOnly = false) {
+    state.lastActivityAt = Date.now();
+    if (state.powerState !== "active") {
+      setDisplayPower("active");
+      return true;
+    }
+    return wakeOnly ? false : false;
+  }
+
+  let saveSettingsTimer = null;
+  function persistDisplaySettings() {
+    clearTimeout(saveSettingsTimer);
+    saveSettingsTimer = setTimeout(() => {
+      api("/api/display/settings", {
+        method: "POST",
+        body: JSON.stringify(state.displaySettings),
+      }).catch(() => {});
+    }, 150);
   }
 
   function selectedJob() {
@@ -249,37 +310,52 @@
     if (txt) txt.textContent = `${remSec} s`;
   }
 
-  function timeoutPillHtml(label = "Timeout:") {
+  function timeoutPillHtml() {
     const rem = state.timeoutEnd ? Math.max(0, Math.ceil((state.timeoutEnd - Date.now()) / 1000)) : state.timeoutTotal;
     return `
       <div class="timeout-pill">
         <div class="ring-badge">
           <svg viewBox="0 0 40 40">
-            <circle class="ring-bg" cx="20" cy="20" r="18"></circle>
-            <circle class="ring-fg" id="active-timeout-fg" cx="20" cy="20" r="18" style="stroke-dashoffset:0;"></circle>
+            <circle cx="20" cy="20" r="18" fill="none" stroke="var(--border)" stroke-width="4"></circle>
+            <circle id="active-timeout-fg" cx="20" cy="20" r="18" fill="none" stroke="var(--blue)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${RING_CIRC}" stroke-dashoffset="0"></circle>
           </svg>
         </div>
-        <span class="timeout-pill-lbl">${label} <strong id="active-timeout-sec">${rem} s</strong></span>
+        <span id="active-timeout-sec">${rem} s</span>
       </div>
     `;
   }
 
-  async function returnToQueue(cancelSess = true) {
-    if (cancelSess && state.session?.sessionId) {
-      const sid = state.session.sessionId;
-      state.session = null;
-      api(`/api/session/cancel?sessionId=${encodeURIComponent(sid)}`, { method: "POST" }).catch(() => {});
-    }
+  async function cancelActiveSession() {
+    if (!state.session) return;
+    const sid = state.session.sessionId;
+    state.session = null;
+    try {
+      await api(`/api/session/cancel?sessionId=${encodeURIComponent(sid)}`, { method: "POST" });
+    } catch {}
+  }
+
+  async function returnToQueue(cancelSession = true) {
+    if (cancelSession) await cancelActiveSession();
     state.screen = "queue";
+    state.rfidPurpose = null;
+    state.rfidAutoTriggered = false;
+    state.rfidError = "";
     state.selectedJobId = null;
+    state.powerPrinterId = null;
     state.selectedSectionId = null;
+    state.pinMode = null;
     state.pinValue = "";
     state.pinError = "";
+    state.adminCode = null;
+    state.adminUser = null;
+    state.printerPopupSlot = null;
     setTimeoutRing(null, null);
+    setLedHint("idle");
     renderAll();
   }
 
   function openScreen(name) {
+    markActivity();
     state.screen = name;
     state.printerPopupSlot = null;
     state.uploadPopupJobId = null;
@@ -287,6 +363,8 @@
       setTimeoutRing(60, () => returnToQueue(true));
     } else if (["overdraft_confirm", "not_approved", "printer_busy"].includes(name)) {
       setTimeoutRing(30, () => returnToQueue(true));
+    } else if (name === "admin") {
+      setTimeoutRing(180, () => returnToQueue(true));
     } else if (name === "approved_ok") {
       setTimeoutRing(4, () => {
         if (state.rfidPurpose === "power_on") return executePowerOn();
@@ -295,6 +373,13 @@
     } else {
       setTimeoutRing(null, null);
     }
+
+    // LED choreography hints per screen
+    if (name === "rfid_wait" || name === "bv_wait") setLedHint("rfid");
+    else if (name === "overdraft_confirm" || name === "not_approved" || name === "printer_busy") setLedHint("warn");
+    else if (name === "payment_confirm" || name === "account" || name === "admin") setLedHint("pay");
+    else if (name === "queue") setLedHint("idle");
+
     renderAll();
   }
 
@@ -305,7 +390,11 @@
     if (s === "topup") return openScreen(state.topupReturnTo || "payment_confirm");
     if (s === "printer_busy") return openScreen(state.session ? "payment_confirm" : "queue");
     if (s === "bv_wait") return openScreen("not_approved");
-    if (s === "admin") return openScreen("settings");
+    if (s === "admin") {
+      state.adminCode = null;
+      return openScreen("settings");
+    }
+    if (s === "rfid_wait" && state.rfidPurpose === "admin") return openScreen("settings");
     return returnToQueue(true);
   }
 
@@ -326,6 +415,9 @@
       state.sections = data.sections || [];
       state.modes = data.modes || { devMock: false };
       state.features = data.features || {};
+      if (data.displaySettings) {
+        state.displaySettings = { ...state.displaySettings, ...data.displaySettings };
+      }
       state.connected = true;
 
       if (
@@ -345,21 +437,64 @@
       renderTopbar();
       renderDock();
       renderDevControls();
-      renderPopups();
       if (state.screen === "queue") renderStage();
+      if (state.printerPopupSlot != null) renderPrinterPopup();
+      if (state.uploadPopupJobId != null) renderUploadPopup();
     } catch {
       state.connected = false;
       renderTopbar();
     }
   }
 
-  function connectSSE() {
+  async function loadAdminData() {
+    if (!state.adminCode) return;
+    try {
+      const [cfg, hist] = await Promise.all([
+        api("/api/admin/config", { adminCode: state.adminCode }),
+        api("/api/admin/history?limit=50", { adminCode: state.adminCode }),
+      ]);
+      state.adminConfig = cfg;
+      state.adminHistory = hist.items || [];
+      if (state.screen === "admin") renderStage();
+    } catch (err) {
+      showToast(err.message);
+      state.adminCode = null;
+      openScreen("settings");
+    }
+  }
+
+  function connectEvents() {
     const es = new EventSource("/api/events");
     es.addEventListener("connected", () => {
       state.connected = true;
       renderTopbar();
     });
-    es.addEventListener("queue_updated", () => loadState());
+    es.addEventListener("queue_updated", async (ev) => {
+      let payload = {};
+      try {
+        payload = JSON.parse(ev.data)?.data || {};
+      } catch {}
+      await loadState();
+
+      // Auto-RFID on incoming PrusaSlicer upload when idle on Home screen
+      if (payload.action === "uploaded" && payload.autoRfid && payload.jobId) {
+        markActivity();
+        const isIdleOnHome =
+          state.screen === "queue" &&
+          state.printerPopupSlot == null &&
+          state.uploadPopupJobId == null &&
+          !state.donePopup;
+        if (isIdleOnHome && state.jobs.some((j) => j.id === payload.jobId)) {
+          state.selectedJobId = payload.jobId;
+          state.rfidPurpose = "print";
+          state.rfidAutoTriggered = true;
+          state.rfidError = "";
+          openScreen("rfid_wait");
+        } else if (!isIdleOnHome) {
+          showToast(`Neuer Auftrag für Drucker ${payload.slot || ""} eingetroffen`);
+        }
+      }
+    });
     es.addEventListener("printers_updated", () => loadState());
     es.addEventListener("printer_power_changed", (ev) => {
       try {
@@ -373,7 +508,10 @@
     es.addEventListener("rfid_scan", (ev) => {
       try {
         const uid = JSON.parse(ev.data)?.data?.uid;
-        if (uid) handleRfidScan(uid);
+        if (uid) {
+          markActivity();
+          handleRfidScan(uid);
+        }
       } catch {}
     });
     es.addEventListener("job_progress", (ev) => {
@@ -395,7 +533,7 @@
           printer.state = "UPLOADING";
           printer.progress = p.percent;
           const pSub = document.querySelector(`[data-printer-sub="${printer.id}"]`);
-          if (pSub) pSub.textContent = `▲ Überträgt ${Math.round(p.percent || 0)} %`;
+          if (pSub) pSub.textContent = `▲ Upload ${Math.round(p.percent || 0)} %`;
         }
         if (state.uploadPopupJobId === p.jobId) renderUploadPopup();
       } catch {}
@@ -434,6 +572,32 @@
 
   // --- RFID Handling ---
   async function handleRfidScan(uid) {
+    if (state.screen === "rfid_wait" && state.rfidPurpose === "admin") {
+      try {
+        const res = await api("/api/admin/authorize", {
+          method: "POST",
+          body: JSON.stringify({ rfid: uid }),
+        });
+        if (!res.authorized) {
+          state.rfidError =
+            res.reason === "BV_REQUIRED"
+              ? "Keine BV-Berechtigung — Admin nur mit BV-Karte!"
+              : `Karte abgelehnt (${res.reason || "unbekannt"})`;
+          renderStage();
+          return;
+        }
+        state.rfidError = "";
+        state.adminCode = res.adminCode;
+        state.adminUser = res.user;
+        state.adminTab = "history";
+        openScreen("admin");
+        await loadAdminData();
+      } catch (err) {
+        showToast(err.message);
+      }
+      return;
+    }
+
     if (state.screen === "rfid_wait") {
       try {
         const res = await api("/api/session/authorize", {
@@ -441,9 +605,11 @@
           body: JSON.stringify({ rfid: uid }),
         });
         if (!res.authorized) {
-          showToast(`Karte abgelehnt (${res.reason || "unbekannt"})`);
+          state.rfidError = `Karte abgelehnt (${res.reason || "unbekannt"})`;
+          renderStage();
           return;
         }
+        state.rfidError = "";
         state.session = res.session;
         if (!state.session.approved) return openScreen("not_approved");
         if (state.rfidPurpose === "power_on") return executePowerOn();
@@ -475,6 +641,8 @@
 
     if (state.screen === "queue") {
       state.rfidPurpose = "account";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
       state.screen = "rfid_wait";
       await handleRfidScan(uid);
     }
@@ -631,8 +799,8 @@
         const overflow = Math.ceil(span.scrollWidth - wrap.clientWidth);
         if (overflow > 4) {
           wrap.classList.add("is-overflowing");
-          wrap.style.setProperty("--marquee-dist", `${overflow + 12}px`);
-          const dur = Math.max(4.5, Math.min(12, 3 + overflow / 35));
+          wrap.style.setProperty("--marquee-dist", `${overflow + 10}px`);
+          const dur = Math.max(4.5, Math.min(11, 3 + overflow / 35));
           wrap.style.setProperty("--marquee-dur", `${dur.toFixed(1)}s`);
         } else {
           wrap.classList.remove("is-overflowing");
@@ -643,64 +811,41 @@
 
   function renderTopbar() {
     $("conn-dot").classList.toggle("offline", !state.connected);
+    updateBrandLogo();
     const backBtn = $("btn-back-top");
     const accBtn = $("btn-account");
     const setupBtn = $("btn-setup");
     const titleEl = $("sb-title");
-    const subEl = $("sb-sub");
 
     const isHome = state.screen === "queue";
-    const isAccount = state.screen === "account";
     const isSettings = state.screen === "settings";
     const isSettingsGroup = isSettings || state.screen === "admin";
+    const hasBack = !isHome && !isSettings;
     const accShowsHome = !isHome && !isSettingsGroup;
 
-    backBtn.classList.toggle("hidden", isHome || isAccount || isSettings);
+    backBtn.classList.toggle("hidden", !hasBack);
+    titleEl.classList.toggle("hidden", hasBack);
+    if (isHome) titleEl.textContent = "Warteschlange";
+    else if (isSettings) titleEl.textContent = "Einstellungen";
+
     accBtn.classList.toggle("is-home", accShowsHome);
     accBtn.textContent = accShowsHome ? "⌂ Home" : "👤 Konto";
     setupBtn.classList.toggle("is-home", isSettingsGroup);
     setupBtn.textContent = isSettingsGroup ? "⌂" : "⚙";
-
-    const powerPrinter = state.printers.find((x) => x.id === state.powerPrinterId);
-    const rfidSub =
-      state.rfidPurpose === "power_on" && powerPrinter
-        ? `· Drucker ${powerPrinter.slot} einschalten`
-        : selectedJob()
-          ? `· ${selectedJob().displayName}`
-          : "· Konto";
-
-    const titles = {
-      queue: ["Warteschlange", state.jobs.length ? `· ${state.jobs.length} ${state.jobs.length === 1 ? "Job" : "Jobs"}` : ""],
-      rfid_wait: ["RFID-Karte vorhalten", rfidSub],
-      payment_confirm: ["Zahlung bestätigen", state.session ? `· ${state.session.user.display_name}` : ""],
-      overdraft_confirm: ["Auf Guthaben-Minus drucken?", state.session ? `· ${state.session.user.display_name}` : ""],
-      topup: ["Guthaben aufladen", state.session ? `· ${state.session.user.display_name}` : ""],
-      club_section: ["Vereinsdruck — Bereich", ""],
-      pin_entry: ["PIN bestätigen", state.pinMode === "club" ? "· Vereinsdruck" : "· Bereits bezahlt"],
-      printer_busy: ["Drucker nicht bereit", ""],
-      account: ["Konto & Guthaben", state.session ? `· ${state.session.user.display_name}` : ""],
-      settings: ["Setup & Einstellungen", `· ${state.terminalId}`],
-      admin: ["Admin", "· Server & Token"],
-      not_approved: ["Keine 3D-Druck-Freigabe", ""],
-      bv_wait: ["Einweisungs-Karte vorhalten", ""],
-      approved_ok: ["Nutzer freigeschaltet", ""],
-    };
-    const [t, s] = titles[state.screen] || ["SmartTerminal", ""];
-    titleEl.textContent = t;
-    subEl.textContent = s;
   }
 
   function renderDock() {
     const dock = $("printer-dock");
-    dock.style.gridTemplateColumns = `repeat(${Math.max(1, state.printers.length)}, minmax(0, 1fr))`;
+    dock.style.gridTemplateColumns = state.printers.length <= 1 ? "1fr" : "repeat(2, minmax(0, 1fr))";
     dock.innerHTML = state.printers
       .map(
         (p) => `
-        <div class="p-tile st-${escapeHtml(p.state)}" data-open-printer="${p.slot}">
-          <div class="p-body">
-            <div class="p-name">Drucker ${p.slot} <span class="p-model">${escapeHtml(p.model || p.name)}</span></div>
-            <div class="p-stat" data-printer-sub="${escapeHtml(p.id)}">${escapeHtml(printerStatText(p))}</div>
+        <div class="p-tile st-${escapeHtml(p.state)} ${p.pendingShutdown ? "is-cooling" : ""}" data-open-printer="${p.slot}">
+          <div class="p-name">
+            <span>Drucker ${p.slot}</span>
+            <span class="p-model">${escapeHtml(p.model || p.name)}</span>
           </div>
+          <div class="p-stat" data-printer-sub="${escapeHtml(p.id)}">${escapeHtml(printerStatText(p))}</div>
         </div>
       `
       )
@@ -735,20 +880,22 @@
                   const up = j.uploadProgress || { percent: 0, sentBytes: 0, totalBytes: j.fileSize || 0 };
                   return `
                     <div class="job-card-wrap">
-                      <div class="job-swipe-bg">✕ Übertragung abbrechen</div>
+                      <div class="job-swipe-bg">✕ Abbrechen</div>
                       <div class="job-card is-uploading" data-job-id="${escapeHtml(j.id)}" data-open-upload="${escapeHtml(j.id)}">
-                        <div class="job-thumb">${thumb}</div>
-                        <div class="job-info">
-                          <div class="job-row1">
-                            <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
-                            <span class="slot-badge">Drucker ${j.printerSlot}</span>
-                          </div>
-                          <div class="job-meta">
-                            <span>Dauer <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
-                            <span>Antippen für Details…</span>
+                        <div class="j-info-row">
+                          <div class="job-thumb">${thumb}</div>
+                          <div class="j-info-col">
+                            <div class="job-row1">
+                              <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
+                              <span class="slot-badge">Drucker ${j.printerSlot}</span>
+                            </div>
+                            <div class="job-meta">
+                              <span>⏱ <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
+                              <span>Tippen für Details…</span>
+                            </div>
                           </div>
                         </div>
-                        <div class="job-cta">
+                        <div class="j-action-row">
                           <div class="inline-up">
                             <div class="inline-up-track">
                               <div class="inline-up-fill" data-upload-fill="${escapeHtml(j.id)}" style="width:${Math.round(up.percent || 0)}%"></div>
@@ -758,7 +905,7 @@
                               <span data-upload-mb="${escapeHtml(j.id)}">${fmtMB(up.sentBytes)}/${fmtMB(up.totalBytes || j.fileSize)}</span>
                             </div>
                           </div>
-                          <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Übertragung abbrechen">✕</button>
+                          <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Abbrechen">✕</button>
                         </div>
                       </div>
                     </div>
@@ -774,27 +921,28 @@
                   <div class="job-card-wrap">
                     <div class="job-swipe-bg">✕ Job entfernen</div>
                     <div class="job-card" data-job-id="${escapeHtml(j.id)}">
-                      <div class="job-thumb">${thumb}</div>
-                      <div class="job-info">
-                        <div class="job-row1">
-                          <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
-                          <span class="slot-badge">Drucker ${j.printerSlot}</span>
-                        </div>
-                        <div class="job-meta">
-                          <span>Dauer <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
-                          <span class="ttl-chip ${warn ? "warn" : ""}" data-ttl-wrap="${escapeHtml(j.id)}">
-                            <svg class="ttl-ring" viewBox="0 0 24 24">
-                              <circle cx="12" cy="12" r="10" fill="none" stroke="var(--border)" stroke-width="3.5"></circle>
-                              <circle data-ttl-fg="${escapeHtml(j.id)}" cx="12" cy="12" r="10" fill="none" stroke="${warn ? "var(--orange)" : "var(--blue)"}" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="62.8" stroke-dashoffset="${dash}"></circle>
-                            </svg>
-                            <span data-ttl-txt="${escapeHtml(j.id)}">Timeout: ${fmtCountdown(rem)}</span>
-                          </span>
+                      <div class="j-info-row">
+                        <div class="job-thumb">${thumb}</div>
+                        <div class="j-info-col">
+                          <div class="job-row1">
+                            <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
+                            <span class="slot-badge">Drucker ${j.printerSlot}</span>
+                          </div>
+                          <div class="job-meta">
+                            <span>⏱ <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
+                            <span class="ttl-chip ${warn ? "warn" : ""}" data-ttl-wrap="${escapeHtml(j.id)}">
+                              <svg class="ttl-ring" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="var(--border)" stroke-width="3.5"></circle>
+                                <circle data-ttl-fg="${escapeHtml(j.id)}" cx="12" cy="12" r="10" fill="none" stroke="${warn ? "var(--orange)" : "var(--blue)"}" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="62.8" stroke-dashoffset="${dash}"></circle>
+                              </svg>
+                              <span data-ttl-txt="${escapeHtml(j.id)}">${fmtCountdown(rem)}</span>
+                            </span>
+                          </div>
                         </div>
                       </div>
-                      <div class="job-cta">
+                      <div class="j-action-row">
                         <button type="button" class="btn-print-job" data-print-id="${escapeHtml(j.id)}">
-                          <span class="lbl">${ctaLabel}</span>
-                          <span class="prc">${fmtEur(j.priceCents)}</span>
+                          <span>${ctaLabel} · ${fmtEur(j.priceCents)}</span>
                         </button>
                         <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Job entfernen">✕</button>
                       </div>
@@ -812,26 +960,65 @@
 
     if (state.screen === "rfid_wait") {
       const powerPrinter = state.printers.find((x) => x.id === state.powerPrinterId);
-      let descHtml = `<p>Halte deine Karte an den Leser, um dein Konto &amp; Guthaben anzuzeigen.</p>`;
-      if (state.rfidPurpose === "power_on" && powerPrinter) {
-        descHtml = `<p><strong>Drucker ${powerPrinter.slot} (${escapeHtml(powerPrinter.model || powerPrinter.name)})</strong> über easyVerwaltung einschalten.<br>
-           Bitte Mitgliedskarte mit 3D-Druck-Freigabe vorhalten.</p>`;
-      } else if (job) {
-        descHtml = `<p>Job: <strong>${escapeHtml(job.displayName || job.filename)}</strong> (Drucker ${job.printerSlot})<br>
-           Kosten: <strong>${fmtEur(job.priceCents)}</strong> · Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong></p>`;
-      }
+      const isAdm = state.rfidPurpose === "admin";
+      const isAcc = state.rfidPurpose === "account";
+      const isPwr = state.rfidPurpose === "power_on" && powerPrinter;
+      const heading = isAdm
+        ? "Admin · BV-Karte"
+        : isPwr
+          ? `Drucker ${powerPrinter.slot} einschalten`
+          : isAcc
+            ? "Konto · Karte vorhalten"
+            : "Karte vorhalten";
+      const title = isAdm ? "BV-Karte vorhalten" : "Bitte Mitgliedskarte scannen";
+      const desc = isAdm
+        ? "Nur für Bereichsverantwortliche (BV): Halte deine BV-Karte an den NFC-Leser."
+        : isPwr
+          ? `Drucker ${powerPrinter.slot} (${escapeHtml(powerPrinter.model || powerPrinter.name)}) über easyVerwaltung einschalten.`
+          : isAcc
+            ? "Halte deine Karte an den NFC-Leser, um Guthaben & Buchungen anzuzeigen."
+            : "Halte deine Karte an den leuchtenden NFC-Ring unterhalb des Displays.";
+
+      const jobCardHtml =
+        job && state.rfidPurpose === "print"
+          ? `
+            <div class="panel">
+              ${state.rfidAutoTriggered ? `<div class="auto-badge">⚡ Neuer Auftrag aus PrusaSlicer empfangen</div>` : ""}
+              <div class="j-info-row">
+                <div class="job-thumb">${job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊"}</div>
+                <div class="j-info-col">
+                  <div class="job-row1">
+                    <div class="job-name-wrap"><span class="job-name">${escapeHtml(job.displayName || job.filename)}</span></div>
+                    <span class="slot-badge">Drucker ${job.printerSlot}</span>
+                  </div>
+                  <div class="job-meta">
+                    <span>${Math.round(job.filamentGrams || 0)} g ${escapeHtml(job.filamentType || "")} · ${fmtDur(job.estimatedTimeSeconds)}</span>
+                  </div>
+                  <div style="font-size:4.4cqw;font-weight:900;color:var(--green-ink);">${fmtEur(job.priceCents)} · Fertig ${fmtEta(job.estimatedTimeSeconds)}</div>
+                </div>
+              </div>
+            </div>
+          `
+          : "";
+
       stage.innerHTML = `
-        <div class="subscreen">
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>${heading}</h1>
+            ${timeoutPillHtml()}
+          </div>
+          ${jobCardHtml}
+          ${state.rfidError ? `<div class="panel err" style="text-align:center;font-size:3.6cqw;font-weight:800;">🚫 ${escapeHtml(state.rfidError)}</div>` : ""}
           <div class="rfid-center">
             <div class="rfid-circle">${nfcIconSvg()}</div>
-            <div class="rfid-text">
-              <h2>Bitte Mitgliedskarte scannen</h2>
-              ${descHtml}
-              <div style="margin-top:2cqh;">${timeoutPillHtml("Timeout:")}</div>
-            </div>
+            <h2>${title}</h2>
+            <p>${desc}</p>
+            <div class="arrow-down-hint">▼ NFC-Leser unten ▼</div>
           </div>
+          ${job && state.rfidPurpose === "print" ? `<button type="button" class="btn btn-secondary" style="height:6.4cqh;" data-action="go-home">Zur Warteschlange</button>` : ""}
         </div>
       `;
+      initMarquees();
       return;
     }
 
@@ -840,81 +1027,136 @@
       const enough = after >= 0;
       const maxNeg = Number(state.features.maxNegativeBalanceCents || 0);
       const canOverdraft = !enough && Boolean(state.features.allowNegativeBalance) && (maxNeg === 0 || after >= -maxNeg);
-      const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
       const verb = job.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
-      const modeHint = job.printAfterUpload === false ? " · Nur Upload (Start am Drucker)" : "";
+      const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
+
       stage.innerHTML = `
         <div class="subscreen">
-          <div class="panel pay-top-with-thumb">
-            <div class="pay-thumb">${thumb}</div>
-            <div style="display:flex;flex-direction:column;gap:1.4cqh;min-width:0;">
-              <div class="pay-head">
-                <div style="min-width:0;">
-                  <div class="pay-job-title">${escapeHtml(job.displayName || job.filename)}</div>
-                  <div class="pay-job-sub">Drucker ${job.printerSlot} · ${Number(job.filamentGrams || 0).toFixed(1)} g ${escapeHtml(job.filamentType)} · Dauer ${fmtDur(job.estimatedTimeSeconds)}${modeHint}</div>
+          <div class="sub-heading">
+            <h1>Zahlung bestätigen</h1>
+            ${timeoutPillHtml()}
+          </div>
+
+          <div class="panel">
+            <div class="j-info-row">
+              <div class="job-thumb">${thumb}</div>
+              <div class="j-info-col">
+                <div class="job-row1">
+                  <div class="job-name-wrap"><span class="job-name">${escapeHtml(job.displayName || job.filename)}</span></div>
+                  <span class="slot-badge">Drucker ${job.printerSlot}</span>
                 </div>
-                <div class="pay-eta-pill">⏱ Fertig ${fmtEta(job.estimatedTimeSeconds)}</div>
-              </div>
-              <div class="pay-numbers">
-                <div>
-                  <div class="num-lbl">Guthaben</div>
-                  <div class="num-val ${sess.balanceCents < 0 ? "neg" : ""}">${fmtEur(sess.balanceCents)}</div>
-                </div>
-                <div>
-                  <div class="num-lbl">Druckkosten</div>
-                  <div class="num-val">${fmtEur(job.priceCents)}</div>
-                </div>
-                <div>
-                  <div class="num-lbl">Danach auf Konto</div>
-                  <div class="num-val ${enough ? "pos" : "neg"}">${fmtEur(after)}</div>
-                </div>
+                <div class="job-meta"><span>${Math.round(job.filamentGrams || 0)} g ${escapeHtml(job.filamentType || "")} · ${fmtDur(job.estimatedTimeSeconds)}</span></div>
+                <div class="job-meta"><span>Fertig: <strong>${fmtEta(job.estimatedTimeSeconds)}</strong>${job.printAfterUpload === false ? " · Nur Upload" : ""}</span></div>
               </div>
             </div>
           </div>
-          <div class="pay-actions">
-            <div class="pay-secondary-stack">
-              <button type="button" class="btn btn-secondary" data-action="open-club">🏛️ Vereinsdruck</button>
-              <button type="button" class="btn btn-secondary" data-action="open-already-paid">✓ Bereits bezahlt</button>
+
+          <div class="panel ${!enough ? "warn" : ""}">
+            <div class="pay-line">
+              <span>👤 ${escapeHtml(sess.user.display_name)}</span>
+              <span>${fmtEur(sess.balanceCents)}</span>
             </div>
-            ${
-              enough
-                ? `<button type="button" class="btn btn-primary pay-cta-big" data-action="start-personal">${verb} · ${fmtEur(job.priceCents)}</button>`
-                : `
-                  <div class="pay-primary-split" style="${!state.features.topup || !canOverdraft ? "grid-template-columns:1fr;" : ""}">
-                    ${state.features.topup ? `<button type="button" class="btn btn-blue" style="font-size:3.6cqh;" data-action="open-topup-print">+ Aufladen</button>` : ""}
-                    ${canOverdraft ? `<button type="button" class="btn btn-orange" style="font-size:3.9cqh;" data-action="open-overdraft">Trotzdem ${verb.toLowerCase()} →</button>` : ""}
-                  </div>
-                `
-            }
+            <div class="pay-line divider">
+              <span style="color:var(--muted);">Druckkosten</span>
+              <span class="pay-price-big">${fmtEur(job.priceCents)}</span>
+            </div>
+            <div class="pay-line" style="color:${enough ? "var(--green-ink)" : "var(--red-ink)"};">
+              <span>Neues Guthaben</span>
+              <span>${fmtEur(after)}${!enough ? " (Minus)" : ""}</span>
+            </div>
+          </div>
+
+          ${
+            enough
+              ? `<button type="button" class="btn btn-primary" data-action="pay-personal">✓ JETZT ${verb} · ${fmtEur(job.priceCents)}</button>`
+              : canOverdraft
+                ? `<button type="button" class="btn btn-orange" data-action="open-overdraft">⚠ Auf Minus ${verb.toLowerCase()} (${fmtEur(job.priceCents)})</button>`
+                : `<div class="panel err" style="font-size:3.5cqw;font-weight:800;text-align:center;">Guthaben reicht nicht (Limit −${fmtEur(maxNeg)}). Bitte aufladen.</div>`
+          }
+
+          ${!enough && state.features.topup ? `<button type="button" class="btn btn-blue" style="height:6.4cqh;" data-action="open-topup">+ Guthaben aufladen</button>` : ""}
+
+          <div class="btn-row2">
+            <button type="button" class="btn btn-secondary" data-action="open-club">Vereinsdruck</button>
+            <button type="button" class="btn btn-secondary" data-action="open-paid">Bereits bezahlt</button>
+          </div>
+        </div>
+      `;
+      initMarquees();
+      return;
+    }
+
+    if (state.screen === "overdraft_confirm" && job && sess) {
+      const after = sess.balanceCents - job.priceCents;
+      const verb = job.printAfterUpload === false ? "hochladen" : "drucken";
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="sub-heading">
+            <h1>Auf Guthaben-Minus?</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel warn">
+            <div style="font-size:4.2cqw;font-weight:900;">⚠ Dein Guthaben geht ins Minus</div>
+            <div class="pay-line"><span>Aktuelles Guthaben</span><span>${fmtEur(sess.balanceCents)}</span></div>
+            <div class="pay-line"><span>Druckkosten</span><span>${fmtEur(job.priceCents)}</span></div>
+            <div class="pay-line divider" style="color:var(--red-ink);">
+              <span>Neuer Stand</span>
+              <span class="pay-price-big">${fmtEur(after)}</span>
+            </div>
+            <div class="helper-txt" style="color:var(--orange-ink);">Bitte lade dein Guthaben zeitnah wieder auf.</div>
+          </div>
+          <button type="button" class="btn btn-orange" data-action="pay-overdraft">Ja, auf Minus ${verb}</button>
+          ${state.features.topup ? `<button type="button" class="btn btn-blue" style="height:6.4cqh;" data-action="open-topup">+ Jetzt aufladen</button>` : ""}
+          <div class="btn-row2">
+            <button type="button" class="btn btn-secondary" data-action="open-club">Vereinsdruck</button>
+            <button type="button" class="btn btn-secondary" data-action="open-paid">Bereits bezahlt</button>
           </div>
         </div>
       `;
       return;
     }
 
-    if (state.screen === "overdraft_confirm" && job && sess) {
-      const after = sess.balanceCents - job.priceCents;
+    if (state.screen === "club_section" && job) {
       stage.innerHTML = `
         <div class="subscreen">
-          <div class="panel" style="border-color:var(--orange-border);">
-            <div style="font-size:4.1cqh;font-weight:800;color:var(--orange-ink);">
-              ⚠ Guthaben reicht nicht aus — dein Konto gerät ins Minus.
-            </div>
-            <div class="pay-numbers">
-              <div><div class="num-lbl">Aktuell</div><div class="num-val">${fmtEur(sess.balanceCents)}</div></div>
-              <div><div class="num-lbl">Druckkosten</div><div class="num-val">${fmtEur(job.priceCents)}</div></div>
-              <div><div class="num-lbl">Neuer Kontostand</div><div class="num-val neg">${fmtEur(after)}</div></div>
-            </div>
-            <div style="font-size:3.1cqh;color:var(--muted);font-weight:600;">
-              Geschätztes Druckende: <strong>${fmtEta(job.estimatedTimeSeconds)}</strong> · Bitte lade dein Guthaben zeitnah wieder auf.
-            </div>
+          <div class="sub-heading">
+            <h1>Vereinsdruck · Bereich</h1>
+            ${timeoutPillHtml()}
           </div>
-          <div class="pay-actions">
-            <div class="pay-secondary-stack">
-              <button type="button" class="btn btn-secondary" data-action="open-club">🏛️ Vereinsdruck</button>
-              <button type="button" class="btn btn-secondary" data-action="open-already-paid">✓ Bereits bezahlt</button>
+          <div class="helper-txt">Wähle den Bereich, auf den der Druck verbucht wird (anschließend PIN-Bestätigung):</div>
+          <div class="choice-grid">
+            ${state.sections
+              .map((s) => `<button type="button" class="btn btn-secondary" data-section-id="${escapeHtml(s.sectionId)}">${escapeHtml(s.name)}</button>`)
+              .join("")}
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "pin_entry") {
+      const secName = state.sections.find((s) => s.sectionId === state.selectedSectionId)?.name || "";
+      const subLabel = state.pinMode === "club" ? `Vereinsdruck · ${secName}` : "Bereits bezahlt (Wiederholungsdruck)";
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>PIN bestätigen</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel" style="align-items:center;text-align:center;">
+            <div style="font-size:3.5cqw;font-weight:800;color:var(--muted);">${escapeHtml(subLabel)}</div>
+            <div class="pin-dots">
+              ${[0, 1, 2, 3].map((i) => `<div class="pin-dot ${i < state.pinValue.length ? "filled" : ""}"></div>`).join("")}
             </div>
-            <button type="button" class="btn btn-orange" style="font-size:4.1cqh;" data-action="start-personal-overdraft">Dennoch drucken – ich lade später auf</button>
+            ${state.pinError ? `<div style="color:var(--red-ink);font-size:3.4cqw;font-weight:800;">${escapeHtml(state.pinError)}</div>` : `<div class="helper-txt">4-stellige Mitglieder-PIN eingeben</div>`}
+          </div>
+          <div class="numpad">
+            ${["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0", "✓"]
+              .map(
+                (k) =>
+                  `<button type="button" class="btn ${k === "✓" ? "btn-primary" : "btn-secondary"}" data-pin-key="${k}">${k}</button>`
+              )
+              .join("")}
           </div>
         </div>
       `;
@@ -924,33 +1166,19 @@
     if (state.screen === "topup" && sess) {
       stage.innerHTML = `
         <div class="subscreen">
-          <div class="panel" style="flex-direction:row;align-items:center;justify-content:space-between;">
-            <div style="font-size:3.8cqh;font-weight:800;">${escapeHtml(sess.user.display_name)}</div>
-            <div style="font-size:4.4cqh;font-weight:900;color:var(--green);">Aktuell: ${fmtEur(sess.balanceCents)}</div>
+          <div class="sub-heading">
+            <h1>Guthaben aufladen</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel">
+            <div class="pay-line">
+              <span>👤 ${escapeHtml(sess.user.display_name)}</span>
+              <span style="color:var(--green-ink);">${fmtEur(sess.balanceCents)}</span>
+            </div>
           </div>
           <div class="choice-grid">
-            <button type="button" class="btn btn-blue" data-topup="500">+ 5,00 €</button>
-            <button type="button" class="btn btn-blue" data-topup="1000">+ 10,00 €</button>
-            <button type="button" class="btn btn-blue" data-topup="2000">+ 20,00 €</button>
-            <button type="button" class="btn btn-blue" data-topup="5000">+ 50,00 €</button>
-          </div>
-        </div>
-      `;
-      return;
-    }
-
-    if (state.screen === "club_section") {
-      stage.innerHTML = `
-        <div class="subscreen">
-          <div class="choice-grid">
-            ${state.sections
-              .map(
-                (s) => `
-                <button type="button" class="btn btn-secondary" data-section-id="${escapeHtml(s.sectionId)}">
-                  🏛️ ${escapeHtml(s.name)}
-                </button>
-              `
-              )
+            ${[500, 1000, 2000, 5000]
+              .map((c) => `<button type="button" class="btn btn-primary" data-topup="${c}">+${fmtEur(c)}</button>`)
               .join("")}
           </div>
         </div>
@@ -958,116 +1186,129 @@
       return;
     }
 
-    if (state.screen === "pin_entry" && job) {
-      const isClub = state.pinMode === "club";
-      const sec = state.sections.find((s) => s.sectionId === state.selectedSectionId);
-      const dots = Array.from({ length: 4 }, (_, i) => `<div class="pin-dot ${i < state.pinValue.length ? "filled" : ""}"></div>`).join("");
-      stage.innerHTML = `
-        <div class="subscreen">
-          <div class="pin-grid">
-            <div class="pin-left">
-              <div>
-                <h2>Persönliche PIN</h2>
-                <p>${
-                  isClub
-                    ? `Vereinsdruck für <strong>${escapeHtml(sec?.name || "")}</strong> · <strong>${escapeHtml(job.displayName)}</strong>.`
-                    : `Ich bestätige den Nachdruck (<strong>Bereits bezahlt</strong>) für <strong>${escapeHtml(job.displayName)}</strong>.`
-                }<br>Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong>.</p>
-                <div class="pin-dots">${dots}</div>
-                ${state.pinError ? `<div class="pin-err">${escapeHtml(state.pinError)}</div>` : ""}
-              </div>
-              <div style="align-self:flex-start;">${timeoutPillHtml("Timeout:")}</div>
-            </div>
-            <div class="numpad">
-              ${["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0", "✓"]
-                .map((k) => {
-                  const cls = k === "✓" ? "btn-primary" : k === "⌫" ? "btn-back" : "btn-secondary";
-                  return `<button type="button" class="btn ${cls}" data-pin-key="${k}">${k}</button>`;
-                })
-                .join("")}
-            </div>
-          </div>
-        </div>
-      `;
-      return;
-    }
-
-    if (state.screen === "printer_busy") {
-      const isOffline = state.lastResult?.reason === "PRINTER_OFFLINE";
-      stage.innerHTML = `
-        <div class="subscreen">
-          <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
-            <div style="font-size:10cqh;">🔴</div>
-            <div style="font-size:4.8cqh;font-weight:900;">${isOffline ? "Drucker ist offline" : "Drucker ist belegt"}</div>
-            <div style="font-size:3.5cqh;color:var(--green);font-weight:800;">✓ Es wurde kein Guthaben abgebucht.</div>
-          </div>
-        </div>
-      `;
-      return;
-    }
-
     if (state.screen === "account" && sess) {
-      const txs = (sess.transactions || [])
-        .map((t) => {
-          const cls = t.amountCents > 0 ? "plus" : t.amountCents === 0 ? "zero" : "";
-          const amt = t.amountCents > 0 ? `+${fmtEur(t.amountCents)}` : fmtEur(t.amountCents);
-          return `
-            <div class="tx-item">
-              <div class="tx-left">
-                <div class="tx-title">${escapeHtml(t.title)}</div>
-                <div class="tx-meta">${fmtDateTime(t.ts)}</div>
-              </div>
-              <div class="tx-amount ${cls}">${amt}</div>
-            </div>
-          `;
-        })
-        .join("");
-
+      const txs = sess.transactions || [];
       stage.innerHTML = `
-        <div class="subscreen">
-          <div class="panel" style="flex:1;min-height:0;gap:1.4cqh;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:2cqw;border-bottom:1px solid var(--border);padding-bottom:1.2cqh;">
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Konto &amp; Guthaben</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel">
+            <div class="pay-line">
               <div>
-                <div class="num-lbl">Mitglied</div>
-                <div style="font-size:4.6cqh;font-weight:900;">${escapeHtml(sess.user.display_name)}</div>
+                <div class="helper-txt">Angemeldet</div>
+                <div style="font-size:4.5cqw;font-weight:900;">${escapeHtml(sess.user.display_name)}</div>
               </div>
               <div style="text-align:right;">
-                <div class="num-lbl">Aktuelles Guthaben</div>
-                <div class="num-val ${sess.balanceCents < 0 ? "neg" : "pos"}" style="font-size:5.2cqh;">${fmtEur(sess.balanceCents)}</div>
+                <div class="helper-txt">Guthaben</div>
+                <div class="pay-price-big" style="color:${sess.balanceCents >= 0 ? "var(--green-ink)" : "var(--red-ink)"};">${fmtEur(sess.balanceCents)}</div>
               </div>
-              ${state.features.topup ? `<button type="button" class="btn btn-blue" style="height:10.5cqh;padding:0 2.2cqw;font-size:3.4cqh;" data-action="open-topup-account">+ Aufladen</button>` : ""}
-            </div>
-            <div class="num-lbl">Letzte Drucke &amp; Buchungen</div>
-            <div class="tx-scroll">
-              ${txs || `<div class="tx-item"><span class="tx-meta">Keine Buchungen vorhanden</span></div>`}
             </div>
           </div>
+          <div class="panel" style="flex:1;min-height:0;overflow:hidden;">
+            <div style="font-size:3.5cqw;font-weight:800;color:var(--muted);">Letzte Buchungen</div>
+            <div class="list-scroll">
+              ${
+                txs.length
+                  ? txs
+                      .map(
+                        (tx) => `
+                          <div class="tx-row">
+                            <div style="min-width:0;">
+                              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(tx.label || tx.description || "Buchung")}</div>
+                              <div class="tx-sub">${fmtDateTime(tx.ts || tx.createdAt)}</div>
+                            </div>
+                            <span style="flex-shrink:0;color:${tx.amountCents >= 0 ? "var(--green-ink)" : "var(--red-ink)"};">${tx.amountCents >= 0 ? "+" : ""}${fmtEur(tx.amountCents)}</span>
+                          </div>
+                        `
+                      )
+                      .join("")
+                  : `<div class="helper-txt">Noch keine Buchungen vorhanden.</div>`
+              }
+            </div>
+          </div>
+          ${state.features.topup ? `<button type="button" class="btn btn-primary" style="height:6.6cqh;" data-action="open-topup-account">+ Guthaben aufladen</button>` : ""}
         </div>
       `;
       return;
     }
 
     if (state.screen === "settings") {
+      const ds = state.displaySettings;
       stage.innerHTML = `
         <div class="subscreen">
-          <div class="panel" style="flex:1;justify-content:space-between;">
-            <div style="font-size:3.6cqh;font-weight:800;">Anzeige-Modus</div>
-            <div class="settings-grid">
-              <button type="button" class="theme-card ${state.theme === "light" ? "active" : ""}" data-set-theme="light">
-                <span style="font-size:6cqh;">☀️</span>
-                <span>Hell (Standard)</span>
-              </button>
-              <button type="button" class="theme-card ${state.theme === "dark" ? "active" : ""}" data-set-theme="dark">
-                <span style="font-size:6cqh;">🌙</span>
-                <span>Dunkel</span>
-              </button>
+          <div class="panel">
+            <div class="slider-head"><span>Darstellung</span></div>
+            <div class="btn-row2">
+              <button type="button" class="btn ${state.theme === "light" ? "btn-primary" : "btn-secondary"}" data-set-theme="light">☀ Hell</button>
+              <button type="button" class="btn ${state.theme === "dark" ? "btn-primary" : "btn-secondary"}" data-set-theme="dark">🌙 Dunkel</button>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:1.5cqw;border-top:1px solid var(--border);padding-top:1.5cqh;">
-              <div style="font-size:3cqh;color:var(--muted);">
-                Terminal: <strong>${escapeHtml(state.terminalId)}</strong> · IP: <strong>${escapeHtml(state.terminalIp)}</strong> · v${escapeHtml(state.version)}
-              </div>
-              <button type="button" class="btn btn-secondary" style="height:11cqh;padding:0 2.6cqw;font-size:3.5cqh;" data-action="open-admin">🔐 Admin</button>
+          </div>
+
+          <div class="panel">
+            <div class="slider-head">
+              <span>☀ Display-Helligkeit</span>
+              <span id="brightness-val">${ds.brightness} %</span>
             </div>
+            <input type="range" id="brightness-slider" min="15" max="100" step="5" value="${ds.brightness}">
+          </div>
+
+          <div class="panel">
+            <div class="slider-head">
+              <span>🌙 Dimmen &amp; 💤 Display aus</span>
+            </div>
+            <div class="helper-txt">Dimmen auf 20 % nach Inaktivität:</div>
+            <div class="seg-row">
+              ${[
+                [0, "Aus"],
+                [60, "1 min"],
+                [120, "2 min"],
+                [300, "5 min"],
+              ]
+                .map(
+                  ([v, lbl]) =>
+                    `<button type="button" class="seg-btn ${ds.dimDelaySeconds === v ? "active" : ""}" data-dim-delay="${v}">${lbl}</button>`
+                )
+                .join("")}
+            </div>
+            <div class="helper-txt" style="margin-top:0.6cqh;">Display komplett aus (0 % · Burn-in-Schutz) nach:</div>
+            <div class="seg-row">
+              ${[
+                [0, "Aus"],
+                [900, "15 min"],
+                [1800, "30 min"],
+                [3600, "60 min"],
+              ]
+                .map(
+                  ([v, lbl]) =>
+                    `<button type="button" class="seg-btn ${ds.sleepDelaySeconds === v ? "active" : ""}" data-sleep-delay="${v}">${lbl}</button>`
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="slider-head">
+              <span>🔊 Buzzer-Feedback</span>
+            </div>
+            <div class="seg-row seg-3">
+              ${[
+                ["all", "Alle (inkl. Touch)"],
+                ["events", "Nur Hinweise"],
+                ["off", "Aus"],
+              ]
+                .map(
+                  ([v, lbl]) =>
+                    `<button type="button" class="seg-btn ${ds.buzzerMode === v ? "active" : ""}" data-buzzer-mode="${v}">${lbl}</button>`
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <div class="panel" style="flex-direction:row;align-items:center;justify-content:space-between;">
+            <div class="helper-txt">Terminal <strong>${escapeHtml(state.terminalId)}</strong><br>${escapeHtml(state.terminalIp)} · v${escapeHtml(state.version)}</div>
+            <button type="button" class="seg-btn" style="padding:0 3.5cqw;flex-shrink:0;" data-action="open-admin-auth">🔐 Admin (BV)</button>
           </div>
         </div>
       `;
@@ -1075,41 +1316,94 @@
     }
 
     if (state.screen === "admin") {
-      const cfg = state.adminConfig || {
-        terminalId: state.terminalId,
-        easyverwaltungUrl: "",
-        easyverwaltungServiceId: "",
-        hasToken: false,
-      };
+      const cfg = state.adminConfig || {};
+      const hist = state.adminHistory || [];
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Admin${state.adminUser?.display_name ? ` · ${escapeHtml(state.adminUser.display_name)}` : ""}</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="btn-row2">
+            <button type="button" class="seg-btn ${state.adminTab === "history" ? "active" : ""}" style="height:5.8cqh;" data-admin-tab="history">📋 Druckverlauf</button>
+            <button type="button" class="seg-btn ${state.adminTab === "config" ? "active" : ""}" style="height:5.8cqh;" data-admin-tab="config">⚙ Server &amp; Token</button>
+          </div>
+          ${
+            state.adminTab === "history"
+              ? `
+                <div class="list-scroll">
+                  ${
+                    hist.length
+                      ? hist
+                          .map((h) => {
+                            const modeTxt =
+                              h.paymentMode === "club"
+                                ? `Verein${h.sectionName ? `: ${h.sectionName}` : ""}`
+                                : h.paymentMode === "already_paid"
+                                  ? "Bereits bezahlt"
+                                  : "Privat";
+                            return `
+                              <div class="panel" style="padding:2.4cqw;gap:1cqw;">
+                                <div class="job-row1">
+                                  <strong style="font-size:3.8cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(h.displayName)}</strong>
+                                  <span class="slot-badge">Drucker ${h.printerSlot}</span>
+                                </div>
+                                <div class="pay-line" style="font-size:3.3cqw;">
+                                  <span>👤 ${escapeHtml(h.userDisplayName)}</span>
+                                  <span style="color:var(--muted);">${escapeHtml(modeTxt)}</span>
+                                </div>
+                                <div class="pay-line" style="font-size:3.1cqw;color:var(--muted);">
+                                  <span>${fmtDateTime(h.startedAt)} · ${Math.round(h.filamentGrams || 0)} g ${escapeHtml(h.filamentType)}</span>
+                                  <strong style="color:var(--text);">${fmtEur(h.priceCents)}</strong>
+                                </div>
+                              </div>
+                            `;
+                          })
+                          .join("")
+                      : `<div class="panel helper-txt" style="text-align:center;">Noch keine gestarteten Druckjobs im Log.</div>`
+                  }
+                </div>
+              `
+              : `
+                <div class="list-scroll">
+                  <div class="panel qr-box">
+                    <div style="font-size:3.8cqw;font-weight:900;">📱 Mit Smartphone konfigurieren</div>
+                    ${
+                      cfg.qrUrl
+                        ? `<div class="qr-img-wrap"><img src="${escapeHtml(cfg.qrUrl)}" alt="Admin Setup QR-Code"></div>`
+                        : ""
+                    }
+                    <div class="url-pill">${escapeHtml(cfg.setupUrl || `http://${state.terminalIp}/admin.html`)}</div>
+                    <div class="helper-txt">QR-Code im FREILab-WLAN scannen, um URL, Token &amp; CSV-Log bequem am Handy zu bearbeiten (10 min gültig).</div>
+                  </div>
+                  <div class="panel" style="gap:1.4cqw;">
+                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Terminal-ID</span><span>${escapeHtml(cfg.terminalId || state.terminalId)}</span></div>
+                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Server-URL</span><span style="overflow:hidden;text-overflow:ellipsis;max-width:58%;">${escapeHtml(cfg.easyverwaltungUrl || "–")}</span></div>
+                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Service-ID</span><span>${escapeHtml(cfg.easyverwaltungServiceId || "–")}</span></div>
+                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Service-Token</span><span style="color:${cfg.hasToken ? "var(--green-ink)" : "var(--red-ink)"};">${cfg.hasToken ? "✓ Gesetzt" : "✕ Fehlt"}</span></div>
+                    <button type="button" class="btn btn-secondary" style="height:6.2cqh;margin-top:1cqw;" data-action="admin-test">Verbindung testen</button>
+                  </div>
+                </div>
+              `
+          }
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "printer_busy") {
       stage.innerHTML = `
         <div class="subscreen">
-          <div class="panel" style="flex:1;justify-content:space-between;">
-            <div class="admin-grid">
-              <div class="field-box">
-                <label>Terminal-ID</label>
-                <input class="field-input" id="adm-terminal-id" type="text" value="${escapeHtml(cfg.terminalId)}">
-              </div>
-              <div class="field-box">
-                <label>easyVerwaltung Service-ID</label>
-                <input class="field-input" id="adm-service-id" type="text" value="${escapeHtml(cfg.easyverwaltungServiceId)}">
-              </div>
-              <div class="field-box">
-                <label>Server-URL</label>
-                <input class="field-input" id="adm-server-url" type="text" value="${escapeHtml(cfg.easyverwaltungUrl)}" placeholder="https://verwaltung.freilab.de">
-              </div>
-              <div class="field-box">
-                <label>Service-Token (${cfg.hasToken ? "gesetzt" : "nicht gesetzt"})</label>
-                <input class="field-input" id="adm-token" type="password" value="" placeholder="${cfg.hasToken ? "•••••••• (leer = behalten)" : "Token eingeben"}">
-              </div>
-            </div>
-            <div style="font-size:2.8cqh;color:var(--muted);font-weight:600;">
-              💡 Tipp für lange Tokens: Auch im Browser unter <strong>http://${escapeHtml(state.terminalIp)}</strong> → ⚙ → Admin konfigurierbar.
-            </div>
+          <div class="sub-heading">
+            <h1>Drucker nicht bereit</h1>
+            ${timeoutPillHtml()}
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:1.6cqw;height:14cqh;">
-            <button type="button" class="btn btn-blue" style="font-size:3.5cqh;" data-action="admin-test">Verbindung testen</button>
-            <button type="button" class="btn btn-primary" style="font-size:3.9cqh;" data-action="admin-save">Speichern</button>
+          <div class="panel warn" style="align-items:center;text-align:center;padding:5cqh 4cqw;">
+            <div style="font-size:11cqw;">⚠️</div>
+            <div style="font-size:4.6cqw;font-weight:900;">${state.lastResult?.reason === "PRINTER_OFFLINE" ? "Drucker ist offline / ausgeschaltet" : "Drucker ist aktuell belegt"}</div>
+            <div class="helper-txt" style="color:var(--orange-ink);">Es wurde noch nichts abgebucht. Bitte am Drucker prüfen (z. B. Dialog bestätigen oder einschalten).</div>
           </div>
+          <button type="button" class="btn btn-secondary" data-action="go-home">Zur Warteschlange</button>
         </div>
       `;
       return;
@@ -1118,12 +1412,16 @@
     if (state.screen === "not_approved" && sess) {
       stage.innerHTML = `
         <div class="subscreen">
-          <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
-            <div style="font-size:9cqh;">🚫</div>
-            <div style="font-size:4.4cqh;font-weight:900;">Keine 3D-Druck-Freigabe für ${escapeHtml(sess.user.display_name)}</div>
-            <div style="font-size:3.2cqh;color:var(--muted);">Bitte lass dich von einer berechtigten Person (BV / Einweiser) freischalten.</div>
+          <div class="sub-heading">
+            <h1>Keine 3D-Freigabe</h1>
+            ${timeoutPillHtml()}
           </div>
-          ${state.features.approval ? `<button type="button" class="btn btn-primary" style="height:15cqh;font-size:4cqh;" data-action="open-bv-wait">Freigabe vor Ort beantragen</button>` : ""}
+          <div class="panel err" style="align-items:center;text-align:center;padding:5cqh 4cqw;">
+            <div style="font-size:11cqw;">🚫</div>
+            <div style="font-size:4.4cqw;font-weight:900;">${escapeHtml(sess.user.display_name)} ist noch nicht für 3D-Druck freigeschaltet</div>
+            <div class="helper-txt" style="color:var(--red-ink);">Bitte lass dich von einem Einweiser / BV vor Ort freischalten.</div>
+          </div>
+          ${state.features.approval ? `<button type="button" class="btn btn-primary" data-action="open-bv-wait">Freigabe vor Ort (BV-Karte)</button>` : ""}
         </div>
       `;
       return;
@@ -1131,14 +1429,16 @@
 
     if (state.screen === "bv_wait") {
       stage.innerHTML = `
-        <div class="subscreen">
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Einweiser-Karte</h1>
+            ${timeoutPillHtml()}
+          </div>
           <div class="rfid-center">
             <div class="rfid-circle">${nfcIconSvg()}</div>
-            <div class="rfid-text">
-              <h2>Einweisungs-Karte vorhalten</h2>
-              <p>Bitte berechtigte BV- / Einweiser-Karte an den Leser halten.</p>
-              <div style="margin-top:2cqh;">${timeoutPillHtml("Timeout:")}</div>
-            </div>
+            <h2>BV- / Einweiser-Karte scannen</h2>
+            <p>Bitte berechtigte Einweisungs-Karte an den NFC-Leser halten.</p>
+            <div class="arrow-down-hint">▼ NFC-Leser unten ▼</div>
           </div>
         </div>
       `;
@@ -1149,9 +1449,9 @@
       stage.innerHTML = `
         <div class="subscreen">
           <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
-            <div style="font-size:10cqh;">✅</div>
-            <div style="font-size:4.8cqh;font-weight:900;">Nutzer freigeschaltet</div>
-            <div style="font-size:3.3cqh;color:var(--muted);">Durch: ${escapeHtml(state.lastResult?.instructorName || "Einweiser")}</div>
+            <div class="done-icon">✓</div>
+            <div style="font-size:5cqw;font-weight:900;">Nutzer freigeschaltet</div>
+            <div class="helper-txt">Durch: ${escapeHtml(state.lastResult?.instructorName || "Einweiser")}</div>
           </div>
         </div>
       `;
@@ -1173,31 +1473,30 @@
       <div class="popup-card">
         <div class="popup-head">
           <div class="popup-head-left">
-            <button type="button" class="btn-minimize" data-close-upload="1" title="Minimieren">−</button>
-            <h3>Übertragung an Drucker ${job.printerSlot}</h3>
+            <button type="button" class="back-top-btn" data-close-upload="1">‹ Zurück</button>
+            <h3>Übertragung · Drucker ${job.printerSlot}</h3>
           </div>
         </div>
-        <div class="popup-body">
-          <div class="upload-preview">${thumb}</div>
-          <div class="upload-details">
-            <div>
-              <div class="upload-job-name">${escapeHtml(job.displayName || job.filename)}</div>
-              <div class="upload-meta-line">
-                <span class="ok-check">✓ Freigegeben</span>
-                <span>· Dauer <strong>${fmtDur(job.estimatedTimeSeconds)}</strong></span>
-                <span>· Fertig <strong>${fmtEta(job.estimatedTimeSeconds)}</strong></span>
-              </div>
+        <div style="padding:3cqw;display:flex;flex-direction:column;gap:2.6cqw;">
+          <div class="j-info-row">
+            <div class="job-thumb">${thumb}</div>
+            <div class="j-info-col">
+              <strong style="font-size:4.2cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(job.displayName || job.filename)}</strong>
+              <div class="helper-txt">✓ Freigegeben · ${fmtDur(job.estimatedTimeSeconds)}</div>
             </div>
-            <div class="big-prog-track"><div class="big-prog-fill" style="width:${Math.round(up.percent || 0)}%"></div></div>
-            <div class="big-prog-meta">
-              <span>${Math.round(up.percent || 0)} % übertragen</span>
+          </div>
+          <div class="inline-up">
+            <div class="inline-up-track" style="height:2.6cqh;">
+              <div class="inline-up-fill" style="width:${Math.round(up.percent || 0)}%"></div>
+            </div>
+            <div class="inline-up-txt" style="font-size:3.6cqw;">
+              <span>${Math.round(up.percent || 0)} %</span>
               <span>${fmtMB(up.sentBytes)} / ${fmtMB(up.totalBytes || job.fileSize)}${speed ? ` · ${speed}` : ""}</span>
             </div>
           </div>
         </div>
         <div class="popup-foot">
-          <button type="button" class="btn btn-danger-soft" data-abort-upload="${escapeHtml(job.id)}">✕ Übertragung abbrechen</button>
-          <button type="button" class="btn btn-orange" data-close-upload="1">− Im Hintergrund weiterladen</button>
+          <button type="button" class="btn btn-danger-soft" style="height:6.4cqh;" data-abort-upload="${escapeHtml(job.id)}">✕ Übertragung abbrechen</button>
         </div>
       </div>
     `;
@@ -1226,9 +1525,7 @@
         ? `${p.activeJobOwner} (Verein: ${p.activeJobSection})`
         : p.activeJobOwner
       : "Direkt am Drucker";
-    const remTxt = p.timeRemainingSeconds
-      ? `Verbleibend: ${fmtDur(p.timeRemainingSeconds)} (Fertig ${fmtEta(p.timeRemainingSeconds)})`
-      : "";
+    const remTxt = p.timeRemainingSeconds ? `${fmtDur(p.timeRemainingSeconds)} (Fertig ${fmtEta(p.timeRemainingSeconds)})` : "";
     const thresh = Math.round(p.shutdownTempThresholdC || 50);
     const isHot = p.nozzleTemp != null && p.nozzleTemp > thresh;
     const isOff = p.state === "OFFLINE" || p.powerState === "OFF";
@@ -1238,82 +1535,69 @@
     if (p.pendingShutdown) {
       const curT = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)} °C` : "heiß";
       powerFootHtml = `
-        <div class="popup-foot power-foot">
+        <div class="popup-foot">
           <div class="cooldown-note">🌡 Kühlt ab (${curT} → ≤ ${thresh} °C) — schaltet automatisch aus</div>
-          <button type="button" class="btn btn-secondary" data-power-cancel="${escapeHtml(p.id)}">Abbrechen</button>
+          <button type="button" class="btn btn-secondary" style="height:6.4cqh;" data-power-cancel="${escapeHtml(p.id)}">Auto-Aus abbrechen</button>
         </div>
       `;
     } else if (isOff) {
       powerFootHtml = `
-        <div class="popup-foot power-foot">
-          <div class="power-hint">Einschalten erfordert Mitgliedskarte (RFID)</div>
-          <button type="button" class="btn btn-primary" data-power-on="${escapeHtml(p.id)}">⏻ Einschalten (RFID)</button>
+        <div class="popup-foot">
+          <button type="button" class="btn btn-primary" style="height:6.6cqh;" data-power-on="${escapeHtml(p.id)}">⏻ Einschalten (RFID-Karte)</button>
         </div>
       `;
     } else if (isBusyPower) {
       powerFootHtml = `
-        <div class="popup-foot power-foot">
-          <div class="power-hint">Drucker aktiv — Ausschalten während Druck gesperrt</div>
-          <button type="button" class="btn btn-secondary" disabled>⏻ Ausschalten</button>
+        <div class="popup-foot">
+          <button type="button" class="btn btn-secondary" style="height:6.4cqh;" disabled>⏻ Druckt gerade — Ausschalten gesperrt</button>
         </div>
       `;
     } else {
       powerFootHtml = `
-        <div class="popup-foot power-foot">
-          <div class="power-hint">${
-            isHot
-              ? `🌡 Hotend ${Math.round(p.nozzleTemp)} °C (> ${thresh} °C) — schaltet nach Abkühlen ab`
-              : `Stromversorgung über easyVerwaltung`
-          }</div>
-          <button type="button" class="btn btn-danger-soft" data-power-off="${escapeHtml(p.id)}">⏻ ${isHot ? "Nach Abkühlen aus" : "Ausschalten"}</button>
+        <div class="popup-foot">
+          <button type="button" class="btn btn-danger-soft" style="height:6.6cqh;" data-power-off="${escapeHtml(p.id)}">⏻ ${isHot ? `Nach Abkühlen aus (> ${thresh}°)` : "Drucker ausschalten"}</button>
         </div>
       `;
     }
 
     el.classList.remove("hidden");
     el.innerHTML = `
-      <div class="popup-card" style="width:86cqw;">
+      <div class="popup-card">
         <div class="popup-head">
           <div class="popup-head-left">
-            <button type="button" class="back-top-btn" style="height:8.2cqh;" data-close-printer="1">‹ Zurück</button>
+            <button type="button" class="back-top-btn" data-close-printer="1">‹ Zurück</button>
             <h3>Drucker ${p.slot} · ${escapeHtml(p.model || p.name)}</h3>
           </div>
-          <span class="p-status-pill st-${escapeHtml(p.state)}">${escapeHtml(printerStatText(p))}</span>
+          <span class="p-status-pill st-${escapeHtml(p.state)} ${p.pendingShutdown ? "is-cooling" : ""}">${escapeHtml(printerShortPill(p))}</span>
         </div>
-        <div class="printer-popup-body">
-          <div class="printer-photo">
-            <div style="width:17cqw;height:14cqw;">${printerSvg(p.model || p.name)}</div>
-            <div style="font-size:2.6cqh;font-weight:800;color:var(--muted);">${escapeHtml(p.ip || "–")}</div>
-          </div>
-          <div class="printer-spec-grid">
-            <div class="spec-chip"><div class="spec-k">Düse &amp; Temp.</div><div class="spec-v">${nozzleStr} · ${nozzleTemp}</div></div>
-            <div class="spec-chip"><div class="spec-k">Heizbett</div><div class="spec-v">${bedTemp}</div></div>
-            <div class="spec-chip"><div class="spec-k">Druckraum (mm)</div><div class="spec-v">${escapeHtml(p.buildVolume || "–")}</div></div>
-            <div class="spec-chip"><div class="spec-k">On-Time</div><div class="spec-v">${fmtOnTime(p.onTimeSeconds)}</div></div>
-            <div class="spec-chip"><div class="spec-k">Gesamt-Druckzeit</div><div class="spec-v">${totalH}</div></div>
-            <div class="spec-chip"><div class="spec-k">Gesamt-Filament</div><div class="spec-v">${totalKm}</div></div>
-            ${
-              hasActive
-                ? `
-                  <div class="p-job-banner">
-                    <div style="display:flex;justify-content:space-between;gap:1cqw;font-size:3cqh;font-weight:800;">
-                      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.state === "UPLOADING" ? "Überträgt:" : p.state === "PAUSED" ? "Pausiert:" : "Aktiver Druck:"} ${escapeHtml(activeName)}</span>
-                      <span style="flex-shrink:0;">${Math.round(p.progress || 0)} %</span>
-                    </div>
-                    <div class="p-job-meta-row">
-                      <span>👤 Verantwortlich: <strong>${escapeHtml(ownerLabel)}</strong></span>
-                      ${remTxt ? `<span>⏱ ${escapeHtml(remTxt)}</span>` : ""}
-                    </div>
+        <div class="printer-spec-grid">
+          <div class="spec-chip"><div class="spec-k">Düse &amp; Temp.</div><div class="spec-v">${nozzleStr} · ${nozzleTemp}</div></div>
+          <div class="spec-chip"><div class="spec-k">Heizbett</div><div class="spec-v">${bedTemp}</div></div>
+          <div class="spec-chip"><div class="spec-k">Druckraum</div><div class="spec-v">${escapeHtml(p.buildVolume || "–")}</div></div>
+          <div class="spec-chip"><div class="spec-k">On-Time</div><div class="spec-v">${fmtOnTime(p.onTimeSeconds)}</div></div>
+          <div class="spec-chip"><div class="spec-k">Gesamtzeit</div><div class="spec-v">${totalH}</div></div>
+          <div class="spec-chip"><div class="spec-k">Filament</div><div class="spec-v">${totalKm}</div></div>
+          ${
+            hasActive
+              ? `
+                <div class="p-job-banner">
+                  <div style="display:flex;justify-content:space-between;gap:2cqw;font-size:3.6cqw;font-weight:900;">
+                    <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.state === "UPLOADING" ? "Upload:" : p.state === "PAUSED" ? "Pausiert:" : "Aktiver Druck:"} ${escapeHtml(activeName)}</span>
+                    <span style="flex-shrink:0;">${Math.round(p.progress || 0)} %</span>
                   </div>
-                `
-                : `
-                  <div class="spec-chip" style="grid-column:span 3;display:flex;justify-content:space-between;align-items:center;">
-                    <span class="spec-k">Aktiver Druck</span>
-                    <span style="font-size:3cqh;font-weight:800;color:var(--muted);">${p.powerState === "OFF" ? "Drucker ausgeschaltet" : p.state === "OFFLINE" ? "Drucker nicht erreichbar" : "Kein laufender Auftrag"}</span>
+                  <div class="p-job-meta-row">
+                    <span>👤 Verantwortlich: <strong>${escapeHtml(ownerLabel)}</strong></span>
+                    ${remTxt ? `<span>⏱ Verbleibend: ${escapeHtml(remTxt)}</span>` : ""}
                   </div>
-                `
-            }
-          </div>
+                </div>
+              `
+              : `
+                <div class="spec-chip" style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;">
+                  <span class="spec-k">Status</span>
+                  <span style="font-size:3.4cqw;font-weight:800;color:var(--muted);">${escapeHtml(p.error || (p.powerState === "OFF" ? "Ausgeschaltet" : "Kein aktiver Druck"))}</span>
+                </div>
+              `
+          }
         </div>
         ${powerFootHtml}
       </div>
@@ -1325,9 +1609,7 @@
     state.donePopup = info;
     renderDonePopup();
     clearTimeout(donePopupTimer);
-    donePopupTimer = setTimeout(() => {
-      closeDonePopup();
-    }, 4000);
+    donePopupTimer = setTimeout(() => closeDonePopup(), 4000);
   }
 
   function closeDonePopup() {
@@ -1335,9 +1617,8 @@
     if (!state.donePopup) return;
     state.donePopup = null;
     renderDonePopup();
-    if (state.screen !== "queue") {
-      returnToQueue(false);
-    }
+    if (state.screen !== "queue") returnToQueue(false);
+    setLedHint("idle");
   }
 
   function renderDonePopup() {
@@ -1358,7 +1639,7 @@
         <div class="done-icon">✓</div>
         <h3>Druckjob erfolgreich an ${escapeHtml(slotTxt)} übertragen</h3>
         <p>${subTxt}</p>
-        <button type="button" class="btn btn-primary" data-close-done="1">OK</button>
+        <button type="button" class="btn btn-primary" style="height:6.4cqh;" data-close-done="1">OK</button>
       </div>
     `;
   }
@@ -1385,7 +1666,22 @@
     renderDevControls();
   }
 
-  // --- Events ---
+  // --- Global Activity, Wake Swallow & Tactile Touch Buzzer ---
+  $("power-overlay").addEventListener("pointerdown", (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    markActivity();
+  });
+
+  $("hmi-root").addEventListener("pointerdown", (ev) => {
+    if (ev.target.closest("#power-overlay")) return;
+    markActivity();
+    if (ev.target.closest("button, .p-tile, .job-card.is-uploading, input[type='range']")) {
+      fireTouchFeedback();
+    }
+  });
+
+  // --- Topbar & Dock & Popup Events ---
   $("btn-back-top").addEventListener("click", goBackOneStep);
   $("btn-theme-eye").addEventListener("click", () => setTheme(state.theme === "light" ? "dark" : "light"));
 
@@ -1396,6 +1692,8 @@
     state.selectedJobId = null;
     state.powerPrinterId = null;
     state.rfidPurpose = "account";
+    state.rfidAutoTriggered = false;
+    state.rfidError = "";
     openScreen(state.session ? "account" : "rfid_wait");
   });
 
@@ -1417,6 +1715,8 @@
       state.powerPrinterId = onBtn.dataset.powerOn;
       state.selectedJobId = null;
       state.rfidPurpose = "power_on";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
       state.printerPopupSlot = null;
       openScreen("rfid_wait");
       return;
@@ -1455,6 +1755,18 @@
     }
   });
 
+  // Brightness range slider live input
+  $("stage").addEventListener("input", (ev) => {
+    if (ev.target.id === "brightness-slider") {
+      const val = Number(ev.target.value);
+      state.displaySettings.brightness = val;
+      const lbl = $("brightness-val");
+      if (lbl) lbl.textContent = `${val} %`;
+      persistDisplaySettings();
+    }
+  });
+
+  // Main stage clicks
   $("stage").addEventListener("click", async (ev) => {
     const delBtn = ev.target.closest("[data-del-id]");
     if (delBtn) {
@@ -1466,6 +1778,8 @@
     if (printBtn) {
       state.selectedJobId = printBtn.dataset.printId;
       state.rfidPurpose = "print";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
       openScreen("rfid_wait");
       return;
     }
@@ -1478,6 +1792,33 @@
     const themeBtn = ev.target.closest("[data-set-theme]");
     if (themeBtn) {
       setTheme(themeBtn.dataset.setTheme);
+      return;
+    }
+    const dimBtn = ev.target.closest("[data-dim-delay]");
+    if (dimBtn) {
+      state.displaySettings.dimDelaySeconds = Number(dimBtn.dataset.dimDelay);
+      persistDisplaySettings();
+      renderStage();
+      return;
+    }
+    const sleepBtn = ev.target.closest("[data-sleep-delay]");
+    if (sleepBtn) {
+      state.displaySettings.sleepDelaySeconds = Number(sleepBtn.dataset.sleepDelay);
+      persistDisplaySettings();
+      renderStage();
+      return;
+    }
+    const buzBtn = ev.target.closest("[data-buzzer-mode]");
+    if (buzBtn) {
+      state.displaySettings.buzzerMode = buzBtn.dataset.buzzerMode;
+      persistDisplaySettings();
+      renderStage();
+      return;
+    }
+    const adminTabBtn = ev.target.closest("[data-admin-tab]");
+    if (adminTabBtn) {
+      state.adminTab = adminTabBtn.dataset.adminTab;
+      renderStage();
       return;
     }
     const secBtn = ev.target.closest("[data-section-id]");
@@ -1508,125 +1849,109 @@
           return;
         }
         await executeStart(state.pinMode, { pin: state.pinValue, sectionId: state.selectedSectionId });
-      } else if (state.pinValue.length < 8) {
+      } else if (state.pinValue.length < 6) {
         state.pinValue += k;
         renderStage();
       }
       return;
     }
+
     const actBtn = ev.target.closest("[data-action]");
-    if (actBtn) {
-      const a = actBtn.dataset.action;
-      if (a === "start-personal") return executeStart("personal");
-      if (a === "open-overdraft") return openScreen("overdraft_confirm");
-      if (a === "start-personal-overdraft") return executeStart("personal", { allowOverdraft: true });
-      if (a === "open-club") return openScreen("club_section");
-      if (a === "open-already-paid") {
-        state.pinMode = "already_paid";
-        state.pinValue = "";
-        state.pinError = "";
-        return openScreen("pin_entry");
-      }
-      if (a === "open-topup-print") {
-        state.topupReturnTo = "payment_confirm";
-        return openScreen("topup");
-      }
-      if (a === "open-topup-account") {
-        state.topupReturnTo = "account";
-        return openScreen("topup");
-      }
-      if (a === "open-bv-wait") return openScreen("bv_wait");
-      if (a === "open-admin") {
-        try {
-          state.adminConfig = await api("/api/admin/config");
-        } catch {}
-        return openScreen("admin");
-      }
-      if (a === "admin-test") {
-        try {
-          const r = await api("/api/admin/test-connection", { method: "POST" });
-          showToast(r.ok ? `✓ ${r.message}` : `✕ ${r.message}`);
-        } catch (err) {
-          showToast(err.message);
-        }
-        return;
-      }
-      if (a === "admin-save") {
-        try {
-          const payload = {
-            terminalId: $("adm-terminal-id").value.trim() || state.terminalId,
-            easyverwaltungServiceId: $("adm-service-id").value.trim(),
-            easyverwaltungUrl: $("adm-server-url").value.trim(),
-            easyverwaltungServiceToken: $("adm-token").value.trim() || null,
-          };
-          const r = await api("/api/admin/config", { method: "POST", body: JSON.stringify(payload) });
-          state.adminConfig = r.config;
-          state.terminalId = r.config.terminalId;
-          showToast("✓ Server-ID & Token gespeichert");
-          openScreen("settings");
-        } catch (err) {
-          showToast(err.message);
-        }
+    if (!actBtn) return;
+    const act = actBtn.dataset.action;
+
+    if (act === "go-home") return returnToQueue(true);
+    if (act === "pay-personal") return executeStart("personal");
+    if (act === "open-overdraft") return openScreen("overdraft_confirm");
+    if (act === "pay-overdraft") return executeStart("personal", { allowOverdraft: true });
+    if (act === "open-topup") {
+      state.topupReturnTo = "payment_confirm";
+      return openScreen("topup");
+    }
+    if (act === "open-topup-account") {
+      state.topupReturnTo = "account";
+      return openScreen("topup");
+    }
+    if (act === "open-club") return openScreen("club_section");
+    if (act === "open-paid") {
+      state.pinMode = "already_paid";
+      state.pinValue = "";
+      state.pinError = "";
+      return openScreen("pin_entry");
+    }
+    if (act === "open-bv-wait") return openScreen("bv_wait");
+    if (act === "open-admin-auth") {
+      state.rfidPurpose = "admin";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
+      return openScreen("rfid_wait");
+    }
+    if (act === "admin-test") {
+      try {
+        const res = await api("/api/admin/test-connection", { method: "POST", adminCode: state.adminCode });
+        showToast(res.message || (res.ok ? "Verbindung OK" : "Fehlgeschlagen"));
+      } catch (err) {
+        showToast(err.message);
       }
     }
   });
 
-  // Touch swipe-left on job cards
+  // Swipe-left to delete/abort on job cards
   let swipeCard = null;
   let swipeStartX = 0;
   let swipeStartY = 0;
   let swipeDx = 0;
-  let swipeLocked = false;
+  let swipeActive = false;
 
-  $("stage").addEventListener("touchstart", (ev) => {
-    if (ev.touches.length !== 1) return;
+  $("stage").addEventListener("pointerdown", (ev) => {
+    if (ev.target.closest("button")) return;
     const card = ev.target.closest(".job-card");
     if (!card) return;
     swipeCard = card;
-    swipeStartX = ev.touches[0].clientX;
-    swipeStartY = ev.touches[0].clientY;
+    swipeStartX = ev.clientX;
+    swipeStartY = ev.clientY;
     swipeDx = 0;
-    swipeLocked = false;
-  }, { passive: true });
+    swipeActive = false;
+  });
 
-  $("stage").addEventListener("touchmove", (ev) => {
-    if (!swipeCard || ev.touches.length !== 1) return;
-    const dx = ev.touches[0].clientX - swipeStartX;
-    const dy = ev.touches[0].clientY - swipeStartY;
-    if (!swipeLocked) {
-      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 10) {
+  window.addEventListener("pointermove", (ev) => {
+    if (!swipeCard) return;
+    const dx = ev.clientX - swipeStartX;
+    const dy = ev.clientY - swipeStartY;
+    if (!swipeActive) {
+      if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.4 && dx < 0) {
+        swipeActive = true;
+        swipeCard.classList.add("swiping");
+      } else if (Math.abs(dy) > 14) {
         swipeCard = null;
         return;
       }
-      if (Math.abs(dx) > 12) {
-        swipeLocked = true;
-        swipeCard.classList.add("swiping");
-      }
     }
-    if (swipeLocked && dx < 0) {
-      swipeDx = Math.max(-180, dx);
+    if (swipeActive) {
+      swipeDx = Math.min(0, Math.max(-160, dx));
       swipeCard.style.transform = `translateX(${swipeDx}px)`;
     }
-  }, { passive: true });
+  });
 
-  $("stage").addEventListener("touchend", async () => {
+  window.addEventListener("pointerup", async () => {
     if (!swipeCard) return;
     const card = swipeCard;
     const dx = swipeDx;
     swipeCard = null;
     card.classList.remove("swiping");
-    if (dx <= -95) {
+    if (swipeActive && dx < -90) {
       card.style.transform = "translateX(-100%)";
       await cancelOrAbortJob(card.dataset.jobId);
     } else {
       card.style.transform = "";
     }
+    swipeActive = false;
   });
 
-  // Collapsible DEV Drawer
+  // Dev Simulator Drawer
   $("dev-pill").addEventListener("click", () => {
     $("dev-drawer").classList.remove("hidden");
-    $("dev-pill").classList.add("hidden");
+    renderDevControls();
   });
   $("dev-close").addEventListener("click", () => {
     $("dev-drawer").classList.add("hidden");
@@ -1634,59 +1959,92 @@
   });
   $("dev-upload").addEventListener("click", async () => {
     try {
-      await api("/api/dev/upload-sample", { method: "POST", body: JSON.stringify({ slot: 1 }) });
-      showToast("Test-Job auf Drucker 1 hochgeladen");
-    } catch (err) {
-      showToast(err.message);
-    }
-  });
-  $("dev-toggle-p1").addEventListener("click", async () => {
-    const p1 = state.printers.find((p) => p.slot === 1);
-    if (!p1) return;
-    const next = p1.state === "READY" ? "PRINTING" : "READY";
-    try {
-      await api("/api/dev/printer-state", { method: "POST", body: JSON.stringify({ printerId: p1.id, state: next }) });
+      const slot = state.printers[0]?.slot || 1;
+      await api("/api/dev/upload-sample", { method: "POST", body: JSON.stringify({ slot }) });
     } catch (err) {
       showToast(err.message);
     }
   });
   $("dev-drawer").addEventListener("click", async (ev) => {
-    const btn = ev.target.closest("[data-rfid]");
-    if (!btn) return;
+    const rfidBtn = ev.target.closest("[data-rfid]");
+    if (!rfidBtn) return;
     try {
-      await api("/api/dev/simulate-rfid", { method: "POST", body: JSON.stringify({ uid: btn.dataset.rfid }) });
+      await api("/api/dev/simulate-rfid", {
+        method: "POST",
+        body: JSON.stringify({ uid: rfidBtn.dataset.rfid }),
+      });
+    } catch (err) {
+      showToast(err.message);
+    }
+  });
+  $("dev-toggle-p1").addEventListener("click", async () => {
+    const p1 = state.printers[0];
+    if (!p1) return;
+    const next = p1.state === "READY" ? "PRINTING" : "READY";
+    try {
+      await api("/api/dev/printer-state", {
+        method: "POST",
+        body: JSON.stringify({ printerId: p1.id, state: next }),
+      });
     } catch (err) {
       showToast(err.message);
     }
   });
 
-  // Periodic tick: Clock, Job TTL rings, active timeout ring
-  setInterval(() => {
-    $("sb-clock").textContent = new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
-    updateTimeoutDOM();
+  // --- Clock, Job TTL, Timeout Ring & 2-Stage Auto-Dim / 30-min Sleep Tick ---
+  function tick() {
+    const now = new Date();
+    $("sb-clock").textContent = now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+
     if (state.screen === "queue") {
+      const nowMs = Date.now();
       for (const j of state.jobs) {
         if (j.status === "sending") continue;
-        const rem = Math.max(0, Math.floor((j._clientExpiresAt - Date.now()) / 1000));
+        const rem = Math.max(0, Math.floor((j._clientExpiresAt - nowMs) / 1000));
         const pct = Math.max(0, Math.min(100, (rem / (j._ttlTotal || 300)) * 100));
         const txt = document.querySelector(`[data-ttl-txt="${j.id}"]`);
         const fg = document.querySelector(`[data-ttl-fg="${j.id}"]`);
         const wrap = document.querySelector(`[data-ttl-wrap="${j.id}"]`);
-        if (txt) txt.textContent = `Timeout: ${fmtCountdown(rem)}`;
+        if (txt) txt.textContent = fmtCountdown(rem);
         if (fg) {
-          fg.style.strokeDashoffset = ((100 - pct) * 0.628).toFixed(1);
+          fg.setAttribute("stroke-dashoffset", ((100 - pct) * 0.628).toFixed(1));
           fg.setAttribute("stroke", rem <= 60 ? "var(--orange)" : "var(--blue)");
         }
         if (wrap) wrap.classList.toggle("warn", rem <= 60);
       }
     }
-  }, 500);
 
-  window.addEventListener("resize", () => {
-    if (state.screen === "queue") initMarquees();
+    updateTimeoutDOM();
+
+    // Auto-Dim & 30-min Display Sleep only when idle on Queue with no active upload or open popup
+    const hasActiveUpload = state.jobs.some((j) => j.status === "sending");
+    const isIdle =
+      state.screen === "queue" &&
+      !hasActiveUpload &&
+      state.printerPopupSlot == null &&
+      state.uploadPopupJobId == null &&
+      !state.donePopup;
+
+    if (isIdle) {
+      const idleSec = (Date.now() - state.lastActivityAt) / 1000;
+      const sleepSec = Number(state.displaySettings.sleepDelaySeconds || 0);
+      const dimSec = Number(state.displaySettings.dimDelaySeconds || 0);
+      if (sleepSec > 0 && idleSec >= sleepSec) {
+        setDisplayPower("sleep");
+      } else if (dimSec > 0 && idleSec >= dimSec && state.powerState !== "sleep") {
+        setDisplayPower("dim");
+      }
+    }
+  }
+
+  setInterval(tick, 1000);
+  setInterval(() => loadState(), 15000);
+
+  // Boot
+  updateBrandLogo();
+  tick();
+  loadState().then(() => {
+    renderAll();
+    connectEvents();
   });
-
-  setInterval(loadState, 15000);
-  loadState();
-  connectSSE();
 })();

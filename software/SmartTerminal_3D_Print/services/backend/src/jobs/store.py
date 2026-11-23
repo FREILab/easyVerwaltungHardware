@@ -356,6 +356,44 @@ class JobStore:
             for r in rows
         }
 
+    def list_print_history(self, limit: int = 50) -> list[dict[str, Any]]:
+        """Return recent started/failed prints for the BV Admin Print History panel."""
+        with self._lock, self._connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT id, printer_slot, printer_id, printer_name, filename,
+                       filament_g, filament_type, estimated_time_s, price_cents,
+                       status, created_at, started_at, payment_mode,
+                       user_display_name, section_name, print_after_upload
+                FROM jobs
+                WHERE status IN ('started', 'failed')
+                ORDER BY COALESCE(started_at, created_at) DESC
+                LIMIT ?
+                """,
+                (max(1, min(200, int(limit))),),
+            ).fetchall()
+        return [
+            {
+                "id": r["id"],
+                "printerSlot": r["printer_slot"],
+                "printerId": r["printer_id"],
+                "printerName": r["printer_name"],
+                "filename": r["filename"],
+                "displayName": derive_display_name(r["filename"]),
+                "filamentGrams": float(r["filament_g"] or 0.0),
+                "filamentType": r["filament_type"] or "PLA",
+                "estimatedTimeSeconds": int(r["estimated_time_s"] or 0),
+                "priceCents": int(r["price_cents"] or 0),
+                "status": r["status"],
+                "startedAt": float(r["started_at"] or r["created_at"] or 0.0),
+                "paymentMode": r["payment_mode"] or "personal",
+                "userDisplayName": r["user_display_name"] or "Unbekannt",
+                "sectionName": r["section_name"],
+                "printAfterUpload": bool(r["print_after_upload"]),
+            }
+            for r in rows
+        ]
+
     def latest_started_jobs_by_printer(self) -> dict[str, dict[str, Any]]:
         """Return the most recently started job per printer (for displaying owner & fallback ETA)."""
         with self._lock, self._connect() as conn:

@@ -10,3 +10,5 @@ services:
       - /dev/spidev0.0:/dev/spidev0.0   # PN532 NFC/RFID (SPI)
       - /dev/gpiochip0:/dev/gpiochip0   # Buzzer, WS2812 / GPIO
       - /dev/i2c-1:/dev/i2c-1           # Optionale I2C-Peripherie
+    volumes:
+      - /sys/class/backlight:/sys/class/backlight   # Waveshare DSI Hardware-Backlight (0-255)

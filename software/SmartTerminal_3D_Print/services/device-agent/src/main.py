@@ -4,10 +4,11 @@ import asyncio
 import logging
 import os
 import time
+from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [device-agent] %(message)s")
 logger = logging.getLogger("st3d.device-agent")
@@ -41,14 +42,46 @@ class EventHub:
 
 hub = EventHub()
 current_led_mode = "idle"
+current_led_progress: int | None = None
+current_backlight_percent = 100
+
+
+def _find_backlight_dir() -> Path | None:
+    root = Path("/sys/class/backlight")
+    if not root.exists():
+        return None
+    for entry in sorted(root.iterdir()):
+        if (entry / "brightness").exists() and (entry / "max_brightness").exists():
+            return entry
+    return None
+
+
+def _apply_hardware_backlight(percent: int) -> tuple[bool, int | None, int | None]:
+    bl = _find_backlight_dir()
+    if bl is None:
+        return False, None, None
+    try:
+        max_val = max(1, int((bl / "max_brightness").read_text(encoding="utf-8").strip()))
+        clamped = max(0, min(100, int(percent)))
+        raw = int(round(max_val * clamped / 100.0))
+        (bl / "brightness").write_text(f"{raw}\n", encoding="utf-8")
+        return True, raw, max_val
+    except Exception as exc:
+        logger.warning("Failed to set hardware backlight (%s): %s", bl, exc)
+        return False, None, None
 
 
 class BeeperCommand(BaseModel):
-    pattern: str = "ok"
+    pattern: str = "ok"  # touch | attention | ok | warn | done | error
 
 
 class LedCommand(BaseModel):
-    mode: str = "idle"
+    mode: str = "idle"  # sleep | dim | idle | rfid | pay | warn | uploading | done | error
+    progress: int | None = Field(default=None, ge=0, le=100)
+
+
+class BacklightCommand(BaseModel):
+    percent: int = Field(..., ge=0, le=100)
 
 
 class MockRfidScan(BaseModel):
@@ -57,27 +90,59 @@ class MockRfidScan(BaseModel):
 
 @app.get("/health")
 def health() -> dict[str, Any]:
+    bl = _find_backlight_dir()
     return {
         "status": "ok",
         "service": "device-agent",
         "hardwareMode": HARDWARE_MODE,
         "ledMode": current_led_mode,
+        "ledProgress": current_led_progress,
+        "backlightPercent": current_backlight_percent,
+        "backlightDevice": bl.name if bl else None,
         "wsClients": len(hub._clients),
     }
 
 
 @app.post("/commands/beeper")
 def beeper_command(cmd: BeeperCommand) -> dict[str, Any]:
-    logger.info("Beeper command (mode=%s): %s", HARDWARE_MODE, cmd.pattern)
+    if cmd.pattern != "touch":
+        logger.info("Beeper command (mode=%s): %s", HARDWARE_MODE, cmd.pattern)
     return {"accepted": True, "pattern": cmd.pattern, "hardwareMode": HARDWARE_MODE}
 
 
 @app.post("/commands/led")
 def led_command(cmd: LedCommand) -> dict[str, Any]:
-    global current_led_mode
+    global current_led_mode, current_led_progress
     current_led_mode = cmd.mode
-    logger.info("LED command (mode=%s): %s", HARDWARE_MODE, cmd.mode)
-    return {"accepted": True, "mode": cmd.mode, "hardwareMode": HARDWARE_MODE}
+    current_led_progress = cmd.progress
+    logger.info("LED command (mode=%s): %s progress=%s", HARDWARE_MODE, cmd.mode, cmd.progress)
+    return {
+        "accepted": True,
+        "mode": cmd.mode,
+        "progress": cmd.progress,
+        "hardwareMode": HARDWARE_MODE,
+    }
+
+
+@app.post("/commands/backlight")
+def backlight_command(cmd: BacklightCommand) -> dict[str, Any]:
+    global current_backlight_percent
+    current_backlight_percent = cmd.percent
+    applied, raw, max_val = _apply_hardware_backlight(cmd.percent)
+    logger.info(
+        "Backlight command: %d%% (hw_applied=%s, raw=%s/%s)",
+        cmd.percent,
+        applied,
+        raw,
+        max_val,
+    )
+    return {
+        "accepted": True,
+        "percent": cmd.percent,
+        "hardwareApplied": applied,
+        "raw": raw,
+        "max": max_val,
+    }
 
 
 @app.post("/mock/rfid")

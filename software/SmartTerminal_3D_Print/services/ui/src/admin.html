@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SmartTerminal 3D-Print — Admin Setup</title>
+  <style>
+    :root {
+      --bg: #f1f0ec;
+      --surface: #ffffff;
+      --surface-2: #e7e5df;
+      --border: #d5d2c9;
+      --border-strong: #bab5a9;
+      --text: #0f172a;
+      --muted: #576071;
+      --green: #16a34a;
+      --blue: #2563eb;
+      --red: #dc2626;
+      --red-bg: #fee2e2;
+      --red-ink: #991b1b;
+      --green-bg: #dcfce7;
+      --green-ink: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      padding: 16px;
+    }
+    .wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .head {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .head img { height: 28px; width: auto; }
+    .head-sub { font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; }
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card h2 { margin: 0; font-size: 18px; font-weight: 900; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 13px; font-weight: 800; color: var(--muted); }
+    .field input {
+      height: 46px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-strong);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      width: 100%;
+    }
+    .field input:focus { outline: 2px solid var(--blue); border-color: var(--blue); background: var(--surface); }
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn {
+      height: 48px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      gap: 6px;
+    }
+    .btn-green { background: var(--green); border-color: var(--green); color: #fff; }
+    .btn-blue { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .banner {
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .banner.err { background: var(--red-bg); color: var(--red-ink); border: 1.5px solid #fca5a5; }
+    .banner.ok { background: var(--green-bg); color: var(--green-ink); border: 1.5px solid #86efac; }
+    .hist-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .hist-item:last-child { border-bottom: none; }
+    .hist-row { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+    .muted { color: var(--muted); font-size: 12.5px; font-weight: 700; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <img src="assets/freilab-logo.svg" alt="FREILab">
+      <span class="head-sub">3D-Print Admin</span>
+    </div>
+
+    <div id="auth-error" class="banner err hidden"></div>
+    <div id="status-msg" class="banner hidden"></div>
+
+    <div id="admin-content" class="hidden" style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card">
+        <h2>⚙ Server &amp; easyVerwaltung Token</h2>
+        <div class="field">
+          <label for="f-tid">Terminal-ID</label>
+          <input id="f-tid" type="text" placeholder="3dprint-01">
+        </div>
+        <div class="field">
+          <label for="f-url">easyVerwaltung Server-URL</label>
+          <input id="f-url" type="url" placeholder="https://verwaltung.freilab.de">
+        </div>
+        <div class="field">
+          <label for="f-sid">Service-ID</label>
+          <input id="f-sid" type="text" placeholder="svc_3dprint_01">
+        </div>
+        <div class="field">
+          <label for="f-tok">Service-Token <span id="tok-hint" class="muted"></span></label>
+          <input id="f-tok" type="password" autocomplete="off" placeholder="Neues Token einfügen (leer = unverändert)">
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn" id="btn-test">Verbindung testen</button>
+          <button type="button" class="btn btn-green" id="btn-save">Speichern</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <h2>📋 Druckverlauf</h2>
+          <a class="btn btn-blue" id="btn-csv" style="height:38px;padding:0 12px;font-size:13px;" href="#">⬇ CSV</a>
+        </div>
+        <div id="hist-list" class="muted">Lade Verlauf…</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const code = new URLSearchParams(window.location.search).get("code") || "";
+    const $ = (id) => document.getElementById(id);
+
+    function showStatus(msg, ok) {
+      const el = $("status-msg");
+      el.textContent = msg;
+      el.className = `banner ${ok ? "ok" : "err"}`;
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    }
+
+    function fmtEur(c) { return `${(Number(c || 0) / 100).toFixed(2).replace(".", ",")} €`; }
+    function fmtDt(ts) {
+      if (!ts) return "–";
+      const d = new Date(ts * 1000);
+      return `${d.toLocaleDateString("de-DE")} · ${d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}`;
+    }
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, {
+        ...opts,
+        headers: { "Content-Type": "application/json", "X-Admin-Code": code, ...(opts.headers || {}) },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.detail?.message || data?.detail || `HTTP ${res.status}`);
+      return data;
+    }
+
+    async function boot() {
+      if (!code) {
+        $("auth-error").textContent = "Kein gültiger BV-Freigabecode in der URL. Bitte am 3D-Print-Terminal unter ⚙ → 🔐 Admin die BV-Karte scannen und den QR-Code scannen.";
+        $("auth-error").classList.remove("hidden");
+        return;
+      }
+      try {
+        const cfg = await api("/api/admin/config");
+        $("f-tid").value = cfg.terminalId || "";
+        $("f-url").value = cfg.easyverwaltungUrl || "";
+        $("f-sid").value = cfg.easyverwaltungServiceId || "";
+        $("tok-hint").textContent = cfg.hasToken ? "(gesetzt)" : "(fehlt)";
+        $("btn-csv").href = `/api/admin/history.csv?code=${encodeURIComponent(code)}`;
+        $("admin-content").classList.remove("hidden");
+
+        const hist = await api("/api/admin/history?limit=50");
+        const items = hist.items || [];
+        if (!items.length) {
+          $("hist-list").textContent = "Noch keine gestarteten Druckjobs im Log.";
+        } else {
+          $("hist-list").innerHTML = items.map((it) => {
+            const modeTxt = it.paymentMode === "club"
+              ? `Verein${it.sectionName ? `: ${it.sectionName}` : ""}`
+              : it.paymentMode === "already_paid"
+                ? "Bereits bezahlt"
+                : "Privat";
+            return `
+              <div class="hist-item">
+                <div class="hist-row">
+                  <strong>${escapeHtml(it.displayName)}</strong>
+                  <span class="muted">Drucker ${it.printerSlot}</span>
+                </div>
+                <div class="hist-row">
+                  <span>👤 ${escapeHtml(it.userDisplayName)}</span>
+                  <span class="muted">${escapeHtml(modeTxt)}</span>
+                </div>
+                <div class="hist-row muted">
+                  <span>${fmtDt(it.startedAt)} · ${Number(it.filamentGrams || 0).toFixed(0)} g ${escapeHtml(it.filamentType)}</span>
+                  <strong style="color:var(--text);">${fmtEur(it.priceCents)}</strong>
+                </div>
+              </div>
+            `;
+          }).join("");
+        }
+      } catch (err) {
+        $("auth-error").textContent = `${err.message} — Bitte am Terminal erneut die BV-Karte scannen.`;
+        $("auth-error").classList.remove("hidden");
+      }
+    }
+
+    $("btn-test").addEventListener("click", async () => {
+      try {
+        const res = await api("/api/admin/test-connection", { method: "POST" });
+        showStatus(res.message || (res.ok ? "Verbindung OK" : "Fehlgeschlagen"), Boolean(res.ok));
+      } catch (err) {
+        showStatus(err.message, false);
+      }
+    });
+
+    $("btn-save").addEventListener("click", async () => {
+      try {
+        const res = await api("/api/admin/config", {
+          method: "POST",
+          body: JSON.stringify({
+            terminalId: $("f-tid").value.trim(),
+            easyverwaltungUrl: $("f-url").value.trim(),
+            easyverwaltungServiceId: $("f-sid").value.trim(),
+            easyverwaltungServiceToken: $("f-tok").value.trim() || null,
+          }),
+        });
+        $("f-tok").value = "";
+        $("tok-hint").textContent = res.config?.hasToken ? "(gesetzt)" : "(fehlt)";
+        showStatus("✓ Konfiguration gespeichert!", true);
+      } catch (err) {
+        showStatus(err.message, false);
+      }
+    });
+
+    boot();
+  </script>
+</body>
+</html>

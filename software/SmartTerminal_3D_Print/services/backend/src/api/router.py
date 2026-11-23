@@ -2,18 +2,23 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import csv
+import io
 import json
 import logging
 import os
+import secrets
 import socket
 import time
 import uuid
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import httpx
+import segno
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, Response, StreamingResponse
 from pydantic import BaseModel, Field
 
 from jobs.parser import compute_job_price, parse_print_file
@@ -76,9 +81,87 @@ class PrinterPowerOnRequest(BaseModel):
     sessionId: str
 
 
+class AdminAuthorizeRequest(BaseModel):
+    rfid: str = Field(..., min_length=2, max_length=64)
+
+
+class DisplaySettingsUpdate(BaseModel):
+    brightness: int = Field(default=90, ge=15, le=100)
+    dimDelaySeconds: int = Field(default=120, ge=0, le=3600)
+    sleepDelaySeconds: int = Field(default=1800, ge=0, le=7200)
+    buzzerMode: str = Field(default="all")  # all | events | off
+
+
+class DisplayPowerRequest(BaseModel):
+    state: str = Field(..., pattern="^(active|dim|sleep)$")
+
+
+class LedFeedbackRequest(BaseModel):
+    mode: str = Field(default="idle", max_length=32)
+    progress: int | None = Field(default=None, ge=0, le=100)
+
+
 class DevPrinterTempRequest(BaseModel):
     printerId: str
     nozzleTemp: float | None = None  # None clears override
+
+
+_DEFAULT_DISPLAY_SETTINGS: dict[str, Any] = {
+    "brightness": 90,
+    "dimDelaySeconds": 120,
+    "sleepDelaySeconds": 1800,
+    "buzzerMode": "all",
+}
+
+
+def _load_display_settings(data_dir: Path) -> dict[str, Any]:
+    path = data_dir / "display_settings.json"
+    out = dict(_DEFAULT_DISPLAY_SETTINGS)
+    if path.exists():
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(raw, dict):
+                out.update(raw)
+        except Exception:
+            pass
+    out["brightness"] = max(15, min(100, int(out.get("brightness", 90))))
+    out["dimDelaySeconds"] = max(0, min(3600, int(out.get("dimDelaySeconds", 120))))
+    out["sleepDelaySeconds"] = max(0, min(7200, int(out.get("sleepDelaySeconds", 1800))))
+    if out.get("buzzerMode") not in {"all", "events", "off"}:
+        out["buzzerMode"] = "all"
+    return out
+
+
+def _save_display_settings(data_dir: Path, payload: dict[str, Any]) -> None:
+    path = data_dir / "display_settings.json"
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+async def _beep(st: Any, pattern: str) -> None:
+    cfg = _load_display_settings(st.settings.data_dir)
+    mode = cfg.get("buzzerMode", "all")
+    if mode == "off":
+        return
+    if pattern == "touch" and mode != "all":
+        return
+    await st.device_client.send_beeper(pattern)
+
+
+def _require_admin_code(request: Request, code: str | None = None) -> dict[str, Any]:
+    st = request.app.state
+    raw_code = (code or request.headers.get("X-Admin-Code") or request.query_params.get("code") or "").strip()
+    now = time.time()
+    # Prune expired admin sessions
+    for k, v in list(st.admin_sessions.items()):
+        if v["expiresAt"] <= now:
+            st.admin_sessions.pop(k, None)
+    sess = st.admin_sessions.get(raw_code)
+    if not sess:
+        raise HTTPException(
+            status_code=401,
+            detail={"code": "admin_auth_required", "message": "BV-Karte erforderlich. Bitte am Terminal neu entsperren."},
+        )
+    return sess
 
 
 def _detect_local_ip() -> str:
@@ -200,14 +283,16 @@ async def terminal_state(request: Request) -> dict[str, Any]:
         jobs.append(j)
 
     overrides = _load_admin_overrides(st.settings.data_dir)
+    display_settings = _load_display_settings(st.settings.data_dir)
     return {
         "terminalId": overrides.get("terminalId") or st.settings.terminal_id,
         "terminalIp": _detect_local_ip(),
-        "version": "0.3.0",
+        "version": "0.4.0",
         "serviceName": meta.get("service", {}).get("name", "SmartTerminal 3D-Print"),
         "printers": printers,
         "jobs": jobs,
         "sections": meta.get("sections", []),
+        "displaySettings": display_settings,
         "modes": {
             "hardware": st.settings.hardware_mode,
             "payment": st.settings.payment_mode,
@@ -397,7 +482,10 @@ async def _run_printer_transfer(
     total_bytes = int(job.get("fileSize") or 0)
     started_mono = time.monotonic()
 
+    last_led_step = -1
+
     def _emit_upload_progress(sent: int, total: int) -> None:
+        nonlocal last_led_step
         pct = min(100, max(0, int(sent * 100 / total))) if total > 0 else 0
         elapsed = max(0.2, time.monotonic() - started_mono)
         bps = int(sent / elapsed)
@@ -416,6 +504,11 @@ async def _run_printer_transfer(
         }
         app_state.active_uploads[printer.id] = prog
         app_state.events.publish("job_progress", prog)
+        # Update 12-LED ring progress in ~8% increments (0..12 LEDs)
+        step = int(round(pct * 12 / 100))
+        if step != last_led_step:
+            last_led_step = step
+            asyncio.create_task(app_state.device_client.send_led("uploading", progress=pct))
 
     try:
         should_start = bool(job.get("printAfterUpload", True))
@@ -474,8 +567,8 @@ async def _run_printer_transfer(
         )
         new_status = await app_state.printer_client.poll_status(printer)
         app_state.registry.set_status(printer.id, new_status)
-        await app_state.device_client.send_beeper("ok")
-        await app_state.device_client.send_led("idle")
+        await _beep(app_state, "done")
+        await app_state.device_client.send_led("done")
         app_state.events.publish(
             "job_done",
             {
@@ -825,29 +918,176 @@ async def printer_cancel_shutdown(printer_id: str, request: Request) -> dict[str
     return {"ok": True, "printerId": printer.id}
 
 
+@router.get("/display/settings")
+def get_display_settings(request: Request) -> dict[str, Any]:
+    return _load_display_settings(request.app.state.settings.data_dir)
+
+
+@router.post("/display/settings")
+async def update_display_settings(body: DisplaySettingsUpdate, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    mode = body.buzzerMode if body.buzzerMode in {"all", "events", "off"} else "all"
+    cfg = {
+        "brightness": body.brightness,
+        "dimDelaySeconds": body.dimDelaySeconds,
+        "sleepDelaySeconds": body.sleepDelaySeconds,
+        "buzzerMode": mode,
+    }
+    _save_display_settings(st.settings.data_dir, cfg)
+    await st.device_client.send_backlight(cfg["brightness"])
+    return {"ok": True, "displaySettings": cfg}
+
+
+@router.post("/display/power")
+async def set_display_power(body: DisplayPowerRequest, request: Request) -> dict[str, Any]:
+    st = request.app.state
+    cfg = _load_display_settings(st.settings.data_dir)
+    if body.state == "sleep":
+        await st.device_client.send_backlight(0)
+        await st.device_client.send_led("sleep")
+        return {"ok": True, "state": "sleep", "percent": 0}
+    if body.state == "dim":
+        pct = min(20, cfg["brightness"])
+        await st.device_client.send_backlight(pct)
+        await st.device_client.send_led("dim")
+        return {"ok": True, "state": "dim", "percent": pct}
+    await st.device_client.send_backlight(cfg["brightness"])
+    await st.device_client.send_led("idle")
+    return {"ok": True, "state": "active", "percent": cfg["brightness"]}
+
+
+@router.post("/feedback/touch")
+async def feedback_touch(request: Request) -> dict[str, Any]:
+    await _beep(request.app.state, "touch")
+    return {"ok": True}
+
+
+@router.post("/feedback/led")
+async def feedback_led(body: LedFeedbackRequest, request: Request) -> dict[str, Any]:
+    await request.app.state.device_client.send_led(body.mode, progress=body.progress)
+    return {"ok": True, "mode": body.mode}
+
+
 @router.get("/audit")
 def recent_audit(request: Request) -> dict[str, Any]:
     return {"items": request.app.state.store.recent_audit(30)}
 
 
+@router.post("/admin/authorize")
+async def authorize_admin(body: AdminAuthorizeRequest, request: Request) -> dict[str, Any]:
+    """Unlock BV Admin panel & generate short-lived QR setup URL for smartphone browser."""
+    st = request.app.state
+    res = await st.payment.authorize(mode="rfid", rfid=body.rfid)
+    if res.get("paymentAuthorizationId"):
+        await st.payment.cancel_authorization(
+            payment_authorization_id=res["paymentAuthorizationId"],
+            reason="ADMIN_BV_CHECK",
+        )
+    if not res.get("authorized"):
+        await _beep(st, "error")
+        await st.device_client.send_led("error")
+        return {"authorized": False, "reason": res.get("reason", "RFID_NOT_FOUND")}
+    if not bool(res.get("is_instructor", False)):
+        await _beep(st, "error")
+        await st.device_client.send_led("error")
+        return {"authorized": False, "reason": "BV_REQUIRED"}
+
+    code = secrets.token_urlsafe(12)
+    expires_at = time.time() + 600  # 10 min validity for smartphone QR setup
+    user = res.get("user") or {}
+    st.admin_sessions[code] = {
+        "code": code,
+        "user": user,
+        "expiresAt": expires_at,
+    }
+    ip = _detect_local_ip()
+    setup_url = f"http://{ip}/admin.html?code={code}"
+    st.store.log_event(
+        "admin_unlocked",
+        user_id=user.get("user_id"),
+        user_name=user.get("display_name"),
+    )
+    await _beep(st, "ok")
+    await st.device_client.send_led("pay")
+    return {
+        "authorized": True,
+        "adminCode": code,
+        "expiresInSeconds": 600,
+        "user": user,
+        "setupUrl": setup_url,
+        "qrUrl": f"/api/admin/qr.svg?code={code}",
+    }
+
+
+@router.get("/admin/qr.svg")
+def admin_qr_svg(request: Request, code: str = "") -> Response:
+    _require_admin_code(request, code)
+    ip = _detect_local_ip()
+    setup_url = f"http://{ip}/admin.html?code={code}"
+    qr = segno.make(setup_url, error="M")
+    buf = io.BytesIO()
+    qr.save(buf, kind="svg", scale=6, border=2, xmldecl=False, dark="#0f172a", light="#ffffff")
+    return Response(content=buf.getvalue(), media_type="image/svg+xml", headers={"Cache-Control": "no-store"})
+
+
+@router.get("/admin/history")
+def get_admin_history(request: Request, limit: int = 50, code: str | None = None) -> dict[str, Any]:
+    _require_admin_code(request, code)
+    return {"items": request.app.state.store.list_print_history(limit)}
+
+
+@router.get("/admin/history.csv")
+def export_admin_history_csv(request: Request, limit: int = 200, code: str | None = None) -> Response:
+    _require_admin_code(request, code)
+    items = request.app.state.store.list_print_history(limit)
+    out = io.StringIO()
+    w = csv.writer(out)
+    w.writerow(["Datum", "Drucker", "Job", "Verantwortlich", "Modus", "Bereich", "Filament_g", "Material", "Preis_EUR", "Status"])
+    for it in items:
+        dt = datetime.fromtimestamp(it["startedAt"]).strftime("%Y-%m-%d %H:%M") if it["startedAt"] else ""
+        w.writerow([
+            dt,
+            f"Drucker {it['printerSlot']} ({it['printerName']})",
+            it["displayName"],
+            it["userDisplayName"],
+            it["paymentMode"],
+            it["sectionName"] or "",
+            f"{it['filamentGrams']:.1f}",
+            it["filamentType"],
+            f"{it['priceCents'] / 100:.2f}",
+            it["status"],
+        ])
+    return Response(
+        content=out.getvalue(),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": 'attachment; filename="druckverlauf.csv"'},
+    )
+
+
 @router.get("/admin/config")
-def get_admin_config(request: Request) -> dict[str, Any]:
+def get_admin_config(request: Request, code: str | None = None) -> dict[str, Any]:
+    _require_admin_code(request, code)
     st = request.app.state
     ov = _load_admin_overrides(st.settings.data_dir)
     token = ov.get("easyverwaltungServiceToken") or st.settings.easyverwaltung_service_token
+    ip = _detect_local_ip()
+    raw_code = (code or request.headers.get("X-Admin-Code") or request.query_params.get("code") or "").strip()
     return {
         "terminalId": ov.get("terminalId") or st.settings.terminal_id,
         "easyverwaltungUrl": ov.get("easyverwaltungUrl", st.settings.easyverwaltung_url),
         "easyverwaltungServiceId": ov.get("easyverwaltungServiceId", st.settings.easyverwaltung_service_id),
         "hasToken": bool(token and token != "REPLACE_ME"),
-        "terminalIp": _detect_local_ip(),
+        "terminalIp": ip,
+        "setupUrl": f"http://{ip}/admin.html?code={raw_code}" if raw_code else f"http://{ip}/admin.html",
+        "qrUrl": f"/api/admin/qr.svg?code={raw_code}" if raw_code else None,
         "paymentMode": st.settings.payment_mode,
-        "version": "0.3.0",
+        "version": "0.4.0",
     }
 
 
 @router.post("/admin/config")
-def update_admin_config(body: AdminConfigUpdate, request: Request) -> dict[str, Any]:
+def update_admin_config(body: AdminConfigUpdate, request: Request, code: str | None = None) -> dict[str, Any]:
+    sess = _require_admin_code(request, code)
     st = request.app.state
     ov = _load_admin_overrides(st.settings.data_dir)
     ov["terminalId"] = body.terminalId.strip()
@@ -858,17 +1098,20 @@ def update_admin_config(body: AdminConfigUpdate, request: Request) -> dict[str, 
     _save_admin_overrides(st.settings.data_dir, ov)
     st.store.log_event(
         "admin_config_updated",
+        user_id=(sess.get("user") or {}).get("user_id"),
+        user_name=(sess.get("user") or {}).get("display_name"),
         details={
             "terminalId": ov["terminalId"],
             "serviceId": ov["easyverwaltungServiceId"],
             "tokenUpdated": bool(body.easyverwaltungServiceToken and body.easyverwaltungServiceToken.strip()),
         },
     )
-    return {"ok": True, "config": get_admin_config(request)}
+    return {"ok": True, "config": get_admin_config(request, code)}
 
 
 @router.post("/admin/test-connection")
-async def test_admin_connection(request: Request) -> dict[str, Any]:
+async def test_admin_connection(request: Request, code: str | None = None) -> dict[str, Any]:
+    _require_admin_code(request, code)
     st = request.app.state
     ov = _load_admin_overrides(st.settings.data_dir)
     url = (ov.get("easyverwaltungUrl") or st.settings.easyverwaltung_url or "").strip().rstrip("/")
@@ -998,5 +1241,10 @@ async def dev_upload_sample(body: DevUploadSampleRequest, request: Request) -> d
         price_source=pricing.price_source,
         ttl_seconds=st.settings.job_ttl_seconds,
     )
-    st.events.publish("queue_updated", {"action": "uploaded", "jobId": job["id"], "slot": body.slot})
+    st.events.publish(
+        "queue_updated",
+        {"action": "uploaded", "jobId": job["id"], "slot": body.slot, "autoRfid": True},
+    )
+    await _beep(st, "attention")
+    await st.device_client.send_led("rfid")
     return {"ok": True, "job": job}

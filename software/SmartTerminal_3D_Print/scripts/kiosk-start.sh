@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Wird von labwc beim Start des Kiosk-Services ausgeführt.
-# Dreht das Waveshare 5" DSI Display auf Querformat (1280x720), setzt Touch-Skalierung
-# für 5"-Displays und startet Chromium im Vollbild-Kiosk-Modus.
+# Betreibt das Waveshare 5" DSI Display im nativen Hochkant-Format (720x1280), setzt
+# HiDPI-Skalierung (1,5x = 480x854 logisch) und startet Chromium im Vollbild-Kiosk-Modus.
 set -euo pipefail
 
-ROTATE="${DISPLAY_ROTATE:-270}"
+# 0 oder 180 für Hochkant (je nach Einbaurichtung des DSI-Kabels)
+ROTATE="${DISPLAY_ROTATE:-0}"
 SCALE="${KIOSK_SCALE:-1.5}"
 TARGET_URL="${KIOSK_URL:-http://127.0.0.1/?kiosk=1}"
 

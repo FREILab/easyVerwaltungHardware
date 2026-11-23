@@ -106,7 +106,18 @@ async def _ingest_print_file(
         ttl_seconds=settings.job_ttl_seconds,
         print_after_upload=print_after_upload,
     )
-    app_state.events.publish("queue_updated", {"action": "uploaded", "jobId": job["id"], "slot": slot})
+    app_state.events.publish(
+        "queue_updated",
+        {"action": "uploaded", "jobId": job["id"], "slot": slot, "autoRfid": True},
+    )
+    # Wake backlight & trigger friendly soft attention ping + RFID LED ring
+    import asyncio
+    try:
+        loop = asyncio.get_running_loop()
+        loop.create_task(app_state.device_client.send_beeper("attention"))
+        loop.create_task(app_state.device_client.send_led("rfid"))
+    except RuntimeError:
+        pass
     logger.info(
         "Queued upload %s for slot %d (%s): %.1fg, %ds, %d ct (%s)",
         safe_name,

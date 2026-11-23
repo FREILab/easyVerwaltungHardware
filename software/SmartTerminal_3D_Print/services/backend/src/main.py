@@ -159,6 +159,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.power_control = power_control
     app.state.device_client = device_client
     app.state.sessions = {}
+    app.state.admin_sessions = {}
     app.state.active_uploads = {}
     app.state.upload_tasks = set()
     app.state.upload_tasks_by_job = {}

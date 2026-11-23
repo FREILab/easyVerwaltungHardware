@@ -28,12 +28,24 @@ class DeviceAgentClient:
         except Exception:
             pass
 
-    async def send_led(self, mode: str = "idle") -> None:
+    async def send_led(self, mode: str = "idle", progress: int | None = None) -> None:
+        payload: dict[str, Any] = {"mode": mode}
+        if progress is not None:
+            payload["progress"] = max(0, min(100, int(progress)))
         try:
             async with httpx.AsyncClient(timeout=1.5) as client:
-                await client.post(f"{self.base_url}/commands/led", json={"mode": mode})
+                await client.post(f"{self.base_url}/commands/led", json=payload)
         except Exception:
             pass
+
+    async def send_backlight(self, percent: int) -> dict[str, Any]:
+        val = max(0, min(100, int(percent)))
+        try:
+            async with httpx.AsyncClient(timeout=1.5) as client:
+                resp = await client.post(f"{self.base_url}/commands/backlight", json={"percent": val})
+                return resp.json() if resp.status_code == 200 else {"accepted": False}
+        except Exception:
+            return {"accepted": False}
 
     async def trigger_mock_rfid(self, uid: str) -> bool:
         try:

@@ -8,51 +8,62 @@
 </head>
 <body>
   <div class="hmi-root" id="hmi-root">
-    <!-- 1. Top Statusleiste: ‹ Zurück, Titel, Live-Uhr, 👁 Theme, 👤 Konto, ⚙ Setup -->
+    <!-- 1. Brand-Leiste: FREILab Logo + 3D-Print (links) · Status-Punkt + Live-Uhr (rechts) -->
+    <div class="brand-bar">
+      <div class="brand-logo-wrap">
+        <img src="assets/freilab-logo.svg" alt="FREILab" class="brand-logo" id="brand-logo">
+        <span class="brand-sep"></span>
+        <span class="brand-sub">3D-Print</span>
+      </div>
+      <div class="brand-right">
+        <span class="conn-dot" id="conn-dot" title="Backend-Verbindung"></span>
+        <span class="sb-clock" id="sb-clock">--:--</span>
+      </div>
+    </div>
+
+    <!-- 2. Navigationsleiste: Titel / ‹ Zurück (links) · 👁, 👤 Konto / ⌂ Home, ⚙ / ⌂ (rechts) -->
     <header class="statusbar">
       <div class="sb-left">
         <button type="button" class="back-top-btn hidden" id="btn-back-top" aria-label="Zurück">‹ Zurück</button>
-        <span class="conn-dot" id="conn-dot" title="Backend-Verbindung"></span>
         <span class="sb-title" id="sb-title">Warteschlange</span>
-        <span class="sb-sub" id="sb-sub"></span>
       </div>
       <div class="sb-right">
-        <span class="sb-clock" id="sb-clock">--:--</span>
         <button type="button" class="sb-icon-btn" id="btn-theme-eye" title="Hell / Dunkel umschalten">👁</button>
         <button type="button" class="sb-account-btn" id="btn-account">👤 Konto</button>
-        <button type="button" class="sb-icon-btn" id="btn-setup" title="Setup &amp; Einstellungen">⚙</button>
+        <button type="button" class="sb-icon-btn" id="btn-setup" title="Einstellungen">⚙</button>
       </div>
     </header>
 
-    <!-- 2. Hauptbereich (Warteschlange oder Vollbild-Workflow-Screen) -->
+    <!-- 3. Hauptbereich (Portrait Warteschlange oder Vollbild-Workflow-Screen) -->
     <main class="stage" id="stage"></main>
 
-    <!-- 3. Bottom Drucker-Dock (klickbare Drucker-Tasten) -->
+    <!-- 4. Bottom Drucker-Dock (2×2 Portrait-Raster, klickbar für Drucker-Popup) -->
     <footer class="printer-dock" id="printer-dock"></footer>
 
-    <!-- 4. Upload-Detail-Popup (öffnet beim Tippen auf laufenden Upload) -->
+    <!-- 5. Popups: Upload-Detail, Drucker-Detail, Kurzes Erfolgsfenster (4 s → Home) -->
     <div class="popup-backdrop hidden" id="upload-popup" role="dialog" aria-modal="true"></div>
-
-    <!-- 5. Drucker-Detail-Popup (öffnet beim Tippen auf Drucker-Kachel unten) -->
     <div class="popup-backdrop hidden" id="printer-popup" role="dialog" aria-modal="true"></div>
-
-    <!-- 5b. Kurzes Erfolgs-Popup nach abgeschlossener Übertragung (4 s → automatisch Home) -->
     <div class="popup-backdrop hidden" id="done-popup" role="dialog" aria-modal="true"></div>
 
-    <!-- 6. Einklappbarer DEV-Simulator (nur sichtbar wenn Backend im Mock-Modus) -->
+    <!-- 6. Dimmen / Display-Aus (Sleep) Aufweck-Overlay (schluckt 1. Tipp beim Aufwecken) -->
+    <div class="power-overlay hidden" id="power-overlay">
+      <div class="power-wake-pill" id="power-wake-pill">👆 Tippen zum Aufwecken</div>
+    </div>
+
+    <!-- 7. Einklappbarer DEV-Simulator (nur sichtbar wenn Backend im Mock-Modus) -->
     <button type="button" class="dev-pill hidden" id="dev-pill">DEV</button>
     <div class="dev-drawer hidden" id="dev-drawer">
       <button type="button" class="dev-btn" id="dev-upload">+ Test-Job</button>
-      <button type="button" class="dev-btn" data-rfid="04AABBCCDD01">Marius (25€)</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD01">Max (25€)</button>
       <button type="button" class="dev-btn" data-rfid="04AABBCCDD02">Erika (0,15€)</button>
-      <button type="button" class="dev-btn" data-rfid="04AABBCCDD03">Ohne Freigabe</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD03">Ohne Freig.</button>
       <button type="button" class="dev-btn" data-rfid="04AABBCCDD99">BV-Karte</button>
-      <button type="button" class="dev-btn" id="dev-toggle-p1">Drucker 1: Frei/Belegt</button>
+      <button type="button" class="dev-btn" id="dev-toggle-p1">D1 Frei/Bel.</button>
       <span class="dev-hint">PIN 1234</span>
       <button type="button" class="dev-btn" id="dev-close">✕</button>
     </div>
 
-    <!-- 7. Toast -->
+    <!-- 8. Toast -->
     <div class="toast hidden" id="toast"></div>
   </div>
 
