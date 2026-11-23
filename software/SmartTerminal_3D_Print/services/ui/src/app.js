@@ -1379,7 +1379,16 @@
                         : ""
                     }
                     <div class="url-pill">${escapeHtml(cfg.setupUrl || `http://${state.terminalIp}/admin.html`)}</div>
-                    <div class="helper-txt">QR-Code im FREILab-WLAN scannen, um URL, Token &amp; CSV-Log bequem am Handy zu bearbeiten (10 min gültig).</div>
+                    <div class="helper-txt">QR-Code im FREILab-WLAN scannen, um <strong>Drucker (IP &amp; Keys)</strong>, Server-URL, Token &amp; CSV-Log bequem am Handy zu verwalten (10 min gültig).</div>
+                  </div>
+                  <div class="panel" style="gap:1.4cqw;">
+                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Konfigurierte Drucker</span><span>${state.printers.length}</span></div>
+                    ${state.printers
+                      .map(
+                        (p) =>
+                          `<div class="pay-line" style="font-size:3.1cqw;"><span style="color:var(--muted);">Drucker ${p.slot} (${escapeHtml(p.model)})</span><span>${escapeHtml(p.ip || "–")}</span></div>`
+                      )
+                      .join("")}
                   </div>
                   <div class="panel" style="gap:1.4cqw;">
                     <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Terminal-ID</span><span>${escapeHtml(cfg.terminalId || state.terminalId)}</span></div>

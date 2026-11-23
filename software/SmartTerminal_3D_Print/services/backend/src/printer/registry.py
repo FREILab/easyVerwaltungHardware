@@ -65,23 +65,103 @@ class PrinterStatus:
 class PrinterRegistry:
     """Loads printer definitions from file/URL with last-known-good fallback and tracks live status."""
 
-    def __init__(self, config_file: Path, config_url: str = "") -> None:
+    def __init__(
+        self,
+        config_file: Path,
+        config_url: str = "",
+        override_file: Path | None = None,
+    ) -> None:
         self.config_file = config_file
         self.config_url = config_url
+        self.override_file = override_file
         self._printers: dict[int, PrinterConfig] = {}
         self._statuses: dict[str, PrinterStatus] = {}
         self.reload_from_file()
 
     def reload_from_file(self) -> bool:
-        if not self.config_file.exists():
-            logger.warning("Printers config file not found: %s", self.config_file)
+        target = self.override_file if (self.override_file and self.override_file.exists()) else self.config_file
+        if not target.exists():
+            logger.warning("Printers config file not found: %s", target)
             return False
         try:
-            raw = json.loads(self.config_file.read_text(encoding="utf-8"))
+            raw = json.loads(target.read_text(encoding="utf-8"))
             return self._apply_raw(raw)
         except Exception as exc:
-            logger.error("Failed to load printers config %s: %s", self.config_file, exc)
+            logger.error("Failed to load printers config %s: %s", target, exc)
             return False
+
+    def export_for_admin(self) -> list[dict[str, Any]]:
+        """Export printer configs for the BV Admin UI without leaking plaintext secrets."""
+        out: list[dict[str, Any]] = []
+        for p in self.list_printers():
+            has_secret = bool(
+                (p.auth_type == "api_key" and p.api_key and p.api_key != "REPLACE_ME")
+                or (p.auth_type == "digest" and p.password and p.password != "REPLACE_ME")
+            )
+            out.append(
+                {
+                    "slot": p.slot,
+                    "id": p.id,
+                    "name": p.name,
+                    "model": p.model,
+                    "ip": p.ip,
+                    "authType": p.auth_type,
+                    "username": p.username,
+                    "hasSecret": has_secret,
+                    "buildVolume": p.build_volume,
+                    "powerControlId": p.power_control_id or "",
+                }
+            )
+        return out
+
+    def save_override(self, items: list[dict[str, Any]]) -> bool:
+        """Persist updated printer list to /data/printers.json preserving unchanged secrets."""
+        existing_by_slot = dict(self._printers)
+        existing_by_id = {p.id: p for p in self._printers.values()}
+        cleaned: list[dict[str, Any]] = []
+        for idx, item in enumerate(items, start=1):
+            slot = int(item.get("slot") or idx)
+            if slot < 1 or slot > 4:
+                continue
+            pid = str(item.get("id") or f"prusa-{slot:02d}").strip() or f"prusa-{slot:02d}"
+            prev = existing_by_id.get(pid) or existing_by_slot.get(slot)
+            auth_type = str(item.get("authType") or item.get("auth_type") or "digest").strip().lower()
+            if auth_type not in {"digest", "api_key"}:
+                auth_type = "digest"
+            secret_in = str(item.get("secret") or "").strip()
+            password = prev.password if prev else ""
+            api_key = prev.api_key if prev else ""
+            if secret_in:
+                if auth_type == "api_key":
+                    api_key = secret_in
+                else:
+                    password = secret_in
+            model = str(item.get("model") or "MK4").strip() or "MK4"
+            cleaned.append(
+                {
+                    "slot": slot,
+                    "id": pid,
+                    "name": str(item.get("name") or f"Drucker {slot} ({model})").strip(),
+                    "model": model,
+                    "ip": str(item.get("ip") or "").strip(),
+                    "auth_type": auth_type,
+                    "username": str(item.get("username") or "maker").strip() or "maker",
+                    "password": password,
+                    "api_key": api_key,
+                    "build_volume": str(item.get("buildVolume") or item.get("build_volume") or _DEFAULT_VOLUMES.get(model.upper(), "")).strip(),
+                    "base_print_hours": prev.base_print_hours if prev else 0.0,
+                    "base_filament_km": prev.base_filament_km if prev else 0.0,
+                    "power_control_id": str(item.get("powerControlId") or item.get("power_control_id") or "").strip(),
+                }
+            )
+        if not cleaned:
+            return False
+        if self.override_file:
+            self.override_file.parent.mkdir(parents=True, exist_ok=True)
+            tmp = self.override_file.with_suffix(".json.tmp")
+            tmp.write_text(json.dumps(cleaned, indent=2, ensure_ascii=False), encoding="utf-8")
+            tmp.replace(self.override_file)
+        return self._apply_raw(cleaned)
 
     async def reload_from_url(self) -> bool:
         if not self.config_url:

@@ -24,6 +24,7 @@ from pydantic import BaseModel, Field
 from jobs.parser import compute_job_price, parse_print_file
 from payment.service import TerminalSession
 from printer.client import MockPrinterClient
+from printer.registry import PrinterConfig
 
 logger = logging.getLogger("st3d.api")
 router = APIRouter(tags=["ui-api"])
@@ -75,6 +76,23 @@ class AdminConfigUpdate(BaseModel):
     easyverwaltungUrl: str = Field(default="", max_length=256)
     easyverwaltungServiceId: str = Field(default="", max_length=64)
     easyverwaltungServiceToken: str | None = Field(default=None, max_length=256)
+
+
+class AdminPrinterItem(BaseModel):
+    slot: int = Field(..., ge=1, le=4)
+    id: str = Field(default="", max_length=64)
+    name: str = Field(default="", max_length=64)
+    model: str = Field(default="MK4", max_length=32)
+    ip: str = Field(..., min_length=1, max_length=128)
+    authType: str = Field(default="digest")  # digest | api_key
+    username: str = Field(default="maker", max_length=64)
+    secret: str | None = Field(default=None, max_length=256)  # password or api_key; blank keeps existing
+    buildVolume: str = Field(default="", max_length=32)
+    powerControlId: str = Field(default="", max_length=64)
+
+
+class AdminPrintersUpdate(BaseModel):
+    printers: list[AdminPrinterItem] = Field(..., min_length=1, max_length=4)
 
 
 class PrinterPowerOnRequest(BaseModel):
@@ -1107,6 +1125,66 @@ def update_admin_config(body: AdminConfigUpdate, request: Request, code: str | N
         },
     )
     return {"ok": True, "config": get_admin_config(request, code)}
+
+
+@router.get("/admin/printers")
+def get_admin_printers(request: Request, code: str | None = None) -> dict[str, Any]:
+    _require_admin_code(request, code)
+    return {"printers": request.app.state.registry.export_for_admin()}
+
+
+@router.post("/admin/printers")
+async def update_admin_printers(body: AdminPrintersUpdate, request: Request, code: str | None = None) -> dict[str, Any]:
+    sess = _require_admin_code(request, code)
+    st = request.app.state
+    raw_items = [p.model_dump() for p in body.printers]
+    if not st.registry.save_override(raw_items):
+        raise HTTPException(status_code=400, detail="Ungültige Druckerkonfiguration.")
+
+    # Poll all updated printers immediately so UI dock updates right away
+    for printer in st.registry.list_printers():
+        new_st = await st.printer_client.poll_status(printer)
+        new_st.shutdown_temp_threshold_c = st.settings.hotend_cooldown_temp_c
+        st.registry.set_status(printer.id, new_st)
+
+    st.store.log_event(
+        "admin_printers_updated",
+        user_id=(sess.get("user") or {}).get("user_id"),
+        user_name=(sess.get("user") or {}).get("display_name"),
+        details={"count": len(st.registry.list_printers()), "slots": [p.slot for p in st.registry.list_printers()]},
+    )
+    st.events.publish("printers_updated", {"action": "reconfigured"})
+    return {"ok": True, "printers": st.registry.export_for_admin()}
+
+
+@router.post("/admin/printers/test")
+async def test_admin_printer(body: AdminPrinterItem, request: Request, code: str | None = None) -> dict[str, Any]:
+    _require_admin_code(request, code)
+    st = request.app.state
+    prev = st.registry.get_by_slot(body.slot)
+    auth_type = body.authType if body.authType in {"digest", "api_key"} else "digest"
+    secret = (body.secret or "").strip()
+    password = secret if (auth_type == "digest" and secret) else (prev.password if prev else "")
+    api_key = secret if (auth_type == "api_key" and secret) else (prev.api_key if prev else "")
+
+    probe_cfg = PrinterConfig(
+        slot=body.slot,
+        id=body.id or (prev.id if prev else f"prusa-{body.slot:02d}"),
+        name=body.name or f"Drucker {body.slot}",
+        model=body.model or "MK4",
+        ip=body.ip.strip(),
+        auth_type=auth_type,
+        username=body.username.strip() or "maker",
+        password=password,
+        api_key=api_key,
+    )
+    res_st = await st.printer_client.poll_status(probe_cfg)
+    if res_st.state == "OFFLINE":
+        return {"ok": False, "state": res_st.state, "message": res_st.error or "Drucker nicht erreichbar / Auth fehlgeschlagen"}
+    temps = ""
+    if res_st.nozzle_temp is not None and res_st.bed_temp is not None:
+        temps = f" (Düse {round(res_st.nozzle_temp)}°, Bett {round(res_st.bed_temp)}°)"
+    return {"ok": True, "state": res_st.state, "message": f"Verbunden: {res_st.state}{temps}"}
 
 
 @router.post("/admin/test-connection")

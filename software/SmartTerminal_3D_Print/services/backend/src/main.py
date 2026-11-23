@@ -130,7 +130,11 @@ async def _printer_poll_loop(app: FastAPI) -> None:
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = load_settings()
     store = JobStore(settings.data_dir)
-    registry = PrinterRegistry(settings.printers_config_file, settings.printers_config_url)
+    registry = PrinterRegistry(
+        settings.printers_config_file,
+        settings.printers_config_url,
+        override_file=settings.data_dir / "printers.json",
+    )
     events = EventBus()
     printer_client = PrusaLinkClient() if settings.printer_mode == "live" else MockPrinterClient()
     payment = MockPaymentProvider()

@@ -31,7 +31,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
       padding: 16px;
     }
-    .wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .wrap { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
     .head {
       background: var(--surface);
       border: 1.5px solid var(--border);
@@ -56,27 +56,29 @@
     .card h2 { margin: 0; font-size: 18px; font-weight: 900; }
     .field { display: flex; flex-direction: column; gap: 5px; }
     .field label { font-size: 13px; font-weight: 800; color: var(--muted); }
-    .field input {
-      height: 46px;
-      padding: 0 12px;
+    .field input, .field select {
+      height: 44px;
+      padding: 0 11px;
       border-radius: 10px;
       border: 1.5px solid var(--border-strong);
       background: var(--surface-2);
       color: var(--text);
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       width: 100%;
     }
-    .field input:focus { outline: 2px solid var(--blue); border-color: var(--blue); background: var(--surface); }
+    .field select { font-family: inherit; }
+    .field input:focus, .field select:focus { outline: 2px solid var(--blue); border-color: var(--blue); background: var(--surface); }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .btn {
-      height: 48px;
+      height: 46px;
       border-radius: 12px;
       border: 1.5px solid var(--border-strong);
       background: var(--surface);
       color: var(--text);
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
@@ -84,9 +86,12 @@
       justify-content: center;
       text-decoration: none;
       gap: 6px;
+      padding: 0 12px;
     }
+    .btn-sm { height: 38px; font-size: 13px; border-radius: 9px; }
     .btn-green { background: var(--green); border-color: var(--green); color: #fff; }
     .btn-blue { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn-red { background: var(--red-bg); border-color: #fca5a5; color: var(--red-ink); }
     .banner {
       padding: 12px 14px;
       border-radius: 12px;
@@ -95,6 +100,21 @@
     }
     .banner.err { background: var(--red-bg); color: var(--red-ink); border: 1.5px solid #fca5a5; }
     .banner.ok { background: var(--green-bg); color: var(--green-ink); border: 1.5px solid #86efac; }
+    .printer-box {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .printer-box input, .printer-box select { background: var(--surface); }
+    .printer-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .printer-head strong { font-size: 15px; }
+    .probe-msg { font-size: 13px; font-weight: 800; }
+    .probe-msg.ok { color: var(--green-ink); }
+    .probe-msg.err { color: var(--red-ink); }
     .hist-item {
       padding: 10px 0;
       border-bottom: 1px solid var(--border);
@@ -119,6 +139,18 @@
     <div id="status-msg" class="banner hidden"></div>
 
     <div id="admin-content" class="hidden" style="display:flex;flex-direction:column;gap:16px;">
+      <!-- 1. Drucker 1-4 Konfiguration -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <h2>🖨️ Drucker (IP &amp; PrusaLink Key)</h2>
+          <button type="button" class="btn btn-sm" id="btn-add-printer">+ Drucker</button>
+        </div>
+        <div class="muted">Ports am Terminal: Slot 1 = <code>:8101</code> … Slot 4 = <code>:8104</code>. Änderungen werden live ohne Neustart übernommen.</div>
+        <div id="printers-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+        <button type="button" class="btn btn-green" id="btn-save-printers">✓ Drucker speichern &amp; übernehmen</button>
+      </div>
+
+      <!-- 2. Server & easyVerwaltung Token -->
       <div class="card">
         <h2>⚙ Server &amp; easyVerwaltung Token</h2>
         <div class="field">
@@ -143,10 +175,11 @@
         </div>
       </div>
 
+      <!-- 3. Druckverlauf + CSV Export -->
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
           <h2>📋 Druckverlauf</h2>
-          <a class="btn btn-blue" id="btn-csv" style="height:38px;padding:0 12px;font-size:13px;" href="#">⬇ CSV</a>
+          <a class="btn btn-blue btn-sm" id="btn-csv" href="#">⬇ CSV laden</a>
         </div>
         <div id="hist-list" class="muted">Lade Verlauf…</div>
       </div>
@@ -156,15 +189,17 @@
   <script>
     const code = new URLSearchParams(window.location.search).get("code") || "";
     const $ = (id) => document.getElementById(id);
+    let printers = [];
 
     function showStatus(msg, ok) {
       const el = $("status-msg");
       el.textContent = msg;
       el.className = `banner ${ok ? "ok" : "err"}`;
+      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
     function escapeHtml(s) {
-      return String(s ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      return String(s ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
     }
 
     function fmtEur(c) { return `${(Number(c || 0) / 100).toFixed(2).replace(".", ",")} €`; }
@@ -184,22 +219,172 @@
       return data;
     }
 
+    function renderPrinters() {
+      const list = $("printers-list");
+      $("btn-add-printer").classList.toggle("hidden", printers.length >= 4);
+      list.innerHTML = printers.map((p, idx) => `
+        <div class="printer-box" data-p-idx="${idx}">
+          <div class="printer-head">
+            <strong>Drucker ${p.slot} (Port :${8100 + Number(p.slot)})</strong>
+            <div style="display:flex;gap:6px;">
+              <button type="button" class="btn btn-sm" data-test-printer="${idx}">Testen</button>
+              ${printers.length > 1 ? `<button type="button" class="btn btn-sm btn-red" data-del-printer="${idx}">✕</button>` : ""}
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label>Modell</label>
+              <select data-pf="model">
+                ${["MK3.5", "MK4", "MK4S", "MK3S", "XL", "MINI"].map((m) => `<option value="${m}" ${p.model === m ? "selected" : ""}>${m}</option>`).join("")}
+              </select>
+            </div>
+            <div class="field">
+              <label>Name</label>
+              <input data-pf="name" type="text" value="${escapeHtml(p.name)}" placeholder="Drucker ${p.slot}">
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label>IP-Adresse</label>
+              <input data-pf="ip" type="text" value="${escapeHtml(p.ip)}" placeholder="10.30.0.139">
+            </div>
+            <div class="field">
+              <label>Auth-Typ</label>
+              <select data-pf="authType">
+                <option value="digest" ${p.authType !== "api_key" ? "selected" : ""}>Digest (maker + PW)</option>
+                <option value="api_key" ${p.authType === "api_key" ? "selected" : ""}>API-Key (X-Api-Key)</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label>${p.authType === "api_key" ? "API-Key" : "Passwort"} <span class="muted">${p.hasSecret ? "(gesetzt)" : "(fehlt)"}</span></label>
+              <input data-pf="secret" type="password" autocomplete="off" value="${escapeHtml(p.secret || "")}" placeholder="${p.hasSecret ? "leer = unverändert" : "Key / Passwort eingeben"}">
+            </div>
+            <div class="field">
+              <label>Power-ID (optional)</label>
+              <input data-pf="powerControlId" type="text" value="${escapeHtml(p.powerControlId || "")}" placeholder="easyVerwaltung ID">
+            </div>
+          </div>
+          <div class="probe-msg" id="probe-msg-${idx}"></div>
+        </div>
+      `).join("");
+    }
+
+    function readPrintersFromDom() {
+      document.querySelectorAll(".printer-box").forEach((box) => {
+        const idx = Number(box.dataset.pIdx);
+        const p = printers[idx];
+        if (!p) return;
+        box.querySelectorAll("[data-pf]").forEach((inp) => {
+          p[inp.dataset.pf] = inp.value;
+        });
+      });
+    }
+
+    $("printers-list").addEventListener("change", (ev) => {
+      if (ev.target.dataset.pf === "authType") {
+        readPrintersFromDom();
+        renderPrinters();
+      }
+    });
+
+    $("printers-list").addEventListener("click", async (ev) => {
+      const del = ev.target.closest("[data-del-printer]");
+      if (del) {
+        readPrintersFromDom();
+        printers.splice(Number(del.dataset.delPrinter), 1);
+        printers.forEach((p, i) => { p.slot = i + 1; });
+        renderPrinters();
+        return;
+      }
+      const tst = ev.target.closest("[data-test-printer]");
+      if (tst) {
+        readPrintersFromDom();
+        const idx = Number(tst.dataset.testPrinter);
+        const p = printers[idx];
+        const msgEl = $(`probe-msg-${idx}`);
+        msgEl.className = "probe-msg muted";
+        msgEl.textContent = "Teste Verbindung…";
+        try {
+          const res = await api("/api/admin/printers/test", { method: "POST", body: JSON.stringify(p) });
+          msgEl.className = `probe-msg ${res.ok ? "ok" : "err"}`;
+          msgEl.textContent = `${res.ok ? "✓" : "✕"} ${res.message}`;
+        } catch (err) {
+          msgEl.className = "probe-msg err";
+          msgEl.textContent = `✕ ${err.message}`;
+        }
+      }
+    });
+
+    $("btn-add-printer").addEventListener("click", () => {
+      if (printers.length >= 4) return;
+      readPrintersFromDom();
+      const defaults = [
+        { model: "MK3.5", authType: "digest" },
+        { model: "MK4", authType: "digest" },
+        { model: "MK3S", authType: "api_key" },
+        { model: "XL", authType: "digest" },
+      ];
+      const slot = printers.length + 1;
+      const d = defaults[slot - 1] || { model: "MK4", authType: "digest" };
+      printers.push({
+        slot,
+        id: `prusa-0${slot}`,
+        name: `Drucker ${slot} (${d.model})`,
+        model: d.model,
+        ip: "",
+        authType: d.authType,
+        username: "maker",
+        secret: "",
+        hasSecret: false,
+        powerControlId: "",
+      });
+      renderPrinters();
+    });
+
+    $("btn-save-printers").addEventListener("click", async () => {
+      readPrintersFromDom();
+      if (printers.some((p) => !String(p.ip || "").trim())) {
+        showStatus("Bitte für jeden Drucker eine IP-Adresse angeben.", false);
+        return;
+      }
+      try {
+        const res = await api("/api/admin/printers", {
+          method: "POST",
+          body: JSON.stringify({ printers }),
+        });
+        printers = (res.printers || []).map((p) => ({ ...p, secret: "" }));
+        renderPrinters();
+        showStatus("✓ Drucker gespeichert und am Terminal übernommen!", true);
+      } catch (err) {
+        showStatus(err.message, false);
+      }
+    });
+
     async function boot() {
       if (!code) {
-        $("auth-error").textContent = "Kein gültiger BV-Freigabecode in der URL. Bitte am 3D-Print-Terminal unter ⚙ → 🔐 Admin die BV-Karte scannen und den QR-Code scannen.";
+        $("auth-error").textContent = "Kein gültiger BV-Freigabecode in der URL. Bitte am 3D-Print-Terminal unter ⚙ → 🔐 Admin (BV) die BV-Karte scannen und den QR-Code scannen.";
         $("auth-error").classList.remove("hidden");
         return;
       }
       try {
-        const cfg = await api("/api/admin/config");
+        const [cfg, prRes, hist] = await Promise.all([
+          api("/api/admin/config"),
+          api("/api/admin/printers"),
+          api("/api/admin/history?limit=50"),
+        ]);
         $("f-tid").value = cfg.terminalId || "";
         $("f-url").value = cfg.easyverwaltungUrl || "";
         $("f-sid").value = cfg.easyverwaltungServiceId || "";
         $("tok-hint").textContent = cfg.hasToken ? "(gesetzt)" : "(fehlt)";
         $("btn-csv").href = `/api/admin/history.csv?code=${encodeURIComponent(code)}`;
+
+        printers = (prRes.printers || []).map((p) => ({ ...p, secret: "" }));
+        renderPrinters();
+
         $("admin-content").classList.remove("hidden");
 
-        const hist = await api("/api/admin/history?limit=50");
         const items = hist.items || [];
         if (!items.length) {
           $("hist-list").textContent = "Noch keine gestarteten Druckjobs im Log.";
@@ -256,7 +441,7 @@
         });
         $("f-tok").value = "";
         $("tok-hint").textContent = res.config?.hasToken ? "(gesetzt)" : "(fehlt)";
-        showStatus("✓ Konfiguration gespeichert!", true);
+        showStatus("✓ Server-Konfiguration gespeichert!", true);
       } catch (err) {
         showStatus(err.message, false);
       }
