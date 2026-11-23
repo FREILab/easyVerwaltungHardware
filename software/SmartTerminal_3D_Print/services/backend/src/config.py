@@ -48,11 +48,14 @@ class Settings:
     feature_approval: bool
     allow_negative_balance: bool
     max_negative_balance_cents: int
+    admin_bv_rfids: tuple[str, ...]
+    dev_ui_tools: bool
 
     @property
     def is_dev_mock(self) -> bool:
         return (
-            self.hardware_mode == "mock"
+            self.dev_ui_tools
+            or self.hardware_mode == "mock"
             or self.payment_mode == "mock"
             or self.printer_mode == "mock"
         )
@@ -88,4 +91,10 @@ def load_settings() -> Settings:
         feature_approval=_env_bool("FEATURE_APPROVAL", False),
         allow_negative_balance=_env_bool("ALLOW_NEGATIVE_BALANCE", True),
         max_negative_balance_cents=max(0, _env_int("MAX_NEGATIVE_BALANCE_CENTS", 2000)),
+        admin_bv_rfids=tuple(
+            u.strip().upper()
+            for u in os.getenv("ADMIN_BV_RFIDS", "04AABBCCDD99").split(",")
+            if u.strip()
+        ),
+        dev_ui_tools=_env_bool("DEV_UI_TOOLS", False),
     )

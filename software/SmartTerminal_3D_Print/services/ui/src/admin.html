@@ -394,7 +394,9 @@
               ? `Verein${it.sectionName ? `: ${it.sectionName}` : ""}`
               : it.paymentMode === "already_paid"
                 ? "Bereits bezahlt"
-                : "Privat";
+                : it.paymentMode === "cashbox"
+                  ? "Kasse (Pilot)"
+                  : "Privat";
             return `
               <div class="hist-item">
                 <div class="hist-row">

@@ -11,7 +11,7 @@ from api.router import router as api_router
 from config import load_settings
 from events import EventBus
 from jobs.store import JobStore
-from payment.service import MockPaymentProvider
+from payment.service import CashboxPaymentProvider, MockPaymentProvider
 from printer.client import MockPrinterClient, PrusaLinkClient
 from printer.emulation import router as prusalink_router
 from printer.power import EasyVerwaltungPowerControlService, MockPowerControlService
@@ -137,7 +137,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     )
     events = EventBus()
     printer_client = PrusaLinkClient() if settings.printer_mode == "live" else MockPrinterClient()
-    payment = MockPaymentProvider()
+    payment = (
+        CashboxPaymentProvider(settings.admin_bv_rfids)
+        if settings.payment_mode == "cashbox"
+        else MockPaymentProvider()
+    )
     power_control = (
         EasyVerwaltungPowerControlService(
             settings.easyverwaltung_url,

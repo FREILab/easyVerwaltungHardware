@@ -72,6 +72,19 @@ class PaymentProvider:
         raise NotImplementedError
 
 
+FREILAB_SECTIONS: list[dict[str, Any]] = [
+    {"sectionId": "sec_3d", "name": "3D-Druck", "description": "3D-Druck", "pictogram": "printer", "status": "active"},
+    {"sectionId": "sec_elec", "name": "Elektronik", "description": "Elektronik", "pictogram": "cpu", "status": "active"},
+    {"sectionId": "sec_wood", "name": "Holzwerkstatt", "description": "Holzwerkstatt", "pictogram": "wood", "status": "active"},
+    {"sectionId": "sec_metal", "name": "Metall", "description": "Metall", "pictogram": "wrench", "status": "active"},
+    {"sectionId": "sec_bike", "name": "Fahrrad Bereich", "description": "Fahrrad Bereich", "pictogram": "bike", "status": "active"},
+    {"sectionId": "sec_laser", "name": "Lasercutter", "description": "Lasercutter", "pictogram": "laser", "status": "active"},
+    {"sectionId": "sec_cnc", "name": "CNC", "description": "CNC", "pictogram": "cnc", "status": "active"},
+    {"sectionId": "sec_weld", "name": "Schweißen", "description": "Schweißen", "pictogram": "flame", "status": "active"},
+    {"sectionId": "sec_textile", "name": "Textil", "description": "Textil", "pictogram": "scissors", "status": "active"},
+]
+
+
 class MockPaymentProvider(PaymentProvider):
     """Realistic in-memory mirror of easyVerwaltung Payment API for local & Pi testing."""
 
@@ -132,13 +145,7 @@ class MockPaymentProvider(PaymentProvider):
         }
         self._authorizations: dict[str, dict[str, Any]] = {}
         self._idempotency: dict[str, dict[str, Any]] = {}
-        self._sections = [
-            {"sectionId": "sec_3d", "name": "3D-Druck", "description": "3D-Druckwerkstatt", "pictogram": "printer", "status": "active"},
-            {"sectionId": "sec_elec", "name": "Elektronik", "description": "Elektroniklabor", "pictogram": "cpu", "status": "active"},
-            {"sectionId": "sec_wood", "name": "Holzwerkstatt", "description": "Holzbearbeitung", "pictogram": "wood", "status": "active"},
-            {"sectionId": "sec_metal", "name": "Metallwerkstatt", "description": "Metallbearbeitung", "pictogram": "wrench", "status": "active"},
-            {"sectionId": "sec_org", "name": "Verein / Allgemein", "description": "Vereinsprojekte", "pictogram": "home", "status": "active"},
-        ]
+        self._sections = list(FREILAB_SECTIONS)
 
     async def health(self) -> dict[str, Any]:
         return {
@@ -297,3 +304,94 @@ class MockPaymentProvider(PaymentProvider):
             return {"ok": False, "reason": "TARGET_NOT_FOUND"}
         target["approved"] = True
         return {"ok": True, "instructorName": inst["display_name"]}
+
+
+def _mask_uid(uid: str) -> str:
+    clean = uid.strip().upper()
+    if len(clean) <= 8:
+        return clean
+    return f"{clean[:4]}…{clean[-4:]}"
+
+
+class CashboxPaymentProvider(PaymentProvider):
+    """FREILab Pilot Mode (PAYMENT_MODE=cashbox): accepts any RFID card, asks for cashbox payment,
+    logs every job with masked card UID + payment mode to SQLite, and gates BV Admin via ADMIN_BV_RFIDS.
+    """
+
+    def __init__(self, admin_bv_rfids: tuple[str, ...] = ()) -> None:
+        self._bv_uids = {u.strip().upper() for u in admin_bv_rfids if u.strip()}
+        self._sections = list(FREILAB_SECTIONS)
+
+    async def health(self) -> dict[str, Any]:
+        return {
+            "active": True,
+            "serviceId": "cashbox_pilot",
+            "serviceName": "3D-Print Terminal (Pilot · Kasse)",
+            "status": "active",
+            "reasonCode": "cashbox_pilot_active",
+        }
+
+    async def get_metadata(self) -> dict[str, Any]:
+        return {
+            "service": {
+                "serviceId": "cashbox_pilot",
+                "name": "3D-Print Terminal (Pilot · Kasse)",
+                "status": "active",
+            },
+            "sections": self._sections,
+        }
+
+    async def authorize(self, *, mode: str, rfid: str, pin: str | None = None) -> dict[str, Any]:
+        uid = rfid.strip().upper()
+        if len(uid) < 2:
+            return {"authorized": False, "reason": "RFID_NOT_FOUND"}
+        short_uid = _mask_uid(uid)
+        is_bv = uid in self._bv_uids
+        auth_id = f"cash_auth_{uuid.uuid4().hex[:12]}"
+        return {
+            "authorized": True,
+            "mode": "cashbox",
+            "paymentAuthorizationId": auth_id,
+            "expiresInSeconds": 300,
+            "user": {
+                "member_id": f"rfid_{short_uid}",
+                "user_id": f"rfid_{short_uid}",
+                "display_name": f"BV ({short_uid})" if is_bv else f"Karte {short_uid}",
+                "first_name": "Karte",
+                "last_name": short_uid,
+            },
+            "balance": {"amount": 0, "currency": "EUR"},
+            "approved": True,
+            "is_instructor": is_bv,
+            "transactions": [],
+        }
+
+    async def charge(
+        self,
+        *,
+        payment_authorization_id: str,
+        amount_cents: int,
+        items: list[dict[str, Any]],
+        idempotency_key: str,
+        correlation_id: str,
+        allow_overdraft: bool = False,
+        max_overdraft_cents: int = 0,
+    ) -> dict[str, Any]:
+        return {
+            "paid": True,
+            "paymentId": f"cash_{uuid.uuid4().hex[:10]}",
+            "paymentAuthorizationId": payment_authorization_id,
+            "amount": amount_cents,
+            "currency": "EUR",
+            "remainingBalance": {"amount": 0, "currency": "EUR"},
+            "correlationId": correlation_id,
+        }
+
+    async def cancel_authorization(self, *, payment_authorization_id: str, reason: str) -> dict[str, Any]:
+        return {"cancelled": True, "paymentAuthorizationId": payment_authorization_id, "reason": reason}
+
+    async def topup_mock(self, *, rfid: str, amount_cents: int) -> dict[str, Any]:
+        return {"ok": False, "reason": "CASHBOX_MODE"}
+
+    async def approve_user_mock(self, *, target_rfid: str, instructor_rfid: str) -> dict[str, Any]:
+        return {"ok": True, "instructorName": "Pilot"}

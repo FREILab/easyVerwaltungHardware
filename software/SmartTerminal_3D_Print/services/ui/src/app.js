@@ -838,6 +838,12 @@
   function renderTopbar() {
     $("conn-dot").classList.toggle("offline", !state.connected);
     updateBrandLogo();
+    const brandSub = $("brand-sub");
+    if (brandSub) {
+      const isPilot = Boolean(state.modes.cashbox);
+      brandSub.textContent = isPilot ? "Pilot · Kasse" : "3D-Print";
+      brandSub.classList.toggle("is-pilot", isPilot);
+    }
     const backBtn = $("btn-back-top");
     const accBtn = $("btn-account");
     const setupBtn = $("btn-setup");
@@ -848,12 +854,14 @@
     const isSettingsGroup = isSettings || state.screen === "admin";
     const hasBack = !isHome && !isSettings;
     const accShowsHome = !isHome && !isSettingsGroup;
+    const hideAcc = Boolean(state.modes.cashbox) && !accShowsHome;
 
     backBtn.classList.toggle("hidden", !hasBack);
     titleEl.classList.toggle("hidden", hasBack);
     if (isHome) titleEl.textContent = "Warteschlange";
     else if (isSettings) titleEl.textContent = "Einstellungen";
 
+    accBtn.classList.toggle("hidden", hideAcc);
     accBtn.classList.toggle("is-home", accShowsHome);
     accBtn.textContent = accShowsHome ? "⌂ Home" : "👤 Konto";
     setupBtn.classList.toggle("is-home", isSettingsGroup);
@@ -1049,12 +1057,59 @@
     }
 
     if (state.screen === "payment_confirm" && job && sess) {
+      const verb = job.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
+      const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
+
+      if (state.modes.cashbox) {
+        stage.innerHTML = `
+          <div class="subscreen">
+            <div class="sub-heading">
+              <h1>Zahlung an der Kasse</h1>
+              ${timeoutPillHtml()}
+            </div>
+
+            <div class="panel">
+              <div class="j-info-row">
+                <div class="job-thumb">${thumb}</div>
+                <div class="j-info-col">
+                  <div class="job-row1">
+                    <div class="job-name-wrap"><span class="job-name">${escapeHtml(job.displayName || job.filename)}</span></div>
+                    <span class="slot-badge">Drucker ${job.printerSlot}</span>
+                  </div>
+                  <div class="job-meta"><span>${Math.round(job.filamentGrams || 0)} g ${escapeHtml(job.filamentType || "")} · ${fmtDur(job.estimatedTimeSeconds)}</span></div>
+                  <div class="job-meta"><span>Fertig: <strong>${fmtEta(job.estimatedTimeSeconds)}</strong>${job.printAfterUpload === false ? " · Nur Upload" : ""}</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel cash">
+              <div class="cash-uid-pill">✓ Karte erkannt · ${escapeHtml(sess.user.display_name)}</div>
+              <div class="cash-head">
+                <div>
+                  <div class="helper-txt">Bitte in die 3D-Druck-Kasse</div>
+                  <div class="cash-amount">${fmtEur(job.priceCents)}</div>
+                </div>
+                <div class="cash-coin">🪙</div>
+              </div>
+              <div class="cash-question">Hast du ${fmtEur(job.priceCents)} in die Kasse eingeworfen?</div>
+              <div class="helper-txt">Pilotbetrieb — bald wird der Betrag automatisch über dein FREILab-Konto abgebucht.</div>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-action="pay-cashbox">✓ Ja, eingeworfen · ${verb}</button>
+            <div class="btn-row2">
+              <button type="button" class="btn btn-secondary" data-action="open-club">Vereinsdruck</button>
+              <button type="button" class="btn btn-secondary" data-action="open-paid">Bereits bezahlt</button>
+            </div>
+          </div>
+        `;
+        initMarquees();
+        return;
+      }
+
       const after = sess.balanceCents - job.priceCents;
       const enough = after >= 0;
       const maxNeg = Number(state.features.maxNegativeBalanceCents || 0);
       const canOverdraft = !enough && Boolean(state.features.allowNegativeBalance) && (maxNeg === 0 || after >= -maxNeg);
-      const verb = job.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
-      const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
 
       stage.innerHTML = `
         <div class="subscreen">
@@ -1143,17 +1198,22 @@
     }
 
     if (state.screen === "club_section" && job) {
+      const hint = state.modes.cashbox
+        ? "Für welchen FREILab-Bereich ist der Druck? (Kein Einwurf nötig, wird im Log vermerkt.)"
+        : "Wähle den Bereich, auf den der Druck verbucht wird (anschließend PIN-Bestätigung):";
       stage.innerHTML = `
-        <div class="subscreen">
+        <div class="subscreen no-scroll">
           <div class="sub-heading">
             <h1>Vereinsdruck · Bereich</h1>
             ${timeoutPillHtml()}
           </div>
-          <div class="helper-txt">Wähle den Bereich, auf den der Druck verbucht wird (anschließend PIN-Bestätigung):</div>
-          <div class="choice-grid">
-            ${state.sections
-              .map((s) => `<button type="button" class="btn btn-secondary" data-section-id="${escapeHtml(s.sectionId)}">${escapeHtml(s.name)}</button>`)
-              .join("")}
+          <div class="helper-txt">${hint}</div>
+          <div class="list-scroll">
+            <div class="choice-grid">
+              ${state.sections
+                .map((s) => `<button type="button" class="btn btn-secondary" style="height:7.6cqh;font-size:3.7cqw;" data-section-id="${escapeHtml(s.sectionId)}">${escapeHtml(s.name)}</button>`)
+                .join("")}
+            </div>
           </div>
         </div>
       `;
@@ -1280,60 +1340,8 @@
             <input type="range" id="brightness-slider" min="15" max="100" step="5" value="${ds.brightness}">
           </div>
 
-          <div class="panel">
-            <div class="slider-head">
-              <span>🌙 Dimmen &amp; 💤 Display aus</span>
-            </div>
-            <div class="helper-txt">Dimmen auf 20 % nach Inaktivität:</div>
-            <div class="seg-row">
-              ${[
-                [0, "Aus"],
-                [60, "1 min"],
-                [120, "2 min"],
-                [300, "5 min"],
-              ]
-                .map(
-                  ([v, lbl]) =>
-                    `<button type="button" class="seg-btn ${ds.dimDelaySeconds === v ? "active" : ""}" data-dim-delay="${v}">${lbl}</button>`
-                )
-                .join("")}
-            </div>
-            <div class="helper-txt" style="margin-top:0.6cqh;">Display komplett aus (0 % · Burn-in-Schutz) nach:</div>
-            <div class="seg-row">
-              ${[
-                [0, "Aus"],
-                [900, "15 min"],
-                [1800, "30 min"],
-                [3600, "60 min"],
-              ]
-                .map(
-                  ([v, lbl]) =>
-                    `<button type="button" class="seg-btn ${ds.sleepDelaySeconds === v ? "active" : ""}" data-sleep-delay="${v}">${lbl}</button>`
-                )
-                .join("")}
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="slider-head">
-              <span>🔊 Buzzer-Feedback</span>
-            </div>
-            <div class="seg-row seg-3">
-              ${[
-                ["all", "Alle (inkl. Touch)"],
-                ["events", "Nur Hinweise"],
-                ["off", "Aus"],
-              ]
-                .map(
-                  ([v, lbl]) =>
-                    `<button type="button" class="seg-btn ${ds.buzzerMode === v ? "active" : ""}" data-buzzer-mode="${v}">${lbl}</button>`
-                )
-                .join("")}
-            </div>
-          </div>
-
           <div class="panel" style="flex-direction:row;align-items:center;justify-content:space-between;">
-            <div class="helper-txt">Terminal <strong>${escapeHtml(state.terminalId)}</strong><br>${escapeHtml(state.terminalIp)} · v${escapeHtml(state.version)}</div>
+            <div class="helper-txt">Terminal <strong>${escapeHtml(state.terminalId)}</strong><br>${escapeHtml(state.terminalIp)} · v${escapeHtml(state.version)}${state.modes.cashbox ? " · Pilot" : ""}</div>
             <button type="button" class="seg-btn" style="padding:0 3.5cqw;flex-shrink:0;" data-action="open-admin-auth">🔐 Admin (BV)</button>
           </div>
         </div>
@@ -1344,15 +1352,17 @@
     if (state.screen === "admin") {
       const cfg = state.adminConfig || {};
       const hist = state.adminHistory || [];
+      const ds = state.displaySettings;
       stage.innerHTML = `
         <div class="subscreen no-scroll">
           <div class="sub-heading">
             <h1>Admin${state.adminUser?.display_name ? ` · ${escapeHtml(state.adminUser.display_name)}` : ""}</h1>
             ${timeoutPillHtml()}
           </div>
-          <div class="btn-row2">
-            <button type="button" class="seg-btn ${state.adminTab === "history" ? "active" : ""}" style="height:5.8cqh;" data-admin-tab="history">📋 Druckverlauf</button>
-            <button type="button" class="seg-btn ${state.adminTab === "config" ? "active" : ""}" style="height:5.8cqh;" data-admin-tab="config">⚙ Server &amp; Token</button>
+          <div class="admin-tabs-3">
+            <button type="button" class="seg-btn ${state.adminTab === "history" ? "active" : ""}" data-admin-tab="history">📋 Verlauf</button>
+            <button type="button" class="seg-btn ${state.adminTab === "config" ? "active" : ""}" data-admin-tab="config">⚙ QR/Drucker</button>
+            <button type="button" class="seg-btn ${state.adminTab === "device" ? "active" : ""}" data-admin-tab="device">🎛️ Gerät</button>
           </div>
           ${
             state.adminTab === "history"
@@ -1367,7 +1377,9 @@
                                 ? `Verein${h.sectionName ? `: ${h.sectionName}` : ""}`
                                 : h.paymentMode === "already_paid"
                                   ? "Bereits bezahlt"
-                                  : "Privat";
+                                  : h.paymentMode === "cashbox"
+                                    ? "Kasse (Pilot)"
+                                    : "Privat";
                             return `
                               <div class="panel" style="padding:2.4cqw;gap:1cqw;">
                                 <div class="job-row1">
@@ -1390,36 +1402,94 @@
                   }
                 </div>
               `
-              : `
-                <div class="list-scroll">
-                  <div class="panel qr-box">
-                    <div style="font-size:3.8cqw;font-weight:900;">📱 Mit Smartphone konfigurieren</div>
-                    ${
-                      cfg.qrUrl
-                        ? `<div class="qr-img-wrap"><img src="${escapeHtml(cfg.qrUrl)}" alt="Admin Setup QR-Code"></div>`
-                        : ""
-                    }
-                    <div class="url-pill">${escapeHtml(cfg.setupUrl || `http://${state.terminalIp}/admin.html`)}</div>
-                    <div class="helper-txt">QR-Code im FREILab-WLAN scannen, um <strong>Drucker (IP &amp; Keys)</strong>, Server-URL, Token &amp; CSV-Log bequem am Handy zu verwalten (10 min gültig).</div>
+              : state.adminTab === "config"
+                ? `
+                  <div class="list-scroll">
+                    <div class="panel qr-box">
+                      <div style="font-size:3.8cqw;font-weight:900;">📱 Mit Smartphone konfigurieren</div>
+                      ${
+                        cfg.qrUrl
+                          ? `<div class="qr-img-wrap"><img src="${escapeHtml(cfg.qrUrl)}" alt="Admin Setup QR-Code"></div>`
+                          : ""
+                      }
+                      <div class="url-pill">${escapeHtml(cfg.setupUrl || `http://${state.terminalIp}/admin.html`)}</div>
+                      <div class="helper-txt">QR-Code im FREILab-WLAN scannen, um <strong>Drucker (IP &amp; Keys)</strong>, Server-URL, Token &amp; CSV-Log bequem am Handy zu verwalten (10 min gültig).</div>
+                    </div>
+                    <div class="panel" style="gap:1.4cqw;">
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Konfigurierte Drucker</span><span>${state.printers.length}</span></div>
+                      ${state.printers
+                        .map(
+                          (p) =>
+                            `<div class="pay-line" style="font-size:3.1cqw;"><span style="color:var(--muted);">Drucker ${p.slot} (${escapeHtml(p.model)})</span><span>${escapeHtml(p.ip || "–")}</span></div>`
+                        )
+                        .join("")}
+                    </div>
+                    <div class="panel" style="gap:1.4cqw;">
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Zahlungsmodus</span><span>${escapeHtml(cfg.paymentMode || state.modes.payment || "mock")}</span></div>
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Terminal-ID</span><span>${escapeHtml(cfg.terminalId || state.terminalId)}</span></div>
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Server-URL</span><span style="overflow:hidden;text-overflow:ellipsis;max-width:58%;">${escapeHtml(cfg.easyverwaltungUrl || "–")}</span></div>
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Service-Token</span><span style="color:${cfg.hasToken ? "var(--green-ink)" : "var(--red-ink)"};">${cfg.hasToken ? "✓ Gesetzt" : "✕ Fehlt"}</span></div>
+                      <button type="button" class="btn btn-secondary" style="height:6.2cqh;margin-top:1cqw;" data-action="admin-test">Verbindung testen</button>
+                    </div>
                   </div>
-                  <div class="panel" style="gap:1.4cqw;">
-                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Konfigurierte Drucker</span><span>${state.printers.length}</span></div>
-                    ${state.printers
-                      .map(
-                        (p) =>
-                          `<div class="pay-line" style="font-size:3.1cqw;"><span style="color:var(--muted);">Drucker ${p.slot} (${escapeHtml(p.model)})</span><span>${escapeHtml(p.ip || "–")}</span></div>`
-                      )
-                      .join("")}
+                `
+                : `
+                  <div class="list-scroll">
+                    <div class="panel">
+                      <div class="slider-head">
+                        <span>☀ Display-Helligkeit</span>
+                        <span id="brightness-val">${ds.brightness} %</span>
+                      </div>
+                      <input type="range" id="brightness-slider" min="15" max="100" step="5" value="${ds.brightness}">
+                    </div>
+                    <div class="panel">
+                      <div class="slider-head"><span>🌙 Dimmen &amp; 💤 Display aus</span></div>
+                      <div class="helper-txt">Dimmen auf 20 % nach Inaktivität:</div>
+                      <div class="seg-row">
+                        ${[
+                          [0, "Aus"],
+                          [60, "1 min"],
+                          [120, "2 min"],
+                          [300, "5 min"],
+                        ]
+                          .map(
+                            ([v, lbl]) =>
+                              `<button type="button" class="seg-btn ${ds.dimDelaySeconds === v ? "active" : ""}" data-dim-delay="${v}">${lbl}</button>`
+                          )
+                          .join("")}
+                      </div>
+                      <div class="helper-txt" style="margin-top:0.6cqh;">Display komplett aus (0 % · Burn-in-Schutz) nach:</div>
+                      <div class="seg-row">
+                        ${[
+                          [0, "Aus"],
+                          [900, "15 min"],
+                          [1800, "30 min"],
+                          [3600, "60 min"],
+                        ]
+                          .map(
+                            ([v, lbl]) =>
+                              `<button type="button" class="seg-btn ${ds.sleepDelaySeconds === v ? "active" : ""}" data-sleep-delay="${v}">${lbl}</button>`
+                          )
+                          .join("")}
+                      </div>
+                    </div>
+                    <div class="panel">
+                      <div class="slider-head"><span>🔊 Buzzer-Feedback</span></div>
+                      <div class="seg-row seg-3">
+                        ${[
+                          ["all", "Alle (inkl. Touch)"],
+                          ["events", "Nur Hinweise"],
+                          ["off", "Aus"],
+                        ]
+                          .map(
+                            ([v, lbl]) =>
+                              `<button type="button" class="seg-btn ${ds.buzzerMode === v ? "active" : ""}" data-buzzer-mode="${v}">${lbl}</button>`
+                          )
+                          .join("")}
+                      </div>
+                    </div>
                   </div>
-                  <div class="panel" style="gap:1.4cqw;">
-                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Terminal-ID</span><span>${escapeHtml(cfg.terminalId || state.terminalId)}</span></div>
-                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Server-URL</span><span style="overflow:hidden;text-overflow:ellipsis;max-width:58%;">${escapeHtml(cfg.easyverwaltungUrl || "–")}</span></div>
-                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Service-ID</span><span>${escapeHtml(cfg.easyverwaltungServiceId || "–")}</span></div>
-                    <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Service-Token</span><span style="color:${cfg.hasToken ? "var(--green-ink)" : "var(--red-ink)"};">${cfg.hasToken ? "✓ Gesetzt" : "✕ Fehlt"}</span></div>
-                    <button type="button" class="btn btn-secondary" style="height:6.2cqh;margin-top:1cqw;" data-action="admin-test">Verbindung testen</button>
-                  </div>
-                </div>
-              `
+                `
           }
         </div>
       `;
@@ -1865,6 +1935,10 @@
     const secBtn = ev.target.closest("[data-section-id]");
     if (secBtn) {
       state.selectedSectionId = secBtn.dataset.sectionId;
+      if (state.modes.cashbox) {
+        await executeStart("club", { sectionId: state.selectedSectionId });
+        return;
+      }
       state.pinMode = "club";
       state.pinValue = "";
       state.pinError = "";
@@ -1903,6 +1977,7 @@
 
     if (act === "go-home") return returnToQueue(true);
     if (act === "pay-personal") return executeStart("personal");
+    if (act === "pay-cashbox") return executeStart("cashbox");
     if (act === "open-overdraft") return openScreen("overdraft_confirm");
     if (act === "pay-overdraft") return executeStart("personal", { allowOverdraft: true });
     if (act === "open-topup") {
@@ -1915,6 +1990,7 @@
     }
     if (act === "open-club") return openScreen("club_section");
     if (act === "open-paid") {
+      if (state.modes.cashbox) return executeStart("already_paid");
       state.pinMode = "already_paid";
       state.pinValue = "";
       state.pinError = "";

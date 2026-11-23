@@ -233,6 +233,7 @@ async def health(request: Request) -> dict[str, Any]:
         "modes": {
             "hardware": st.settings.hardware_mode,
             "payment": st.settings.payment_mode,
+            "cashbox": st.settings.payment_mode == "cashbox",
             "printer": st.settings.printer_mode,
             "devMock": st.settings.is_dev_mock,
         },
@@ -314,6 +315,7 @@ async def terminal_state(request: Request) -> dict[str, Any]:
         "modes": {
             "hardware": st.settings.hardware_mode,
             "payment": st.settings.payment_mode,
+            "cashbox": st.settings.payment_mode == "cashbox",
             "printer": st.settings.printer_mode,
             "devMock": st.settings.is_dev_mock,
         },
@@ -638,24 +640,28 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
         await st.device_client.send_beeper("error")
         return {"started": False, "reason": "PRINTER_BUSY"}
 
+    is_cashbox_pilot = st.settings.payment_mode == "cashbox"
     mode = body.mode.strip().lower()
-    if mode not in {"personal", "club", "already_paid"}:
+    if mode not in {"personal", "cashbox", "club", "already_paid"}:
         raise HTTPException(status_code=400, detail="Invalid start mode")
+    if is_cashbox_pilot and mode == "personal":
+        mode = "cashbox"
 
-    # PIN verification for club print and already-paid reprint
+    # PIN verification for club print and already-paid reprint (skipped in cashbox pilot mode)
     section_name: str | None = None
     if mode in {"club", "already_paid"}:
-        if not body.pin:
-            return {"started": False, "reason": "PIN_REQUIRED"}
-        pin_check = await st.payment.authorize(mode="rfid_pin", rfid=sess.rfid_uid, pin=body.pin)
-        if not pin_check.get("authorized"):
-            await st.device_client.send_beeper("error")
-            return {"started": False, "reason": pin_check.get("reason", "PIN_INVALID")}
-        if pin_check.get("paymentAuthorizationId"):
-            await st.payment.cancel_authorization(
-                payment_authorization_id=pin_check["paymentAuthorizationId"],
-                reason=f"PIN_VERIFY_{mode.upper()}",
-            )
+        if not is_cashbox_pilot:
+            if not body.pin:
+                return {"started": False, "reason": "PIN_REQUIRED"}
+            pin_check = await st.payment.authorize(mode="rfid_pin", rfid=sess.rfid_uid, pin=body.pin)
+            if not pin_check.get("authorized"):
+                await st.device_client.send_beeper("error")
+                return {"started": False, "reason": pin_check.get("reason", "PIN_INVALID")}
+            if pin_check.get("paymentAuthorizationId"):
+                await st.payment.cancel_authorization(
+                    payment_authorization_id=pin_check["paymentAuthorizationId"],
+                    reason=f"PIN_VERIFY_{mode.upper()}",
+                )
         if mode == "club":
             sections = (st.cached_metadata or {}).get("sections", [])
             matched = next((s for s in sections if s["sectionId"] == body.sectionId), None)
@@ -675,7 +681,7 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
 
     # Step 2: Balance check & immediate charge (before slow upload so 300s auth never expires!)
     allow_overdraft = bool(body.allowOverdraft and st.settings.allow_negative_balance)
-    if mode == "personal" and sess.balance_cents < job["priceCents"]:
+    if mode == "personal" and not is_cashbox_pilot and sess.balance_cents < job["priceCents"]:
         projected = sess.balance_cents - job["priceCents"]
         if not allow_overdraft:
             return {
@@ -694,7 +700,19 @@ async def start_job(job_id: str, body: StartJobRequest, request: Request) -> dic
 
     payment_ref: str | None = None
     charged_cents = 0
-    if mode == "personal":
+    if mode == "cashbox":
+        charged_cents = job["priceCents"]
+        payment_ref = f"cashbox_{uuid.uuid4().hex[:10]}"
+        st.store.log_event(
+            "cashbox_confirmed",
+            job_id=job_id,
+            printer_id=printer.id,
+            user_id=sess.user.get("user_id"),
+            user_name=sess.user.get("display_name"),
+            amount_cents=charged_cents,
+            details={"paymentRef": payment_ref},
+        )
+    elif mode == "personal":
         idem_suffix = "-ovd" if allow_overdraft else ""
         idem_key = f"st3d-{job_id}-{sess.payment_authorization_id}{idem_suffix}"
         corr_id = f"{st.settings.terminal_id}-{job_id}"

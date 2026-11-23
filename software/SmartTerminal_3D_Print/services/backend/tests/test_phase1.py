@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from jobs.parser import compute_job_price, derive_display_name, parse_duration_seconds, parse_print_file
 from jobs.store import JobStore
+from payment.service import CashboxPaymentProvider, FREILAB_SECTIONS
 from printer.client import map_prusalink_state
 from printer.emulation import _parse_print_after_upload
 
@@ -213,6 +214,54 @@ class Phase1ParserAndStoreTests(unittest.TestCase):
             p2 = store.get_power_state("prusa-xl")
             self.assertEqual(p2["powerState"], "OFF")
             self.assertFalse(p2["pendingShutdown"])
+
+    def test_cashbox_provider_and_freilab_sections(self) -> None:
+        import asyncio
+
+        expected_names = {
+            "3D-Druck",
+            "Elektronik",
+            "Holzwerkstatt",
+            "Metall",
+            "Fahrrad Bereich",
+            "Lasercutter",
+            "CNC",
+            "Schweißen",
+            "Textil",
+        }
+        self.assertEqual({s["name"] for s in FREILAB_SECTIONS}, expected_names)
+
+        provider = CashboxPaymentProvider(admin_bv_rfids=("04AABBCCDD99",))
+
+        async def _run() -> None:
+            meta = await provider.get_metadata()
+            self.assertEqual(len(meta["sections"]), 9)
+
+            # Any blanko RFID card is accepted and masked
+            auth_user = await provider.authorize(mode="rfid_only", rfid="041122334455")
+            self.assertTrue(auth_user["authorized"])
+            self.assertTrue(auth_user["approved"])
+            self.assertFalse(auth_user["is_instructor"])
+            self.assertEqual(auth_user["user"]["display_name"], "Karte 0411…4455")
+
+            # BV allowlist card gets instructor flag
+            auth_bv = await provider.authorize(mode="rfid_only", rfid="04aabbccdd99")
+            self.assertTrue(auth_bv["authorized"])
+            self.assertTrue(auth_bv["is_instructor"])
+            self.assertIn("BV", auth_bv["user"]["display_name"])
+
+            # Cashbox charge always succeeds
+            ch = await provider.charge(
+                payment_authorization_id=auth_user["paymentAuthorizationId"],
+                amount_cents=140,
+                items=[{"name": "3DBenchy"}],
+                idempotency_key="idem_1",
+                correlation_id="corr_1",
+            )
+            self.assertTrue(ch["paid"])
+            self.assertEqual(ch["amount"], 140)
+
+        asyncio.run(_run())
 
 
 if __name__ == "__main__":
