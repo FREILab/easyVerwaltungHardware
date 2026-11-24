@@ -633,6 +633,7 @@
       "pin_to_pin": "warning",
       "power_pin_not_driven": "ignore",
       "same_local_global_label": "warning",
+      "same_local_global_power": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
       "similar_power": "warning",
@@ -763,15 +764,6 @@
       "/USB/USB_D-": [
         "USB"
       ],
-      "GND": [
-        "NFC_TX"
-      ],
-      "Net-(C207-Pad2)": [
-        "NFC_TX"
-      ],
-      "Net-(C209-Pad2)": [
-        "NFC_TX"
-      ],
       "Net-(C212-Pad1)": [
         "NFC_TX"
       ],
@@ -782,27 +774,6 @@
         "NFC_TX"
       ],
       "Net-(C216-Pad2)": [
-        "NFC_TX"
-      ],
-      "Net-(D400-I{slash}O1-Pad1)": [
-        "USB"
-      ],
-      "Net-(D400-I{slash}O2-Pad3)": [
-        "USB"
-      ],
-      "Net-(IC200A-RXN)": [
-        "NFC_TX"
-      ],
-      "Net-(IC200A-RXP)": [
-        "NFC_TX"
-      ],
-      "Net-(IC200A-TX1)": [
-        "NFC_TX"
-      ],
-      "Net-(IC200A-TX2)": [
-        "NFC_TX"
-      ],
-      "Net-(IC200A-VMID)": [
         "NFC_TX"
       ],
       "VBUS": [
@@ -1114,7 +1085,7 @@
         "uuid": "d506034a-00c4-4f3e-a3e1-9eb1bcd387d5"
       }
     ],
-    "used_designators": "Q100,Q500,R1A100,R1A200,J100-104,J400,M100,M500,R100-112,R200-209,R400-404,R500-501,BZ100,IC100-104,Cx100,Cx200,R1B100,R1B200,D100-101,D300-307,D400-401,#PWR1-20,#PWR100-144,#PWR200-288,#PWR300-323,#PWR400-407,#PWR500-510,Y100,Y200,SW100,U1,U100,U200,C100-117,C200-218,C300-307,C400,C500-502,L1-2,L100-101,L200-201,LED100,AE1,AE100,AE200",
+    "used_designators": "#PWR1-20,#PWR100-144,#PWR200-288,#PWR300-323,#PWR400-407,#PWR500-510,AE1,AE100,AE200,BZ100,C100-117,C200-218,C300-307,C400,C500-502,Cx100,Cx200,D100-101,D300-307,D400-401,IC100-104,J100-104,J400,L1-2,L100-101,L200-201,LED100,M100,M500,Q100,Q500,R100-112,R200-209,R400-404,R500-501,R1A100,R1A200,R1B100,R1B200,SW100,U1,U100,U200,Y100,Y200",
     "variants": []
   },
   "sheets": [
