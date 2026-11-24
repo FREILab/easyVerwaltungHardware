@@ -22,6 +22,8 @@ def _svg_data_uri(path: Path) -> str:
 
 DEMO_PANEL_CSS = """
 /* === Standalone Offline Demo Shell === */
+.rfid-ring { cursor: pointer; }
+.rfid-ring:active { transform: scale(0.95); }
 @media (min-width: 920px) and (min-aspect-ratio: 1/1) {
   body {
     display: flex !important;
@@ -355,7 +357,7 @@ MOCK_SHIM_JS = r"""
   // --- Mock EventSource ---
   const esClients = new Set();
   function emitSSE(type, payload) {
-    const data = JSON.stringify(payload || {});
+    const data = JSON.stringify({ type, data: payload || {} });
     for (const c of esClients) {
       c._dispatch(type, data);
     }
@@ -369,6 +371,7 @@ MOCK_SHIM_JS = r"""
       esClients.add(this);
       setTimeout(() => {
         if (typeof this.onopen === "function") this.onopen(new Event("open"));
+        this._dispatch("connected", JSON.stringify({ type: "connected", data: {} }));
       }, 30);
     }
     addEventListener(type, fn) {
@@ -779,6 +782,19 @@ MOCK_SHIM_JS = r"""
           body: JSON.stringify({ slot: 1 }),
         });
       }
+    });
+
+    // Make the pulsing NFC icon directly clickable in the offline demo for intuitive testing
+    document.getElementById("stage")?.addEventListener("click", async (ev) => {
+      const ring = ev.target.closest(".rfid-ring");
+      if (!ring) return;
+      const stageTxt = document.getElementById("stage")?.textContent || "";
+      const needsBv = /Admin|BV-Karte|Einweiser/i.test(stageTxt);
+      await fetch("/api/dev/simulate-rfid", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uid: needsBv ? "04AABBCCDD99" : "04AABBCCDD01" }),
+      });
     });
   });
 })();
