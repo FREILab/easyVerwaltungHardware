@@ -1,0 +1,4037 @@
+<!doctype html>
+<html lang="de" translate="no" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>SmartTerminal 3D-Print — Interaktive FREILab Demo</title>
+  <style>
+/* =====================================================================
+   SmartTerminal 3D-Print — Production Portrait HMI (5" DSI 720×1280 @ 1,5×)
+   Native logical canvas: 480×854 px (62 × 110 mm, 9:16 Hochkant)
+   ===================================================================== */
+:root {
+  --bg: #f1f0ec;
+  --surface: #ffffff;
+  --surface-2: #e7e5df;
+  --border: #d5d2c9;
+  --border-strong: #bab5a9;
+  --text: #0f172a;
+  --muted: #576071;
+  --green: #16a34a;
+  --green-btn: #15803d;
+  --green-ink: #15803d;
+  --green-bg: #dcfce7;
+  --green-border: #86efac;
+  --blue: #2563eb;
+  --blue-bg: #dbeafe;
+  --orange: #ea580c;
+  --orange-btn: #c2410c;
+  --orange-bg: #ffedd5;
+  --orange-border: #fdba74;
+  --orange-ink: #9a3412;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --red-border: #fca5a5;
+  --red-ink: #991b1b;
+  --shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+  --backdrop: rgba(15, 23, 42, 0.56);
+}
+
+html[data-theme="dark"] {
+  --bg: #0f141c;
+  --surface: #18202c;
+  --surface-2: #121822;
+  --border: #2a3547;
+  --border-strong: #3c4b63;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --green: #22c55e;
+  --green-btn: #16a34a;
+  --green-ink: #4ade80;
+  --green-bg: #0f2e1e;
+  --green-border: #166534;
+  --blue: #60a5fa;
+  --blue-bg: #172554;
+  --orange: #fb923c;
+  --orange-btn: #ea580c;
+  --orange-bg: #3b1c0a;
+  --orange-border: #9a3412;
+  --orange-ink: #fed7aa;
+  --red: #ef4444;
+  --red-bg: #3b1215;
+  --red-border: #991b1b;
+  --red-ink: #fecaca;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --backdrop: rgba(2, 6, 23, 0.72);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #141923;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+html.kiosk, html.kiosk * { cursor: none !important; }
+
+.hidden { display: none !important; }
+
+/* Full-bleed on Portrait display (Pi 5), clean 9:16 frame on Landscape desktop */
+.hmi-root {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  container-type: size;
+  transition: filter 0.35s ease;
+}
+
+@media (min-aspect-ratio: 1/1) {
+  body {
+    display: grid;
+    place-items: center;
+  }
+  .hmi-root {
+    height: min(96vh, 854px);
+    width: calc(min(96vh, 854px) * 9 / 16);
+    border-radius: 18px;
+    border: 2px solid #2b3446;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* =====================================================================
+   1. BRAND BAR (FREILab · 3D-Print  |  ● 18:45)
+   ===================================================================== */
+.brand-bar {
+  height: 5.2cqh;
+  min-height: 36px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2.8cqw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  flex-shrink: 0;
+}
+.brand-logo-wrap { display: inline-flex; align-items: center; gap: 2cqw; min-width: 0; }
+.brand-logo { height: 3.1cqh; min-height: 20px; width: auto; display: block; flex-shrink: 0; }
+.brand-sep { width: 1.5px; height: 2.3cqh; background: var(--border-strong); flex-shrink: 0; }
+.brand-sub {
+  font-size: 3cqw;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.brand-sub.is-pilot {
+  background: var(--orange-bg);
+  color: var(--orange-ink);
+  border: 1px solid var(--orange-border);
+  padding: 0.4cqw 2cqw;
+  border-radius: 999px;
+  font-size: 2.7cqw;
+}
+.brand-right { display: inline-flex; align-items: center; gap: 1.8cqw; flex-shrink: 0; }
+.conn-dot {
+  width: 2.3cqw;
+  height: 2.3cqw;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+.conn-dot.offline { background: var(--red); }
+.sb-clock {
+  font-size: 3.9cqw;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* =====================================================================
+   2. NAVIGATION / ACTION BAR (Warteschlange | ‹ Zurück  +  👁 Konto ⚙)
+   ===================================================================== */
+.statusbar {
+  height: 7.4cqh;
+  min-height: 50px;
+  background: var(--surface);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 2.4cqw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  flex-shrink: 0;
+}
+.sb-left { display: flex; align-items: center; gap: 2cqw; min-width: 0; flex: 1; }
+.sb-title {
+  font-size: 4.6cqw;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sb-right { display: flex; align-items: center; gap: 1.6cqw; flex-shrink: 0; }
+
+.sb-icon-btn,
+.sb-account-btn {
+  height: 5.8cqh;
+  min-height: 40px;
+  border-radius: 2.6cqw;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 3.7cqw;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqw;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.sb-icon-btn { width: 14.5cqw; padding: 0; font-size: 4.8cqw; }
+.sb-account-btn { width: 22cqw; padding: 0 2cqw; }
+.statusbar:has(#btn-account.hidden) .sb-icon-btn { width: 21cqw; }
+.statusbar:has(#btn-back-top:not(.hidden)) .sb-icon-btn { width: 19cqw; }
+.sb-icon-btn.is-home,
+.sb-account-btn.is-home {
+  background: var(--blue-bg);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.sb-icon-btn:active,
+.sb-account-btn:active,
+.back-top-btn:active { transform: scale(0.96); }
+
+.back-top-btn {
+  height: 5.8cqh;
+  min-height: 40px;
+  padding: 0 3.2cqw;
+  border-radius: 2.6cqw;
+  border: 1.5px solid var(--orange-border);
+  background: var(--orange-bg);
+  color: var(--orange-ink);
+  font-size: 3.8cqw;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* =====================================================================
+   3. STAGE & PORTRAIT 2-BAND QUEUE CARDS
+   ===================================================================== */
+.stage {
+  flex: 1;
+  min-height: 0;
+  padding: 2.4cqw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.queue-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.queue-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2cqw;
+  padding-right: 1cqw;
+}
+.queue-scroll::-webkit-scrollbar { width: 6px; }
+.queue-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; }
+
+.job-card-wrap {
+  position: relative;
+  border-radius: 3.6cqw;
+  overflow: hidden;
+  background: var(--red);
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+}
+.job-swipe-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 5cqw;
+  font-size: 4cqw;
+  font-weight: 900;
+  color: #fff;
+  pointer-events: none;
+}
+
+.job-card {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 3.6cqw;
+  padding: 2.6cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2cqw;
+  transition: transform 0.18s ease-out;
+  touch-action: pan-y;
+}
+.job-card.swiping { transition: none; }
+.job-card.is-uploading { border-color: var(--blue); border-width: 2px; cursor: pointer; }
+
+.j-info-row {
+  display: flex;
+  align-items: center;
+  gap: 2.6cqw;
+  min-width: 0;
+}
+.job-thumb {
+  width: 16cqw;
+  height: 16cqw;
+  border-radius: 2.8cqw;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: 7.5cqw;
+}
+.job-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.j-info-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqw;
+}
+.job-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.8cqw;
+  min-width: 0;
+}
+.job-name-wrap {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.job-name {
+  display: inline-block;
+  font-size: 4.3cqw;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.job-name-wrap.is-overflowing .job-name {
+  animation: stMarquee var(--marquee-dur, 7s) ease-in-out infinite alternate;
+}
+@keyframes stMarquee {
+  0%, 15% { transform: translateX(0); }
+  85%, 100% { transform: translateX(calc(-1 * var(--marquee-dist, 0px))); }
+}
+
+.slot-badge {
+  font-size: 3.1cqw;
+  font-weight: 800;
+  padding: 0.7cqw 2cqw;
+  border-radius: 1.8cqw;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.job-meta {
+  display: flex;
+  align-items: center;
+  gap: 2.4cqw;
+  font-size: 3.4cqw;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.job-meta strong { color: var(--text); }
+.ttl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2cqw;
+  font-variant-numeric: tabular-nums;
+}
+.ttl-chip.warn { color: var(--orange-ink); font-weight: 800; }
+.ttl-ring { width: 3.8cqw; height: 3.8cqw; transform: rotate(-90deg); flex-shrink: 0; }
+
+.j-action-row {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+}
+.btn-print-job {
+  flex: 1;
+  height: 6.4cqh;
+  min-height: 46px;
+  border-radius: 2.8cqw;
+  border: none;
+  background: var(--green-btn);
+  color: #fff;
+  font-size: 4.1cqw;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqw;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.28);
+  white-space: nowrap;
+}
+.btn-print-job:active { transform: scale(0.98); }
+
+.btn-abort-x {
+  width: 11.8cqw;
+  height: 6.4cqh;
+  min-height: 46px;
+  border-radius: 2.8cqw;
+  border: 1.5px solid var(--red-border);
+  background: var(--red-bg);
+  color: var(--red-ink);
+  font-size: 4.8cqw;
+  font-weight: 900;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+.btn-abort-x:active { background: var(--red); color: #fff; }
+
+.inline-up {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1cqw;
+}
+.inline-up-track {
+  height: 1.8cqh;
+  min-height: 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.inline-up-fill {
+  height: 100%;
+  background: var(--blue);
+  border-radius: 999px;
+  transition: width 0.22s ease-out;
+}
+.inline-up-txt {
+  display: flex;
+  justify-content: space-between;
+  font-size: 3.3cqw;
+  font-weight: 800;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Empty Queue */
+.queue-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2.2cqh;
+  padding: 0 6cqw;
+  color: var(--muted);
+}
+.queue-empty .empty-icon { width: 26cqw; height: 24cqw; display: grid; place-items: center; }
+.queue-empty h2 { margin: 0; font-size: 5.5cqw; font-weight: 900; color: var(--text); }
+.queue-empty p { margin: 0; font-size: 3.7cqw; font-weight: 700; line-height: 1.45; }
+
+/* =====================================================================
+   4. BOTTOM PRINTER DOCK (2×2 Portrait Grid)
+   ===================================================================== */
+.printer-dock {
+  background: var(--surface-2);
+  border-top: 1.5px solid var(--border);
+  padding: 2cqw;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.8cqw;
+  flex-shrink: 0;
+}
+.p-tile {
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-left: 1.5cqw solid var(--green);
+  border-radius: 2.8cqw;
+  padding: 2cqw 2.4cqw;
+  min-height: 8.2cqh;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.7cqw;
+  min-width: 0;
+}
+.p-tile:active { transform: scale(0.98); }
+.p-tile.st-PRINTING,
+.p-tile.st-UPLOADING,
+.p-tile.st-PAUSED,
+.p-tile.st-ATTENTION,
+.p-tile.is-cooling { border-left-color: var(--orange); }
+.p-tile.st-OFFLINE { border-left-color: var(--red); }
+
+.p-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1cqw;
+  font-size: 3.8cqw;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.p-model { font-size: 3.1cqw; font-weight: 800; color: var(--muted); }
+.p-stat {
+  font-size: 3.2cqw;
+  font-weight: 800;
+  color: var(--green-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.p-tile.st-PRINTING .p-stat,
+.p-tile.st-UPLOADING .p-stat,
+.p-tile.st-PAUSED .p-stat,
+.p-tile.st-ATTENTION .p-stat,
+.p-tile.is-cooling .p-stat { color: var(--orange-ink); }
+.p-tile.st-OFFLINE .p-stat { color: var(--red-ink); }
+
+/* =====================================================================
+   5. WORKFLOW SUB-SCREENS (Portrait Vertical Flow)
+   ===================================================================== */
+.subscreen {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2cqw;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.subscreen.no-scroll { overflow: hidden; }
+
+.sub-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  padding: 0 0.5cqw;
+  flex-shrink: 0;
+}
+.sub-heading h1 {
+  margin: 0;
+  font-size: 5cqw;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.timeout-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 1cqw 2.4cqw;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  font-size: 3.3cqw;
+  font-weight: 800;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.ring-badge { width: 4.2cqw; height: 4.2cqw; display: grid; place-items: center; }
+.ring-badge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+.panel {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 3.6cqw;
+  padding: 3cqw;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 2cqw;
+  flex-shrink: 0;
+}
+.panel.warn { background: var(--orange-bg); border-color: var(--orange-border); }
+.panel.err { background: var(--red-bg); border-color: var(--red-border); color: var(--red-ink); }
+.panel.cash { background: var(--green-bg); border: 2px solid var(--green-border); }
+.cash-uid-pill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  font-size: 3cqw;
+  font-weight: 800;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.8cqw 2.4cqw;
+  border-radius: 999px;
+}
+.cash-head { display: flex; align-items: center; justify-content: space-between; gap: 2.5cqw; }
+.cash-amount { font-size: 8cqw; font-weight: 900; color: var(--green-ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.cash-coin {
+  width: 13cqw;
+  height: 13cqw;
+  border-radius: 3.2cqw;
+  background: var(--surface);
+  border: 1.5px solid var(--green-border);
+  display: grid;
+  place-items: center;
+  font-size: 7cqw;
+  flex-shrink: 0;
+}
+.cash-question { font-size: 4.3cqw; font-weight: 900; line-height: 1.3; }
+.admin-tabs-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6cqw; flex-shrink: 0; }
+.admin-tabs-3 .seg-btn { height: 5.6cqh; font-size: 3.2cqw; }
+
+.auto-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5cqw;
+  align-self: flex-start;
+  background: var(--blue-bg);
+  color: var(--blue);
+  font-size: 3.2cqw;
+  font-weight: 900;
+  padding: 1cqw 2.6cqw;
+  border-radius: 999px;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  height: 7.4cqh;
+  min-height: 50px;
+  border-radius: 3.2cqw;
+  border: 1.5px solid transparent;
+  font-size: 4.3cqw;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqw;
+  padding: 0 3cqw;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-primary { background: var(--green-btn); color: #fff; box-shadow: 0 3px 8px rgba(22, 163, 74, 0.25); }
+.btn-orange { background: var(--orange-btn); color: #fff; }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-secondary { background: var(--surface); border-color: var(--border-strong); color: var(--text); box-shadow: var(--shadow); }
+.btn-danger-soft { background: var(--red-bg); border-color: var(--red-border); color: var(--red-ink); }
+
+.btn-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2cqw; flex-shrink: 0; }
+.btn-row2 .btn { height: 6.6cqh; min-height: 46px; font-size: 3.8cqw; }
+
+/* RFID Hero */
+.rfid-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2.2cqh;
+  padding: 1cqh 4cqw;
+}
+.rfid-circle {
+  width: 28cqw;
+  height: 28cqw;
+  border-radius: 50%;
+  background: var(--blue-bg);
+  border: 3px solid var(--blue);
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+  animation: pulseRing 2s infinite;
+}
+.rfid-circle svg { width: 58%; height: 58%; }
+@keyframes pulseRing {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35); }
+  50% { box-shadow: 0 0 0 14px rgba(37, 99, 235, 0); }
+}
+.rfid-center h2 { margin: 0; font-size: 5.2cqw; font-weight: 900; }
+.rfid-center p { margin: 0; font-size: 3.6cqw; color: var(--muted); font-weight: 700; line-height: 1.4; }
+.arrow-down-hint {
+  font-size: 3.3cqw;
+  font-weight: 800;
+  color: var(--blue);
+  animation: bounceY 1.5s infinite;
+}
+@keyframes bounceY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* Payment & Overdraft */
+.pay-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2cqw;
+  font-size: 3.9cqw;
+  font-weight: 800;
+}
+.pay-line.divider { padding-top: 2cqw; border-top: 1px solid var(--border); }
+.pay-price-big { font-size: 6.4cqw; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+/* Choice Grid (Sections / Topup) */
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.2cqw;
+}
+.choice-grid .btn { height: 9cqh; font-size: 4cqw; white-space: normal; text-align: center; }
+
+/* PIN Numpad Portrait */
+.pin-dots { display: flex; justify-content: center; gap: 4.5cqw; margin: 1cqh 0; }
+.pin-dot {
+  width: 4.8cqw;
+  height: 4.8cqw;
+  border-radius: 50%;
+  border: 2.5px solid var(--border-strong);
+  background: var(--surface);
+}
+.pin-dot.filled { background: var(--blue); border-color: var(--blue); }
+.numpad {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 2cqw;
+}
+.numpad .btn { height: 100%; min-height: 0; font-size: 6.8cqw; border-radius: 3.2cqw; }
+
+/* Account & History Scroll */
+.list-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqw;
+  padding-right: 0.8cqw;
+}
+.tx-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2cqw;
+  padding: 2.2cqw 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 3.6cqw;
+  font-weight: 800;
+}
+.tx-row:last-child { border-bottom: none; }
+.tx-sub { font-size: 3cqw; color: var(--muted); font-weight: 700; margin-top: 0.4cqw; }
+
+/* Settings Sliders & Segmented Buttons */
+.slider-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2cqw;
+  font-size: 3.8cqw;
+  font-weight: 800;
+}
+.helper-txt { font-size: 3.1cqw; color: var(--muted); font-weight: 700; line-height: 1.35; }
+input[type="range"] {
+  width: 100%;
+  height: 4.5cqw;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+.seg-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw; }
+.seg-row.seg-3 { grid-template-columns: 1.42fr 1fr 0.62fr; }
+.seg-btn {
+  height: 5.6cqh;
+  min-height: 40px;
+  border-radius: 2.4cqw;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 3.3cqw;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0 1.5cqw;
+}
+.seg-btn.active { background: var(--blue-bg); border-color: var(--blue); color: var(--blue); }
+
+/* QR Setup Card inside Admin */
+.qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2cqw;
+  text-align: center;
+}
+.qr-img-wrap {
+  background: #ffffff;
+  padding: 2.6cqw;
+  border-radius: 3.2cqw;
+  border: 1.5px solid var(--border-strong);
+  width: 44cqw;
+  height: 44cqw;
+  display: grid;
+  place-items: center;
+}
+.qr-img-wrap img { width: 100%; height: 100%; display: block; }
+.url-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 3.2cqw;
+  font-weight: 800;
+  color: var(--blue);
+  background: var(--blue-bg);
+  padding: 1.5cqw 2.8cqw;
+  border-radius: 2.2cqw;
+  word-break: break-all;
+}
+
+/* =====================================================================
+   6. POPUPS (Upload-Detail, Drucker-Detail, Transfer-Erfolg)
+   ===================================================================== */
+.popup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--backdrop);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  padding: 3.2cqw;
+}
+.popup-card {
+  width: 100%;
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+  border-radius: 4.2cqw;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.popup-head {
+  padding: 2.4cqw 3cqw;
+  background: var(--surface-2);
+  border-bottom: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+}
+.popup-head-left { display: flex; align-items: center; gap: 2cqw; min-width: 0; }
+.popup-head h3 {
+  margin: 0;
+  font-size: 4cqw;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.p-status-pill {
+  padding: 1cqw 2.4cqw;
+  border-radius: 999px;
+  font-size: 3.1cqw;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.p-status-pill.st-READY { background: var(--green-bg); color: var(--green-ink); }
+.p-status-pill.st-PRINTING,
+.p-status-pill.st-UPLOADING,
+.p-status-pill.st-PAUSED,
+.p-status-pill.st-ATTENTION,
+.p-status-pill.is-cooling { background: var(--orange-bg); color: var(--orange-ink); }
+.p-status-pill.st-OFFLINE { background: var(--red-bg); color: var(--red-ink); }
+
+.printer-spec-grid {
+  padding: 2.6cqw 3cqw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2cqw;
+}
+.spec-chip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 2.6cqw;
+  padding: 2cqw 2.4cqw;
+}
+.spec-k { font-size: 2.9cqw; font-weight: 700; color: var(--muted); }
+.spec-v { font-size: 3.8cqw; font-weight: 900; margin-top: 0.5cqw; font-variant-numeric: tabular-nums; }
+
+.p-job-banner {
+  grid-column: span 2;
+  background: var(--orange-bg);
+  border: 1.5px solid var(--orange-border);
+  border-radius: 2.8cqw;
+  padding: 2.4cqw 2.8cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+}
+.p-job-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqw;
+  font-size: 3.2cqw;
+  font-weight: 700;
+  color: var(--orange-ink);
+}
+
+.popup-foot {
+  padding: 2.6cqw 3cqw;
+  background: var(--surface-2);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2cqw;
+}
+.cooldown-note {
+  font-size: 3.3cqw;
+  font-weight: 800;
+  color: var(--orange-ink);
+  text-align: center;
+}
+
+.done-card {
+  padding: 6cqh 5cqw;
+  align-items: center;
+  text-align: center;
+  gap: 2cqh;
+}
+.done-icon {
+  width: 18cqw;
+  height: 18cqw;
+  border-radius: 50%;
+  background: var(--green-bg);
+  border: 3px solid var(--green);
+  color: var(--green-ink);
+  display: grid;
+  place-items: center;
+  font-size: 10cqw;
+  font-weight: 900;
+}
+.done-card h3 { margin: 0; font-size: 4.8cqw; font-weight: 900; line-height: 1.25; }
+.done-card p { margin: 0; font-size: 3.6cqw; color: var(--muted); font-weight: 700; line-height: 1.35; }
+
+/* =====================================================================
+   7. DIM / SLEEP OVERLAY (Blind-Tap Wake Swallow + Burn-in Protection)
+   ===================================================================== */
+.power-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  cursor: pointer;
+}
+.power-overlay.mode-dim { background: rgba(0, 0, 0, 0.55); }
+.power-overlay.mode-sleep { background: #000000; }
+
+/* =====================================================================
+   8. COLLAPSIBLE DEV SIMULATOR & TOAST
+   ===================================================================== */
+.dev-pill {
+  position: absolute;
+  left: 2.2cqw;
+  bottom: 20cqh;
+  z-index: 60;
+  padding: 1.2cqw 2.8cqw;
+  border-radius: 999px;
+  border: 1.5px solid #7c3aed;
+  background: rgba(109, 40, 217, 0.92);
+  color: #fff;
+  font-size: 2.9cqw;
+  font-weight: 900;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.dev-drawer {
+  position: absolute;
+  left: 2cqw;
+  right: 2cqw;
+  bottom: 20cqh;
+  z-index: 65;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1.5px solid #7c3aed;
+  border-radius: 3cqw;
+  padding: 2cqw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5cqw;
+  align-items: center;
+}
+.dev-btn {
+  height: 4.8cqh;
+  min-height: 34px;
+  padding: 0 2.5cqw;
+  border-radius: 2cqw;
+  border: 1px solid #475569;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 3cqw;
+  font-weight: 800;
+  cursor: pointer;
+}
+.dev-hint { color: #94a3b8; font-size: 2.8cqw; font-weight: 700; margin-left: auto; }
+
+.toast {
+  position: absolute;
+  left: 3cqw;
+  right: 3cqw;
+  top: 13.5cqh;
+  z-index: 75;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1.5px solid #334155;
+  border-radius: 3cqw;
+  padding: 2.6cqw 3.4cqw;
+  font-size: 3.5cqw;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+
+/* === Standalone Offline Demo Shell === */
+@media (min-width: 920px) and (min-aspect-ratio: 1/1) {
+  body {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 16px;
+    background: radial-gradient(circle at 20% 20%, #1e293b 0%, #0b1019 100%) !important;
+  }
+  .demo-panel {
+    display: flex !important;
+  }
+}
+.demo-panel {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  width: 310px;
+  max-height: min(94vh, 854px);
+  overflow-y: auto;
+  background: rgba(15, 23, 42, 0.92);
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.demo-panel h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.demo-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.demo-sub {
+  margin: 0;
+  font-size: 12.5px;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+.demo-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #1e293b;
+}
+.demo-sec-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+}
+.demo-mode-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.demo-btn {
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #f8fafc;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, border-color 0.12s, transform 0.08s;
+}
+.demo-btn:hover { background: #293548; border-color: #475569; }
+.demo-btn:active { transform: scale(0.98); }
+.demo-btn.primary {
+  background: #2563eb;
+  border-color: #3b82f6;
+  text-align: center;
+}
+.demo-btn.primary:hover { background: #1d4ed8; }
+.demo-btn.active {
+  background: rgba(37, 99, 235, 0.22);
+  border-color: #60a5fa;
+  color: #bfdbfe;
+  text-align: center;
+}
+.demo-btn.center { text-align: center; }
+.demo-steps {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.demo-note {
+  font-size: 11.5px;
+  color: #94a3b8;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 9px 10px;
+  line-height: 1.45;
+}
+
+</style>
+</head>
+<body>
+  <div class="hmi-root" id="hmi-root">
+    <!-- 1. Brand-Leiste: FREILab Logo + 3D-Print (links) · Status-Punkt + Live-Uhr (rechts) -->
+    <div class="brand-bar">
+      <div class="brand-logo-wrap">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjguMTE0MjggMTQ1Ljg5NjY3IiBhcmlhLWhpZGRlbj0idHJ1ZSI+CiAgPGcKICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLjMzMzMzMzMsMCwwLC0xLjMzMzMzMzMsLTI1NC41MDg1Myw0NjkuNzMzMzIpIj4KICAgIDxwYXRoCiAgICAgICBkPSJtIDI3MC45NDgyLDI4OS4xNDA3IGggLTEyLjg3NSB2IC04LjA0NTkgaCAxMC44NjMyIGMgMi40ODgsMCA2LjQzNzgsMC41NTE5IDYuNDM3OCwyLjgxNTkgdiAyLjgxNjMgYyAwLDEuNjQyOSAtMi42NzQ4LDIuNDEzNyAtNC40MjYsMi40MTM3IHogbSAtMjkuMzcxMiwxNS4yODY5IGggMjcuMzU5NCBjIDcuOTY3NywwIDExLjI5ODEsLTAuNTE4MiAxNi4yNjIxLC0zLjg1NTQgMy4wNjI5LC0yLjA1OTEgNy4wNzQ0LC04LjEyODkgNy4wNzQ0LC0xMy4wNDA4IHYgLTQuODI3NCBjIDAsLTMuNzQzMSAtNC4xMDg1LC0xMC45MzcyIC02Ljg0MDIsLTExLjY2NjIgMC4yNDgsLTAuOTI4NyAyLjM1MzksLTQuNjE4NSAzLjA4NDMsLTYuMTY5NCAwLjkxNjIsLTEuOTQzNyAxLjkyMDUsLTQuOTgxIDIuNTk5MSwtNy4wNTYgMS4yMTQ3LC0zLjcxMzMgMy41NDgyLC0xMC43MzA1IDUuMTgwMywtMTQuMTMwNCBoIC0xOC4xMDYgYyAtMC4xNDQ1LDEuNzQwNSAtMy4zNDA5LDEwLjU2NzYgLTQuMTgzOSwxMi43MTI2IC0xLjU2OSwzLjk5MzQgLTIuNTA3NSw5LjAxMSAtNy44ODYzLDkuMDExIGggLTguMDQ3IFYgMjQzLjY4MiBIIDI0MS41NzcgWiIKICAgICAgIGZpbGw9IiNkYzVlMTciIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAzMTcuMjE4NywyNTkuMzcxNSBoIDMxLjc4NTEgViAyNDMuNjgyIGggLTQ4LjI4MTYgdiA2MC43NDU2IGggNDcuMDc0NyB2IC0xNS42ODk1IGggLTMwLjU3ODIgdiAtNi4wMzQxIGggMjguNTY2NCB2IC0xNS42ODkyIGggLTI4LjU2NjQgeiIKICAgICAgIGZpbGw9IiNkYzVlMTciIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAyMDcuNzgwMSwyODIuNzQwMyAwLjAyODEsLTAuMDM2MyBoIDI0LjExMjMgdiAtMTYuMDkxNyBoIC0yNC4xNDA0IGwgLTAuNDAyNSwtMjIuOTMwMyBoIC0xNi40OTYyIHYgNjAuNzQ1NiBoIDQ0LjY2MDYgdiAtMTUuNjg5NSBoIC0yNy43NjE5IHoiCiAgICAgICBmaWxsPSIjZGM1ZTE3IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gMzU1LjAzOTEsMzA0LjQyNzYgaCAxNi40OTYyIFYgMjQzLjY4MiBoIC0xNi40OTYyIHoiCiAgICAgICBmaWxsPSIjZGM1ZTE3IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNDkxLjAzMjMsMjgyLjMwMTUgaCAtMy42MjEyIGMgLTMuMzA4OSwwIC0xMC4wNTg4LC01LjQwNjUgLTEwLjA1ODgsLTguNDQ4MSB2IC0xOC45MDc2IGMgMCwtMi40MDgxIDcuODE2NiwtNi4wMzQxIDExLjI2NTgsLTYuMDM0MSA4LjYwNDgsMCAxMS4yNjU3LDguNTQxIDExLjI2NTcsMTcuMjk4NCB2IDEuMjA2NyBjIDAsNi4yOTg5IC0zLjE5MDcsMTQuODg0NyAtOC44NTE1LDE0Ljg4NDcgeiBtIC0xMy42OCwtMzQuOTk5MSB2IC0zLjIxODEgaCAtNy42NDQxIHYgNTkuOTQxMSBoIDcuNjQ0MSBWIDI4Mi43MDQgYyAzLjQxMjQsMi4yODQ1IDUuODU1Niw2LjAzNDEgMTIuMDcwNSw2LjAzNDEgaCAwLjQwMjYgYyAxMS4zNjcyLDAgMTguMTA1MSwtOS45NTAxIDE4LjEwNTEsLTIxLjMyMTMgdiAtMC44MDQ1IGMgMCwtMTEuODQ3MSAtNi4zMDYyLC0yMy43MzQ4IC0xNy43MDI2LC0yMy43MzQ4IC03LjEyOTcsMCAtOC42ODQ4LDEuNjE5MiAtMTIuODc1Niw0LjQyNDkiCiAgICAgICBmaWxsPSIjMGIzODIwIiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNDI3Ljg2MzcsMjU1LjM0ODYgYyAwLC0zLjgyNDUgNC43NDQzLC02LjQzNjkgOC44NTIsLTYuNDM2OSBoIDEuMjA2NCBjIDQuMjM5LDAgMTIuNDczLDMuODk1NiAxMi40NzMsNy42NDMzIHYgOC40NDgxIGggLTYuNDM3MSBjIC03LjYyNTgsMCAtMTYuMDk0MywtMS45MTExIC0xNi4wOTQzLC05LjI1MjYgeiBtIC03LjY0NDIsMC40MDE5IGMgMCwxMS44NDc0IDEyLjQxNTcsMTQuODg0NyAyNC41NDI5LDE0Ljg4NDcgaCA1LjYzMjcgdiAzLjYyMDcgYyAwLDQuNDY2OSAtMi43MzAzLDguMDQ1NiAtNy4yNDIyLDguMDQ1NiBoIC02LjQzNzIgYyAtNC44MTE4LDAgLTYuNzAzMSwtMy4xOTggLTcuNjQ0NywtNy4yNDA4IGggLTcuNjQ1MSBjIDAsMTAuNDgxNCA5LjA4MTksMTMuNjc3NCAxOS43MTUzLDEzLjY3NzQgaCAwLjQwMjUgYyAxMi4wNzU5LDAgMTYuNDk2MiwtNS45NTI3IDE2LjQ5NjIsLTE4LjEwMjkgdiAtMjYuNTUwOSBoIC03LjY0NDggdiA0LjAyMjkgYyAtMC45MTUsLTAuMjQ0NCAtNC42OTQ0LC0yLjg3NzggLTYuNDI3OCwtMy42MzAzIC0xLjMzNDgsLTAuNTggLTYuNDk0NywtMS41OTk0IC04LjQ1ODksLTEuNTk5NCAtNy41MzY0LDAgLTE1LjI4ODksNC4xODI2IC0xNS4yODg5LDExLjI2MzggeiIKICAgICAgIGZpbGw9IiMwYjM4MjAiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAzODQuNDEwMywyNTAuOTIyOCBoIDI5LjM3MTQgdiAtNi44Mzg1IGggLTM3LjQxODQgdiA1OS45NDExIGggOC4wNDcgeiIKICAgICAgIGZpbGw9IiMwYjM4MjAiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSA1MjIuODE3OCwyNjUuNDA1NiBjIC0wLjExLDQuOTIyOSAtMi4xMDk4LDE5LjkyMTMgLTMuNDYyOCwyMy44OTM1IC0yLjEzMjgsNi4yNTk4IC02Ljk0NjYsMTIuMDQyNyAtMTEuOTg3MiwxNS4zNzAzIC0xMS40MDg2LDcuNTMxNyAtMjQuMjgyOSwxMS4yNTY3IC00MS4yNTM0LDEzLjA2MTIgLTE2LjM1OSwxLjczOTQgLTMzLjQzMzIsMi43ODg3IC01MS45MzA3LDIuNzg4NyAtMTEuMjQ5LDAgLTQ2LjI2OTksLTAuODQ3MiAtNDYuMjY5OSw4LjA0NTkgdiAwLjgwNDUgYyAwLDE1LjM2NTIgOTguOTczMywyMi45MzAzIDEyMy4xMTg1LDIyLjkzMDMgaCAyNy43NjIgYyAzMS4yMzMsMCA5OC4xNzI4LC01LjE1NDMgOTguMTcyOCwtMzIuMTgzMiB2IC0wLjQwMjIgYyAwLC04LjM1OTEgLTkuMzM3MywtMTguNjk3OSAtMTMuMzg3NywtMjQuMDI3MyAtMi44NzAxLC0zLjc3NTggLTE0LjI0MzUsLTE4LjI1MTUgLTE3LjE5MSwtMjAuMjI0NyB2IDIuNDEzNyBoIDEuMjA3IGMgLTAuMTg2NSwyLjI0NzYgLTEuOTYzNiw0LjA4NjggLTIuMzg2Miw2LjQ2NSAtMC40MjE4LDIuMzc2MyAtMC41NDExLDUuMDg0MiAtMS42MzcsNi44MTA1IDAsLTQuNDA2NCAtMy42MjEsLTEwLjUzMzIgLTMuNjIxLC0xMi4wNjgyIDAsLTAuNzE2MyAwLjYwMzIsLTAuNjYwMiAxLjIwNjcsLTAuODA0NSBsIC0yLjY5OCwtNi4wOTUgYyAwLjMzNTYsLTAuMjQzNSAxLjQ5MTMsLTAuODg0NCAxLjQ5MTMsLTEuNTQ4OSAwLC0yLjE5MTQgLTMuMDM0NSwtNS40MTcgLTQuNDI2LC02LjQzNjkgbCAtMC4zOTIsLTAuMTQ4MiAtMS41MzcsNC4wNTAxIDEuNTI2NSwwLjEyMTEgLTEuNzcxMSw0Ljc2MzYgMi41NzU4LDAuMDY0IGMgLTAuNTA4MiwyLjE4MSAtMi44MTY1LDQuMDc0OCAtMi44MTY1LDYuNDM2NyB2IDEuMjA3MyBoIDIuMDExOCBsIC0yLjg2MDUsNy44ODkzIDAuNDQ2OCwwLjE1NTkgaCAwLjgwNDQgbCAtMS4zNjM0LDUuNTg5NCAxLjc2NTcsMC4wNDI4IC00LjAwNjUsMTQuNDg3MyBjIC0xLjk4NCwtMS40NDU5IC0wLjgwNSwtMy40NjM0IC0xLjc3MDIsLTYuMjk3NCAtMC45NTcsLTIuODA5MiAtMS41NDg5LC0yLjg0NzcgLTIuNjcyMywtNC45NzE0IGwgMS45OTQyLC0wLjQ5MyAtMy42MzM0LC04Ljc0NiBjIDAuOTQxMSwtMC4yNTcxIDEuNjM5MiwtMC40MDA1IDEuNjM5MiwtMS42MjI4IHYgLTAuNDAyNiBjIDAsLTIuMjMzMSAtMi4xOTk0LC0zLjg1MzcgLTIuNDE0MiwtNi40MzYzIGggMS42MDkyIGMgLTAuMDc2NSwtMy40MzMgLTEuODk1LC00Ljg2MjMgLTMuMjE5LC02LjgzOTIgbCAxLjI3NjEsLTEuNTQ2OCAtMy4yNDkzLC01LjA3NjMgMC4zNjQyLC0wLjIxNTcgYyAtMy4xMjg2LDAgLTQuNjYyMSwxLjk4NTEgLTUuMjMwNyw0LjQyNTEgaCAyLjgxNjUgbCAtMy4yNjU1LDcuMDM1NiAwLjQ0OSwwLjIwNTUgaCAxLjYwOTggYyAtMC41NjUzLDIuMTE2MSAtMi40MTQzLDEuOTYwNSAtMi40MTQzLDUuNjMyMiAwLDEuMzM1MSAwLjgwNDUsMC44Mzk5IDAuODA0NSwxLjYwOTIgMCwxLjEyMjMgLTEuNjA5LDMuMTY5NCAtMS42MDksNC44Mjc3IDAsMS4yNTggMC43MjE3LDEuMTM5NSAxLjYwOSwxLjYwOTIgbCAtMy45NjU0LDcuNDU0IDEuNTUxMSwwLjE4OTQgYyAwLjc3NzMsMCAwLjcxNjksLTAuMTI2NCAxLjIwNzMsLTAuNDAyNSAtMC4yNSwzLjAwNzggLTQuNDI1NSw3LjY3NTEgLTQuNDI1NSwxNS42ODk3IC0xLjYwMDcsLTAuNDI3NCAtMi41ODkxLC02LjI1NDMgLTMuMjcyLC03Ljk5MjggLTAuNzg4LC0yLjAwNDEgLTIuOTc0NywtNS40MDA2IC0zLjE2NTcsLTcuNjk2OSBsIDEuNTkzNiwwLjQ1MTggLTMuOTU1NSwtMTAuMzYzNyAxLjU1NzQsLTAuMTQ1NSBjIDAuNzc2NCwwIDAuNzE2LDAuMTI3IDEuMjA2NCwwLjQwMjYgbCAtMy4wMTUyLC03LjU1MzUgMi4yMzE3LC0wLjM4NSAtMy40NTE3LC02LjQxOSAzLjA0NTIsLTAuODY5NCAtMy4xMTQ3LC01LjUyMTkgYyAxLjU3MDcsLTAuMTk5IDIuMjkzMiwtMC4wMzk0IDIuMjkzMiwtMS4zNzcxIDAsLTAuMTUzNiAtMi44OTA0LC00LjAyMjkgLTQuMDIzNSwtNC4wMjI5IC0xLjQzMjksMCAtMS41NzY5LDAuOTUzNiAtMS42MDkyLDIuNDEzNyBoIDEuMjA3IGwgLTIuMzA2OCwzLjQwMTMgMS45MDQzLDAuMjE5MSBjIC0wLjA2ODMsMy4wNzQ1IC0yLjQxNDMsNC40MzY1IC0yLjQxNDMsNi44MzkyIDAsMS4yMTYzIDAuNDc0LDEuMTEyIDEuNjA5OCwxLjIwNjcgbCAtMy4xMDE5LDYuMjg4NCAwLjI4NTcsMC4zNDk1IGggMC44MDQ1IGwgLTMuMjUxMSwxMS4zMzYgLTMuNjI1OCwtMTAuNzE4OSAxLjIxNTIsMC40NjM0IC0yLjg1MTMsLTcuMjg3OCAxLjY3MjcsLTAuMDI4MSBjIDAsLTQuMTMzOCAtMi41NDQ0LC0zLjU3MTQgLTIuODE2MiwtNi44MzkyIGggMi4wMTE3IGwgLTIuMDExNywtNC44Mjc2IHYgLTAuODA0NSBjIDAuODg3MiwtMC4wMTk2IDIuMDExNywwLjEyMyAyLjAxMTcsLTAuODA0OCAwLC0xLjI1NDYgLTAuOTk1MiwtMi44NDk5IC0yLjAxMTcsLTMuMjE3OSB2IDEuMjA2NyBjIDAsMS43NDQ4IC0wLjY0MDEsMS4yNDE5IC0wLjgwNDUsMy4yMTg1IHogbSA0MS44NDksLTkuNjU3OSBjIC0wLjI4MDksMC40OTM4IC0wLjQwNzMsMC40MzM0IC0wLjQwNzMsMS4yMDk4IDAsMS4xODA2IDEuNjEzMiwzLjA4NDQgMi40MzQ0LDMuNjMyMyBsIDEuNzMyMiwtMy4wMTgzIC00LjcwODMsLTMuMzQzMiB6IG0gLTI1LjMxNjgsLTkuNjgyMyAtMS42Mjk5LDAuNDgxOSAtMC4zMzksMC4yNjQ3IDIuNDAzOCwyLjE2MTQgLTEuMjc1NiwxLjU0NzUgYyAwLjU0MjIsMC44MDkzIDEuNjA5MiwxLjYyNCAxLjYwOTIsMi44MTU5IDAsMC4yNDA0IC0wLjU1NSwwLjgzNDUgLTAuNjkzNCwxLjA3ODMgbCAxLjQ2OTUsMS42NjI4IC0xLjI0NjEsMC41MjM5IDIuNDgxNywzLjk3NjEgMC42NTI2LC0wLjEwMDYgMi41NjYyLC00LjMyNDMgLTEuMDA1NSwtMC4yMDE1IDEuNDA4LC0xLjAwNTcgYyAtMC4yNTg1LC0xLjA3ODYgLTAuNDAyNSwtMC43NTggLTAuNDAyNSwtMS42MDkgMCwtMC43MTgzIDEuMjU0NiwtMi4wOTczIDEuNjA5OCwtMy42MjA0IGwgLTEuNzkzMiwtMC4xODU5IDIuNjE2NCwtMy4xMDI4IC0xLjc2NzQsLTAuNDE4NyAwLjk0ODQsLTEuNTUyMyAtNi40NDIsLTAuNzc0NyAtMy4wMTE1LDAuMTYxMyB6IG0gLTEyLjUwOSw3LjI3MTQgYyAwLjAwNywwLjAwOCAwLjQwMjUsMC43NTAzIDAuNDAyNSwwLjgwNDUgMCwxLjUzODQgMC4xMjM2LDAuMTQ2MyAtMC40ODg5LDEuMjU4NiBsIDIuNDE3MSwzLjUzIDEuODM3OSwtNC42NjU2IDEuNDY0NywtMi4xMzQyIGggLTAuODA1IHYgLTEuNjA5MiBjIDAsLTIuMjQ1MSAxLjU0MjksLTIuNjcwNSAyLjAxMTQsLTQuNDI0OSAtMy4yNzM3LDAuMjcyMSAtNS41MzkyLDQuNzgzNyAtNi44Mzk3LDcuMjQwOCB6IG0gMjEuNzI3LC03LjI0MDggMi44MTYyLDMuNjIwNCAtMi4xMzM5LDAuMDY2OSAyLjEzMzksNC4zNTggLTAuOTIwMSwwLjA3MzEgMS43MjQ2LDMuMTQ1MyAtMS4wNzU1LDAuMTU2IDMuMDg3Miw0LjY3MTQgYyAwLjcxMywtMC40NzcgMi44MTY4LC0zLjUxMzUgMi44MTY4LC00LjQyNDggMCwtMS41Mzg0IDAuMTIzNiwtMC4xNDY2IC0wLjQ2NzEsLTEuMjQ5NSBsIDEuMjcxOSwtMS45NjkgYyAtMC4wMDcsLTAuMDA4IC0wLjQwMjUsLTAuNzUwMyAtMC40MDI1LC0wLjgwNDUgMCwtMS4xOTI1IDEuMDY3MiwtMi4wMDY2IDEuNjA5NSwtMi44MTY1IC0wLjYyNjgsLTAuODU1MiAtOC4wMTg3LC01LjIyOTMgLTguODUxOCwtNS4yMjkzIC0wLjEwMTUsMCAtMS40ODA1LDAuMzUyIC0xLjYwOTIsMC40MDI1IgogICAgICAgZmlsbD0iIzBiMzgyMCIgLz4KICA8L2c+Cjwvc3ZnPgo=" alt="FREILab" class="brand-logo" id="brand-logo">
+        <span class="brand-sep"></span>
+        <span class="brand-sub" id="brand-sub">3D-Print</span>
+      </div>
+      <div class="brand-right">
+        <span class="conn-dot" id="conn-dot" title="Backend-Verbindung"></span>
+        <span class="sb-clock" id="sb-clock">--:--</span>
+      </div>
+    </div>
+
+    <!-- 2. Navigationsleiste: Titel / ‹ Zurück (links) · 👁, 👤 Konto / ⌂ Home, ⚙ / ⌂ (rechts) -->
+    <header class="statusbar">
+      <div class="sb-left">
+        <button type="button" class="back-top-btn hidden" id="btn-back-top" aria-label="Zurück">‹ Zurück</button>
+        <span class="sb-title" id="sb-title">Warteschlange</span>
+      </div>
+      <div class="sb-right">
+        <button type="button" class="sb-icon-btn" id="btn-theme-eye" title="Hell / Dunkel umschalten">👁</button>
+        <button type="button" class="sb-account-btn" id="btn-account">👤 Konto</button>
+        <button type="button" class="sb-icon-btn" id="btn-setup" title="Einstellungen">⚙</button>
+      </div>
+    </header>
+
+    <!-- 3. Hauptbereich (Portrait Warteschlange oder Vollbild-Workflow-Screen) -->
+    <main class="stage" id="stage"></main>
+
+    <!-- 4. Bottom Drucker-Dock (2×2 Portrait-Raster, klickbar für Drucker-Popup) -->
+    <footer class="printer-dock" id="printer-dock"></footer>
+
+    <!-- 5. Popups: Upload-Detail, Drucker-Detail, Kurzes Erfolgsfenster (4 s → Home) -->
+    <div class="popup-backdrop hidden" id="upload-popup" role="dialog" aria-modal="true"></div>
+    <div class="popup-backdrop hidden" id="printer-popup" role="dialog" aria-modal="true"></div>
+    <div class="popup-backdrop hidden" id="done-popup" role="dialog" aria-modal="true"></div>
+
+    <!-- 6. Dimmen / Display-Aus (Sleep) Aufweck-Overlay (schluckt 1. Tipp beim Aufwecken) -->
+    <div class="power-overlay hidden" id="power-overlay"></div>
+
+    <!-- 7. Einklappbarer DEV-Simulator (nur sichtbar wenn Backend im Mock-Modus) -->
+    <button type="button" class="dev-pill hidden" id="dev-pill">DEV</button>
+    <div class="dev-drawer hidden" id="dev-drawer">
+      <button type="button" class="dev-btn" id="dev-upload">+ Test-Job</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD01">Max (25€)</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD02">Erika (0,15€)</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD03">Ohne Freig.</button>
+      <button type="button" class="dev-btn" data-rfid="04AABBCCDD99">BV-Karte</button>
+      <button type="button" class="dev-btn" id="dev-toggle-p1">D1 Frei/Bel.</button>
+      <span class="dev-hint">PIN 1234</span>
+      <button type="button" class="dev-btn" id="dev-close">✕</button>
+    </div>
+
+    <!-- 8. Toast -->
+    <div class="toast hidden" id="toast"></div>
+  </div>
+
+
+  <aside class="demo-panel" id="demo-panel" aria-label="Interaktive Demo-Steuerung">
+    <h2>FREILab Demo <span class="demo-badge">Offline HTML</span></h2>
+    <p class="demo-sub">Interaktive Vorschau des 5&quot;-Touch-Terminals (echtes Frontend, lokaler Simulator im Browser — kein Server nötig).</p>
+
+    <div class="demo-sec">
+      <div class="demo-sec-title">1. Betriebsmodus</div>
+      <div class="demo-mode-row">
+        <button type="button" class="demo-btn active center" data-demo-mode="cashbox">🪙 Pilot · Kasse</button>
+        <button type="button" class="demo-btn center" data-demo-mode="mock">💳 Konto (später)</button>
+      </div>
+    </div>
+
+    <div class="demo-sec">
+      <div class="demo-sec-title">2. Slicer-Upload simulieren</div>
+      <button type="button" class="demo-btn primary" id="demo-send-job">+ Druckjob senden (Auto-RFID)</button>
+    </div>
+
+    <div class="demo-sec">
+      <div class="demo-sec-title">3. RFID-Karte vorhalten</div>
+      <button type="button" class="demo-btn" data-demo-rfid="04AABBCCDD01">💳 Mitgliedskarte (Max · 25,00 €)</button>
+      <button type="button" class="demo-btn" data-demo-rfid="04AABBCCDD02" id="demo-card-low">💳 Karte wenig Guthaben (Erika · 0,15 €)</button>
+      <button type="button" class="demo-btn" data-demo-rfid="04AABBCCDD03" id="demo-card-unapp">🚫 Karte ohne 3D-Freigabe (Alex)</button>
+      <button type="button" class="demo-btn" data-demo-rfid="04AABBCCDD99">🔐 BV-Karte (Admin / Einweiser)</button>
+    </div>
+
+    <div class="demo-sec">
+      <div class="demo-sec-title">Kurzanleitung</div>
+      <ol class="demo-steps">
+        <li>Im Terminal auf <strong>DRUCKEN</strong> tippen (oder links neuen Job senden).</li>
+        <li>Wenn nach der Karte gefragt wird, hier eine <strong>RFID-Karte</strong> anklicken.</li>
+        <li>Im <strong>Pilot-Modus</strong> Kassen-Einwurf oder <strong>Vereinsdruck</strong> (9 Bereiche) testen.</li>
+        <li>Über <strong>⚙ → Admin (BV)</strong> + <strong>BV-Karte</strong> Verlauf, QR-Setup &amp; Geräte-Settings ansehen.</li>
+      </ol>
+      <div class="demo-note">PIN im Konto-Modus (Vereinsdruck / Bereits bezahlt): <strong>1234</strong> · Auf dem Smartphone klappt der <strong>DEV</strong>-Button links unten die gleichen Testkarten aus.</div>
+    </div>
+  </aside>
+
+  <script>
+
+(() => {
+  // Guard localStorage on strict file:// browsers (Safari / private windows)
+  try {
+    window.localStorage.getItem("__st3d_probe");
+  } catch (_) {
+    const mem = Object.create(null);
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: (k) => (k in mem ? mem[k] : null),
+        setItem: (k, v) => { mem[k] = String(v); },
+        removeItem: (k) => { delete mem[k]; },
+      },
+    });
+  }
+
+  // === Offline In-Browser Backend & SSE Mock for SmartTerminal 3D-Print Demo ===
+  const svgUri = (svg) => "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg.trim());
+
+  const THUMB_BENCHY = svgUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+      <rect width="96" height="96" rx="14" fill="#fff7ed"/>
+      <path d="M18 62 L78 62 L70 76 L26 76 Z" fill="#f97316" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="30" y="38" width="28" height="24" rx="3" fill="#fb923c" stroke="#c2410c" stroke-width="2.5"/>
+      <rect x="36" y="44" width="12" height="10" rx="2" fill="#fff7ed"/>
+      <rect x="46" y="22" width="10" height="16" rx="2" fill="#ea580c" stroke="#c2410c" stroke-width="2"/>
+      <path d="M24 38 L62 38 L58 32 L28 32 Z" fill="#fdba74" stroke="#c2410c" stroke-width="2"/>
+    </svg>
+  `);
+
+  const THUMB_CASE = svgUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+      <rect width="96" height="96" rx="14" fill="#eff6ff"/>
+      <polygon points="48,18 78,34 78,66 48,80 18,66 18,34" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="48,18 78,34 48,48 18,34" fill="#93c5fd" stroke="#1d4ed8" stroke-width="2"/>
+      <line x1="48" y1="48" x2="48" y2="80" stroke="#1d4ed8" stroke-width="2.5"/>
+      <circle cx="33" cy="54" r="5" fill="#eff6ff"/>
+      <circle cx="63" cy="54" r="5" fill="#eff6ff"/>
+    </svg>
+  `);
+
+  const THUMB_BRACKET = svgUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+      <rect width="96" height="96" rx="14" fill="#ecfdf5"/>
+      <path d="M22 24 H44 V56 H76 V74 H22 Z" fill="#10b981" stroke="#047857" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="33" cy="36" r="4.5" fill="#ecfdf5"/>
+      <circle cx="62" cy="65" r="4.5" fill="#ecfdf5"/>
+    </svg>
+  `);
+
+  const FAKE_QR_SVG = svgUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges">
+      <rect width="29" height="29" fill="#ffffff"/>
+      <g fill="#0f172a">
+        <path d="M2 2h7v7H2zm1 1v5h5V3zm1 1h3v3H4zM20 2h7v7h-7zm1 1v5h5V3zm1 1h3v3h-3zM2 20h7v7H2zm1 1v5h5v-5zm1 1h3v3H4z"/>
+        <rect x="11" y="2" width="2" height="2"/><rect x="15" y="2" width="2" height="2"/><rect x="13" y="4" width="2" height="2"/>
+        <rect x="11" y="6" width="3" height="2"/><rect x="16" y="6" width="2" height="3"/><rect x="11" y="10" width="2" height="3"/>
+        <rect x="2" y="11" width="3" height="2"/><rect x="7" y="11" width="2" height="2"/><rect x="4" y="14" width="3" height="2"/>
+        <rect x="2" y="17" width="4" height="2"/><rect x="9" y="14" width="3" height="3"/><rect x="14" y="11" width="3" height="2"/>
+        <rect x="18" y="11" width="4" height="2"/><rect x="24" y="11" width="3" height="2"/><rect x="14" y="15" width="2" height="3"/>
+        <rect x="18" y="15" width="3" height="2"/><rect x="23" y="14" width="4" height="2"/><rect x="11" y="19" width="2" height="3"/>
+        <rect x="15" y="19" width="3" height="2"/><rect x="20" y="18" width="2" height="3"/><rect x="24" y="18" width="3" height="3"/>
+        <rect x="11" y="24" width="4" height="3"/><rect x="17" y="22" width="3" height="2"/><rect x="17" y="25" width="2" height="2"/>
+        <rect x="21" y="22" width="3" height="3"/><rect x="25" y="23" width="2" height="4"/>
+      </g>
+    </svg>
+  `);
+
+  const SECTIONS = [
+    { sectionId: "sec_3d", name: "3D-Druck", description: "3D-Druck", pictogram: "printer", status: "active" },
+    { sectionId: "sec_elec", name: "Elektronik", description: "Elektronik", pictogram: "cpu", status: "active" },
+    { sectionId: "sec_wood", name: "Holzwerkstatt", description: "Holzwerkstatt", pictogram: "wood", status: "active" },
+    { sectionId: "sec_metal", name: "Metall", description: "Metall", pictogram: "wrench", status: "active" },
+    { sectionId: "sec_bike", name: "Fahrrad Bereich", description: "Fahrrad Bereich", pictogram: "bike", status: "active" },
+    { sectionId: "sec_laser", name: "Lasercutter", description: "Lasercutter", pictogram: "laser", status: "active" },
+    { sectionId: "sec_cnc", name: "CNC", description: "CNC", pictogram: "cnc", status: "active" },
+    { sectionId: "sec_weld", name: "Schweißen", description: "Schweißen", pictogram: "flame", status: "active" },
+    { sectionId: "sec_textile", name: "Textil", description: "Textil", pictogram: "scissors", status: "active" },
+  ];
+
+  const USERS = {
+    "04AABBCCDD01": {
+      member_id: "mem_001", user_id: "usr_marius", display_name: "Marius Test",
+      pin: "1234", balance_cents: 2500, approved: true, is_instructor: false,
+      transactions: [{ ts: Date.now() / 1000 - 86400, title: "Aufladung Guthaben", amountCents: 2500 }],
+    },
+    "04AABBCCDD02": {
+      member_id: "mem_002", user_id: "usr_erika", display_name: "Erika Wenig",
+      pin: "1234", balance_cents: 15, approved: true, is_instructor: false,
+      transactions: [{ ts: Date.now() / 1000 - 7200, title: "3D-Druck Benchy", amountCents: -185 }],
+    },
+    "04AABBCCDD03": {
+      member_id: "mem_003", user_id: "usr_neuling", display_name: "Alex Neuling",
+      pin: "1234", balance_cents: 1000, approved: false, is_instructor: false,
+      transactions: [],
+    },
+    "04AABBCCDD99": {
+      member_id: "mem_099", user_id: "usr_bv", display_name: "Sam Einweiser (BV)",
+      pin: "9999", balance_cents: 5000, approved: true, is_instructor: true,
+      transactions: [],
+    },
+  };
+
+  const nowSec = () => Date.now() / 1000;
+  let seq = 10;
+
+  const db = {
+    paymentMode: "cashbox", // "cashbox" | "mock"
+    displaySettings: { brightness: 90, dimDelaySeconds: 120, sleepDelaySeconds: 1800, buzzerMode: "all" },
+    printers: [
+      {
+        slot: 1, id: "prusa-01", name: "Drucker 1 (MK3.5)", model: "MK3.5", ip: "10.30.0.139",
+        buildVolume: "250×210×210", state: "READY", canAcceptJob: true, progress: null, activeJob: null,
+        activeJobOwner: null, activeJobSection: null, nozzleTemp: 24.5, targetNozzle: 0, bedTemp: 23.0, targetBed: 0,
+        nozzleDiameter: 0.4, timeRemainingSeconds: null, totalPrintHours: 142.5, totalFilamentKm: 1.82,
+        powerState: "ON", pendingShutdown: false, shutdownTempThresholdC: 50, error: null,
+      },
+      {
+        slot: 2, id: "prusa-02", name: "Drucker 2 (MK4)", model: "MK4", ip: "10.30.0.140",
+        buildVolume: "250×210×220", state: "READY", canAcceptJob: true, progress: null, activeJob: null,
+        activeJobOwner: null, activeJobSection: null, nozzleTemp: 25.0, targetNozzle: 0, bedTemp: 22.8, targetBed: 0,
+        nozzleDiameter: 0.4, timeRemainingSeconds: null, totalPrintHours: 218.0, totalFilamentKm: 2.94,
+        powerState: "ON", pendingShutdown: false, shutdownTempThresholdC: 50, error: null,
+      },
+      {
+        slot: 3, id: "prusa-03", name: "Drucker 3 (MK3S)", model: "MK3S", ip: "10.30.0.141",
+        buildVolume: "250×210×210", state: "PRINTING", canAcceptJob: false, progress: 62, activeJob: "Kabelhalter_v3",
+        activeJobOwner: "Karte 04AA…DD01", activeJobSection: null, nozzleTemp: 215.2, targetNozzle: 215, bedTemp: 60.0, targetBed: 60,
+        nozzleDiameter: 0.4, timeRemainingSeconds: 1920, totalPrintHours: 512.3, totalFilamentKm: 6.41,
+        powerState: "ON", pendingShutdown: false, shutdownTempThresholdC: 50, error: null,
+      },
+      {
+        slot: 4, id: "prusa-04", name: "Drucker 4 (XL)", model: "XL", ip: "10.30.0.142",
+        buildVolume: "360×360×360", state: "READY", canAcceptJob: true, progress: null, activeJob: null,
+        activeJobOwner: null, activeJobSection: null, nozzleTemp: 23.4, targetNozzle: 0, bedTemp: 22.1, targetBed: 0,
+        nozzleDiameter: 0.6, timeRemainingSeconds: null, totalPrintHours: 89.4, totalFilamentKm: 1.54,
+        powerState: "ON", pendingShutdown: false, shutdownTempThresholdC: 50, error: null,
+      },
+    ],
+    jobs: [
+      {
+        id: "job_demo_1", printerSlot: 1, printerId: "prusa-01", printerName: "Drucker 1 (MK3.5)",
+        filename: "3DBenchy_0.2mm_PETG_MK35_47m.bgcode", displayName: "3DBenchy",
+        status: "queued", filamentGrams: 14.2, filamentType: "PETG", estimatedTimeSeconds: 2820,
+        priceCents: 57, priceSource: "slicer", printAfterUpload: true,
+        thumbnailUrl: THUMB_BENCHY, expiresInSeconds: 295, createdAt: nowSec() - 5,
+      },
+      {
+        id: "job_demo_2", printerSlot: 2, printerId: "prusa-02", printerName: "Drucker 2 (MK4)",
+        filename: "Gehaeuse_v2_0.2mm_PLA_MK4_1h42m.bgcode", displayName: "Gehaeuse_v2",
+        status: "queued", filamentGrams: 48.0, filamentType: "PLA", estimatedTimeSeconds: 6120,
+        priceCents: 192, priceSource: "slicer", printAfterUpload: true,
+        thumbnailUrl: THUMB_CASE, expiresInSeconds: 280, createdAt: nowSec() - 20,
+      },
+    ],
+    sessions: new Map(),
+    history: [
+      {
+        jobId: "job_hist_1", displayName: "Kabelhalter_v3", printerSlot: 3, printerName: "Drucker 3 (MK3S)",
+        userDisplayName: "Karte 04AA…DD01", paymentMode: "cashbox", sectionName: null,
+        filamentGrams: 22.5, filamentType: "PLA", priceCents: 90, startedAt: nowSec() - 2400,
+      },
+      {
+        jobId: "job_hist_2", displayName: "Absaugadapter_CNC", printerSlot: 4, printerName: "Drucker 4 (XL)",
+        userDisplayName: "BV (04AA…DD99)", paymentMode: "club", sectionName: "CNC",
+        filamentGrams: 118.0, filamentType: "PETG", priceCents: 472, startedAt: nowSec() - 10800,
+      },
+    ],
+  };
+
+  // --- Mock EventSource ---
+  const esClients = new Set();
+  function emitSSE(type, payload) {
+    const data = JSON.stringify(payload || {});
+    for (const c of esClients) {
+      c._dispatch(type, data);
+    }
+  }
+
+  class MockEventSource {
+    constructor(url) {
+      this.url = url;
+      this.readyState = 1;
+      this._listeners = new Map();
+      esClients.add(this);
+      setTimeout(() => {
+        if (typeof this.onopen === "function") this.onopen(new Event("open"));
+      }, 30);
+    }
+    addEventListener(type, fn) {
+      if (!this._listeners.has(type)) this._listeners.set(type, new Set());
+      this._listeners.get(type).add(fn);
+    }
+    removeEventListener(type, fn) {
+      this._listeners.get(type)?.delete(fn);
+    }
+    _dispatch(type, data) {
+      const ev = { type, data };
+      const fns = this._listeners.get(type);
+      if (fns) fns.forEach((fn) => fn(ev));
+    }
+    close() {
+      this.readyState = 2;
+      esClients.delete(this);
+    }
+  }
+  window.EventSource = MockEventSource;
+
+  const maskUid = (uid) => {
+    const c = String(uid || "").trim().toUpperCase();
+    return c.length <= 8 ? c : `${c.slice(0, 4)}…${c.slice(-4)}`;
+  };
+
+  function makeStatePayload() {
+    const isCash = db.paymentMode === "cashbox";
+    return {
+      terminalId: "3dprint-01",
+      terminalIp: "192.168.1.78",
+      version: "0.4.0-demo",
+      serviceName: isCash ? "3D-Print Terminal (Pilot · Kasse)" : "3D-Print Terminal (easyVerwaltung)",
+      printers: db.printers.map((p) => ({ ...p, updatedAt: nowSec() })),
+      jobs: db.jobs.map((j) => ({ ...j })),
+      sections: SECTIONS,
+      displaySettings: { ...db.displaySettings },
+      modes: {
+        hardware: "mock",
+        payment: db.paymentMode,
+        cashbox: isCash,
+        printer: "mock",
+        devMock: true,
+      },
+      features: {
+        topup: !isCash,
+        approval: !isCash,
+        allowNegativeBalance: true,
+        maxNegativeBalanceCents: 2000,
+      },
+      serverTime: nowSec(),
+    };
+  }
+
+  function jsonRes(obj, status = 200) {
+    return new Response(JSON.stringify(obj), {
+      status,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const origFetch = window.fetch ? window.fetch.bind(window) : null;
+  window.fetch = async (input, init = {}) => {
+    const urlStr = typeof input === "string" ? input : input.url;
+    if (!urlStr.startsWith("/api/")) {
+      return origFetch ? origFetch(input, init) : jsonRes({ error: "offline" }, 404);
+    }
+    const u = new URL(urlStr, "http://demo.local");
+    const path = u.pathname;
+    const method = (init.method || "GET").toUpperCase();
+    let body = {};
+    if (init.body && typeof init.body === "string") {
+      try { body = JSON.parse(init.body); } catch (_) {}
+    }
+
+    if (path === "/api/state" && method === "GET") return jsonRes(makeStatePayload());
+    if (path === "/api/health") return jsonRes({ status: "ok", dbOk: true });
+    if (path === "/api/feedback/touch" || path === "/api/feedback/led" || path === "/api/display/power") {
+      return jsonRes({ ok: true });
+    }
+    if (path === "/api/display/settings" && method === "POST") {
+      db.displaySettings = { ...db.displaySettings, ...body };
+      const root = document.getElementById("hmi-root");
+      if (root && typeof db.displaySettings.brightness === "number") {
+        const b = 0.45 + (db.displaySettings.brightness / 100) * 0.55;
+        root.style.filter = `brightness(${b.toFixed(2)})`;
+      }
+      return jsonRes({ ok: true, settings: db.displaySettings });
+    }
+
+    if (path === "/api/session/authorize" && method === "POST") {
+      const uid = String(body.rfid || "").trim().toUpperCase();
+      const sid = "sess_" + (++seq);
+      if (db.paymentMode === "cashbox") {
+        const short = maskUid(uid);
+        const isBv = uid === "04AABBCCDD99";
+        const sess = {
+          sessionId: sid,
+          rfid: uid,
+          user: { member_id: `rfid_${short}`, user_id: `rfid_${short}`, display_name: isBv ? `BV (${short})` : `Karte ${short}` },
+          balanceCents: 0,
+          currency: "EUR",
+          approved: true,
+          isInstructor: isBv,
+          expiresInSeconds: 300,
+          transactions: [],
+        };
+        db.sessions.set(sid, sess);
+        return jsonRes({ authorized: true, session: sess });
+      }
+      const rec = USERS[uid];
+      if (!rec) return jsonRes({ authorized: false, reason: "RFID_NOT_FOUND" });
+      const sess = {
+        sessionId: sid,
+        rfid: uid,
+        user: { member_id: rec.member_id, user_id: rec.user_id, display_name: rec.display_name },
+        balanceCents: rec.balance_cents,
+        currency: "EUR",
+        approved: rec.approved,
+        isInstructor: rec.is_instructor,
+        expiresInSeconds: 300,
+        transactions: rec.transactions.slice(0, 10),
+      };
+      db.sessions.set(sid, sess);
+      return jsonRes({ authorized: true, session: sess });
+    }
+
+    if (path === "/api/session/cancel" && method === "POST") {
+      db.sessions.delete(u.searchParams.get("sessionId") || "");
+      return jsonRes({ ok: true });
+    }
+
+    if (path === "/api/session/topup" && method === "POST") {
+      const sess = db.sessions.get(body.sessionId);
+      if (!sess) return jsonRes({ detail: "Session abgelaufen" }, 404);
+      const rec = USERS[sess.rfid];
+      if (rec) {
+        rec.balance_cents += Number(body.amountCents || 0);
+        rec.transactions.unshift({ ts: nowSec(), title: "Aufladung am Terminal", amountCents: Number(body.amountCents || 0) });
+        sess.balanceCents = rec.balance_cents;
+        sess.transactions = rec.transactions.slice(0, 10);
+      }
+      return jsonRes({ ok: true, session: sess });
+    }
+
+    if (path === "/api/session/approve" && method === "POST") {
+      const sess = db.sessions.get(body.sessionId);
+      const inst = USERS[String(body.instructorRfid || "").trim().toUpperCase()];
+      if (!sess || !inst || !inst.is_instructor) return jsonRes({ approved: false, reason: "NOT_AUTHORIZED_INSTRUCTOR" });
+      const rec = USERS[sess.rfid];
+      if (rec) rec.approved = true;
+      sess.approved = true;
+      return jsonRes({ approved: true, instructorName: inst.display_name, session: sess });
+    }
+
+    if (path === "/api/admin/authorize" && method === "POST") {
+      const uid = String(body.rfid || "").trim().toUpperCase();
+      const isBv = uid === "04AABBCCDD99";
+      if (!isBv) return jsonRes({ authorized: false, reason: "BV_REQUIRED" });
+      const user = db.paymentMode === "cashbox"
+        ? { display_name: `BV (${maskUid(uid)})` }
+        : { display_name: USERS[uid].display_name };
+      return jsonRes({
+        authorized: true,
+        adminCode: "DEMO1234",
+        expiresInSeconds: 600,
+        setupUrl: "http://192.168.1.78/admin.html?code=DEMO1234",
+        qrUrl: FAKE_QR_SVG,
+        user,
+      });
+    }
+
+    if (path === "/api/admin/config" && method === "GET") {
+      return jsonRes({
+        terminalId: "3dprint-01",
+        paymentMode: db.paymentMode,
+        easyverwaltungUrl: "https://verwaltung.freilab.de",
+        easyverwaltungServiceId: "svc_3dprint_01",
+        hasToken: db.paymentMode !== "cashbox",
+        setupUrl: "http://192.168.1.78/admin.html?code=DEMO1234",
+        qrUrl: FAKE_QR_SVG,
+      });
+    }
+
+    if (path === "/api/admin/history" && method === "GET") {
+      return jsonRes({ items: db.history.slice(0, 50) });
+    }
+
+    if (path === "/api/admin/test-connection" && method === "POST") {
+      return jsonRes({
+        ok: true,
+        message: db.paymentMode === "cashbox"
+          ? "Pilot-Modus (Barkasse) aktiv · 4 Drucker konfiguriert"
+          : "Verbindung zu easyVerwaltung (Demo) OK",
+      });
+    }
+
+    const startMatch = path.match(/^\/api\/jobs\/([^/]+)\/start$/);
+    if (startMatch && method === "POST") {
+      const jobId = decodeURIComponent(startMatch[1]);
+      const jobIdx = db.jobs.findIndex((j) => j.id === jobId);
+      const job = db.jobs[jobIdx];
+      const sess = db.sessions.get(body.sessionId);
+      if (!job) return jsonRes({ detail: "Job nicht gefunden" }, 404);
+      if (!sess) return jsonRes({ detail: "Sitzung abgelaufen" }, 401);
+      const printer = db.printers.find((p) => p.id === job.printerId);
+      if (!printer || !printer.canAcceptJob) {
+        return jsonRes({ started: false, reason: printer?.powerState === "OFF" ? "PRINTER_OFFLINE" : "PRINTER_BUSY" });
+      }
+      const mode = body.mode || (db.paymentMode === "cashbox" ? "cashbox" : "personal");
+      let charged = 0;
+      if (db.paymentMode !== "cashbox") {
+        const rec = USERS[sess.rfid];
+        if (mode === "club" || mode === "already_paid") {
+          if (!rec || body.pin !== rec.pin) return jsonRes({ started: false, reason: "PIN_INVALID" });
+        } else if (mode === "personal" && rec) {
+          const after = rec.balance_cents - job.priceCents;
+          if (after < 0 && !body.allowOverdraft) {
+            return jsonRes({ started: false, reason: "INSUFFICIENT_BALANCE", balanceCents: rec.balance_cents });
+          }
+          rec.balance_cents = after;
+          charged = job.priceCents;
+          rec.transactions.unshift({ ts: nowSec(), title: `3D-Druck ${job.displayName}`, amountCents: -job.priceCents });
+          sess.balanceCents = after;
+        }
+      } else if (mode === "cashbox") {
+        charged = job.priceCents;
+      }
+
+      const secObj = SECTIONS.find((s) => s.sectionId === body.sectionId);
+      job.status = "sending";
+      job.uploadProgress = { percent: 0, sentBytes: 0, totalBytes: 2400000, bytesPerSec: 1800000 };
+      printer.state = "UPLOADING";
+      printer.canAcceptJob = false;
+      printer.progress = 0;
+      printer.activeJob = job.displayName;
+      printer.activeJobOwner = sess.user.display_name;
+      printer.activeJobSection = secObj ? secObj.name : null;
+      emitSSE("queue_updated", { action: "sending", jobId: job.id });
+      emitSSE("printers_updated", { printerId: printer.id });
+
+      const steps = [22, 54, 83, 100];
+      steps.forEach((pct, i) => {
+        setTimeout(() => {
+          const prog = {
+            jobId: job.id, printerId: printer.id, displayName: job.displayName,
+            stage: "uploading", percent: pct,
+            sentBytes: Math.round(2400000 * pct / 100), totalBytes: 2400000, bytesPerSec: 1850000,
+          };
+          job.uploadProgress = prog;
+          printer.progress = pct;
+          emitSSE("job_progress", prog);
+          if (pct === 100) {
+            setTimeout(() => {
+              const idx = db.jobs.findIndex((x) => x.id === job.id);
+              if (idx >= 0) db.jobs.splice(idx, 1);
+              printer.state = job.printAfterUpload === false ? "READY" : "PRINTING";
+              printer.canAcceptJob = job.printAfterUpload === false;
+              printer.progress = job.printAfterUpload === false ? null : 1;
+              printer.nozzleTemp = job.printAfterUpload === false ? 25 : 215;
+              printer.bedTemp = job.printAfterUpload === false ? 23 : 60;
+              printer.timeRemainingSeconds = job.printAfterUpload === false ? null : job.estimatedTimeSeconds;
+              db.history.unshift({
+                jobId: job.id, displayName: job.displayName, printerSlot: printer.slot, printerName: printer.name,
+                userDisplayName: sess.user.display_name, paymentMode: mode, sectionName: secObj ? secObj.name : null,
+                filamentGrams: job.filamentGrams, filamentType: job.filamentType, priceCents: job.priceCents,
+                startedAt: nowSec(),
+              });
+              emitSSE("job_done", {
+                jobId: job.id, printerName: printer.name, printerSlot: printer.slot,
+                displayName: job.displayName, mode, chargedCents: charged,
+                sectionName: secObj ? secObj.name : null, printAfterUpload: job.printAfterUpload !== false,
+              });
+              emitSSE("queue_updated", { action: "transfer_finished", jobId: job.id });
+              emitSSE("printers_updated", { printerId: printer.id });
+            }, 220);
+          }
+        }, (i + 1) * 320);
+      });
+
+      return jsonRes({ started: true, ok: true, status: "sending", jobId: job.id, chargedCents: charged, mode });
+    }
+
+    const delMatch = path.match(/^\/api\/jobs\/([^/]+)$/);
+    if (delMatch && method === "DELETE") {
+      const jobId = decodeURIComponent(delMatch[1]);
+      db.jobs = db.jobs.filter((j) => j.id !== jobId);
+      emitSSE("queue_updated", { action: "deleted", jobId });
+      return jsonRes({ ok: true });
+    }
+
+    const pwrMatch = path.match(/^\/api\/printers\/([^/]+)\/power\/(on|off|cancel-shutdown)$/);
+    if (pwrMatch && method === "POST") {
+      const pid = decodeURIComponent(pwrMatch[1]);
+      const action = pwrMatch[2];
+      const p = db.printers.find((x) => x.id === pid);
+      if (!p) return jsonRes({ detail: "Drucker nicht gefunden" }, 404);
+      if (action === "on") {
+        p.powerState = "ON";
+        p.pendingShutdown = false;
+        p.state = "READY";
+        p.canAcceptJob = true;
+        p.error = null;
+        emitSSE("printers_updated", { printerId: p.id });
+        return jsonRes({ ok: true, state: p.state, powerState: p.powerState });
+      } else if (action === "off") {
+        if (p.state === "PRINTING") return jsonRes({ ok: false, reason: "PRINTER_PRINTING" });
+        if (p.state === "UPLOADING") return jsonRes({ ok: false, reason: "PRINTER_UPLOADING" });
+        if ((p.nozzleTemp || 0) > p.shutdownTempThresholdC) {
+          p.pendingShutdown = true;
+          emitSSE("printers_updated", { printerId: p.id });
+          return jsonRes({ ok: true, action: "cooldown_scheduled", nozzleTemp: p.nozzleTemp, thresholdC: p.shutdownTempThresholdC });
+        }
+        p.powerState = "OFF";
+        p.pendingShutdown = false;
+        p.state = "OFFLINE";
+        p.canAcceptJob = false;
+        p.error = "Ausgeschaltet";
+        emitSSE("printers_updated", { printerId: p.id });
+        return jsonRes({ ok: true, action: "powered_off", powerState: p.powerState });
+      } else {
+        p.pendingShutdown = false;
+        emitSSE("printers_updated", { printerId: p.id });
+        return jsonRes({ ok: true, pendingShutdown: false });
+      }
+    }
+
+    if (path === "/api/dev/simulate-rfid" && method === "POST") {
+      const uid = String(body.uid || "04AABBCCDD01").trim().toUpperCase();
+      emitSSE("rfid_scan", { uid, ts: nowSec(), source: "demo" });
+      return jsonRes({ ok: true, uid });
+    }
+
+    if (path === "/api/dev/upload-sample" && method === "POST") {
+      const samples = [
+        { slot: 1, name: "Halterung_LED", g: 24.5, mat: "PETG", sec: 3900, cents: 98, thumb: THUMB_BRACKET, pau: true },
+        { slot: 2, name: "3DBenchy", g: 14.2, mat: "PLA", sec: 2820, cents: 57, thumb: THUMB_BENCHY, pau: true },
+        { slot: 4, name: "XL_Werkzeughalter", g: 135.0, mat: "PETG", sec: 12600, cents: 540, thumb: THUMB_CASE, pau: false },
+      ];
+      const pick = samples[seq % samples.length];
+      const id = "job_demo_" + (++seq);
+      const pr = db.printers.find((x) => x.slot === pick.slot) || db.printers[0];
+      const job = {
+        id, printerSlot: pr.slot, printerId: pr.id, printerName: pr.name,
+        filename: `${pick.name}_${pick.mat}.bgcode`, displayName: pick.name,
+        status: "queued", filamentGrams: pick.g, filamentType: pick.mat,
+        estimatedTimeSeconds: pick.sec, priceCents: pick.cents, priceSource: "slicer",
+        printAfterUpload: pick.pau, thumbnailUrl: pick.thumb, expiresInSeconds: 300, createdAt: nowSec(),
+      };
+      db.jobs.unshift(job);
+      emitSSE("queue_updated", { action: "uploaded", jobId: id, slot: pr.slot, autoRfid: true });
+      return jsonRes({ ok: true, job });
+    }
+
+    if (path === "/api/dev/printer-state" && method === "POST") {
+      const p = db.printers.find((x) => x.id === body.printerId) || db.printers[0];
+      if (p) {
+        p.state = body.state || "READY";
+        p.canAcceptJob = p.state === "READY";
+        p.progress = p.state === "PRINTING" ? 42 : null;
+        p.activeJob = p.state === "PRINTING" ? "Demo_Druck" : null;
+        emitSSE("printers_updated", { printerId: p.id });
+      }
+      return jsonRes({ ok: true });
+    }
+
+    return jsonRes({ ok: true });
+  };
+
+  // Wire up the Desktop Demo Control Panel once DOM is ready
+  window.addEventListener("DOMContentLoaded", () => {
+    const syncModeUi = () => {
+      document.querySelectorAll("[data-demo-mode]").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.demoMode === db.paymentMode);
+      });
+      const isCash = db.paymentMode === "cashbox";
+      const low = document.getElementById("demo-card-low");
+      const unapp = document.getElementById("demo-card-unapp");
+      if (low) low.style.display = isCash ? "none" : "";
+      if (unapp) unapp.style.display = isCash ? "none" : "";
+    };
+    syncModeUi();
+
+    document.getElementById("demo-panel")?.addEventListener("click", async (ev) => {
+      const modeBtn = ev.target.closest("[data-demo-mode]");
+      if (modeBtn) {
+        db.paymentMode = modeBtn.dataset.demoMode;
+        syncModeUi();
+        emitSSE("printers_updated", { mode: db.paymentMode });
+        emitSSE("queue_updated", { action: "mode_switch" });
+        // Click Home/Back if open so the mode switch updates topbar immediately
+        document.getElementById("btn-setup")?.classList.contains("is-home") && document.getElementById("btn-setup").click();
+        return;
+      }
+      const rfidBtn = ev.target.closest("[data-demo-rfid]");
+      if (rfidBtn) {
+        await fetch("/api/dev/simulate-rfid", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ uid: rfidBtn.dataset.demoRfid }),
+        });
+        return;
+      }
+      if (ev.target.closest("#demo-send-job")) {
+        await fetch("/api/dev/upload-sample", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slot: 1 }),
+        });
+      }
+    });
+  });
+})();
+
+  </script>
+  <script>
+(() => {
+  if (new URLSearchParams(window.location.search).get("kiosk") === "1") {
+    document.documentElement.classList.add("kiosk");
+  }
+
+  const savedTheme = localStorage.getItem("st3d_theme") === "dark" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+
+  const RING_CIRC = 113.1; // 2 * pi * 18
+
+  const state = {
+    theme: savedTheme,
+    terminalId: "3dprint-01",
+    terminalIp: "localhost",
+    version: "0.4.0",
+    serviceName: "SmartTerminal 3D-Print",
+    printers: [],
+    jobs: [],
+    sections: [],
+    modes: { devMock: false, printer: "mock" },
+    features: { topup: false, approval: false, allowNegativeBalance: true, maxNegativeBalanceCents: 2000 },
+    displaySettings: { brightness: 90, dimDelaySeconds: 120, sleepDelaySeconds: 1800, buzzerMode: "all" },
+    connected: false,
+
+    // Screen: queue | rfid_wait | payment_confirm | overdraft_confirm | topup | club_section | pin_entry | printer_busy | account | settings | admin | not_approved | bv_wait | approved_ok
+    screen: "queue",
+    rfidPurpose: null, // "print" | "account" | "power_on" | "admin"
+    rfidAutoTriggered: false,
+    rfidError: "",
+    selectedJobId: null,
+    powerPrinterId: null,
+    selectedSectionId: null,
+    pinMode: null, // "club" | "already_paid"
+    pinValue: "",
+    pinError: "",
+    session: null,
+    lastResult: null,
+    topupReturnTo: "payment_confirm",
+
+    // BV Admin state
+    adminCode: null,
+    adminUser: null,
+    adminTab: "history", // "history" | "config"
+    adminConfig: null,
+    adminHistory: [],
+
+    // Popups
+    uploadPopupJobId: null,
+    printerPopupSlot: null,
+    donePopup: null,
+
+    // Timeout ring
+    timeoutEnd: null,
+    timeoutTotal: 60,
+    timeoutAction: null,
+
+    // Display power state: "active" | "dim" | "sleep"
+    powerState: "active",
+    lastActivityAt: Date.now(),
+  };
+
+  const $ = (id) => document.getElementById(id);
+
+  // --- Formatting Helpers ---
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  }
+
+  function fmtEur(cents) {
+    return `${(Number(cents || 0) / 100).toFixed(2).replace(".", ",")} €`;
+  }
+
+  function fmtDur(sec) {
+    sec = Math.max(0, Number(sec || 0));
+    if (sec === 0) return "–";
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    return h > 0 ? `${h}h ${m}m` : `${Math.max(1, m)} min`;
+  }
+
+  function fmtEta(sec) {
+    sec = Math.max(0, Number(sec || 0));
+    if (sec === 0) return "–";
+    const now = new Date();
+    const end = new Date(now.getTime() + sec * 1000);
+    const hhmm = end.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    return end.getDate() !== now.getDate() ? `Morgen ${hhmm}` : `ca. ${hhmm}`;
+  }
+
+  function fmtCountdown(sec) {
+    sec = Math.max(0, Math.floor(sec));
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  function fmtMB(bytes) {
+    const mb = Number(bytes || 0) / (1024 * 1024);
+    if (mb < 0.1) return `${Math.max(1, Math.round(Number(bytes || 0) / 1024))} KB`;
+    return `${mb.toFixed(1).replace(".", ",")} MB`;
+  }
+
+  function fmtSpeed(bps) {
+    bps = Number(bps || 0);
+    if (bps <= 0) return "";
+    if (bps >= 1024 * 1024) return `${(bps / (1024 * 1024)).toFixed(1).replace(".", ",")} MB/s`;
+    return `${Math.max(1, Math.round(bps / 1024))} KB/s`;
+  }
+
+  function fmtOnTime(sec) {
+    if (sec == null) return "Aus";
+    const d = Math.floor(sec / 86400);
+    const h = Math.floor((sec % 86400) / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    if (d > 0) return `${d}d ${h}h`;
+    if (h > 0) return `${h}h ${m}m`;
+    return `${Math.max(1, m)} min`;
+  }
+
+  function fmtDateTime(ts) {
+    if (!ts) return "–";
+    const d = new Date(Number(ts) * 1000);
+    const date = d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" });
+    const time = d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    return `${date} · ${time}`;
+  }
+
+  function printerStatText(p) {
+    if (p.pendingShutdown) {
+      const t = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)}°` : "heiß";
+      return `🌡 Kühlt ${t} → Aus`;
+    }
+    if (p.powerState === "OFF" && p.state === "OFFLINE") return "⏻ Ausgeschaltet";
+    if (p.powerState === "BOOTING" && p.state === "OFFLINE") return "▲ Startet…";
+    if (p.state === "READY") return "● Bereit";
+    if (p.state === "UPLOADING") return `▲ Upload ${Math.round(p.progress || 0)} %`;
+    if (p.state === "PRINTING") return p.progress != null ? `▲ Druckt ${Math.round(p.progress)} %` : "▲ Druckt";
+    if (p.state === "PAUSED") return "▲ Pausiert";
+    if (p.state === "ATTENTION") return `▲ ${p.error || "Dialog am Drucker"}`;
+    return "✕ Offline";
+  }
+
+  function printerShortPill(p) {
+    if (p.pendingShutdown) return "Kühlt ab";
+    if (p.powerState === "OFF" && p.state === "OFFLINE") return "Aus";
+    if (p.state === "READY") return "Bereit";
+    if (p.state === "UPLOADING") return "Upload";
+    if (p.state === "PRINTING") return "Druckt";
+    if (p.state === "PAUSED") return "Pausiert";
+    if (p.state === "ATTENTION") return "Dialog";
+    return "Offline";
+  }
+
+  function nfcIconSvg() {
+    return `<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="8" y="22" width="38" height="36" rx="5" stroke-width="4" fill="var(--surface)"/>
+      <rect x="15" y="32" width="10" height="8" rx="1.5" stroke-width="2.6"/>
+      <line x1="15" y1="48" x2="36" y2="48" stroke-width="3"/>
+      <path d="M53 33a10 10 0 0 1 0 14" stroke-width="4"/>
+      <path d="M60 26a19 19 0 0 1 0 28" stroke-width="4"/>
+      <path d="M67 19a28 28 0 0 1 0 42" stroke-width="4"/>
+    </svg>`;
+  }
+
+  function printer3dIconSvg() {
+    return `<svg viewBox="0 0 96 88" width="100%" height="100%" aria-hidden="true">
+      <rect x="10" y="10" width="76" height="68" rx="6" fill="none" stroke="var(--text)" stroke-width="5" opacity="0.82"/>
+      <rect x="6" y="74" width="84" height="8" rx="3" fill="var(--text)" opacity="0.88"/>
+      <rect x="20" y="65" width="56" height="5" rx="2" fill="var(--border-strong)"/>
+      <line x1="12" y1="28" x2="84" y2="28" stroke="#ea580c" stroke-width="4.5" stroke-linecap="round"/>
+      <rect x="38" y="19" width="20" height="17" rx="3" fill="var(--text)"/>
+      <polygon points="44,36 52,36 48,43" fill="#ea580c"/>
+      <polygon points="48,45 60,51 48,57 36,51" fill="#fb923c"/>
+      <polygon points="36,51 48,57 48,65 36,59" fill="#ea580c"/>
+      <polygon points="60,51 48,57 48,65 60,59" fill="#c2410c"/>
+    </svg>`;
+  }
+
+  let toastTimer = null;
+  function showToast(msg) {
+    const el = $("toast");
+    el.textContent = msg;
+    el.classList.remove("hidden");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.add("hidden"), 3200);
+  }
+
+  function updateBrandLogo() {
+    const logo = $("brand-logo");
+    if (logo) logo.src = state.theme === "dark" ? "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjguMTE0MjggMTQ1Ljg5NjY3IiBhcmlhLWhpZGRlbj0idHJ1ZSI+CiAgPGcKICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLjMzMzMzMzMsMCwwLC0xLjMzMzMzMzMsLTI1NC41MDg1Myw0NjkuNzMzMzIpIj4KICAgIDxwYXRoCiAgICAgICBkPSJtIDI3MC45NDgyLDI4OS4xNDA3IGggLTEyLjg3NSB2IC04LjA0NTkgaCAxMC44NjMyIGMgMi40ODgsMCA2LjQzNzgsMC41NTE5IDYuNDM3OCwyLjgxNTkgdiAyLjgxNjMgYyAwLDEuNjQyOSAtMi42NzQ4LDIuNDEzNyAtNC40MjYsMi40MTM3IHogbSAtMjkuMzcxMiwxNS4yODY5IGggMjcuMzU5NCBjIDcuOTY3NywwIDExLjI5ODEsLTAuNTE4MiAxNi4yNjIxLC0zLjg1NTQgMy4wNjI5LC0yLjA1OTEgNy4wNzQ0LC04LjEyODkgNy4wNzQ0LC0xMy4wNDA4IHYgLTQuODI3NCBjIDAsLTMuNzQzMSAtNC4xMDg1LC0xMC45MzcyIC02Ljg0MDIsLTExLjY2NjIgMC4yNDgsLTAuOTI4NyAyLjM1MzksLTQuNjE4NSAzLjA4NDMsLTYuMTY5NCAwLjkxNjIsLTEuOTQzNyAxLjkyMDUsLTQuOTgxIDIuNTk5MSwtNy4wNTYgMS4yMTQ3LC0zLjcxMzMgMy41NDgyLC0xMC43MzA1IDUuMTgwMywtMTQuMTMwNCBoIC0xOC4xMDYgYyAtMC4xNDQ1LDEuNzQwNSAtMy4zNDA5LDEwLjU2NzYgLTQuMTgzOSwxMi43MTI2IC0xLjU2OSwzLjk5MzQgLTIuNTA3NSw5LjAxMSAtNy44ODYzLDkuMDExIGggLTguMDQ3IFYgMjQzLjY4MiBIIDI0MS41NzcgWiIKICAgICAgIGZpbGw9IiNmMDZmMjQiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAzMTcuMjE4NywyNTkuMzcxNSBoIDMxLjc4NTEgViAyNDMuNjgyIGggLTQ4LjI4MTYgdiA2MC43NDU2IGggNDcuMDc0NyB2IC0xNS42ODk1IGggLTMwLjU3ODIgdiAtNi4wMzQxIGggMjguNTY2NCB2IC0xNS42ODkyIGggLTI4LjU2NjQgeiIKICAgICAgIGZpbGw9IiNmMDZmMjQiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAyMDcuNzgwMSwyODIuNzQwMyAwLjAyODEsLTAuMDM2MyBoIDI0LjExMjMgdiAtMTYuMDkxNyBoIC0yNC4xNDA0IGwgLTAuNDAyNSwtMjIuOTMwMyBoIC0xNi40OTYyIHYgNjAuNzQ1NiBoIDQ0LjY2MDYgdiAtMTUuNjg5NSBoIC0yNy43NjE5IHoiCiAgICAgICBmaWxsPSIjZjA2ZjI0IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gMzU1LjAzOTEsMzA0LjQyNzYgaCAxNi40OTYyIFYgMjQzLjY4MiBoIC0xNi40OTYyIHoiCiAgICAgICBmaWxsPSIjZjA2ZjI0IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNDkxLjAzMjMsMjgyLjMwMTUgaCAtMy42MjEyIGMgLTMuMzA4OSwwIC0xMC4wNTg4LC01LjQwNjUgLTEwLjA1ODgsLTguNDQ4MSB2IC0xOC45MDc2IGMgMCwtMi40MDgxIDcuODE2NiwtNi4wMzQxIDExLjI2NTgsLTYuMDM0MSA4LjYwNDgsMCAxMS4yNjU3LDguNTQxIDExLjI2NTcsMTcuMjk4NCB2IDEuMjA2NyBjIDAsNi4yOTg5IC0zLjE5MDcsMTQuODg0NyAtOC44NTE1LDE0Ljg4NDcgeiBtIC0xMy42OCwtMzQuOTk5MSB2IC0zLjIxODEgaCAtNy42NDQxIHYgNTkuOTQxMSBoIDcuNjQ0MSBWIDI4Mi43MDQgYyAzLjQxMjQsMi4yODQ1IDUuODU1Niw2LjAzNDEgMTIuMDcwNSw2LjAzNDEgaCAwLjQwMjYgYyAxMS4zNjcyLDAgMTguMTA1MSwtOS45NTAxIDE4LjEwNTEsLTIxLjMyMTMgdiAtMC44MDQ1IGMgMCwtMTEuODQ3MSAtNi4zMDYyLC0yMy43MzQ4IC0xNy43MDI2LC0yMy43MzQ4IC03LjEyOTcsMCAtOC42ODQ4LDEuNjE5MiAtMTIuODc1Niw0LjQyNDkiCiAgICAgICBmaWxsPSIjZjFmNWY5IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNDI3Ljg2MzcsMjU1LjM0ODYgYyAwLC0zLjgyNDUgNC43NDQzLC02LjQzNjkgOC44NTIsLTYuNDM2OSBoIDEuMjA2NCBjIDQuMjM5LDAgMTIuNDczLDMuODk1NiAxMi40NzMsNy42NDMzIHYgOC40NDgxIGggLTYuNDM3MSBjIC03LjYyNTgsMCAtMTYuMDk0MywtMS45MTExIC0xNi4wOTQzLC05LjI1MjYgeiBtIC03LjY0NDIsMC40MDE5IGMgMCwxMS44NDc0IDEyLjQxNTcsMTQuODg0NyAyNC41NDI5LDE0Ljg4NDcgaCA1LjYzMjcgdiAzLjYyMDcgYyAwLDQuNDY2OSAtMi43MzAzLDguMDQ1NiAtNy4yNDIyLDguMDQ1NiBoIC02LjQzNzIgYyAtNC44MTE4LDAgLTYuNzAzMSwtMy4xOTggLTcuNjQ0NywtNy4yNDA4IGggLTcuNjQ1MSBjIDAsMTAuNDgxNCA5LjA4MTksMTMuNjc3NCAxOS43MTUzLDEzLjY3NzQgaCAwLjQwMjUgYyAxMi4wNzU5LDAgMTYuNDk2MiwtNS45NTI3IDE2LjQ5NjIsLTE4LjEwMjkgdiAtMjYuNTUwOSBoIC03LjY0NDggdiA0LjAyMjkgYyAtMC45MTUsLTAuMjQ0NCAtNC42OTQ0LC0yLjg3NzggLTYuNDI3OCwtMy42MzAzIC0xLjMzNDgsLTAuNTggLTYuNDk0NywtMS41OTk0IC04LjQ1ODksLTEuNTk5NCAtNy41MzY0LDAgLTE1LjI4ODksNC4xODI2IC0xNS4yODg5LDExLjI2MzggeiIKICAgICAgIGZpbGw9IiNmMWY1ZjkiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAzODQuNDEwMywyNTAuOTIyOCBoIDI5LjM3MTQgdiAtNi44Mzg1IGggLTM3LjQxODQgdiA1OS45NDExIGggOC4wNDcgeiIKICAgICAgIGZpbGw9IiNmMWY1ZjkiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSA1MjIuODE3OCwyNjUuNDA1NiBjIC0wLjExLDQuOTIyOSAtMi4xMDk4LDE5LjkyMTMgLTMuNDYyOCwyMy44OTM1IC0yLjEzMjgsNi4yNTk4IC02Ljk0NjYsMTIuMDQyNyAtMTEuOTg3MiwxNS4zNzAzIC0xMS40MDg2LDcuNTMxNyAtMjQuMjgyOSwxMS4yNTY3IC00MS4yNTM0LDEzLjA2MTIgLTE2LjM1OSwxLjczOTQgLTMzLjQzMzIsMi43ODg3IC01MS45MzA3LDIuNzg4NyAtMTEuMjQ5LDAgLTQ2LjI2OTksLTAuODQ3MiAtNDYuMjY5OSw4LjA0NTkgdiAwLjgwNDUgYyAwLDE1LjM2NTIgOTguOTczMywyMi45MzAzIDEyMy4xMTg1LDIyLjkzMDMgaCAyNy43NjIgYyAzMS4yMzMsMCA5OC4xNzI4LC01LjE1NDMgOTguMTcyOCwtMzIuMTgzMiB2IC0wLjQwMjIgYyAwLC04LjM1OTEgLTkuMzM3MywtMTguNjk3OSAtMTMuMzg3NywtMjQuMDI3MyAtMi44NzAxLC0zLjc3NTggLTE0LjI0MzUsLTE4LjI1MTUgLTE3LjE5MSwtMjAuMjI0NyB2IDIuNDEzNyBoIDEuMjA3IGMgLTAuMTg2NSwyLjI0NzYgLTEuOTYzNiw0LjA4NjggLTIuMzg2Miw2LjQ2NSAtMC40MjE4LDIuMzc2MyAtMC41NDExLDUuMDg0MiAtMS42MzcsNi44MTA1IDAsLTQuNDA2NCAtMy42MjEsLTEwLjUzMzIgLTMuNjIxLC0xMi4wNjgyIDAsLTAuNzE2MyAwLjYwMzIsLTAuNjYwMiAxLjIwNjcsLTAuODA0NSBsIC0yLjY5OCwtNi4wOTUgYyAwLjMzNTYsLTAuMjQzNSAxLjQ5MTMsLTAuODg0NCAxLjQ5MTMsLTEuNTQ4OSAwLC0yLjE5MTQgLTMuMDM0NSwtNS40MTcgLTQuNDI2LC02LjQzNjkgbCAtMC4zOTIsLTAuMTQ4MiAtMS41MzcsNC4wNTAxIDEuNTI2NSwwLjEyMTEgLTEuNzcxMSw0Ljc2MzYgMi41NzU4LDAuMDY0IGMgLTAuNTA4MiwyLjE4MSAtMi44MTY1LDQuMDc0OCAtMi44MTY1LDYuNDM2NyB2IDEuMjA3MyBoIDIuMDExOCBsIC0yLjg2MDUsNy44ODkzIDAuNDQ2OCwwLjE1NTkgaCAwLjgwNDQgbCAtMS4zNjM0LDUuNTg5NCAxLjc2NTcsMC4wNDI4IC00LjAwNjUsMTQuNDg3MyBjIC0xLjk4NCwtMS40NDU5IC0wLjgwNSwtMy40NjM0IC0xLjc3MDIsLTYuMjk3NCAtMC45NTcsLTIuODA5MiAtMS41NDg5LC0yLjg0NzcgLTIuNjcyMywtNC45NzE0IGwgMS45OTQyLC0wLjQ5MyAtMy42MzM0LC04Ljc0NiBjIDAuOTQxMSwtMC4yNTcxIDEuNjM5MiwtMC40MDA1IDEuNjM5MiwtMS42MjI4IHYgLTAuNDAyNiBjIDAsLTIuMjMzMSAtMi4xOTk0LC0zLjg1MzcgLTIuNDE0MiwtNi40MzYzIGggMS42MDkyIGMgLTAuMDc2NSwtMy40MzMgLTEuODk1LC00Ljg2MjMgLTMuMjE5LC02LjgzOTIgbCAxLjI3NjEsLTEuNTQ2OCAtMy4yNDkzLC01LjA3NjMgMC4zNjQyLC0wLjIxNTcgYyAtMy4xMjg2LDAgLTQuNjYyMSwxLjk4NTEgLTUuMjMwNyw0LjQyNTEgaCAyLjgxNjUgbCAtMy4yNjU1LDcuMDM1NiAwLjQ0OSwwLjIwNTUgaCAxLjYwOTggYyAtMC41NjUzLDIuMTE2MSAtMi40MTQzLDEuOTYwNSAtMi40MTQzLDUuNjMyMiAwLDEuMzM1MSAwLjgwNDUsMC44Mzk5IDAuODA0NSwxLjYwOTIgMCwxLjEyMjMgLTEuNjA5LDMuMTY5NCAtMS42MDksNC44Mjc3IDAsMS4yNTggMC43MjE3LDEuMTM5NSAxLjYwOSwxLjYwOTIgbCAtMy45NjU0LDcuNDU0IDEuNTUxMSwwLjE4OTQgYyAwLjc3NzMsMCAwLjcxNjksLTAuMTI2NCAxLjIwNzMsLTAuNDAyNSAtMC4yNSwzLjAwNzggLTQuNDI1NSw3LjY3NTEgLTQuNDI1NSwxNS42ODk3IC0xLjYwMDcsLTAuNDI3NCAtMi41ODkxLC02LjI1NDMgLTMuMjcyLC03Ljk5MjggLTAuNzg4LC0yLjAwNDEgLTIuOTc0NywtNS40MDA2IC0zLjE2NTcsLTcuNjk2OSBsIDEuNTkzNiwwLjQ1MTggLTMuOTU1NSwtMTAuMzYzNyAxLjU1NzQsLTAuMTQ1NSBjIDAuNzc2NCwwIDAuNzE2LDAuMTI3IDEuMjA2NCwwLjQwMjYgbCAtMy4wMTUyLC03LjU1MzUgMi4yMzE3LC0wLjM4NSAtMy40NTE3LC02LjQxOSAzLjA0NTIsLTAuODY5NCAtMy4xMTQ3LC01LjUyMTkgYyAxLjU3MDcsLTAuMTk5IDIuMjkzMiwtMC4wMzk0IDIuMjkzMiwtMS4zNzcxIDAsLTAuMTUzNiAtMi44OTA0LC00LjAyMjkgLTQuMDIzNSwtNC4wMjI5IC0xLjQzMjksMCAtMS41NzY5LDAuOTUzNiAtMS42MDkyLDIuNDEzNyBoIDEuMjA3IGwgLTIuMzA2OCwzLjQwMTMgMS45MDQzLDAuMjE5MSBjIC0wLjA2ODMsMy4wNzQ1IC0yLjQxNDMsNC40MzY1IC0yLjQxNDMsNi44MzkyIDAsMS4yMTYzIDAuNDc0LDEuMTEyIDEuNjA5OCwxLjIwNjcgbCAtMy4xMDE5LDYuMjg4NCAwLjI4NTcsMC4zNDk1IGggMC44MDQ1IGwgLTMuMjUxMSwxMS4zMzYgLTMuNjI1OCwtMTAuNzE4OSAxLjIxNTIsMC40NjM0IC0yLjg1MTMsLTcuMjg3OCAxLjY3MjcsLTAuMDI4MSBjIDAsLTQuMTMzOCAtMi41NDQ0LC0zLjU3MTQgLTIuODE2MiwtNi44MzkyIGggMi4wMTE3IGwgLTIuMDExNywtNC44Mjc2IHYgLTAuODA0NSBjIDAuODg3MiwtMC4wMTk2IDIuMDExNywwLjEyMyAyLjAxMTcsLTAuODA0OCAwLC0xLjI1NDYgLTAuOTk1MiwtMi44NDk5IC0yLjAxMTcsLTMuMjE3OSB2IDEuMjA2NyBjIDAsMS43NDQ4IC0wLjY0MDEsMS4yNDE5IC0wLjgwNDUsMy4yMTg1IHogbSA0MS44NDksLTkuNjU3OSBjIC0wLjI4MDksMC40OTM4IC0wLjQwNzMsMC40MzM0IC0wLjQwNzMsMS4yMDk4IDAsMS4xODA2IDEuNjEzMiwzLjA4NDQgMi40MzQ0LDMuNjMyMyBsIDEuNzMyMiwtMy4wMTgzIC00LjcwODMsLTMuMzQzMiB6IG0gLTI1LjMxNjgsLTkuNjgyMyAtMS42Mjk5LDAuNDgxOSAtMC4zMzksMC4yNjQ3IDIuNDAzOCwyLjE2MTQgLTEuMjc1NiwxLjU0NzUgYyAwLjU0MjIsMC44MDkzIDEuNjA5MiwxLjYyNCAxLjYwOTIsMi44MTU5IDAsMC4yNDA0IC0wLjU1NSwwLjgzNDUgLTAuNjkzNCwxLjA3ODMgbCAxLjQ2OTUsMS42NjI4IC0xLjI0NjEsMC41MjM5IDIuNDgxNywzLjk3NjEgMC42NTI2LC0wLjEwMDYgMi41NjYyLC00LjMyNDMgLTEuMDA1NSwtMC4yMDE1IDEuNDA4LC0xLjAwNTcgYyAtMC4yNTg1LC0xLjA3ODYgLTAuNDAyNSwtMC43NTggLTAuNDAyNSwtMS42MDkgMCwtMC43MTgzIDEuMjU0NiwtMi4wOTczIDEuNjA5OCwtMy42MjA0IGwgLTEuNzkzMiwtMC4xODU5IDIuNjE2NCwtMy4xMDI4IC0xLjc2NzQsLTAuNDE4NyAwLjk0ODQsLTEuNTUyMyAtNi40NDIsLTAuNzc0NyAtMy4wMTE1LDAuMTYxMyB6IG0gLTEyLjUwOSw3LjI3MTQgYyAwLjAwNywwLjAwOCAwLjQwMjUsMC43NTAzIDAuNDAyNSwwLjgwNDUgMCwxLjUzODQgMC4xMjM2LDAuMTQ2MyAtMC40ODg5LDEuMjU4NiBsIDIuNDE3MSwzLjUzIDEuODM3OSwtNC42NjU2IDEuNDY0NywtMi4xMzQyIGggLTAuODA1IHYgLTEuNjA5MiBjIDAsLTIuMjQ1MSAxLjU0MjksLTIuNjcwNSAyLjAxMTQsLTQuNDI0OSAtMy4yNzM3LDAuMjcyMSAtNS41MzkyLDQuNzgzNyAtNi44Mzk3LDcuMjQwOCB6IG0gMjEuNzI3LC03LjI0MDggMi44MTYyLDMuNjIwNCAtMi4xMzM5LDAuMDY2OSAyLjEzMzksNC4zNTggLTAuOTIwMSwwLjA3MzEgMS43MjQ2LDMuMTQ1MyAtMS4wNzU1LDAuMTU2IDMuMDg3Miw0LjY3MTQgYyAwLjcxMywtMC40NzcgMi44MTY4LC0zLjUxMzUgMi44MTY4LC00LjQyNDggMCwtMS41Mzg0IDAuMTIzNiwtMC4xNDY2IC0wLjQ2NzEsLTEuMjQ5NSBsIDEuMjcxOSwtMS45NjkgYyAtMC4wMDcsLTAuMDA4IC0wLjQwMjUsLTAuNzUwMyAtMC40MDI1LC0wLjgwNDUgMCwtMS4xOTI1IDEuMDY3MiwtMi4wMDY2IDEuNjA5NSwtMi44MTY1IC0wLjYyNjgsLTAuODU1MiAtOC4wMTg3LC01LjIyOTMgLTguODUxOCwtNS4yMjkzIC0wLjEwMTUsMCAtMS40ODA1LDAuMzUyIC0xLjYwOTIsMC40MDI1IgogICAgICAgZmlsbD0iI2YxZjVmOSIgLz4KICA8L2c+Cjwvc3ZnPgo=" : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjguMTE0MjggMTQ1Ljg5NjY3IiBhcmlhLWhpZGRlbj0idHJ1ZSI+CiAgPGcKICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLjMzMzMzMzMsMCwwLC0xLjMzMzMzMzMsLTI1NC41MDg1Myw0NjkuNzMzMzIpIj4KICAgIDxwYXRoCiAgICAgICBkPSJtIDI3MC45NDgyLDI4OS4xNDA3IGggLTEyLjg3NSB2IC04LjA0NTkgaCAxMC44NjMyIGMgMi40ODgsMCA2LjQzNzgsMC41NTE5IDYuNDM3OCwyLjgxNTkgdiAyLjgxNjMgYyAwLDEuNjQyOSAtMi42NzQ4LDIuNDEzNyAtNC40MjYsMi40MTM3IHogbSAtMjkuMzcxMiwxNS4yODY5IGggMjcuMzU5NCBjIDcuOTY3NywwIDExLjI5ODEsLTAuNTE4MiAxNi4yNjIxLC0zLjg1NTQgMy4wNjI5LC0yLjA1OTEgNy4wNzQ0LC04LjEyODkgNy4wNzQ0LC0xMy4wNDA4IHYgLTQuODI3NCBjIDAsLTMuNzQzMSAtNC4xMDg1LC0xMC45MzcyIC02Ljg0MDIsLTExLjY2NjIgMC4yNDgsLTAuOTI4NyAyLjM1MzksLTQuNjE4NSAzLjA4NDMsLTYuMTY5NCAwLjkxNjIsLTEuOTQzNyAxLjkyMDUsLTQuOTgxIDIuNTk5MSwtNy4wNTYgMS4yMTQ3LC0zLjcxMzMgMy41NDgyLC0xMC43MzA1IDUuMTgwMywtMTQuMTMwNCBoIC0xOC4xMDYgYyAtMC4xNDQ1LDEuNzQwNSAtMy4zNDA5LDEwLjU2NzYgLTQuMTgzOSwxMi43MTI2IC0xLjU2OSwzLjk5MzQgLTIuNTA3NSw5LjAxMSAtNy44ODYzLDkuMDExIGggLTguMDQ3IFYgMjQzLjY4MiBIIDI0MS41NzcgWiIKICAgICAgIGZpbGw9IiNkYzVlMTciIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAzMTcuMjE4NywyNTkuMzcxNSBoIDMxLjc4NTEgViAyNDMuNjgyIGggLTQ4LjI4MTYgdiA2MC43NDU2IGggNDcuMDc0NyB2IC0xNS42ODk1IGggLTMwLjU3ODIgdiAtNi4wMzQxIGggMjguNTY2NCB2IC0xNS42ODkyIGggLTI4LjU2NjQgeiIKICAgICAgIGZpbGw9IiNkYzVlMTciIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAyMDcuNzgwMSwyODIuNzQwMyAwLjAyODEsLTAuMDM2MyBoIDI0LjExMjMgdiAtMTYuMDkxNyBoIC0yNC4xNDA0IGwgLTAuNDAyNSwtMjIuOTMwMyBoIC0xNi40OTYyIHYgNjAuNzQ1NiBoIDQ0LjY2MDYgdiAtMTUuNjg5NSBoIC0yNy43NjE5IHoiCiAgICAgICBmaWxsPSIjZGM1ZTE3IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gMzU1LjAzOTEsMzA0LjQyNzYgaCAxNi40OTYyIFYgMjQzLjY4MiBoIC0xNi40OTYyIHoiCiAgICAgICBmaWxsPSIjZGM1ZTE3IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNDkxLjAzMjMsMjgyLjMwMTUgaCAtMy42MjEyIGMgLTMuMzA4OSwwIC0xMC4wNTg4LC01LjQwNjUgLTEwLjA1ODgsLTguNDQ4MSB2IC0xOC45MDc2IGMgMCwtMi40MDgxIDcuODE2NiwtNi4wMzQxIDExLjI2NTgsLTYuMDM0MSA4LjYwNDgsMCAxMS4yNjU3LDguNTQxIDExLjI2NTcsMTcuMjk4NCB2IDEuMjA2NyBjIDAsNi4yOTg5IC0zLjE5MDcsMTQuODg0NyAtOC44NTE1LDE0Ljg4NDcgeiBtIC0xMy42OCwtMzQuOTk5MSB2IC0zLjIxODEgaCAtNy42NDQxIHYgNTkuOTQxMSBoIDcuNjQ0MSBWIDI4Mi43MDQgYyAzLjQxMjQsMi4yODQ1IDUuODU1Niw2LjAzNDEgMTIuMDcwNSw2LjAzNDEgaCAwLjQwMjYgYyAxMS4zNjcyLDAgMTguMTA1MSwtOS45NTAxIDE4LjEwNTEsLTIxLjMyMTMgdiAtMC44MDQ1IGMgMCwtMTEuODQ3MSAtNi4zMDYyLC0yMy43MzQ4IC0xNy43MDI2LC0yMy43MzQ4IC03LjEyOTcsMCAtOC42ODQ4LDEuNjE5MiAtMTIuODc1Niw0LjQyNDkiCiAgICAgICBmaWxsPSIjMGIzODIwIiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNDI3Ljg2MzcsMjU1LjM0ODYgYyAwLC0zLjgyNDUgNC43NDQzLC02LjQzNjkgOC44NTIsLTYuNDM2OSBoIDEuMjA2NCBjIDQuMjM5LDAgMTIuNDczLDMuODk1NiAxMi40NzMsNy42NDMzIHYgOC40NDgxIGggLTYuNDM3MSBjIC03LjYyNTgsMCAtMTYuMDk0MywtMS45MTExIC0xNi4wOTQzLC05LjI1MjYgeiBtIC03LjY0NDIsMC40MDE5IGMgMCwxMS44NDc0IDEyLjQxNTcsMTQuODg0NyAyNC41NDI5LDE0Ljg4NDcgaCA1LjYzMjcgdiAzLjYyMDcgYyAwLDQuNDY2OSAtMi43MzAzLDguMDQ1NiAtNy4yNDIyLDguMDQ1NiBoIC02LjQzNzIgYyAtNC44MTE4LDAgLTYuNzAzMSwtMy4xOTggLTcuNjQ0NywtNy4yNDA4IGggLTcuNjQ1MSBjIDAsMTAuNDgxNCA5LjA4MTksMTMuNjc3NCAxOS43MTUzLDEzLjY3NzQgaCAwLjQwMjUgYyAxMi4wNzU5LDAgMTYuNDk2MiwtNS45NTI3IDE2LjQ5NjIsLTE4LjEwMjkgdiAtMjYuNTUwOSBoIC03LjY0NDggdiA0LjAyMjkgYyAtMC45MTUsLTAuMjQ0NCAtNC42OTQ0LC0yLjg3NzggLTYuNDI3OCwtMy42MzAzIC0xLjMzNDgsLTAuNTggLTYuNDk0NywtMS41OTk0IC04LjQ1ODksLTEuNTk5NCAtNy41MzY0LDAgLTE1LjI4ODksNC4xODI2IC0xNS4yODg5LDExLjI2MzggeiIKICAgICAgIGZpbGw9IiMwYjM4MjAiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSAzODQuNDEwMywyNTAuOTIyOCBoIDI5LjM3MTQgdiAtNi44Mzg1IGggLTM3LjQxODQgdiA1OS45NDExIGggOC4wNDcgeiIKICAgICAgIGZpbGw9IiMwYjM4MjAiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSA1MjIuODE3OCwyNjUuNDA1NiBjIC0wLjExLDQuOTIyOSAtMi4xMDk4LDE5LjkyMTMgLTMuNDYyOCwyMy44OTM1IC0yLjEzMjgsNi4yNTk4IC02Ljk0NjYsMTIuMDQyNyAtMTEuOTg3MiwxNS4zNzAzIC0xMS40MDg2LDcuNTMxNyAtMjQuMjgyOSwxMS4yNTY3IC00MS4yNTM0LDEzLjA2MTIgLTE2LjM1OSwxLjczOTQgLTMzLjQzMzIsMi43ODg3IC01MS45MzA3LDIuNzg4NyAtMTEuMjQ5LDAgLTQ2LjI2OTksLTAuODQ3MiAtNDYuMjY5OSw4LjA0NTkgdiAwLjgwNDUgYyAwLDE1LjM2NTIgOTguOTczMywyMi45MzAzIDEyMy4xMTg1LDIyLjkzMDMgaCAyNy43NjIgYyAzMS4yMzMsMCA5OC4xNzI4LC01LjE1NDMgOTguMTcyOCwtMzIuMTgzMiB2IC0wLjQwMjIgYyAwLC04LjM1OTEgLTkuMzM3MywtMTguNjk3OSAtMTMuMzg3NywtMjQuMDI3MyAtMi44NzAxLC0zLjc3NTggLTE0LjI0MzUsLTE4LjI1MTUgLTE3LjE5MSwtMjAuMjI0NyB2IDIuNDEzNyBoIDEuMjA3IGMgLTAuMTg2NSwyLjI0NzYgLTEuOTYzNiw0LjA4NjggLTIuMzg2Miw2LjQ2NSAtMC40MjE4LDIuMzc2MyAtMC41NDExLDUuMDg0MiAtMS42MzcsNi44MTA1IDAsLTQuNDA2NCAtMy42MjEsLTEwLjUzMzIgLTMuNjIxLC0xMi4wNjgyIDAsLTAuNzE2MyAwLjYwMzIsLTAuNjYwMiAxLjIwNjcsLTAuODA0NSBsIC0yLjY5OCwtNi4wOTUgYyAwLjMzNTYsLTAuMjQzNSAxLjQ5MTMsLTAuODg0NCAxLjQ5MTMsLTEuNTQ4OSAwLC0yLjE5MTQgLTMuMDM0NSwtNS40MTcgLTQuNDI2LC02LjQzNjkgbCAtMC4zOTIsLTAuMTQ4MiAtMS41MzcsNC4wNTAxIDEuNTI2NSwwLjEyMTEgLTEuNzcxMSw0Ljc2MzYgMi41NzU4LDAuMDY0IGMgLTAuNTA4MiwyLjE4MSAtMi44MTY1LDQuMDc0OCAtMi44MTY1LDYuNDM2NyB2IDEuMjA3MyBoIDIuMDExOCBsIC0yLjg2MDUsNy44ODkzIDAuNDQ2OCwwLjE1NTkgaCAwLjgwNDQgbCAtMS4zNjM0LDUuNTg5NCAxLjc2NTcsMC4wNDI4IC00LjAwNjUsMTQuNDg3MyBjIC0xLjk4NCwtMS40NDU5IC0wLjgwNSwtMy40NjM0IC0xLjc3MDIsLTYuMjk3NCAtMC45NTcsLTIuODA5MiAtMS41NDg5LC0yLjg0NzcgLTIuNjcyMywtNC45NzE0IGwgMS45OTQyLC0wLjQ5MyAtMy42MzM0LC04Ljc0NiBjIDAuOTQxMSwtMC4yNTcxIDEuNjM5MiwtMC40MDA1IDEuNjM5MiwtMS42MjI4IHYgLTAuNDAyNiBjIDAsLTIuMjMzMSAtMi4xOTk0LC0zLjg1MzcgLTIuNDE0MiwtNi40MzYzIGggMS42MDkyIGMgLTAuMDc2NSwtMy40MzMgLTEuODk1LC00Ljg2MjMgLTMuMjE5LC02LjgzOTIgbCAxLjI3NjEsLTEuNTQ2OCAtMy4yNDkzLC01LjA3NjMgMC4zNjQyLC0wLjIxNTcgYyAtMy4xMjg2LDAgLTQuNjYyMSwxLjk4NTEgLTUuMjMwNyw0LjQyNTEgaCAyLjgxNjUgbCAtMy4yNjU1LDcuMDM1NiAwLjQ0OSwwLjIwNTUgaCAxLjYwOTggYyAtMC41NjUzLDIuMTE2MSAtMi40MTQzLDEuOTYwNSAtMi40MTQzLDUuNjMyMiAwLDEuMzM1MSAwLjgwNDUsMC44Mzk5IDAuODA0NSwxLjYwOTIgMCwxLjEyMjMgLTEuNjA5LDMuMTY5NCAtMS42MDksNC44Mjc3IDAsMS4yNTggMC43MjE3LDEuMTM5NSAxLjYwOSwxLjYwOTIgbCAtMy45NjU0LDcuNDU0IDEuNTUxMSwwLjE4OTQgYyAwLjc3NzMsMCAwLjcxNjksLTAuMTI2NCAxLjIwNzMsLTAuNDAyNSAtMC4yNSwzLjAwNzggLTQuNDI1NSw3LjY3NTEgLTQuNDI1NSwxNS42ODk3IC0xLjYwMDcsLTAuNDI3NCAtMi41ODkxLC02LjI1NDMgLTMuMjcyLC03Ljk5MjggLTAuNzg4LC0yLjAwNDEgLTIuOTc0NywtNS40MDA2IC0zLjE2NTcsLTcuNjk2OSBsIDEuNTkzNiwwLjQ1MTggLTMuOTU1NSwtMTAuMzYzNyAxLjU1NzQsLTAuMTQ1NSBjIDAuNzc2NCwwIDAuNzE2LDAuMTI3IDEuMjA2NCwwLjQwMjYgbCAtMy4wMTUyLC03LjU1MzUgMi4yMzE3LC0wLjM4NSAtMy40NTE3LC02LjQxOSAzLjA0NTIsLTAuODY5NCAtMy4xMTQ3LC01LjUyMTkgYyAxLjU3MDcsLTAuMTk5IDIuMjkzMiwtMC4wMzk0IDIuMjkzMiwtMS4zNzcxIDAsLTAuMTUzNiAtMi44OTA0LC00LjAyMjkgLTQuMDIzNSwtNC4wMjI5IC0xLjQzMjksMCAtMS41NzY5LDAuOTUzNiAtMS42MDkyLDIuNDEzNyBoIDEuMjA3IGwgLTIuMzA2OCwzLjQwMTMgMS45MDQzLDAuMjE5MSBjIC0wLjA2ODMsMy4wNzQ1IC0yLjQxNDMsNC40MzY1IC0yLjQxNDMsNi44MzkyIDAsMS4yMTYzIDAuNDc0LDEuMTEyIDEuNjA5OCwxLjIwNjcgbCAtMy4xMDE5LDYuMjg4NCAwLjI4NTcsMC4zNDk1IGggMC44MDQ1IGwgLTMuMjUxMSwxMS4zMzYgLTMuNjI1OCwtMTAuNzE4OSAxLjIxNTIsMC40NjM0IC0yLjg1MTMsLTcuMjg3OCAxLjY3MjcsLTAuMDI4MSBjIDAsLTQuMTMzOCAtMi41NDQ0LC0zLjU3MTQgLTIuODE2MiwtNi44MzkyIGggMi4wMTE3IGwgLTIuMDExNywtNC44Mjc2IHYgLTAuODA0NSBjIDAuODg3MiwtMC4wMTk2IDIuMDExNywwLjEyMyAyLjAxMTcsLTAuODA0OCAwLC0xLjI1NDYgLTAuOTk1MiwtMi44NDk5IC0yLjAxMTcsLTMuMjE3OSB2IDEuMjA2NyBjIDAsMS43NDQ4IC0wLjY0MDEsMS4yNDE5IC0wLjgwNDUsMy4yMTg1IHogbSA0MS44NDksLTkuNjU3OSBjIC0wLjI4MDksMC40OTM4IC0wLjQwNzMsMC40MzM0IC0wLjQwNzMsMS4yMDk4IDAsMS4xODA2IDEuNjEzMiwzLjA4NDQgMi40MzQ0LDMuNjMyMyBsIDEuNzMyMiwtMy4wMTgzIC00LjcwODMsLTMuMzQzMiB6IG0gLTI1LjMxNjgsLTkuNjgyMyAtMS42Mjk5LDAuNDgxOSAtMC4zMzksMC4yNjQ3IDIuNDAzOCwyLjE2MTQgLTEuMjc1NiwxLjU0NzUgYyAwLjU0MjIsMC44MDkzIDEuNjA5MiwxLjYyNCAxLjYwOTIsMi44MTU5IDAsMC4yNDA0IC0wLjU1NSwwLjgzNDUgLTAuNjkzNCwxLjA3ODMgbCAxLjQ2OTUsMS42NjI4IC0xLjI0NjEsMC41MjM5IDIuNDgxNywzLjk3NjEgMC42NTI2LC0wLjEwMDYgMi41NjYyLC00LjMyNDMgLTEuMDA1NSwtMC4yMDE1IDEuNDA4LC0xLjAwNTcgYyAtMC4yNTg1LC0xLjA3ODYgLTAuNDAyNSwtMC43NTggLTAuNDAyNSwtMS42MDkgMCwtMC43MTgzIDEuMjU0NiwtMi4wOTczIDEuNjA5OCwtMy42MjA0IGwgLTEuNzkzMiwtMC4xODU5IDIuNjE2NCwtMy4xMDI4IC0xLjc2NzQsLTAuNDE4NyAwLjk0ODQsLTEuNTUyMyAtNi40NDIsLTAuNzc0NyAtMy4wMTE1LDAuMTYxMyB6IG0gLTEyLjUwOSw3LjI3MTQgYyAwLjAwNywwLjAwOCAwLjQwMjUsMC43NTAzIDAuNDAyNSwwLjgwNDUgMCwxLjUzODQgMC4xMjM2LDAuMTQ2MyAtMC40ODg5LDEuMjU4NiBsIDIuNDE3MSwzLjUzIDEuODM3OSwtNC42NjU2IDEuNDY0NywtMi4xMzQyIGggLTAuODA1IHYgLTEuNjA5MiBjIDAsLTIuMjQ1MSAxLjU0MjksLTIuNjcwNSAyLjAxMTQsLTQuNDI0OSAtMy4yNzM3LDAuMjcyMSAtNS41MzkyLDQuNzgzNyAtNi44Mzk3LDcuMjQwOCB6IG0gMjEuNzI3LC03LjI0MDggMi44MTYyLDMuNjIwNCAtMi4xMzM5LDAuMDY2OSAyLjEzMzksNC4zNTggLTAuOTIwMSwwLjA3MzEgMS43MjQ2LDMuMTQ1MyAtMS4wNzU1LDAuMTU2IDMuMDg3Miw0LjY3MTQgYyAwLjcxMywtMC40NzcgMi44MTY4LC0zLjUxMzUgMi44MTY4LC00LjQyNDggMCwtMS41Mzg0IDAuMTIzNiwtMC4xNDY2IC0wLjQ2NzEsLTEuMjQ5NSBsIDEuMjcxOSwtMS45NjkgYyAtMC4wMDcsLTAuMDA4IC0wLjQwMjUsLTAuNzUwMyAtMC40MDI1LC0wLjgwNDUgMCwtMS4xOTI1IDEuMDY3MiwtMi4wMDY2IDEuNjA5NSwtMi44MTY1IC0wLjYyNjgsLTAuODU1MiAtOC4wMTg3LC01LjIyOTMgLTguODUxOCwtNS4yMjkzIC0wLjEwMTUsMCAtMS40ODA1LDAuMzUyIC0xLjYwOTIsMC40MDI1IgogICAgICAgZmlsbD0iIzBiMzgyMCIgLz4KICA8L2c+Cjwvc3ZnPgo=";
+  }
+
+  function setTheme(theme) {
+    state.theme = theme === "dark" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", state.theme);
+    localStorage.setItem("st3d_theme", state.theme);
+    updateBrandLogo();
+    if (state.screen === "settings") {
+      document.querySelectorAll("[data-set-theme]").forEach((btn) => {
+        const active = btn.dataset.setTheme === state.theme;
+        btn.classList.toggle("btn-primary", active);
+        btn.classList.toggle("btn-secondary", !active);
+      });
+    }
+  }
+
+  async function api(path, opts = {}) {
+    const extraHeaders = opts.adminCode ? { "X-Admin-Code": opts.adminCode } : {};
+    const res = await fetch(path, {
+      headers: { "Content-Type": "application/json", ...extraHeaders, ...(opts.headers || {}) },
+      ...opts,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const msg = data?.detail?.message || data?.detail || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
+    return data;
+  }
+
+  function fireTouchFeedback() {
+    if (state.displaySettings.buzzerMode !== "all") return;
+    fetch("/api/feedback/touch", { method: "POST" }).catch(() => {});
+  }
+
+  function setLedHint(mode) {
+    fetch("/api/feedback/led", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mode }),
+    }).catch(() => {});
+  }
+
+  // --- Display Power / Dimming / 30-min Burn-In Sleep ---
+  function applyPowerOverlay() {
+    const ov = $("power-overlay");
+    if (!ov) return;
+    ov.classList.remove("hidden", "mode-dim", "mode-sleep");
+    if (state.powerState === "active") {
+      ov.classList.add("hidden");
+    } else if (state.powerState === "dim") {
+      ov.classList.add("mode-dim");
+    } else {
+      ov.classList.add("mode-sleep");
+    }
+  }
+
+  function setDisplayPower(target) {
+    if (state.powerState === target) return;
+    state.powerState = target;
+    applyPowerOverlay();
+    fetch("/api/display/power", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state: target }),
+    }).catch(() => {});
+  }
+
+  function markActivity(wakeOnly = false) {
+    state.lastActivityAt = Date.now();
+    if (state.powerState !== "active") {
+      setDisplayPower("active");
+      return true;
+    }
+    return wakeOnly ? false : false;
+  }
+
+  let saveSettingsTimer = null;
+  function persistDisplaySettings() {
+    clearTimeout(saveSettingsTimer);
+    saveSettingsTimer = setTimeout(() => {
+      api("/api/display/settings", {
+        method: "POST",
+        body: JSON.stringify(state.displaySettings),
+      }).catch(() => {});
+    }, 150);
+  }
+
+  function selectedJob() {
+    return state.jobs.find((j) => j.id === state.selectedJobId) || null;
+  }
+
+  function setTimeoutRing(seconds, onExpire) {
+    if (!seconds) {
+      state.timeoutEnd = null;
+      state.timeoutAction = null;
+      return;
+    }
+    state.timeoutTotal = seconds;
+    state.timeoutEnd = Date.now() + seconds * 1000;
+    state.timeoutAction = onExpire;
+  }
+
+  function updateTimeoutDOM() {
+    if (!state.timeoutEnd) return;
+    const remMs = state.timeoutEnd - Date.now();
+    if (remMs <= 0) {
+      const act = state.timeoutAction;
+      setTimeoutRing(null, null);
+      if (act) act();
+      return;
+    }
+    const remSec = Math.ceil(remMs / 1000);
+    const ratio = Math.max(0, Math.min(1, remMs / (state.timeoutTotal * 1000)));
+    const fg = $("active-timeout-fg");
+    const txt = $("active-timeout-sec");
+    if (fg) fg.style.strokeDashoffset = String((RING_CIRC * (1 - ratio)).toFixed(1));
+    if (txt) txt.textContent = `${remSec} s`;
+  }
+
+  function timeoutPillHtml() {
+    const rem = state.timeoutEnd ? Math.max(0, Math.ceil((state.timeoutEnd - Date.now()) / 1000)) : state.timeoutTotal;
+    return `
+      <div class="timeout-pill">
+        <div class="ring-badge">
+          <svg viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="var(--border)" stroke-width="4"></circle>
+            <circle id="active-timeout-fg" cx="20" cy="20" r="18" fill="none" stroke="var(--blue)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${RING_CIRC}" stroke-dashoffset="0"></circle>
+          </svg>
+        </div>
+        <span id="active-timeout-sec">${rem} s</span>
+      </div>
+    `;
+  }
+
+  async function cancelActiveSession() {
+    if (!state.session) return;
+    const sid = state.session.sessionId;
+    state.session = null;
+    try {
+      await api(`/api/session/cancel?sessionId=${encodeURIComponent(sid)}`, { method: "POST" });
+    } catch {}
+  }
+
+  async function returnToQueue(cancelSession = true) {
+    if (cancelSession) await cancelActiveSession();
+    state.screen = "queue";
+    state.rfidPurpose = null;
+    state.rfidAutoTriggered = false;
+    state.rfidError = "";
+    state.selectedJobId = null;
+    state.powerPrinterId = null;
+    state.selectedSectionId = null;
+    state.pinMode = null;
+    state.pinValue = "";
+    state.pinError = "";
+    state.adminCode = null;
+    state.adminUser = null;
+    state.printerPopupSlot = null;
+    setTimeoutRing(null, null);
+    setLedHint("idle");
+    renderAll();
+  }
+
+  function openScreen(name) {
+    markActivity();
+    state.screen = name;
+    state.printerPopupSlot = null;
+    state.uploadPopupJobId = null;
+    if (["rfid_wait", "bv_wait", "payment_confirm", "club_section", "pin_entry", "account", "topup"].includes(name)) {
+      setTimeoutRing(60, () => returnToQueue(true));
+    } else if (["overdraft_confirm", "not_approved", "printer_busy"].includes(name)) {
+      setTimeoutRing(30, () => returnToQueue(true));
+    } else if (name === "admin") {
+      setTimeoutRing(180, () => returnToQueue(true));
+    } else if (name === "approved_ok") {
+      setTimeoutRing(4, () => {
+        if (state.rfidPurpose === "power_on") return executePowerOn();
+        openScreen(state.rfidPurpose === "print" ? "payment_confirm" : "account");
+      });
+    } else {
+      setTimeoutRing(null, null);
+    }
+
+    // LED choreography hints per screen
+    if (name === "rfid_wait" || name === "bv_wait") setLedHint("rfid");
+    else if (name === "overdraft_confirm" || name === "not_approved" || name === "printer_busy") setLedHint("warn");
+    else if (name === "payment_confirm" || name === "account" || name === "admin") setLedHint("pay");
+    else if (name === "queue") setLedHint("idle");
+
+    renderAll();
+  }
+
+  function goBackOneStep() {
+    const s = state.screen;
+    if (s === "overdraft_confirm" || s === "club_section") return openScreen("payment_confirm");
+    if (s === "pin_entry") return openScreen(state.pinMode === "club" ? "club_section" : "payment_confirm");
+    if (s === "topup") return openScreen(state.topupReturnTo || "payment_confirm");
+    if (s === "printer_busy") return openScreen(state.session ? "payment_confirm" : "queue");
+    if (s === "bv_wait") return openScreen("not_approved");
+    if (s === "admin") {
+      state.adminCode = null;
+      return openScreen("settings");
+    }
+    if (s === "rfid_wait" && state.rfidPurpose === "admin") return openScreen("settings");
+    return returnToQueue(true);
+  }
+
+  // --- Data Sync & SSE ---
+  async function loadState() {
+    try {
+      const data = await api("/api/state");
+      state.terminalId = data.terminalId || state.terminalId;
+      state.terminalIp = data.terminalIp || state.terminalIp;
+      state.version = data.version || state.version;
+      state.serviceName = data.serviceName || "SmartTerminal 3D-Print";
+      state.printers = data.printers || [];
+      state.jobs = (data.jobs || []).map((j) => ({
+        ...j,
+        _ttlTotal: Math.max(60, Number(j.expiresAt - j.createdAt) || 300),
+        _clientExpiresAt: Date.now() + (j.remainingSeconds || 0) * 1000,
+      }));
+      state.sections = data.sections || [];
+      state.modes = data.modes || { devMock: false };
+      state.features = data.features || {};
+      if (data.displaySettings) {
+        state.displaySettings = { ...state.displaySettings, ...data.displaySettings };
+      }
+      state.connected = true;
+
+      if (
+        state.selectedJobId &&
+        ["rfid_wait", "payment_confirm", "overdraft_confirm", "club_section", "pin_entry"].includes(state.screen) &&
+        !selectedJob()
+      ) {
+        showToast("Der ausgewählte Druckjob ist abgelaufen.");
+        await returnToQueue(true);
+        return;
+      }
+
+      if (state.uploadPopupJobId && !state.jobs.some((j) => j.id === state.uploadPopupJobId && j.status === "sending")) {
+        state.uploadPopupJobId = null;
+      }
+
+      renderTopbar();
+      renderDock();
+      renderDevControls();
+      if (state.screen === "queue") renderStage();
+      if (state.printerPopupSlot != null) renderPrinterPopup();
+      if (state.uploadPopupJobId != null) renderUploadPopup();
+    } catch {
+      state.connected = false;
+      renderTopbar();
+    }
+  }
+
+  async function loadAdminData() {
+    if (!state.adminCode) return;
+    try {
+      const [cfg, hist] = await Promise.all([
+        api("/api/admin/config", { adminCode: state.adminCode }),
+        api("/api/admin/history?limit=50", { adminCode: state.adminCode }),
+      ]);
+      state.adminConfig = cfg;
+      state.adminHistory = hist.items || [];
+      if (state.screen === "admin") renderStage();
+    } catch (err) {
+      showToast(err.message);
+      state.adminCode = null;
+      openScreen("settings");
+    }
+  }
+
+  let eventSource = null;
+  let sseReconnectTimer = null;
+
+  function scheduleSseReconnect() {
+    if (sseReconnectTimer) return;
+    sseReconnectTimer = setTimeout(() => {
+      sseReconnectTimer = null;
+      connectEvents();
+    }, 2000);
+  }
+
+  function connectEvents() {
+    if (eventSource) {
+      try { eventSource.close(); } catch {}
+      eventSource = null;
+    }
+    const es = new EventSource("/api/events");
+    eventSource = es;
+    es.addEventListener("connected", () => {
+      state.connected = true;
+      renderTopbar();
+      loadState();
+    });
+    es.addEventListener("queue_updated", async (ev) => {
+      let payload = {};
+      try {
+        payload = JSON.parse(ev.data)?.data || {};
+      } catch {}
+      await loadState();
+
+      // Auto-RFID on incoming PrusaSlicer upload when idle on Home screen
+      if (payload.action === "uploaded" && payload.autoRfid && payload.jobId) {
+        markActivity();
+        const isIdleOnHome =
+          state.screen === "queue" &&
+          state.printerPopupSlot == null &&
+          state.uploadPopupJobId == null &&
+          !state.donePopup;
+        if (isIdleOnHome && state.jobs.some((j) => j.id === payload.jobId)) {
+          state.selectedJobId = payload.jobId;
+          state.rfidPurpose = "print";
+          state.rfidAutoTriggered = true;
+          state.rfidError = "";
+          openScreen("rfid_wait");
+        } else if (!isIdleOnHome) {
+          showToast(`Neuer Auftrag für Drucker ${payload.slot || ""} eingetroffen`);
+        }
+      }
+    });
+    es.addEventListener("printers_updated", () => loadState());
+    es.addEventListener("printer_power_changed", (ev) => {
+      try {
+        const p = JSON.parse(ev.data)?.data;
+        loadState();
+        if (p?.action === "powered_off" && p?.reason === "COOLDOWN_COMPLETE") {
+          showToast(`⏻ Drucker ${p.printerSlot || ""} abgekühlt und automatisch ausgeschaltet`);
+        }
+      } catch {}
+    });
+    es.addEventListener("rfid_scan", (ev) => {
+      try {
+        const uid = JSON.parse(ev.data)?.data?.uid;
+        if (uid) {
+          markActivity();
+          handleRfidScan(uid);
+        }
+      } catch {}
+    });
+    es.addEventListener("job_progress", (ev) => {
+      try {
+        const p = JSON.parse(ev.data)?.data;
+        if (!p) return;
+        const job = state.jobs.find((j) => j.id === p.jobId);
+        if (job) {
+          job.uploadProgress = p;
+          const fill = document.querySelector(`[data-upload-fill="${p.jobId}"]`);
+          const pctEl = document.querySelector(`[data-upload-pct="${p.jobId}"]`);
+          const mbEl = document.querySelector(`[data-upload-mb="${p.jobId}"]`);
+          if (fill) fill.style.width = `${Math.round(p.percent || 0)}%`;
+          if (pctEl) pctEl.textContent = p.stage === "starting" ? "Startet…" : `${Math.round(p.percent || 0)} %`;
+          if (mbEl) mbEl.textContent = `${fmtMB(p.sentBytes)}/${fmtMB(p.totalBytes)}`;
+        }
+        const printer = state.printers.find((x) => x.id === p.printerId);
+        if (printer) {
+          printer.state = "UPLOADING";
+          printer.progress = p.percent;
+          const pSub = document.querySelector(`[data-printer-sub="${printer.id}"]`);
+          if (pSub) pSub.textContent = `▲ Upload ${Math.round(p.percent || 0)} %`;
+        }
+        if (state.uploadPopupJobId === p.jobId) renderUploadPopup();
+      } catch {}
+    });
+    es.addEventListener("job_done", (ev) => {
+      try {
+        const p = JSON.parse(ev.data)?.data;
+        if (state.uploadPopupJobId === p?.jobId) state.uploadPopupJobId = null;
+        loadState();
+        if (!p) return;
+        showDonePopup({
+          displayName: p.displayName || "",
+          printerSlot: p.printerSlot || "",
+          printAfterUpload: p.printAfterUpload !== false,
+        });
+      } catch {}
+    });
+    es.addEventListener("job_failed", (ev) => {
+      try {
+        const p = JSON.parse(ev.data)?.data;
+        if (state.uploadPopupJobId === p?.jobId) state.uploadPopupJobId = null;
+        loadState();
+        if (!p) return;
+        showToast(
+          p.charged
+            ? `Übertragung fehlgeschlagen (${p.reason}) — beim Neustart „Bereits bezahlt“ nutzen.`
+            : `Übertragung fehlgeschlagen (${p.reason}).`
+        );
+      } catch {}
+    });
+    es.onerror = () => {
+      state.connected = false;
+      renderTopbar();
+      // Always force clean reconnect (HTML5 EventSource never auto-retries after HTTP 502/503!)
+      try { es.close(); } catch {}
+      if (eventSource === es) eventSource = null;
+      scheduleSseReconnect();
+    };
+  }
+
+  // --- RFID Handling ---
+  async function handleRfidScan(uid) {
+    if (state.screen === "rfid_wait" && state.rfidPurpose === "admin") {
+      try {
+        const res = await api("/api/admin/authorize", {
+          method: "POST",
+          body: JSON.stringify({ rfid: uid }),
+        });
+        if (!res.authorized) {
+          state.rfidError =
+            res.reason === "BV_REQUIRED"
+              ? "Keine BV-Berechtigung — Admin nur mit BV-Karte!"
+              : `Karte abgelehnt (${res.reason || "unbekannt"})`;
+          renderStage();
+          return;
+        }
+        state.rfidError = "";
+        state.adminCode = res.adminCode;
+        state.adminUser = res.user;
+        state.adminTab = "history";
+        openScreen("admin");
+        await loadAdminData();
+      } catch (err) {
+        showToast(err.message);
+      }
+      return;
+    }
+
+    if (state.screen === "rfid_wait") {
+      try {
+        const res = await api("/api/session/authorize", {
+          method: "POST",
+          body: JSON.stringify({ rfid: uid }),
+        });
+        if (!res.authorized) {
+          state.rfidError = `Karte abgelehnt (${res.reason || "unbekannt"})`;
+          renderStage();
+          return;
+        }
+        state.rfidError = "";
+        state.session = res.session;
+        if (!state.session.approved) return openScreen("not_approved");
+        if (state.rfidPurpose === "power_on") return executePowerOn();
+        openScreen(state.rfidPurpose === "account" ? "account" : "payment_confirm");
+      } catch (err) {
+        showToast(err.message);
+      }
+      return;
+    }
+
+    if (state.screen === "bv_wait" && state.session) {
+      try {
+        const res = await api("/api/session/approve", {
+          method: "POST",
+          body: JSON.stringify({ sessionId: state.session.sessionId, instructorRfid: uid }),
+        });
+        if (!res.approved) {
+          showToast("Diese Karte hat keine Einweisungsberechtigung.");
+          return;
+        }
+        state.session = res.session;
+        state.lastResult = { instructorName: res.instructorName };
+        openScreen("approved_ok");
+      } catch (err) {
+        showToast(err.message);
+      }
+      return;
+    }
+
+    if (state.screen === "queue") {
+      state.rfidPurpose = "account";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
+      state.screen = "rfid_wait";
+      await handleRfidScan(uid);
+    }
+  }
+
+  // --- Actions ---
+  async function executeStart(mode, extra = {}) {
+    const job = selectedJob();
+    if (!job || !state.session) {
+      showToast("Job oder Sitzung abgelaufen.");
+      return returnToQueue(true);
+    }
+    try {
+      const res = await api(`/api/jobs/${encodeURIComponent(job.id)}/start`, {
+        method: "POST",
+        body: JSON.stringify({
+          sessionId: state.session.sessionId,
+          mode,
+          pin: extra.pin || null,
+          sectionId: extra.sectionId || null,
+          allowOverdraft: Boolean(extra.allowOverdraft),
+        }),
+      });
+
+      if (res.started) {
+        state.session = null;
+        const actionWord = job.printAfterUpload === false ? "Upload" : "Übertragung";
+        showToast(`✓ Freigegeben — ${actionWord} an Drucker ${job.printerSlot} läuft`);
+        await returnToQueue(false);
+        await loadState();
+        return;
+      }
+
+      if (res.reason === "PRINTER_BUSY" || res.reason === "PRINTER_OFFLINE") {
+        state.lastResult = res;
+        return openScreen("printer_busy");
+      }
+      if (res.reason === "INSUFFICIENT_BALANCE") {
+        state.session.balanceCents = res.balanceCents;
+        return openScreen("payment_confirm");
+      }
+      if (res.reason === "PIN_INVALID" || res.reason === "PIN_REQUIRED") {
+        state.pinValue = "";
+        state.pinError = "PIN ist falsch — bitte erneut versuchen.";
+        return renderStage();
+      }
+      if (res.reason === "JOB_EXPIRED") {
+        showToast("Druckjob ist abgelaufen.");
+        return returnToQueue(true);
+      }
+      showToast(`Fehler: ${res.reason || "Unbekannt"}`);
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function executeTopup(amountCents) {
+    if (!state.session) return;
+    try {
+      const res = await api("/api/session/topup", {
+        method: "POST",
+        body: JSON.stringify({ sessionId: state.session.sessionId, amountCents }),
+      });
+      state.session = res.session;
+      showToast(`✓ +${fmtEur(amountCents)} aufgeladen`);
+      openScreen(state.topupReturnTo || "payment_confirm");
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function cancelOrAbortJob(jobId) {
+    try {
+      const res = await api(`/api/jobs/${encodeURIComponent(jobId)}`, { method: "DELETE" });
+      if (state.uploadPopupJobId === jobId) state.uploadPopupJobId = null;
+      if (res.wasUploading) {
+        showToast("Übertragung abgebrochen — falls bezahlt, beim Neustart „Bereits bezahlt“ nutzen.");
+      }
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function executePowerOn() {
+    const pid = state.powerPrinterId;
+    const p = state.printers.find((x) => x.id === pid);
+    if (!pid || !state.session) {
+      showToast("Sitzung abgelaufen.");
+      return returnToQueue(true);
+    }
+    try {
+      const res = await api(`/api/printers/${encodeURIComponent(pid)}/power/on`, {
+        method: "POST",
+        body: JSON.stringify({ sessionId: state.session.sessionId }),
+      });
+      if (!res.ok) {
+        if (res.reason === "NOT_APPROVED") return openScreen("not_approved");
+        showToast(`Einschalten fehlgeschlagen (${res.reason || "Fehler"})`);
+        return returnToQueue(true);
+      }
+      state.session = null;
+      state.powerPrinterId = null;
+      showToast(`✓ Drucker ${p ? p.slot : ""} eingeschaltet${res.state === "OFFLINE" ? " — fährt hoch…" : ""}`);
+      await returnToQueue(false);
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function executePowerOff(printerId) {
+    const p = state.printers.find((x) => x.id === printerId);
+    try {
+      const res = await api(`/api/printers/${encodeURIComponent(printerId)}/power/off`, { method: "POST" });
+      if (!res.ok) {
+        const msgMap = {
+          PRINTER_PRINTING: "Drucker druckt gerade — Ausschalten gesperrt.",
+          PRINTER_UPLOADING: "Übertragung läuft — Ausschalten gesperrt.",
+        };
+        showToast(msgMap[res.reason] || `Ausschalten fehlgeschlagen (${res.reason || "Fehler"})`);
+        return;
+      }
+      if (res.action === "cooldown_scheduled") {
+        showToast(
+          `🌡 Hotend ${Math.round(res.nozzleTemp)} °C (> ${Math.round(res.thresholdC)} °C) — Drucker ${p ? p.slot : ""} schaltet nach Abkühlen aus`
+        );
+      } else {
+        showToast(`⏻ Drucker ${p ? p.slot : ""} ausgeschaltet`);
+        state.printerPopupSlot = null;
+      }
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function executeCancelShutdown(printerId) {
+    try {
+      await api(`/api/printers/${encodeURIComponent(printerId)}/power/cancel-shutdown`, { method: "POST" });
+      showToast("Automatisches Ausschalten abgebrochen");
+      await loadState();
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  // --- Rendering ---
+  function initMarquees() {
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".job-name-wrap").forEach((wrap) => {
+        const span = wrap.querySelector(".job-name");
+        if (!span) return;
+        const overflow = Math.ceil(span.scrollWidth - wrap.clientWidth);
+        if (overflow > 4) {
+          wrap.classList.add("is-overflowing");
+          wrap.style.setProperty("--marquee-dist", `${overflow + 10}px`);
+          const dur = Math.max(4.5, Math.min(11, 3 + overflow / 35));
+          wrap.style.setProperty("--marquee-dur", `${dur.toFixed(1)}s`);
+        } else {
+          wrap.classList.remove("is-overflowing");
+        }
+      });
+    });
+  }
+
+  function renderTopbar() {
+    $("conn-dot").classList.toggle("offline", !state.connected);
+    updateBrandLogo();
+    const brandSub = $("brand-sub");
+    if (brandSub) {
+      const isPilot = Boolean(state.modes.cashbox);
+      brandSub.textContent = isPilot ? "Pilot · Kasse" : "3D-Print";
+      brandSub.classList.toggle("is-pilot", isPilot);
+    }
+    const backBtn = $("btn-back-top");
+    const accBtn = $("btn-account");
+    const setupBtn = $("btn-setup");
+    const titleEl = $("sb-title");
+
+    const isHome = state.screen === "queue";
+    const isSettings = state.screen === "settings";
+    const isSettingsGroup = isSettings || state.screen === "admin";
+    const hasBack = !isHome && !isSettings;
+    const accShowsHome = !isHome && !isSettingsGroup;
+    const hideAcc = Boolean(state.modes.cashbox) && !accShowsHome;
+
+    backBtn.classList.toggle("hidden", !hasBack);
+    titleEl.classList.toggle("hidden", hasBack);
+    if (isHome) titleEl.textContent = "Warteschlange";
+    else if (isSettings) titleEl.textContent = "Einstellungen";
+
+    accBtn.classList.toggle("hidden", hideAcc);
+    accBtn.classList.toggle("is-home", accShowsHome);
+    accBtn.textContent = accShowsHome ? "⌂ Home" : "👤 Konto";
+    setupBtn.classList.toggle("is-home", isSettingsGroup);
+    setupBtn.textContent = isSettingsGroup ? "⌂" : "⚙";
+  }
+
+  function renderDock() {
+    const dock = $("printer-dock");
+    dock.style.gridTemplateColumns = state.printers.length <= 1 ? "1fr" : "repeat(2, minmax(0, 1fr))";
+    dock.innerHTML = state.printers
+      .map(
+        (p) => `
+        <div class="p-tile st-${escapeHtml(p.state)} ${p.pendingShutdown ? "is-cooling" : ""}" data-open-printer="${p.slot}">
+          <div class="p-name">
+            <span>Drucker ${p.slot}</span>
+            <span class="p-model">${escapeHtml(p.model || p.name)}</span>
+          </div>
+          <div class="p-stat" data-printer-sub="${escapeHtml(p.id)}">${escapeHtml(printerStatText(p))}</div>
+        </div>
+      `
+      )
+      .join("");
+  }
+
+  function renderStage() {
+    const stage = $("stage");
+    const job = selectedJob();
+    const sess = state.session;
+
+    if (state.screen === "queue") {
+      if (!state.jobs.length) {
+        stage.innerHTML = `
+          <div class="queue-empty">
+            <div class="empty-icon">${printer3dIconSvg()}</div>
+            <h2>Warte auf Druckaufträge</h2>
+            <p>Sende deinen Auftrag im <strong>PrusaSlicer</strong> per <strong>Upload</strong> oder <strong>Upload &amp; Print</strong> an den gewünschten Drucker.</p>
+          </div>
+        `;
+        return;
+      }
+
+      stage.innerHTML = `
+        <div class="queue-wrap">
+          <div class="queue-scroll" id="queue-scroll">
+            ${state.jobs
+              .map((j) => {
+                const isSending = j.status === "sending";
+                const thumb = j.thumbnailUrl ? `<img src="${escapeHtml(j.thumbnailUrl)}" alt="">` : "🧊";
+                if (isSending) {
+                  const up = j.uploadProgress || { percent: 0, sentBytes: 0, totalBytes: j.fileSize || 0 };
+                  return `
+                    <div class="job-card-wrap">
+                      <div class="job-swipe-bg">✕ Abbrechen</div>
+                      <div class="job-card is-uploading" data-job-id="${escapeHtml(j.id)}" data-open-upload="${escapeHtml(j.id)}">
+                        <div class="j-info-row">
+                          <div class="job-thumb">${thumb}</div>
+                          <div class="j-info-col">
+                            <div class="job-row1">
+                              <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
+                              <span class="slot-badge">Drucker ${j.printerSlot}</span>
+                            </div>
+                            <div class="job-meta">
+                              <span>⏱ <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
+                              <span>Tippen für Details…</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="j-action-row">
+                          <div class="inline-up">
+                            <div class="inline-up-track">
+                              <div class="inline-up-fill" data-upload-fill="${escapeHtml(j.id)}" style="width:${Math.round(up.percent || 0)}%"></div>
+                            </div>
+                            <div class="inline-up-txt">
+                              <span data-upload-pct="${escapeHtml(j.id)}">${Math.round(up.percent || 0)} %</span>
+                              <span data-upload-mb="${escapeHtml(j.id)}">${fmtMB(up.sentBytes)}/${fmtMB(up.totalBytes || j.fileSize)}</span>
+                            </div>
+                          </div>
+                          <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Abbrechen">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }
+
+                const rem = Math.max(0, Math.floor((j._clientExpiresAt - Date.now()) / 1000));
+                const pct = Math.max(0, Math.min(100, (rem / (j._ttlTotal || 300)) * 100));
+                const dash = ((100 - pct) * 0.628).toFixed(1);
+                const warn = rem <= 60;
+                const ctaLabel = j.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
+                return `
+                  <div class="job-card-wrap">
+                    <div class="job-swipe-bg">✕ Job entfernen</div>
+                    <div class="job-card" data-job-id="${escapeHtml(j.id)}">
+                      <div class="j-info-row">
+                        <div class="job-thumb">${thumb}</div>
+                        <div class="j-info-col">
+                          <div class="job-row1">
+                            <div class="job-name-wrap"><span class="job-name">${escapeHtml(j.displayName || j.filename)}</span></div>
+                            <span class="slot-badge">Drucker ${j.printerSlot}</span>
+                          </div>
+                          <div class="job-meta">
+                            <span>⏱ <strong>${fmtDur(j.estimatedTimeSeconds)}</strong></span>
+                            <span class="ttl-chip ${warn ? "warn" : ""}" data-ttl-wrap="${escapeHtml(j.id)}">
+                              <svg class="ttl-ring" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="var(--border)" stroke-width="3.5"></circle>
+                                <circle data-ttl-fg="${escapeHtml(j.id)}" cx="12" cy="12" r="10" fill="none" stroke="${warn ? "var(--orange)" : "var(--blue)"}" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="62.8" stroke-dashoffset="${dash}"></circle>
+                              </svg>
+                              <span data-ttl-txt="${escapeHtml(j.id)}">${fmtCountdown(rem)}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="j-action-row">
+                        <button type="button" class="btn-print-job" data-print-id="${escapeHtml(j.id)}">
+                          <span>${ctaLabel} · ${fmtEur(j.priceCents)}</span>
+                        </button>
+                        <button type="button" class="btn-abort-x" data-del-id="${escapeHtml(j.id)}" title="Job entfernen">✕</button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `;
+      initMarquees();
+      return;
+    }
+
+    if (state.screen === "rfid_wait") {
+      const powerPrinter = state.printers.find((x) => x.id === state.powerPrinterId);
+      const isAdm = state.rfidPurpose === "admin";
+      const isAcc = state.rfidPurpose === "account";
+      const isPwr = state.rfidPurpose === "power_on" && powerPrinter;
+      const heading = isAdm
+        ? "Admin · BV-Karte"
+        : isPwr
+          ? `Drucker ${powerPrinter.slot} einschalten`
+          : isAcc
+            ? "Konto · Karte vorhalten"
+            : "Karte vorhalten";
+      const title = isAdm ? "BV-Karte vorhalten" : "Bitte Mitgliedskarte scannen";
+      const desc = isAdm
+        ? "Nur für Bereichsverantwortliche (BV): Halte deine BV-Karte an den NFC-Leser."
+        : isPwr
+          ? `Drucker ${powerPrinter.slot} (${escapeHtml(powerPrinter.model || powerPrinter.name)}) über easyVerwaltung einschalten.`
+          : isAcc
+            ? "Halte deine Karte an den NFC-Leser, um Guthaben & Buchungen anzuzeigen."
+            : "Halte deine Karte an den leuchtenden NFC-Ring unterhalb des Displays.";
+
+      const jobCardHtml =
+        job && state.rfidPurpose === "print"
+          ? `
+            <div class="panel">
+              ${state.rfidAutoTriggered ? `<div class="auto-badge">⚡ Neuer Auftrag aus PrusaSlicer empfangen</div>` : ""}
+              <div class="j-info-row">
+                <div class="job-thumb">${job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊"}</div>
+                <div class="j-info-col">
+                  <div class="job-row1">
+                    <div class="job-name-wrap"><span class="job-name">${escapeHtml(job.displayName || job.filename)}</span></div>
+                    <span class="slot-badge">Drucker ${job.printerSlot}</span>
+                  </div>
+                  <div class="job-meta">
+                    <span>${Math.round(job.filamentGrams || 0)} g ${escapeHtml(job.filamentType || "")} · ${fmtDur(job.estimatedTimeSeconds)}</span>
+                  </div>
+                  <div style="font-size:4.4cqw;font-weight:900;color:var(--green-ink);">${fmtEur(job.priceCents)} · Fertig ${fmtEta(job.estimatedTimeSeconds)}</div>
+                </div>
+              </div>
+            </div>
+          `
+          : "";
+
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>${heading}</h1>
+            ${timeoutPillHtml()}
+          </div>
+          ${jobCardHtml}
+          ${state.rfidError ? `<div class="panel err" style="text-align:center;font-size:3.6cqw;font-weight:800;">🚫 ${escapeHtml(state.rfidError)}</div>` : ""}
+          <div class="rfid-center">
+            <div class="rfid-circle">${nfcIconSvg()}</div>
+            <h2>${title}</h2>
+            <p>${desc}</p>
+            <div class="arrow-down-hint">▼ NFC-Leser unten ▼</div>
+          </div>
+          ${job && state.rfidPurpose === "print" ? `<button type="button" class="btn btn-secondary" style="height:6.4cqh;" data-action="go-home">Zur Warteschlange</button>` : ""}
+        </div>
+      `;
+      initMarquees();
+      return;
+    }
+
+    if (state.screen === "payment_confirm" && job && sess) {
+      const verb = job.printAfterUpload === false ? "HOCHLADEN" : "DRUCKEN";
+      const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
+
+      if (state.modes.cashbox) {
+        stage.innerHTML = `
+          <div class="subscreen">
+            <div class="sub-heading">
+              <h1>Zahlung an der Kasse</h1>
+              ${timeoutPillHtml()}
+            </div>
+
+            <div class="panel">
+              <div class="j-info-row">
+                <div class="job-thumb">${thumb}</div>
+                <div class="j-info-col">
+                  <div class="job-row1">
+                    <div class="job-name-wrap"><span class="job-name">${escapeHtml(job.displayName || job.filename)}</span></div>
+                    <span class="slot-badge">Drucker ${job.printerSlot}</span>
+                  </div>
+                  <div class="job-meta"><span>${Math.round(job.filamentGrams || 0)} g ${escapeHtml(job.filamentType || "")} · ${fmtDur(job.estimatedTimeSeconds)}</span></div>
+                  <div class="job-meta"><span>Fertig: <strong>${fmtEta(job.estimatedTimeSeconds)}</strong>${job.printAfterUpload === false ? " · Nur Upload" : ""}</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel cash">
+              <div class="cash-uid-pill">✓ Karte erkannt · ${escapeHtml(sess.user.display_name)}</div>
+              <div class="cash-head">
+                <div>
+                  <div class="helper-txt">Bitte in die 3D-Druck-Kasse</div>
+                  <div class="cash-amount">${fmtEur(job.priceCents)}</div>
+                </div>
+                <div class="cash-coin">🪙</div>
+              </div>
+              <div class="cash-question">Hast du ${fmtEur(job.priceCents)} in die Kasse eingeworfen?</div>
+              <div class="helper-txt">Pilotbetrieb — bald wird der Betrag automatisch über dein FREILab-Konto abgebucht.</div>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-action="pay-cashbox">✓ Ja, eingeworfen · ${verb}</button>
+            <div class="btn-row2">
+              <button type="button" class="btn btn-secondary" data-action="open-club">Vereinsdruck</button>
+              <button type="button" class="btn btn-secondary" data-action="open-paid">Bereits bezahlt</button>
+            </div>
+          </div>
+        `;
+        initMarquees();
+        return;
+      }
+
+      const after = sess.balanceCents - job.priceCents;
+      const enough = after >= 0;
+      const maxNeg = Number(state.features.maxNegativeBalanceCents || 0);
+      const canOverdraft = !enough && Boolean(state.features.allowNegativeBalance) && (maxNeg === 0 || after >= -maxNeg);
+
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="sub-heading">
+            <h1>Zahlung bestätigen</h1>
+            ${timeoutPillHtml()}
+          </div>
+
+          <div class="panel">
+            <div class="j-info-row">
+              <div class="job-thumb">${thumb}</div>
+              <div class="j-info-col">
+                <div class="job-row1">
+                  <div class="job-name-wrap"><span class="job-name">${escapeHtml(job.displayName || job.filename)}</span></div>
+                  <span class="slot-badge">Drucker ${job.printerSlot}</span>
+                </div>
+                <div class="job-meta"><span>${Math.round(job.filamentGrams || 0)} g ${escapeHtml(job.filamentType || "")} · ${fmtDur(job.estimatedTimeSeconds)}</span></div>
+                <div class="job-meta"><span>Fertig: <strong>${fmtEta(job.estimatedTimeSeconds)}</strong>${job.printAfterUpload === false ? " · Nur Upload" : ""}</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel ${!enough ? "warn" : ""}">
+            <div class="pay-line">
+              <span>👤 ${escapeHtml(sess.user.display_name)}</span>
+              <span>${fmtEur(sess.balanceCents)}</span>
+            </div>
+            <div class="pay-line divider">
+              <span style="color:var(--muted);">Druckkosten</span>
+              <span class="pay-price-big">${fmtEur(job.priceCents)}</span>
+            </div>
+            <div class="pay-line" style="color:${enough ? "var(--green-ink)" : "var(--red-ink)"};">
+              <span>Neues Guthaben</span>
+              <span>${fmtEur(after)}${!enough ? " (Minus)" : ""}</span>
+            </div>
+          </div>
+
+          ${
+            enough
+              ? `<button type="button" class="btn btn-primary" data-action="pay-personal">✓ JETZT ${verb} · ${fmtEur(job.priceCents)}</button>`
+              : canOverdraft
+                ? `<button type="button" class="btn btn-orange" data-action="open-overdraft">⚠ Auf Minus ${verb.toLowerCase()} (${fmtEur(job.priceCents)})</button>`
+                : `<div class="panel err" style="font-size:3.5cqw;font-weight:800;text-align:center;">Guthaben reicht nicht (Limit −${fmtEur(maxNeg)}). Bitte aufladen.</div>`
+          }
+
+          ${!enough && state.features.topup ? `<button type="button" class="btn btn-blue" style="height:6.4cqh;" data-action="open-topup">+ Guthaben aufladen</button>` : ""}
+
+          <div class="btn-row2">
+            <button type="button" class="btn btn-secondary" data-action="open-club">Vereinsdruck</button>
+            <button type="button" class="btn btn-secondary" data-action="open-paid">Bereits bezahlt</button>
+          </div>
+        </div>
+      `;
+      initMarquees();
+      return;
+    }
+
+    if (state.screen === "overdraft_confirm" && job && sess) {
+      const after = sess.balanceCents - job.priceCents;
+      const verb = job.printAfterUpload === false ? "hochladen" : "drucken";
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="sub-heading">
+            <h1>Auf Guthaben-Minus?</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel warn">
+            <div style="font-size:4.2cqw;font-weight:900;">⚠ Dein Guthaben geht ins Minus</div>
+            <div class="pay-line"><span>Aktuelles Guthaben</span><span>${fmtEur(sess.balanceCents)}</span></div>
+            <div class="pay-line"><span>Druckkosten</span><span>${fmtEur(job.priceCents)}</span></div>
+            <div class="pay-line divider" style="color:var(--red-ink);">
+              <span>Neuer Stand</span>
+              <span class="pay-price-big">${fmtEur(after)}</span>
+            </div>
+            <div class="helper-txt" style="color:var(--orange-ink);">Bitte lade dein Guthaben zeitnah wieder auf.</div>
+          </div>
+          <button type="button" class="btn btn-orange" data-action="pay-overdraft">Ja, auf Minus ${verb}</button>
+          ${state.features.topup ? `<button type="button" class="btn btn-blue" style="height:6.4cqh;" data-action="open-topup">+ Jetzt aufladen</button>` : ""}
+          <div class="btn-row2">
+            <button type="button" class="btn btn-secondary" data-action="open-club">Vereinsdruck</button>
+            <button type="button" class="btn btn-secondary" data-action="open-paid">Bereits bezahlt</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "club_section" && job) {
+      const hint = state.modes.cashbox
+        ? "Für welchen FREILab-Bereich ist der Druck? (Kein Einwurf nötig, wird im Log vermerkt.)"
+        : "Wähle den Bereich, auf den der Druck verbucht wird (anschließend PIN-Bestätigung):";
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Vereinsdruck · Bereich</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="helper-txt">${hint}</div>
+          <div class="list-scroll">
+            <div class="choice-grid">
+              ${state.sections
+                .map((s) => `<button type="button" class="btn btn-secondary" style="height:7.6cqh;font-size:3.7cqw;" data-section-id="${escapeHtml(s.sectionId)}">${escapeHtml(s.name)}</button>`)
+                .join("")}
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "pin_entry") {
+      const secName = state.sections.find((s) => s.sectionId === state.selectedSectionId)?.name || "";
+      const subLabel = state.pinMode === "club" ? `Vereinsdruck · ${secName}` : "Bereits bezahlt (Wiederholungsdruck)";
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>PIN bestätigen</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel" style="align-items:center;text-align:center;">
+            <div style="font-size:3.5cqw;font-weight:800;color:var(--muted);">${escapeHtml(subLabel)}</div>
+            <div class="pin-dots">
+              ${[0, 1, 2, 3].map((i) => `<div class="pin-dot ${i < state.pinValue.length ? "filled" : ""}"></div>`).join("")}
+            </div>
+            ${state.pinError ? `<div style="color:var(--red-ink);font-size:3.4cqw;font-weight:800;">${escapeHtml(state.pinError)}</div>` : `<div class="helper-txt">4-stellige Mitglieder-PIN eingeben</div>`}
+          </div>
+          <div class="numpad">
+            ${["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0", "✓"]
+              .map(
+                (k) =>
+                  `<button type="button" class="btn ${k === "✓" ? "btn-primary" : "btn-secondary"}" data-pin-key="${k}">${k}</button>`
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "topup" && sess) {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="sub-heading">
+            <h1>Guthaben aufladen</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel">
+            <div class="pay-line">
+              <span>👤 ${escapeHtml(sess.user.display_name)}</span>
+              <span style="color:var(--green-ink);">${fmtEur(sess.balanceCents)}</span>
+            </div>
+          </div>
+          <div class="choice-grid">
+            ${[500, 1000, 2000, 5000]
+              .map((c) => `<button type="button" class="btn btn-primary" data-topup="${c}">+${fmtEur(c)}</button>`)
+              .join("")}
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "account" && sess) {
+      const txs = sess.transactions || [];
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Konto &amp; Guthaben</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel">
+            <div class="pay-line">
+              <div>
+                <div class="helper-txt">Angemeldet</div>
+                <div style="font-size:4.5cqw;font-weight:900;">${escapeHtml(sess.user.display_name)}</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="helper-txt">Guthaben</div>
+                <div class="pay-price-big" style="color:${sess.balanceCents >= 0 ? "var(--green-ink)" : "var(--red-ink)"};">${fmtEur(sess.balanceCents)}</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="flex:1;min-height:0;overflow:hidden;">
+            <div style="font-size:3.5cqw;font-weight:800;color:var(--muted);">Letzte Buchungen</div>
+            <div class="list-scroll">
+              ${
+                txs.length
+                  ? txs
+                      .map(
+                        (tx) => `
+                          <div class="tx-row">
+                            <div style="min-width:0;">
+                              <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(tx.label || tx.description || "Buchung")}</div>
+                              <div class="tx-sub">${fmtDateTime(tx.ts || tx.createdAt)}</div>
+                            </div>
+                            <span style="flex-shrink:0;color:${tx.amountCents >= 0 ? "var(--green-ink)" : "var(--red-ink)"};">${tx.amountCents >= 0 ? "+" : ""}${fmtEur(tx.amountCents)}</span>
+                          </div>
+                        `
+                      )
+                      .join("")
+                  : `<div class="helper-txt">Noch keine Buchungen vorhanden.</div>`
+              }
+            </div>
+          </div>
+          ${state.features.topup ? `<button type="button" class="btn btn-primary" style="height:6.6cqh;" data-action="open-topup-account">+ Guthaben aufladen</button>` : ""}
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "settings") {
+      const ds = state.displaySettings;
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel">
+            <div class="slider-head"><span>Darstellung</span></div>
+            <div class="btn-row2">
+              <button type="button" class="btn ${state.theme === "light" ? "btn-primary" : "btn-secondary"}" data-set-theme="light">☀ Hell</button>
+              <button type="button" class="btn ${state.theme === "dark" ? "btn-primary" : "btn-secondary"}" data-set-theme="dark">🌙 Dunkel</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="slider-head">
+              <span>☀ Display-Helligkeit</span>
+              <span id="brightness-val">${ds.brightness} %</span>
+            </div>
+            <input type="range" id="brightness-slider" min="15" max="100" step="5" value="${ds.brightness}">
+          </div>
+
+          <div class="panel" style="flex-direction:row;align-items:center;justify-content:space-between;">
+            <div class="helper-txt">Terminal <strong>${escapeHtml(state.terminalId)}</strong><br>${escapeHtml(state.terminalIp)} · v${escapeHtml(state.version)}${state.modes.cashbox ? " · Pilot" : ""}</div>
+            <button type="button" class="seg-btn" style="padding:0 3.5cqw;flex-shrink:0;" data-action="open-admin-auth">🔐 Admin (BV)</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "admin") {
+      const cfg = state.adminConfig || {};
+      const hist = state.adminHistory || [];
+      const ds = state.displaySettings;
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Admin${state.adminUser?.display_name ? ` · ${escapeHtml(state.adminUser.display_name)}` : ""}</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="admin-tabs-3">
+            <button type="button" class="seg-btn ${state.adminTab === "history" ? "active" : ""}" data-admin-tab="history">📋 Verlauf</button>
+            <button type="button" class="seg-btn ${state.adminTab === "config" ? "active" : ""}" data-admin-tab="config">⚙ QR/Drucker</button>
+            <button type="button" class="seg-btn ${state.adminTab === "device" ? "active" : ""}" data-admin-tab="device">🎛️ Gerät</button>
+          </div>
+          ${
+            state.adminTab === "history"
+              ? `
+                <div class="list-scroll">
+                  ${
+                    hist.length
+                      ? hist
+                          .map((h) => {
+                            const modeTxt =
+                              h.paymentMode === "club"
+                                ? `Verein${h.sectionName ? `: ${h.sectionName}` : ""}`
+                                : h.paymentMode === "already_paid"
+                                  ? "Bereits bezahlt"
+                                  : h.paymentMode === "cashbox"
+                                    ? "Kasse (Pilot)"
+                                    : "Privat";
+                            return `
+                              <div class="panel" style="padding:2.4cqw;gap:1cqw;">
+                                <div class="job-row1">
+                                  <strong style="font-size:3.8cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(h.displayName)}</strong>
+                                  <span class="slot-badge">Drucker ${h.printerSlot}</span>
+                                </div>
+                                <div class="pay-line" style="font-size:3.3cqw;">
+                                  <span>👤 ${escapeHtml(h.userDisplayName)}</span>
+                                  <span style="color:var(--muted);">${escapeHtml(modeTxt)}</span>
+                                </div>
+                                <div class="pay-line" style="font-size:3.1cqw;color:var(--muted);">
+                                  <span>${fmtDateTime(h.startedAt)} · ${Math.round(h.filamentGrams || 0)} g ${escapeHtml(h.filamentType)}</span>
+                                  <strong style="color:var(--text);">${fmtEur(h.priceCents)}</strong>
+                                </div>
+                              </div>
+                            `;
+                          })
+                          .join("")
+                      : `<div class="panel helper-txt" style="text-align:center;">Noch keine gestarteten Druckjobs im Log.</div>`
+                  }
+                </div>
+              `
+              : state.adminTab === "config"
+                ? `
+                  <div class="list-scroll">
+                    <div class="panel qr-box">
+                      <div style="font-size:3.8cqw;font-weight:900;">📱 Mit Smartphone konfigurieren</div>
+                      ${
+                        cfg.qrUrl
+                          ? `<div class="qr-img-wrap"><img src="${escapeHtml(cfg.qrUrl)}" alt="Admin Setup QR-Code"></div>`
+                          : ""
+                      }
+                      <div class="url-pill">${escapeHtml(cfg.setupUrl || `http://${state.terminalIp}/admin.html`)}</div>
+                      <div class="helper-txt">QR-Code im FREILab-WLAN scannen, um <strong>Drucker (IP &amp; Keys)</strong>, Server-URL, Token &amp; CSV-Log bequem am Handy zu verwalten (10 min gültig).</div>
+                    </div>
+                    <div class="panel" style="gap:1.4cqw;">
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Konfigurierte Drucker</span><span>${state.printers.length}</span></div>
+                      ${state.printers
+                        .map(
+                          (p) =>
+                            `<div class="pay-line" style="font-size:3.1cqw;"><span style="color:var(--muted);">Drucker ${p.slot} (${escapeHtml(p.model)})</span><span>${escapeHtml(p.ip || "–")}</span></div>`
+                        )
+                        .join("")}
+                    </div>
+                    <div class="panel" style="gap:1.4cqw;">
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Zahlungsmodus</span><span>${escapeHtml(cfg.paymentMode || state.modes.payment || "mock")}</span></div>
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Terminal-ID</span><span>${escapeHtml(cfg.terminalId || state.terminalId)}</span></div>
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Server-URL</span><span style="overflow:hidden;text-overflow:ellipsis;max-width:58%;">${escapeHtml(cfg.easyverwaltungUrl || "–")}</span></div>
+                      <div class="pay-line" style="font-size:3.4cqw;"><span style="color:var(--muted);">Service-Token</span><span style="color:${cfg.hasToken ? "var(--green-ink)" : "var(--red-ink)"};">${cfg.hasToken ? "✓ Gesetzt" : "✕ Fehlt"}</span></div>
+                      <button type="button" class="btn btn-secondary" style="height:6.2cqh;margin-top:1cqw;" data-action="admin-test">Verbindung testen</button>
+                    </div>
+                  </div>
+                `
+                : `
+                  <div class="list-scroll">
+                    <div class="panel">
+                      <div class="slider-head">
+                        <span>☀ Display-Helligkeit</span>
+                        <span id="brightness-val">${ds.brightness} %</span>
+                      </div>
+                      <input type="range" id="brightness-slider" min="15" max="100" step="5" value="${ds.brightness}">
+                    </div>
+                    <div class="panel">
+                      <div class="slider-head"><span>🌙 Dimmen &amp; 💤 Display aus</span></div>
+                      <div class="helper-txt">Dimmen auf 20 % nach Inaktivität:</div>
+                      <div class="seg-row">
+                        ${[
+                          [0, "Aus"],
+                          [60, "1 min"],
+                          [120, "2 min"],
+                          [300, "5 min"],
+                        ]
+                          .map(
+                            ([v, lbl]) =>
+                              `<button type="button" class="seg-btn ${ds.dimDelaySeconds === v ? "active" : ""}" data-dim-delay="${v}">${lbl}</button>`
+                          )
+                          .join("")}
+                      </div>
+                      <div class="helper-txt" style="margin-top:0.6cqh;">Display komplett aus (0 % · Burn-in-Schutz) nach:</div>
+                      <div class="seg-row">
+                        ${[
+                          [0, "Aus"],
+                          [900, "15 min"],
+                          [1800, "30 min"],
+                          [3600, "60 min"],
+                        ]
+                          .map(
+                            ([v, lbl]) =>
+                              `<button type="button" class="seg-btn ${ds.sleepDelaySeconds === v ? "active" : ""}" data-sleep-delay="${v}">${lbl}</button>`
+                          )
+                          .join("")}
+                      </div>
+                    </div>
+                    <div class="panel">
+                      <div class="slider-head"><span>🔊 Buzzer-Feedback</span></div>
+                      <div class="seg-row seg-3">
+                        ${[
+                          ["all", "Alle (inkl. Touch)"],
+                          ["events", "Nur Hinweise"],
+                          ["off", "Aus"],
+                        ]
+                          .map(
+                            ([v, lbl]) =>
+                              `<button type="button" class="seg-btn ${ds.buzzerMode === v ? "active" : ""}" data-buzzer-mode="${v}">${lbl}</button>`
+                          )
+                          .join("")}
+                      </div>
+                    </div>
+                  </div>
+                `
+          }
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "printer_busy") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="sub-heading">
+            <h1>Drucker nicht bereit</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel warn" style="align-items:center;text-align:center;padding:5cqh 4cqw;">
+            <div style="font-size:11cqw;">⚠️</div>
+            <div style="font-size:4.6cqw;font-weight:900;">${state.lastResult?.reason === "PRINTER_OFFLINE" ? "Drucker ist offline / ausgeschaltet" : "Drucker ist aktuell belegt"}</div>
+            <div class="helper-txt" style="color:var(--orange-ink);">Es wurde noch nichts abgebucht. Bitte am Drucker prüfen (z. B. Dialog bestätigen oder einschalten).</div>
+          </div>
+          <button type="button" class="btn btn-secondary" data-action="go-home">Zur Warteschlange</button>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "not_approved" && sess) {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="sub-heading">
+            <h1>Keine 3D-Freigabe</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="panel err" style="align-items:center;text-align:center;padding:5cqh 4cqw;">
+            <div style="font-size:11cqw;">🚫</div>
+            <div style="font-size:4.4cqw;font-weight:900;">${escapeHtml(sess.user.display_name)} ist noch nicht für 3D-Druck freigeschaltet</div>
+            <div class="helper-txt" style="color:var(--red-ink);">Bitte lass dich von einem Einweiser / BV vor Ort freischalten.</div>
+          </div>
+          ${state.features.approval ? `<button type="button" class="btn btn-primary" data-action="open-bv-wait">Freigabe vor Ort (BV-Karte)</button>` : ""}
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "bv_wait") {
+      stage.innerHTML = `
+        <div class="subscreen no-scroll">
+          <div class="sub-heading">
+            <h1>Einweiser-Karte</h1>
+            ${timeoutPillHtml()}
+          </div>
+          <div class="rfid-center">
+            <div class="rfid-circle">${nfcIconSvg()}</div>
+            <h2>BV- / Einweiser-Karte scannen</h2>
+            <p>Bitte berechtigte Einweisungs-Karte an den NFC-Leser halten.</p>
+            <div class="arrow-down-hint">▼ NFC-Leser unten ▼</div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (state.screen === "approved_ok") {
+      stage.innerHTML = `
+        <div class="subscreen">
+          <div class="panel" style="flex:1;align-items:center;justify-content:center;text-align:center;">
+            <div class="done-icon">✓</div>
+            <div style="font-size:5cqw;font-weight:900;">Nutzer freigeschaltet</div>
+            <div class="helper-txt">Durch: ${escapeHtml(state.lastResult?.instructorName || "Einweiser")}</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function renderUploadPopup() {
+    const el = $("upload-popup");
+    const job = state.jobs.find((j) => j.id === state.uploadPopupJobId && j.status === "sending");
+    if (!job) {
+      el.classList.add("hidden");
+      return;
+    }
+    const up = job.uploadProgress || { percent: 0, sentBytes: 0, totalBytes: job.fileSize || 0, bytesPerSec: 0 };
+    const thumb = job.thumbnailUrl ? `<img src="${escapeHtml(job.thumbnailUrl)}" alt="">` : "🧊";
+    const speed = fmtSpeed(up.bytesPerSec);
+    el.classList.remove("hidden");
+    el.innerHTML = `
+      <div class="popup-card">
+        <div class="popup-head">
+          <div class="popup-head-left">
+            <button type="button" class="back-top-btn" data-close-upload="1">‹ Zurück</button>
+            <h3>Übertragung · Drucker ${job.printerSlot}</h3>
+          </div>
+        </div>
+        <div style="padding:3cqw;display:flex;flex-direction:column;gap:2.6cqw;">
+          <div class="j-info-row">
+            <div class="job-thumb">${thumb}</div>
+            <div class="j-info-col">
+              <strong style="font-size:4.2cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(job.displayName || job.filename)}</strong>
+              <div class="helper-txt">✓ Freigegeben · ${fmtDur(job.estimatedTimeSeconds)}</div>
+            </div>
+          </div>
+          <div class="inline-up">
+            <div class="inline-up-track" style="height:2.6cqh;">
+              <div class="inline-up-fill" style="width:${Math.round(up.percent || 0)}%"></div>
+            </div>
+            <div class="inline-up-txt" style="font-size:3.6cqw;">
+              <span>${Math.round(up.percent || 0)} %</span>
+              <span>${fmtMB(up.sentBytes)} / ${fmtMB(up.totalBytes || job.fileSize)}${speed ? ` · ${speed}` : ""}</span>
+            </div>
+          </div>
+        </div>
+        <div class="popup-foot">
+          <button type="button" class="btn btn-danger-soft" style="height:6.4cqh;" data-abort-upload="${escapeHtml(job.id)}">✕ Übertragung abbrechen</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPrinterPopup() {
+    const el = $("printer-popup");
+    if (state.printerPopupSlot == null) {
+      el.classList.add("hidden");
+      return;
+    }
+    const p = state.printers.find((x) => x.slot === state.printerPopupSlot);
+    if (!p) {
+      el.classList.add("hidden");
+      return;
+    }
+    const nozzleStr = p.nozzleDiameter ? `${String(p.nozzleDiameter).replace(".", ",")} mm` : "–";
+    const nozzleTemp = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)}°/${Math.round(p.targetNozzle || 0)}°` : "–";
+    const bedTemp = p.bedTemp != null ? `${Math.round(p.bedTemp)}°/${Math.round(p.targetBed || 0)}°` : "–";
+    const totalH = p.totalPrintHours != null ? `${p.totalPrintHours.toLocaleString("de-DE")} h` : "–";
+    const totalKm = p.totalFilamentKm != null ? `${p.totalFilamentKm.toLocaleString("de-DE")} km` : "–";
+    const hasActive = (p.state === "PRINTING" || p.state === "UPLOADING" || p.state === "PAUSED") && (p.activeJob || p.uploadProgress);
+    const activeName = p.activeJob || state.jobs.find((j) => j.id === p.uploadProgress?.jobId)?.displayName || "Auftrag";
+    const ownerLabel = p.activeJobOwner
+      ? p.activeJobSection
+        ? `${p.activeJobOwner} (Verein: ${p.activeJobSection})`
+        : p.activeJobOwner
+      : "Direkt am Drucker";
+    const remTxt = p.timeRemainingSeconds ? `${fmtDur(p.timeRemainingSeconds)} (Fertig ${fmtEta(p.timeRemainingSeconds)})` : "";
+    const thresh = Math.round(p.shutdownTempThresholdC || 50);
+    const isHot = p.nozzleTemp != null && p.nozzleTemp > thresh;
+    const isOff = p.state === "OFFLINE" || p.powerState === "OFF";
+    const isBusyPower = p.state === "PRINTING" || p.state === "UPLOADING";
+
+    let powerFootHtml = "";
+    if (p.pendingShutdown) {
+      const curT = p.nozzleTemp != null ? `${Math.round(p.nozzleTemp)} °C` : "heiß";
+      powerFootHtml = `
+        <div class="popup-foot">
+          <div class="cooldown-note">🌡 Kühlt ab (${curT} → ≤ ${thresh} °C) — schaltet automatisch aus</div>
+          <button type="button" class="btn btn-secondary" style="height:6.4cqh;" data-power-cancel="${escapeHtml(p.id)}">Auto-Aus abbrechen</button>
+        </div>
+      `;
+    } else if (isOff) {
+      powerFootHtml = `
+        <div class="popup-foot">
+          <button type="button" class="btn btn-primary" style="height:6.6cqh;" data-power-on="${escapeHtml(p.id)}">⏻ Einschalten (RFID-Karte)</button>
+        </div>
+      `;
+    } else if (isBusyPower) {
+      powerFootHtml = `
+        <div class="popup-foot">
+          <button type="button" class="btn btn-secondary" style="height:6.4cqh;" disabled>⏻ Druckt gerade — Ausschalten gesperrt</button>
+        </div>
+      `;
+    } else {
+      powerFootHtml = `
+        <div class="popup-foot">
+          <button type="button" class="btn btn-danger-soft" style="height:6.6cqh;" data-power-off="${escapeHtml(p.id)}">⏻ ${isHot ? `Nach Abkühlen aus (> ${thresh}°)` : "Drucker ausschalten"}</button>
+        </div>
+      `;
+    }
+
+    el.classList.remove("hidden");
+    el.innerHTML = `
+      <div class="popup-card">
+        <div class="popup-head">
+          <div class="popup-head-left">
+            <button type="button" class="back-top-btn" data-close-printer="1">‹ Zurück</button>
+            <h3>Drucker ${p.slot} · ${escapeHtml(p.model || p.name)}</h3>
+          </div>
+          <span class="p-status-pill st-${escapeHtml(p.state)} ${p.pendingShutdown ? "is-cooling" : ""}">${escapeHtml(printerShortPill(p))}</span>
+        </div>
+        <div class="printer-spec-grid">
+          <div class="spec-chip"><div class="spec-k">Düse &amp; Temp.</div><div class="spec-v">${nozzleStr} · ${nozzleTemp}</div></div>
+          <div class="spec-chip"><div class="spec-k">Heizbett</div><div class="spec-v">${bedTemp}</div></div>
+          <div class="spec-chip"><div class="spec-k">Druckraum</div><div class="spec-v">${escapeHtml(p.buildVolume || "–")}</div></div>
+          <div class="spec-chip"><div class="spec-k">On-Time</div><div class="spec-v">${fmtOnTime(p.onTimeSeconds)}</div></div>
+          <div class="spec-chip"><div class="spec-k">Gesamtzeit</div><div class="spec-v">${totalH}</div></div>
+          <div class="spec-chip"><div class="spec-k">Filament</div><div class="spec-v">${totalKm}</div></div>
+          ${
+            hasActive
+              ? `
+                <div class="p-job-banner">
+                  <div style="display:flex;justify-content:space-between;gap:2cqw;font-size:3.6cqw;font-weight:900;">
+                    <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.state === "UPLOADING" ? "Upload:" : p.state === "PAUSED" ? "Pausiert:" : "Aktiver Druck:"} ${escapeHtml(activeName)}</span>
+                    <span style="flex-shrink:0;">${Math.round(p.progress || 0)} %</span>
+                  </div>
+                  <div class="p-job-meta-row">
+                    <span>👤 Verantwortlich: <strong>${escapeHtml(ownerLabel)}</strong></span>
+                    ${remTxt ? `<span>⏱ Verbleibend: ${escapeHtml(remTxt)}</span>` : ""}
+                  </div>
+                </div>
+              `
+              : `
+                <div class="spec-chip" style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;">
+                  <span class="spec-k">Status</span>
+                  <span style="font-size:3.4cqw;font-weight:800;color:var(--muted);">${escapeHtml(p.error || (p.powerState === "OFF" ? "Ausgeschaltet" : "Kein aktiver Druck"))}</span>
+                </div>
+              `
+          }
+        </div>
+        ${powerFootHtml}
+      </div>
+    `;
+  }
+
+  let donePopupTimer = null;
+  function showDonePopup(info) {
+    state.donePopup = info;
+    renderDonePopup();
+    clearTimeout(donePopupTimer);
+    donePopupTimer = setTimeout(() => closeDonePopup(), 4000);
+  }
+
+  function closeDonePopup() {
+    clearTimeout(donePopupTimer);
+    if (!state.donePopup) return;
+    state.donePopup = null;
+    renderDonePopup();
+    if (state.screen !== "queue") returnToQueue(false);
+    setLedHint("idle");
+  }
+
+  function renderDonePopup() {
+    const el = $("done-popup");
+    if (!el) return;
+    const d = state.donePopup;
+    if (!d) {
+      el.classList.add("hidden");
+      return;
+    }
+    el.classList.remove("hidden");
+    const slotTxt = d.printerSlot ? `Drucker ${d.printerSlot}` : "den Drucker";
+    const subTxt = d.printAfterUpload
+      ? `${d.displayName ? `„${escapeHtml(d.displayName)}“ — ` : ""}Druck wurde gestartet.`
+      : `${d.displayName ? `„${escapeHtml(d.displayName)}“ — ` : ""}Datei gespeichert (Start am Drucker).`;
+    el.innerHTML = `
+      <div class="popup-card done-card">
+        <div class="done-icon">✓</div>
+        <h3>Druckjob erfolgreich an ${escapeHtml(slotTxt)} übertragen</h3>
+        <p>${subTxt}</p>
+        <button type="button" class="btn btn-primary" style="height:6.4cqh;" data-close-done="1">OK</button>
+      </div>
+    `;
+  }
+
+  function renderPopups() {
+    renderUploadPopup();
+    renderPrinterPopup();
+    renderDonePopup();
+  }
+
+  function renderDevControls() {
+    const show = Boolean(state.modes.devMock) && state.screen !== "admin";
+    const drawerOpen = !$("dev-drawer").classList.contains("hidden");
+    $("dev-pill").classList.toggle("hidden", !show || drawerOpen);
+    $("dev-toggle-p1").classList.toggle("hidden", state.modes.printer === "live");
+    if (!show) $("dev-drawer").classList.add("hidden");
+  }
+
+  function renderAll() {
+    renderTopbar();
+    renderStage();
+    renderDock();
+    renderPopups();
+    renderDevControls();
+  }
+
+  // --- Global Activity, Wake Swallow & Tactile Touch Buzzer ---
+  $("power-overlay").addEventListener("pointerdown", (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    markActivity();
+  });
+
+  $("hmi-root").addEventListener("pointerdown", (ev) => {
+    if (ev.target.closest("#power-overlay")) return;
+    markActivity();
+    if (ev.target.closest("button, .p-tile, .job-card.is-uploading, input[type='range']")) {
+      fireTouchFeedback();
+    }
+  });
+
+  // --- Topbar & Dock & Popup Events ---
+  $("btn-back-top").addEventListener("click", goBackOneStep);
+  $("btn-theme-eye").addEventListener("click", () => setTheme(state.theme === "light" ? "dark" : "light"));
+
+  $("btn-account").addEventListener("click", () => {
+    if (state.screen !== "queue" && state.screen !== "settings" && state.screen !== "admin") {
+      return returnToQueue(true);
+    }
+    state.selectedJobId = null;
+    state.powerPrinterId = null;
+    state.rfidPurpose = "account";
+    state.rfidAutoTriggered = false;
+    state.rfidError = "";
+    openScreen(state.session ? "account" : "rfid_wait");
+  });
+
+  $("btn-setup").addEventListener("click", () => {
+    if (state.screen === "settings" || state.screen === "admin") return returnToQueue(false);
+    openScreen("settings");
+  });
+
+  $("printer-dock").addEventListener("click", (ev) => {
+    const tile = ev.target.closest("[data-open-printer]");
+    if (!tile) return;
+    state.printerPopupSlot = Number(tile.dataset.openPrinter);
+    renderPrinterPopup();
+  });
+
+  $("printer-popup").addEventListener("click", async (ev) => {
+    const onBtn = ev.target.closest("[data-power-on]");
+    if (onBtn) {
+      state.powerPrinterId = onBtn.dataset.powerOn;
+      state.selectedJobId = null;
+      state.rfidPurpose = "power_on";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
+      state.printerPopupSlot = null;
+      openScreen("rfid_wait");
+      return;
+    }
+    const offBtn = ev.target.closest("[data-power-off]");
+    if (offBtn) {
+      await executePowerOff(offBtn.dataset.powerOff);
+      return;
+    }
+    const cancelBtn = ev.target.closest("[data-power-cancel]");
+    if (cancelBtn) {
+      await executeCancelShutdown(cancelBtn.dataset.powerCancel);
+      return;
+    }
+    if (ev.target.id === "printer-popup" || ev.target.closest("[data-close-printer]")) {
+      state.printerPopupSlot = null;
+      renderPrinterPopup();
+    }
+  });
+
+  $("upload-popup").addEventListener("click", async (ev) => {
+    const abortBtn = ev.target.closest("[data-abort-upload]");
+    if (abortBtn) {
+      await cancelOrAbortJob(abortBtn.dataset.abortUpload);
+      return;
+    }
+    if (ev.target.id === "upload-popup" || ev.target.closest("[data-close-upload]")) {
+      state.uploadPopupJobId = null;
+      renderUploadPopup();
+    }
+  });
+
+  $("done-popup").addEventListener("click", (ev) => {
+    if (ev.target.id === "done-popup" || ev.target.closest("[data-close-done]")) {
+      closeDonePopup();
+    }
+  });
+
+  // Brightness range slider live input
+  $("stage").addEventListener("input", (ev) => {
+    if (ev.target.id === "brightness-slider") {
+      const val = Number(ev.target.value);
+      state.displaySettings.brightness = val;
+      const lbl = $("brightness-val");
+      if (lbl) lbl.textContent = `${val} %`;
+      persistDisplaySettings();
+    }
+  });
+
+  // Main stage clicks
+  $("stage").addEventListener("click", async (ev) => {
+    const delBtn = ev.target.closest("[data-del-id]");
+    if (delBtn) {
+      ev.stopPropagation();
+      await cancelOrAbortJob(delBtn.dataset.delId);
+      return;
+    }
+    const printBtn = ev.target.closest("[data-print-id]");
+    if (printBtn) {
+      state.selectedJobId = printBtn.dataset.printId;
+      state.rfidPurpose = "print";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
+      openScreen("rfid_wait");
+      return;
+    }
+    const upCard = ev.target.closest("[data-open-upload]");
+    if (upCard) {
+      state.uploadPopupJobId = upCard.dataset.openUpload;
+      renderUploadPopup();
+      return;
+    }
+    const themeBtn = ev.target.closest("[data-set-theme]");
+    if (themeBtn) {
+      setTheme(themeBtn.dataset.setTheme);
+      return;
+    }
+    const dimBtn = ev.target.closest("[data-dim-delay]");
+    if (dimBtn) {
+      state.displaySettings.dimDelaySeconds = Number(dimBtn.dataset.dimDelay);
+      persistDisplaySettings();
+      document.querySelectorAll("[data-dim-delay]").forEach((b) =>
+        b.classList.toggle("active", Number(b.dataset.dimDelay) === state.displaySettings.dimDelaySeconds)
+      );
+      return;
+    }
+    const sleepBtn = ev.target.closest("[data-sleep-delay]");
+    if (sleepBtn) {
+      state.displaySettings.sleepDelaySeconds = Number(sleepBtn.dataset.sleepDelay);
+      persistDisplaySettings();
+      document.querySelectorAll("[data-sleep-delay]").forEach((b) =>
+        b.classList.toggle("active", Number(b.dataset.sleepDelay) === state.displaySettings.sleepDelaySeconds)
+      );
+      return;
+    }
+    const buzBtn = ev.target.closest("[data-buzzer-mode]");
+    if (buzBtn) {
+      state.displaySettings.buzzerMode = buzBtn.dataset.buzzerMode;
+      persistDisplaySettings();
+      document.querySelectorAll("[data-buzzer-mode]").forEach((b) =>
+        b.classList.toggle("active", b.dataset.buzzerMode === state.displaySettings.buzzerMode)
+      );
+      return;
+    }
+    const adminTabBtn = ev.target.closest("[data-admin-tab]");
+    if (adminTabBtn) {
+      state.adminTab = adminTabBtn.dataset.adminTab;
+      renderStage();
+      return;
+    }
+    const secBtn = ev.target.closest("[data-section-id]");
+    if (secBtn) {
+      state.selectedSectionId = secBtn.dataset.sectionId;
+      if (state.modes.cashbox) {
+        await executeStart("club", { sectionId: state.selectedSectionId });
+        return;
+      }
+      state.pinMode = "club";
+      state.pinValue = "";
+      state.pinError = "";
+      openScreen("pin_entry");
+      return;
+    }
+    const topupBtn = ev.target.closest("[data-topup]");
+    if (topupBtn) {
+      await executeTopup(Number(topupBtn.dataset.topup));
+      return;
+    }
+    const pinBtn = ev.target.closest("[data-pin-key]");
+    if (pinBtn) {
+      const k = pinBtn.dataset.pinKey;
+      state.pinError = "";
+      if (k === "⌫") {
+        state.pinValue = state.pinValue.slice(0, -1);
+        renderStage();
+      } else if (k === "✓") {
+        if (state.pinValue.length < 4) {
+          state.pinError = "Bitte mindestens 4 Ziffern eingeben.";
+          renderStage();
+          return;
+        }
+        await executeStart(state.pinMode, { pin: state.pinValue, sectionId: state.selectedSectionId });
+      } else if (state.pinValue.length < 6) {
+        state.pinValue += k;
+        renderStage();
+      }
+      return;
+    }
+
+    const actBtn = ev.target.closest("[data-action]");
+    if (!actBtn) return;
+    const act = actBtn.dataset.action;
+
+    if (act === "go-home") return returnToQueue(true);
+    if (act === "pay-personal") return executeStart("personal");
+    if (act === "pay-cashbox") return executeStart("cashbox");
+    if (act === "open-overdraft") return openScreen("overdraft_confirm");
+    if (act === "pay-overdraft") return executeStart("personal", { allowOverdraft: true });
+    if (act === "open-topup") {
+      state.topupReturnTo = "payment_confirm";
+      return openScreen("topup");
+    }
+    if (act === "open-topup-account") {
+      state.topupReturnTo = "account";
+      return openScreen("topup");
+    }
+    if (act === "open-club") return openScreen("club_section");
+    if (act === "open-paid") {
+      if (state.modes.cashbox) return executeStart("already_paid");
+      state.pinMode = "already_paid";
+      state.pinValue = "";
+      state.pinError = "";
+      return openScreen("pin_entry");
+    }
+    if (act === "open-bv-wait") return openScreen("bv_wait");
+    if (act === "open-admin-auth") {
+      state.rfidPurpose = "admin";
+      state.rfidAutoTriggered = false;
+      state.rfidError = "";
+      return openScreen("rfid_wait");
+    }
+    if (act === "admin-test") {
+      try {
+        const res = await api("/api/admin/test-connection", { method: "POST", adminCode: state.adminCode });
+        showToast(res.message || (res.ok ? "Verbindung OK" : "Fehlgeschlagen"));
+      } catch (err) {
+        showToast(err.message);
+      }
+    }
+  });
+
+  // Swipe-left to delete/abort on job cards
+  let swipeCard = null;
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+  let swipeDx = 0;
+  let swipeActive = false;
+
+  $("stage").addEventListener("pointerdown", (ev) => {
+    if (ev.target.closest("button")) return;
+    const card = ev.target.closest(".job-card");
+    if (!card) return;
+    swipeCard = card;
+    swipeStartX = ev.clientX;
+    swipeStartY = ev.clientY;
+    swipeDx = 0;
+    swipeActive = false;
+  });
+
+  window.addEventListener("pointermove", (ev) => {
+    if (!swipeCard) return;
+    const dx = ev.clientX - swipeStartX;
+    const dy = ev.clientY - swipeStartY;
+    if (!swipeActive) {
+      if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.4 && dx < 0) {
+        swipeActive = true;
+        swipeCard.classList.add("swiping");
+      } else if (Math.abs(dy) > 14) {
+        swipeCard = null;
+        return;
+      }
+    }
+    if (swipeActive) {
+      swipeDx = Math.min(0, Math.max(-160, dx));
+      swipeCard.style.transform = `translateX(${swipeDx}px)`;
+    }
+  });
+
+  window.addEventListener("pointerup", async () => {
+    if (!swipeCard) return;
+    const card = swipeCard;
+    const dx = swipeDx;
+    swipeCard = null;
+    card.classList.remove("swiping");
+    if (swipeActive && dx < -90) {
+      card.style.transform = "translateX(-100%)";
+      await cancelOrAbortJob(card.dataset.jobId);
+    } else {
+      card.style.transform = "";
+    }
+    swipeActive = false;
+  });
+
+  // Dev Simulator Drawer
+  $("dev-pill").addEventListener("click", () => {
+    $("dev-drawer").classList.remove("hidden");
+    renderDevControls();
+  });
+  $("dev-close").addEventListener("click", () => {
+    $("dev-drawer").classList.add("hidden");
+    renderDevControls();
+  });
+  $("dev-upload").addEventListener("click", async () => {
+    try {
+      const slot = state.printers[0]?.slot || 1;
+      await api("/api/dev/upload-sample", { method: "POST", body: JSON.stringify({ slot }) });
+    } catch (err) {
+      showToast(err.message);
+    }
+  });
+  $("dev-drawer").addEventListener("click", async (ev) => {
+    const rfidBtn = ev.target.closest("[data-rfid]");
+    if (!rfidBtn) return;
+    try {
+      await api("/api/dev/simulate-rfid", {
+        method: "POST",
+        body: JSON.stringify({ uid: rfidBtn.dataset.rfid }),
+      });
+    } catch (err) {
+      showToast(err.message);
+    }
+  });
+  $("dev-toggle-p1").addEventListener("click", async () => {
+    const p1 = state.printers[0];
+    if (!p1) return;
+    const next = p1.state === "READY" ? "PRINTING" : "READY";
+    try {
+      await api("/api/dev/printer-state", {
+        method: "POST",
+        body: JSON.stringify({ printerId: p1.id, state: next }),
+      });
+    } catch (err) {
+      showToast(err.message);
+    }
+  });
+
+  // --- Clock, Job TTL, Timeout Ring & 2-Stage Auto-Dim / 30-min Sleep Tick ---
+  function tick() {
+    const now = new Date();
+    $("sb-clock").textContent = now.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+
+    if (state.screen === "queue") {
+      const nowMs = Date.now();
+      for (const j of state.jobs) {
+        if (j.status === "sending") continue;
+        const rem = Math.max(0, Math.floor((j._clientExpiresAt - nowMs) / 1000));
+        const pct = Math.max(0, Math.min(100, (rem / (j._ttlTotal || 300)) * 100));
+        const txt = document.querySelector(`[data-ttl-txt="${j.id}"]`);
+        const fg = document.querySelector(`[data-ttl-fg="${j.id}"]`);
+        const wrap = document.querySelector(`[data-ttl-wrap="${j.id}"]`);
+        if (txt) txt.textContent = fmtCountdown(rem);
+        if (fg) {
+          fg.setAttribute("stroke-dashoffset", ((100 - pct) * 0.628).toFixed(1));
+          fg.setAttribute("stroke", rem <= 60 ? "var(--orange)" : "var(--blue)");
+        }
+        if (wrap) wrap.classList.toggle("warn", rem <= 60);
+      }
+    }
+
+    updateTimeoutDOM();
+
+    // Auto-Dim & 30-min Display Sleep only when idle on Queue with no active upload or open popup
+    const hasActiveUpload = state.jobs.some((j) => j.status === "sending");
+    const isIdle =
+      state.screen === "queue" &&
+      !hasActiveUpload &&
+      state.printerPopupSlot == null &&
+      state.uploadPopupJobId == null &&
+      !state.donePopup;
+
+    if (isIdle) {
+      const idleSec = (Date.now() - state.lastActivityAt) / 1000;
+      const sleepSec = Number(state.displaySettings.sleepDelaySeconds || 0);
+      const dimSec = Number(state.displaySettings.dimDelaySeconds || 0);
+      if (sleepSec > 0 && idleSec >= sleepSec) {
+        setDisplayPower("sleep");
+      } else if (dimSec > 0 && idleSec >= dimSec && state.powerState !== "sleep") {
+        setDisplayPower("dim");
+      }
+    }
+  }
+
+  setInterval(tick, 1000);
+  setInterval(() => loadState(), 15000);
+
+  // Boot
+  updateBrandLogo();
+  tick();
+  loadState().then(() => {
+    renderAll();
+    connectEvents();
+  });
+})();
+
+  </script>
+</body>
+</html>
