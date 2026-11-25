@@ -4,18 +4,56 @@ import asyncio
 import logging
 import os
 import time
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel, Field
 
+from pn532_spi import Pn532Poller
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [device-agent] %(message)s")
 logger = logging.getLogger("st3d.device-agent")
 
 HARDWARE_MODE = os.getenv("HARDWARE_MODE", "mock").strip().lower() or "mock"
+NFC_SPI_BUS = int(os.getenv("NFC_SPI_BUS", "0"))
+NFC_SPI_DEVICE = int(os.getenv("NFC_SPI_DEVICE", "0"))
+NFC_CS_GPIO = int(os.getenv("NFC_CS_GPIO", "5"))  # Pin 29 (GPIO5) auf HW-147 SPI-Aufbau; -1 = Hardware CE0
+NFC_GPIO_CHIP = os.getenv("NFC_GPIO_CHIP", "/dev/gpiochip0").strip() or "/dev/gpiochip0"
+NFC_SPI_SPEED_HZ = int(os.getenv("NFC_SPI_SPEED_HZ", "250000"))
 
-app = FastAPI(title="Smart Terminal Device Agent", version="0.2.0")
+nfc_poller: Pn532Poller | None = None
+_main_loop: asyncio.AbstractEventLoop | None = None
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    global nfc_poller, _main_loop
+    _main_loop = asyncio.get_running_loop()
+    if HARDWARE_MODE == "pi":
+        def _on_nfc_scan(uid: str) -> None:
+            if _main_loop is not None:
+                asyncio.run_coroutine_threadsafe(
+                    hub.broadcast({"type": "rfid_scan", "uid": uid, "ts": time.time(), "source": "pn532"}),
+                    _main_loop,
+                )
+
+        nfc_poller = Pn532Poller(
+            on_scan=_on_nfc_scan,
+            spi_bus=NFC_SPI_BUS,
+            spi_device=NFC_SPI_DEVICE,
+            cs_gpio=NFC_CS_GPIO if NFC_CS_GPIO >= 0 else None,
+            gpio_chip=NFC_GPIO_CHIP,
+            speed_hz=NFC_SPI_SPEED_HZ,
+        )
+        nfc_poller.start()
+    yield
+    if nfc_poller is not None:
+        nfc_poller.stop()
+
+
+app = FastAPI(title="Smart Terminal Device Agent", version="0.3.0", lifespan=lifespan)
 
 
 class EventHub:
@@ -99,6 +137,7 @@ def health() -> dict[str, Any]:
         "ledProgress": current_led_progress,
         "backlightPercent": current_backlight_percent,
         "backlightDevice": bl.name if bl else None,
+        "nfc": nfc_poller.status_dict() if nfc_poller is not None else {"connected": False, "mode": HARDWARE_MODE},
         "wsClients": len(hub._clients),
     }
 

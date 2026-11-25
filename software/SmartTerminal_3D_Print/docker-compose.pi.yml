@@ -7,6 +7,10 @@ services:
     privileged: true   # Schreibzugriff auf /sys/class/backlight (symlinks in /sys/devices) + GPIO/SPI/PWM
     environment:
       HARDWARE_MODE: pi
+      NFC_SPI_BUS: "0"
+      NFC_SPI_DEVICE: "0"
+      NFC_CS_GPIO: "5"               # HW-147 SS/CS an Pin 29 (GPIO5); -1 für Hardware CE0 (Pin 24)
+      NFC_GPIO_CHIP: /dev/gpiochip0
     devices:
       - /dev/spidev0.0:/dev/spidev0.0   # PN532 NFC/RFID (SPI)
       - /dev/gpiochip0:/dev/gpiochip0   # Buzzer, WS2812 / GPIO
