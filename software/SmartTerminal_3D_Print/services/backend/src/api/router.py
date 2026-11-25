@@ -204,6 +204,16 @@ def _detect_local_ip() -> str:
         return "localhost"
 
 
+def _host_network_online() -> bool:
+    host_ip_file = Path("/run/host-ip")
+    if host_ip_file.exists():
+        try:
+            return bool(host_ip_file.read_text(encoding="utf-8").strip())
+        except OSError:
+            return False
+    return _detect_local_ip() not in {"", "localhost", "127.0.0.1"}
+
+
 def _load_admin_overrides(data_dir: Path) -> dict[str, Any]:
     path = data_dir / "admin_config.json"
     if not path.exists():
@@ -314,6 +324,7 @@ async def terminal_state(request: Request) -> dict[str, Any]:
     return {
         "terminalId": overrides.get("terminalId") or st.settings.terminal_id,
         "terminalIp": _detect_local_ip(),
+        "networkOnline": _host_network_online(),
         "version": "0.4.0",
         "serviceName": meta.get("service", {}).get("name", "SmartTerminal 3D-Print"),
         "printers": printers,

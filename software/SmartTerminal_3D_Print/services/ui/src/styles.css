@@ -139,15 +139,28 @@ html.kiosk, html.kiosk * { cursor: none !important; }
   border-radius: 999px;
   font-size: 2.7cqw;
 }
-.brand-right { display: inline-flex; align-items: center; gap: 1.8cqw; flex-shrink: 0; }
-.conn-dot {
-  width: 2.3cqw;
-  height: 2.3cqw;
-  border-radius: 50%;
-  background: var(--green);
+.brand-right { display: inline-flex; align-items: center; gap: 2cqw; flex-shrink: 0; }
+.wifi-ind {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5cqw;
+  height: 5cqw;
+  color: var(--green);
   flex-shrink: 0;
 }
-.conn-dot.offline { background: var(--red); }
+.wifi-ind svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wifi-ind .wifi-slash { display: none; }
+.wifi-ind.offline { color: var(--red); }
+.wifi-ind.offline .wifi-slash { display: inline; }
 .sb-clock {
   font-size: 3.9cqw;
   font-weight: 900;

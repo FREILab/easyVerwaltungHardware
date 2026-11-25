@@ -21,6 +21,7 @@
     features: { topup: false, approval: false, allowNegativeBalance: true, maxNegativeBalanceCents: 2000 },
     displaySettings: { brightness: 90, dimDelaySeconds: 120, sleepDelaySeconds: 1800, buzzerMode: "all" },
     connected: false,
+    networkOnline: true,
 
     // Screen: queue | rfid_wait | payment_confirm | overdraft_confirm | topup | club_section | pin_entry | printer_busy | account | settings | admin | not_approved | bv_wait | approved_ok
     screen: "queue",
@@ -429,6 +430,7 @@
         state.displaySettings = { ...state.displaySettings, ...data.displaySettings };
       }
       state.connected = true;
+      state.networkOnline = data.networkOnline !== false;
 
       if (
         state.selectedJobId &&
@@ -841,7 +843,8 @@
   }
 
   function renderTopbar() {
-    $("conn-dot").classList.toggle("offline", !state.connected);
+    const wifiEl = $("wifi-ind");
+    if (wifiEl) wifiEl.classList.toggle("offline", !(state.connected && state.networkOnline));
     updateBrandLogo();
     const brandSub = $("brand-sub");
     if (brandSub) {
