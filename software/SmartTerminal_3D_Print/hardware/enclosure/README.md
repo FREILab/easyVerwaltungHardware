@@ -6,10 +6,10 @@ Parametrisches 2-teiliges Gehäuse + anschraubbare IKEA-Skådis-Halterung in Ope
 
 | Datei | Beschreibung | Druckausrichtung |
 |---|---|---|
-| `01_front_shell.stl` | Frontschale für Waveshare 5" DSI (180° gedreht: Flex-Kinn oben) + HW-147 NFC-Modul unten + Kabelauslass unten (USB-C) | Frontfläche flach auf Druckbett |
-| `02_back_lid.stl` | Rückdeckel mit geschütztem 30×30-mm-Lüftergitter über Pi-5-CPU | Außenseite flach auf Druckbett |
-| `03b_skadis_side.stl` | Skådis-Halterung rechts (Skådis-Wand 90° seitlich rechts, 16 mm Standoff, 3 Haken im 40-mm-Raster) | Seitlich flach auf Druckbett |
+| `00_open_frame_backplate.stl` | **Empfohlen für Pilot (materialsparend, ohne Frontschale):** Rückplatte mit 4× M2.5-Stutzen für Display+Pi 5, 30×30-mm-Lüftergitter, 2× konischen Stelzen fürs HW-147 NFC-Modul, Kabelbinder-Zugentlastung unten und rechtem 90°-M4-Winkel für Skådis | Flach auf Rückseite (0 Support) |
+| `03b_skadis_side.stl` | Skådis-Halterung rechts (Skådis-Wand 90° seitlich rechts, 16 mm Standoff, 3 Haken im 40-mm-Raster, 2× M4) | Seitlich flach auf Druckbett |
 | `03a_skadis_parallel.stl` | Alternative Skådis-Halterung rechts (Skådis-Wand parallel hinter dem Display) | Seitlich liegend |
+| `01_front_shell.stl` + `02_back_lid.stl` | Optionale geschlossene Gehäuse-Variante für später | Front / Rückseite flach |
 
 ## Schrauben & Montage
 - **Display + Pi 5 (feste Verschraubung, null Druck auf Glas):** 4× M2.5×10–12 mm von außen durch den Rückdeckel + Pi 5 direkt in die 4× M2.5-Messingbolzen (`49,0 × 58,0 mm` Raster, `12,9 mm` über unterer Glaskante nach Waveshare-Datenblatt).

@@ -18,8 +18,8 @@
 // automatisch flach & ohne Support auf Z = 0 gelegt.
 // ============================================================================
 
-// Auswahl: "assembly" | "front" | "back" | "skadis_parallel" | "skadis_side"
-part = "assembly";
+// Auswahl: "open_assembly" | "open_backplate" | "assembly" | "front" | "back" | "skadis_parallel" | "skadis_side"
+part = "open_assembly";
 
 $fn = 36;
 
@@ -69,7 +69,13 @@ fan_offset_x     = 0.0;
 bottom_cable_w   = 36.0;    // Breite des Kabelauslasses unten (rechts/mittig bei USB-C & LAN)
 bottom_cable_d   = 22.0;    // Tiefe von der Rückseite her (hinter dem NFC-Modul!)
 
-// Gehäuse-Parameter
+// Offener Rahmen ("open_backplate") — spart ~75% Filament & druckt ohne Support!
+open_plate_t     = 3.6;     // Etwas steifere Grundplatte ohne Frontschale
+nfc_stilt_h      = 34.0;    // Höhe der 2 NFC-Stelzen ab Platten-Innenseite (Platz für Dupont & USB-C dahinter)
+open_flange_t    = 5.0;     // Dicke des rechten 90°-Winkels für Skådis-Adapter
+open_flange_h    = 22.0;    // Höhe des rechten Winkels nach vorne (+Z)
+
+// Gehäuse-Parameter (geschlossene Version)
 wall             = 3.0;     // Seitenwandstärke
 front_wall       = 2.4;     // Frontwandstärke um das Display
 back_wall        = 2.4;     // Dicke Rückdeckel
@@ -398,9 +404,132 @@ module skadis_mount_side_upright() {
 }
 
 // ============================================================================
+// TEIL 0: OFFENE RÜCKPLATTE ("open_backplate") — MATERIALSPARENDE PILOT-VARIANTE
+// - Hält Display + Pi 5 über 4x M2.5-Stutzen (49x58 mm, 0 Druck aufs Glas)
+// - 30x30 mm Lüfter mittig im 49x58-mm-Bohrbild
+// - 2x stabile Stelzen unten fürs HW-147 NFC-Modul (unten links & oben rechts)
+// - Rechter 90°-Winkel mit Rippen & 2x M4-Mutterntaschen für Skådis-Adapter!
+// - Druckt flach auf Z = 0 KOMPLETT OHNE SUPPORT!
+// ============================================================================
+module open_backplate_upright() {
+    bp_w      = 82.0;    // Genug Luft rechts zur Pi-5-Platine (+28 mm) + stabiler 5-mm-Winkel
+    bp_h      = 186.0;
+    bp_r      = 5.0;
+    pi_boss_h = extra_clearance; // 10.4 mm -> 30x30x10-mm-Lüfter passt direkt zwischen Platte & Pi 5!
+    cbore_d   = max(1.5, (open_plate_t + pi_boss_h) - 5.0);
+    flange_y0 = -52.0;
+    flange_y1 =  52.0;
+    flange_z_mid = open_plate_t + open_flange_h / 2;
+
+    nfc_holes = [
+        [-(nfc_w / 2 - nfc_hole_inset), -(nfc_h / 2 - nfc_hole_inset)], // unten links (-X, -Y)
+        [ +(nfc_w / 2 - nfc_hole_inset), +(nfc_h / 2 - nfc_hole_inset)], // oben rechts (+X, +Y)
+    ];
+
+    difference() {
+        union() {
+            // 1. Stabile Grundplatte (Z = 0 außen -> flach auf Druckbett!)
+            rbox(bp_w, bp_h, open_plate_t, bp_r);
+
+            // 2. 4x M2.5 Pi-/Display-Distanzstutzen (49 x 58 mm, Ø 9.5 mm)
+            for (px = [-1, 1], py = [-1, 1]) {
+                translate([px * pi_pitch_x / 2, pi_center_y + py * pi_pitch_y / 2, open_plate_t])
+                    cylinder(d1 = 10.5, d2 = 9.0, h = pi_boss_h);
+            }
+
+            // 3. Zentrier-Rahmen für 30x30 mm Lüfter (mittig über Pi-5-CPU)
+            translate([fan_offset_x, fan_offset_y, open_plate_t + 1.0])
+                difference() {
+                    cube([fan_size + 4.4, fan_size + 4.4, 2.0], center = true);
+                    cube([fan_size + 0.6, fan_size + 0.6, 3.0], center = true);
+                }
+
+            // 4. 2x stabile NFC-Stelzen (konisch von Ø 11.5 mm auf Ø 7.6 mm -> knicksteif!)
+            for (h = nfc_holes) {
+                translate([h[0], nfc_center_y + h[1], open_plate_t])
+                    cylinder(d1 = 11.5, d2 = 7.6, h = nfc_stilt_h);
+            }
+            // Diagonal-Versteifungssteg auf der Grundplatte zwischen den 2 Stelzen
+            hull() {
+                for (h = nfc_holes) {
+                    translate([h[0], nfc_center_y + h[1], open_plate_t])
+                        cylinder(d = 5.0, h = 5.0);
+                }
+            }
+
+            // 5. Rechter 90°-Montagewinkel für die anschraubbare Skådis-Halterung (+X-Kante)
+            translate([bp_w / 2 - open_flange_t, flange_y0, 0])
+                cube([open_flange_t, flange_y1 - flange_y0, open_plate_t + open_flange_h]);
+
+            // 3x dreieckige Versteifungsrippen am rechten Winkel (oben, Mitte, unten — frei von M4 & Pi 5!)
+            for (ry = [flange_y0 + 3, 0, flange_y1 - 3]) {
+                translate([bp_w / 2 - open_flange_t, ry, open_plate_t])
+                    rotate([90, 0, 0])
+                        linear_extrude(height = 3.2, center = true)
+                            polygon([[0, 0], [-7.5, 0], [0, open_flange_h - 1]]);
+            }
+        }
+
+        // 4x M2.5 Durchgangslöcher + Kopfsenkung von hinten (normale M2.5x12 mm Schrauben)
+        for (px = [-1, 1], py = [-1, 1]) {
+            translate([px * pi_pitch_x / 2, pi_center_y + py * pi_pitch_y / 2, -0.5])
+                cylinder(d = pi_m25_hole_d, h = open_plate_t + pi_boss_h + 2);
+            translate([px * pi_pitch_x / 2, pi_center_y + py * pi_pitch_y / 2, -0.2])
+                cylinder(d = pi_m25_head_d, h = cbore_d + 0.2);
+        }
+
+        // 2x Schrauben-Kernlöcher oben in den NFC-Stelzen (M2.5 / M3 selbstschneidend, 11 mm tief)
+        for (h = nfc_holes) {
+            translate([h[0], nfc_center_y + h[1], open_plate_t + nfc_stilt_h - 11.0])
+                cylinder(d = 2.6, h = 12.0);
+        }
+
+        // 30x30 mm Lüfter-Bohrungen + Schutzgitter
+        translate([fan_offset_x, fan_offset_y, -0.5]) {
+            for (fx = [-1, 1], fy = [-1, 1]) {
+                translate([fx * fan_hole_pitch / 2, fy * fan_hole_pitch / 2, 0])
+                    cylinder(d = fan_hole_d, h = open_plate_t + 4);
+            }
+            intersection() {
+                cylinder(d = fan_cutout_d, h = open_plate_t + 4);
+                union() {
+                    for (sy = [-10 : 5 : 10]) {
+                        translate([0, sy, (open_plate_t + 4) / 2])
+                            cube([fan_cutout_d + 2, 2.8, open_plate_t + 4], center = true);
+                    }
+                }
+            }
+        }
+
+        // 2x M4-Löcher + Sechskant-Mutterntaschen im rechten Winkel (-20, +20 = 40 mm Abstand)
+        for (my = mount_ys) {
+            translate([bp_w / 2 - open_flange_t - 1, my, flange_z_mid])
+                rotate([0, 90, 0])
+                    cylinder(d = mount_m4_d, h = open_flange_t + 3);
+            translate([bp_w / 2 - open_flange_t - 0.5, my, flange_z_mid])
+                rotate([0, 90, 0])
+                    cylinder(d = mount_m4_nut_af / cos(30), h = 2.6, $fn = 6);
+        }
+
+        // Kabelbinder-Schlitze unten (saubere Zugentlastung für USB-C-Kabel!)
+        for (sx = [-10, 10]) {
+            translate([sx, nfc_center_y - 30, -0.5])
+                rbox(4.0, 9.0, open_plate_t + 2, 1.5);
+        }
+    }
+}
+
+// ============================================================================
 // AUSGABE (Einzelteile automatisch flach & ohne Support auf Z = 0!)
 // ============================================================================
-if (part == "front") {
+if (part == "open_backplate") {
+    open_backplate_upright();
+} else if (part == "open_assembly") {
+    color("LightSteelBlue") open_backplate_upright();
+    color("DarkOrange")
+        translate([82.0 / 2 + 1.5, 0, (open_plate_t + open_flange_h / 2) - shell_d / 2])
+            skadis_mount_side_upright();
+} else if (part == "front") {
     translate([0, 0, shell_d]) rotate([0, 180, 0]) front_shell_upright();
 } else if (part == "back") {
     back_lid_upright();
