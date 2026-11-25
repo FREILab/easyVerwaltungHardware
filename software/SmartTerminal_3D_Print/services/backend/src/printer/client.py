@@ -68,6 +68,41 @@ def map_prusalink_state(raw_state: str) -> tuple[str, str | None]:
     return "OFFLINE", f"Unbekannter Status: {s or 'leer'}"
 
 
+class _ReiterableFileStream(httpx.AsyncByteStream):
+    """Re-iterable async file stream so httpx.DigestAuth retries (401 -> nonce -> PUT) never fail."""
+
+    def __init__(
+        self,
+        file_path: Path,
+        size: int,
+        on_progress: Callable[[int, int], None] | None = None,
+    ) -> None:
+        self._file_path = file_path
+        self._size = size
+        self._on_progress = on_progress
+
+    async def __aiter__(self):
+        sent = 0
+        last_emit_pct = -1
+        last_emit_ts = 0.0
+        if self._on_progress:
+            self._on_progress(0, self._size)
+        with self._file_path.open("rb") as f:
+            while True:
+                chunk = f.read(64 * 1024)
+                if not chunk:
+                    break
+                sent += len(chunk)
+                yield chunk
+                if self._on_progress and self._size > 0:
+                    pct = int(sent * 100 / self._size)
+                    now = time.monotonic()
+                    if pct >= last_emit_pct + 2 or now - last_emit_ts >= 0.25 or sent >= self._size:
+                        last_emit_pct = pct
+                        last_emit_ts = now
+                        self._on_progress(sent, self._size)
+
+
 class PrusaLinkClient(PrinterClient):
     """Real PrusaLink v1 HTTP client (supports MINI, MK3S/Pi, MK3.5, MK4, XL)."""
 
@@ -215,32 +250,18 @@ class PrusaLinkClient(PrinterClient):
         ext = Path(filename).suffix.lower() or ".gcode"
         remote_name = f"{stem}{ext}"
 
-        async def _file_chunks():
-            sent = 0
-            last_emit_pct = -1
-            last_emit_ts = 0.0
-            if on_progress:
-                on_progress(0, size)
-            with file_path.open("rb") as f:
-                while True:
-                    chunk = f.read(64 * 1024)
-                    if not chunk:
-                        break
-                    sent += len(chunk)
-                    yield chunk
-                    if on_progress and size > 0:
-                        pct = int(sent * 100 / size)
-                        now = time.monotonic()
-                        if pct >= last_emit_pct + 2 or now - last_emit_ts >= 0.25 or sent >= size:
-                            last_emit_pct = pct
-                            last_emit_ts = now
-                            on_progress(sent, size)
-
         # Per-operation timeouts: large files over slow USB can take minutes,
         # while a dead socket still aborts within 30s.
         timeout = httpx.Timeout(connect=5.0, write=30.0, read=60.0, pool=5.0)
         try:
             async with httpx.AsyncClient(timeout=timeout) as client:
+                # Prime Digest nonce before PUT so large files aren't streamed twice
+                if isinstance(auth_kw["auth"], httpx.DigestAuth):
+                    try:
+                        await client.get(f"{self._base_url(printer)}/api/v1/status", **auth_kw)
+                    except Exception:
+                        pass
+
                 storage = await self._resolve_storage(client, printer, auth_kw)
                 remote_path = f"{storage}/{remote_name}"
                 encoded_name = quote(remote_name, safe="._-")
@@ -253,7 +274,8 @@ class PrusaLinkClient(PrinterClient):
                     "Print-After-Upload": "?1" if print_after_upload else "?0",
                     "Overwrite": "?1",
                 }
-                resp = await client.put(url, content=_file_chunks(), headers=headers, auth=auth_kw["auth"])
+                stream = _ReiterableFileStream(file_path, size, on_progress=on_progress)
+                resp = await client.put(url, content=stream, headers=headers, auth=auth_kw["auth"])
                 if resp.status_code in {200, 201, 204}:
                     if on_progress:
                         on_progress(size, size)
