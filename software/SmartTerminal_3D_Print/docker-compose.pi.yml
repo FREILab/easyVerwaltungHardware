@@ -3,6 +3,10 @@
 
 services:
 
+  backend:
+    volumes:
+      - /run/smart-terminal-ip:/run/host-ip:ro   # Aktive Host-WLAN/LAN-IP für Smartphone-QR
+
   device-agent:
     privileged: true   # Schreibzugriff auf /sys/class/backlight (symlinks in /sys/devices) + GPIO/SPI/PWM
     environment:

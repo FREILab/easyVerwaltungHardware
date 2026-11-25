@@ -76,6 +76,7 @@ class PrusaLinkClient(PrinterClient):
         self.upload_timeout = upload_timeout
         self._storage_cache: dict[str, str] = {}
         self._nozzle_cache: dict[str, float] = {}
+        self._auth_mode_cache: dict[str, str] = {}  # printer.id -> "api_key" | "digest"
 
     @staticmethod
     def _base_url(printer: PrinterConfig) -> str:
@@ -85,15 +86,30 @@ class PrusaLinkClient(PrinterClient):
         return f"http://{ip}"
 
     @staticmethod
-    def _auth_kwargs(printer: PrinterConfig) -> dict:
-        headers: dict[str, str] = {}
-        auth: httpx.Auth | None = None
+    def _build_auth_kwargs(printer: PrinterConfig, mode: str) -> dict:
+        secret = printer.api_key or printer.password or ""
+        if mode == "api_key":
+            return {"headers": {"X-Api-Key": secret} if secret else {}, "auth": None}
+        if secret or printer.username:
+            return {"headers": {}, "auth": httpx.DigestAuth(printer.username or "maker", secret)}
+        return {"headers": {}, "auth": None}
+
+    def _primary_auth_mode(self, printer: PrinterConfig) -> str:
+        cached = self._auth_mode_cache.get(printer.id)
+        if cached:
+            return cached
         if printer.auth_type == "api_key" or (printer.api_key and not printer.password):
-            if printer.api_key:
-                headers["X-Api-Key"] = printer.api_key
-        elif printer.username or printer.password:
-            auth = httpx.DigestAuth(printer.username or "maker", printer.password)
-        return {"headers": headers, "auth": auth}
+            return "api_key"
+        return "digest"
+
+    def _auth_kwargs(self, printer: PrinterConfig) -> dict:
+        return self._build_auth_kwargs(printer, self._primary_auth_mode(printer))
+
+    def _fallback_auth_mode(self, printer: PrinterConfig, tried_mode: str) -> str | None:
+        secret = printer.api_key or printer.password or ""
+        if not secret:
+            return None
+        return "digest" if tried_mode == "api_key" else "api_key"
 
     async def _resolve_storage(self, client: httpx.AsyncClient, printer: PrinterConfig, auth_kw: dict) -> str:
         cached = self._storage_cache.get(printer.id)
@@ -116,12 +132,24 @@ class PrusaLinkClient(PrinterClient):
     async def poll_status(self, printer: PrinterConfig) -> PrinterStatus:
         if not printer.ip:
             return PrinterStatus(state="OFFLINE", error="Keine IP konfiguriert", updated_at=time.time())
-        auth_kw = self._auth_kwargs(printer)
+        mode = self._primary_auth_mode(printer)
+        auth_kw = self._build_auth_kwargs(printer, mode)
         try:
             async with httpx.AsyncClient(timeout=self.status_timeout) as client:
                 resp = await client.get(f"{self._base_url(printer)}/api/v1/status", **auth_kw)
                 if resp.status_code == 401:
+                    alt = self._fallback_auth_mode(printer, mode)
+                    if alt:
+                        alt_kw = self._build_auth_kwargs(printer, alt)
+                        resp2 = await client.get(f"{self._base_url(printer)}/api/v1/status", **alt_kw)
+                        if resp2.status_code == 200:
+                            logger.info("PrusaLink %s accepted fallback auth=%s", printer.id, alt)
+                            self._auth_mode_cache[printer.id] = alt
+                            auth_kw = alt_kw
+                            resp = resp2
+                if resp.status_code == 401:
                     return PrinterStatus(state="OFFLINE", error="PrusaLink Auth fehlgeschlagen", updated_at=time.time())
+                self._auth_mode_cache[printer.id] = mode if auth_kw is not None and printer.id not in self._auth_mode_cache else self._auth_mode_cache.get(printer.id, mode)
                 resp.raise_for_status()
                 data = resp.json()
 

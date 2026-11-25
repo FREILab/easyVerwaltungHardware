@@ -270,14 +270,22 @@
   }
 
   let saveSettingsTimer = null;
-  function persistDisplaySettings() {
+  let lastSettingsSentAt = 0;
+  function _sendDisplaySettings() {
+    lastSettingsSentAt = Date.now();
+    api("/api/display/settings", {
+      method: "POST",
+      body: JSON.stringify(state.displaySettings),
+    }).catch(() => {});
+  }
+  function persistDisplaySettings(immediate = false) {
     clearTimeout(saveSettingsTimer);
-    saveSettingsTimer = setTimeout(() => {
-      api("/api/display/settings", {
-        method: "POST",
-        body: JSON.stringify(state.displaySettings),
-      }).catch(() => {});
-    }, 150);
+    const elapsed = Date.now() - lastSettingsSentAt;
+    if (immediate || elapsed >= 65) {
+      _sendDisplaySettings();
+    } else {
+      saveSettingsTimer = setTimeout(_sendDisplaySettings, 65 - elapsed);
+    }
   }
 
   function selectedJob() {

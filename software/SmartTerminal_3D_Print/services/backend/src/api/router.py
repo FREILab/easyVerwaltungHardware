@@ -186,6 +186,14 @@ def _detect_local_ip() -> str:
     override = os.getenv("TERMINAL_IP", "").strip()
     if override:
         return override
+    host_ip_file = Path("/run/host-ip")
+    if host_ip_file.exists():
+        try:
+            val = host_ip_file.read_text(encoding="utf-8").strip()
+            if val:
+                return val
+        except OSError:
+            pass
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))

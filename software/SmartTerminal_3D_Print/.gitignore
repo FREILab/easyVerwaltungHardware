@@ -1,5 +1,6 @@
 config/terminal.env
-config/printers.dev.json
+config/printers.*.json
+!config/printers.example.json
 data/
 .venv/
 __pycache__/

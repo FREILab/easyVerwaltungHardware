@@ -70,6 +70,7 @@ html, body {
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
   user-select: none;
+  touch-action: manipulation;
 }
 
 html.kiosk, html.kiosk * { cursor: none !important; }
