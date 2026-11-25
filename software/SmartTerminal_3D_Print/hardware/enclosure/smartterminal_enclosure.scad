@@ -27,19 +27,27 @@ $fn = 36;
 // 1. MESSWERTE (Messschieber — hier bei Bedarf feinjustieren)
 // ============================================================================
 
-// Waveshare 5" DSI Display (Hochkant, 180° gedreht: breites Kinn OBEN!)
-disp_w           = 70.6;    // Außenmaß Glas Breite
-disp_h           = 127.0;   // Außenmaß Glas Höhe
+// Waveshare 5" DSI LCD (D) — exakt nach Datenblatt (Hochkant, 180° gedreht)
+disp_w           = 70.70;   // Außenmaß Glas Breite (Datenblatt: 70.70 mm)
+disp_h           = 126.90;  // Außenmaß Glas Höhe (Datenblatt: 126.90 mm, R3.00)
 disp_tol         = 0.6;     // Umlaufendes Spiel für Glastasche
-disp_vis_w       = 62.2;    // Sichtbares Bild Breite
-disp_vis_h       = 110.0;   // Sichtbares Bild Höhe
-disp_vis_margin  = 1.2;     // Fenster +1.2 mm größer (bleibt im schwarzen Rand)
-disp_bezel_top   = 12.5;    // Breites Flex-Kinn OBEN (unten schmaler Rand ~4.5 mm)
+disp_vis_w       = 62.28;   // Sichtbares Bild Breite (Datenblatt: 62.28 mm, Rand li/re 4.21 mm)
+disp_vis_h       = 110.32;  // Sichtbares Bild Höhe (Datenblatt: 110.32 mm)
+disp_vis_margin  = 1.2;     // Fenster +1.2 mm größer (bleibt sicher im schwarzen Glasrand)
+disp_bezel_top   = 8.29;    // Datenblatt: oben UND unten exakt 8.29 mm symmetrisch!
 
-// Gesamttiefe Display-Front bis Pi-5-Oberseite inkl. Bolzen & Dupont-Stecker
+// Gesamttiefe Display-Front bis Pi-5-Platinen-Rückseite (gemessen: 36.6 mm)
 stack_depth      = 36.6;
-extra_clearance  = 5.4;     // Luft für Dupont + USB-C-Stecker hinter NFC + Luftstrom
-inner_depth      = stack_depth + extra_clearance; // 42.0 mm (bei kürzeren Bolzen einfach reduzieren)
+extra_clearance  = 10.4;    // Platz für 30x30x10-mm-Lüfter innen im Rückdeckel (ohne Lüfter innen: 4.0)
+inner_depth      = stack_depth + extra_clearance; // 47.0 mm
+
+// Feste 4x M2.5-H8 Pi-/Display-Schraubpunkte (Datenblatt: 49.00 x 58.00 mm, exakt mittig in X)
+pi_pitch_x       = 49.00;
+pi_pitch_y       = 58.00;
+pi_bottom_inset  = 12.90;   // Datenblatt: (126.90 - 29.50 - 88.00) + 3.50 = 12.90 mm ab unterer Glaskante!
+pi_m25_hole_d    = 2.8;     // Durchgangsloch M2.5 (Schraube 2.45 mm)
+pi_m25_head_d    = 5.8;     // Kopfsenkung für M2.5-Schraubenkopf (mit M2.5x12 mm erreichbar!)
+pi_boss_d        = 9.0;     // Stabiler Distanzstutzen innen am Rückdeckel (1.6 mm Wand um Senkung)
 
 // HW-147 / PN532 NFC-Modul (sitzt unter dem Display, VOR dem USB-C-Kabel)
 nfc_w            = 40.5;
@@ -50,13 +58,12 @@ nfc_standoff_h   = 2.6;     // Abstand zur Frontwand (Platz für DIP-Schalter & 
 nfc_front_wall   = 1.6;     // Dünne Kunststoffwand für volle 13.56-MHz-Reichweite
 nfc_gap_to_disp  = 8.0;     // Etwas Luft zwischen Display-Unterkante & NFC für USB-C-Stecker
 
-// 30x30 mm Lüfter (Rückdeckel, bläst direkt auf Pi-5-CPU)
+// 30x30 mm Lüfter (Rückdeckel, exakt mittig im 49x58-mm-Pi-Bohrbild!)
 fan_size         = 30.0;
 fan_hole_pitch   = 24.0;    // Standard 30x30 mm Lüfter
 fan_hole_d       = 3.2;     // M3 Durchgangsloch
 fan_cutout_d     = 27.5;
-fan_offset_x     = 0.0;     // Mitte Pi 5
-fan_offset_y     = 24.0;    // Über Pi-5-CPU
+fan_offset_x     = 0.0;
 
 // Kabelauslass UNTEN (USB-C-Stromkabel + optional Ethernet)
 bottom_cable_w   = 36.0;    // Breite des Kabelauslasses unten (rechts/mittig bei USB-C & LAN)
@@ -95,10 +102,15 @@ shell_d = front_wall + inner_depth;                                 // 44.4 mm
 
 // Display-Position (oben ausgerichtet)
 disp_center_y = outer_h / 2 - wall - 3.0 - (disp_h + disp_tol) / 2;
+disp_bottom_y = disp_center_y - disp_h / 2;
 disp_win_w    = disp_vis_w + disp_vis_margin;
 disp_win_h    = disp_vis_h + disp_vis_margin;
 // Fenster-Mitte relativ zur Glas-Mitte (oben breites Flex-Kinn 12.5 mm, unten 4.5 mm)
 disp_win_y    = disp_center_y + (disp_h / 2 - disp_bezel_top - disp_vis_h / 2);
+
+// Zentrum der 4x M2.5 Pi-/Display-Schraubpunkte (14 mm über unterer Glaskante + 29 mm)
+pi_center_y   = disp_bottom_y + pi_bottom_inset + pi_pitch_y / 2;
+fan_offset_y  = pi_center_y; // 30x30-Lüfter exakt mittig im 49x58-mm-Bohrbild
 
 // NFC-Position (zentriert unter dem Display)
 nfc_center_y  = disp_center_y - (disp_h + disp_tol) / 2 - nfc_gap_to_disp - (nfc_h + nfc_tol) / 2;
@@ -134,9 +146,9 @@ module front_shell_upright() {
         translate([0, disp_win_y, inner_depth - 1])
             rbox(disp_win_w, disp_win_h, front_wall + 2, 1.5);
 
-        // Display-Glastasche (0.8 mm von innen in Frontwand eingelassen)
+        // Display-Glastasche (1.2 mm von innen in Frontwand eingelassen, R3.0 wie Glas)
         translate([0, disp_center_y, inner_depth - 0.5])
-            rbox(disp_w + disp_tol, disp_h + disp_tol, 1.3, 1.0);
+            rbox(disp_w + disp_tol, disp_h + disp_tol, 1.7, 3.0);
 
         // NFC-Tasche: Frontwand von innen auf dünne 1.6 mm abtragen
         translate([0, nfc_center_y, inner_depth - 0.5])
@@ -231,18 +243,29 @@ module front_shell_upright() {
 }
 
 // ============================================================================
-// TEIL 2: RÜCKDECKEL MIT 30x30 mm LÜFTER (bläst direkt auf Pi-5-CPU)
+// TEIL 2: RÜCKDECKEL MIT 4x M2.5 PI-/DISPLAY-VERSCHRAUBUNG & 30x30 mm LÜFTER
 // ============================================================================
 module back_lid_upright() {
-    lid_w = inner_w + 1.8;
-    lid_h = inner_h + 1.8;
-    lid_r = max(1.8, corner_r - wall + 0.8);
+    lid_w      = inner_w + 1.8;
+    lid_h      = inner_h + 1.8;
+    lid_r      = max(1.8, corner_r - wall + 0.8);
+    // Abstand Deckel-Innenseite -> Pi-5-Platine (mit 0.4 mm Sicherheitsluft zur Glasfront)
+    pi_boss_h  = max(1.0, inner_depth - stack_depth - back_wall + lip_depth + 0.4);
+    // Tiefe Kopfsenkung von außen, damit normale M2.5x12-Schrauben bis in die Messingbolzen greifen
+    cbore_d    = max(1.5, (back_wall + pi_boss_h) - 5.0);
 
     difference() {
         union() {
             // Grundplatte (Z = 0 außen, Z = back_wall innen)
             rbox(lid_w, lid_h, back_wall, lid_r);
-            // Zentrier-Rahmen innen für 30x30 mm Lüfter
+
+            // 4x M2.5 Distanzstutzen für Pi 5 + Display (49 x 58 mm Raster, null Druck aufs Glas!)
+            for (px = [-1, 1], py = [-1, 1]) {
+                translate([px * pi_pitch_x / 2, pi_center_y + py * pi_pitch_y / 2, back_wall])
+                    cylinder(d = pi_boss_d, h = pi_boss_h);
+            }
+
+            // Zentrier-Rahmen innen für 30x30 mm Lüfter (exakt mittig zwischen den 4 M2.5-Stutzen)
             translate([fan_offset_x, fan_offset_y, back_wall + 1.0])
                 difference() {
                     cube([fan_size + 4.4, fan_size + 4.4, 2.0], center = true);
@@ -250,7 +273,15 @@ module back_lid_upright() {
                 }
         }
 
-        // 4x M3-Senklöcher für Deckelbefestigung
+        // 4x M2.5 Durchgangslöcher + tiefe Kopfsenkung von außen (greifen in 25-mm-Messingbolzen)
+        for (px = [-1, 1], py = [-1, 1]) {
+            translate([px * pi_pitch_x / 2, pi_center_y + py * pi_pitch_y / 2, -0.5])
+                cylinder(d = pi_m25_hole_d, h = back_wall + pi_boss_h + 2);
+            translate([px * pi_pitch_x / 2, pi_center_y + py * pi_pitch_y / 2, -0.2])
+                cylinder(d = pi_m25_head_d, h = cbore_d + 0.2);
+        }
+
+        // 4x M3-Senklöcher für Deckelbefestigung an Frontschale
         for (sx = [-1, 1], sy = [-1, 1]) {
             translate([sx * boss_x, sy * boss_y, -0.5])
                 cylinder(d = 3.4, h = back_wall + 2);

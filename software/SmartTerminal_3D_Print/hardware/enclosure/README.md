@@ -12,9 +12,10 @@ Parametrisches 2-teiliges Gehäuse + anschraubbare IKEA-Skådis-Halterung in Ope
 | `03a_skadis_parallel.stl` | Alternative Skådis-Halterung rechts (Skådis-Wand parallel hinter dem Display) | Seitlich liegend |
 
 ## Schrauben & Montage
-- **Rückdeckel:** 4× M3×10–12 mm (schneiden direkt ins Plastik; für Ruthex-M3-Inserts `screw_m3_pilot = 4.0` setzen)
+- **Display + Pi 5 (feste Verschraubung, null Druck auf Glas):** 4× M2.5×10–12 mm von außen durch den Rückdeckel + Pi 5 direkt in die 4× M2.5-Messingbolzen (`49,0 × 58,0 mm` Raster, `12,9 mm` über unterer Glaskante nach Waveshare-Datenblatt).
+- **Rückdeckel an Frontschale:** 4× M3×10–12 mm (schneiden direkt ins Plastik; für Ruthex-M3-Inserts `screw_m3_pilot = 4.0` setzen)
 - **HW-147 NFC-Modul:** 2× M2.5 oder M3×6 mm (diagonal: unten links & oben rechts)
-- **30×30-mm-Lüfter:** 4× M3×12–16 mm (24×24-mm-Bohrbild, blasend auf Pi-5-CPU)
+- **30×30-mm-Lüfter:** 4× M3×12–16 mm (24×24-mm-Bohrbild, sitzt innen im Rückdeckel mittig zwischen den 4 M2.5-Stutzen)
 - **Skådis-Adapter rechts:** 2× M4×12–16 mm + 2× M4-Muttern (Mutterntaschen innen im Gehäuse, 40 mm Abstand)
 
 Alle Maße (Glasmaß, Tiefe `stack_depth`, `skadis_standoff`, Hakenmaße) stehen gesammelt am Anfang von `smartterminal_enclosure.scad`.
