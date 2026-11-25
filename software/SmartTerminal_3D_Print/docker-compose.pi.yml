@@ -4,6 +4,8 @@
 services:
 
   backend:
+    environment:
+      HARDWARE_MODE: pi
     volumes:
       - /run/smart-terminal-ip:/run/host-ip:ro   # Aktive Host-WLAN/LAN-IP für Smartphone-QR
 
