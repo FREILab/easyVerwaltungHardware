@@ -20,7 +20,7 @@ if [ -n "$DSI_OUT" ]; then
   cat >"$HOME/.config/labwc/rc.xml" <<EOF
 <?xml version="1.0"?>
 <labwc_config>
-  <touch deviceName="${TOUCH_NAME}" mapToOutput="${DSI_OUT}" mouseEmulation="yes" />
+  <touch deviceName="${TOUCH_NAME}" mapToOutput="${DSI_OUT}" mouseEmulation="no" />
   <windowRules>
     <windowRule identifier="*" serverDecoration="no" />
   </windowRules>

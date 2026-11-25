@@ -2070,6 +2070,41 @@
     swipeActive = false;
   });
 
+  // Mouse/VNC drag-to-scroll fallback for scrollable lists (native touch uses pan-y)
+  let dragBox = null;
+  let dragStartY = 0;
+  let dragStartTop = 0;
+  let dragMoved = false;
+
+  $("stage").addEventListener("pointerdown", (ev) => {
+    if (ev.pointerType === "touch") return;
+    if (ev.target.closest("input, select, textarea")) return;
+    const box = ev.target.closest(".list-scroll, .queue-scroll, .subscreen:not(.no-scroll)");
+    if (!box || box.scrollHeight <= box.clientHeight + 2) return;
+    dragBox = box;
+    dragStartY = ev.clientY;
+    dragStartTop = box.scrollTop;
+    dragMoved = false;
+  });
+
+  window.addEventListener("pointermove", (ev) => {
+    if (!dragBox) return;
+    const dy = ev.clientY - dragStartY;
+    if (Math.abs(dy) > 6) dragMoved = true;
+    if (dragMoved) dragBox.scrollTop = dragStartTop - dy;
+  });
+
+  window.addEventListener("pointerup", () => {
+    if (!dragBox) return;
+    dragBox = null;
+    if (dragMoved) {
+      const swallow = (e) => { e.stopPropagation(); e.preventDefault(); };
+      window.addEventListener("click", swallow, { capture: true, once: true });
+      setTimeout(() => window.removeEventListener("click", swallow, { capture: true }), 80);
+    }
+    dragMoved = false;
+  });
+
   // Dev Simulator Drawer
   $("dev-pill").addEventListener("click", () => {
     $("dev-drawer").classList.remove("hidden");

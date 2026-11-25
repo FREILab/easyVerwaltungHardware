@@ -543,6 +543,8 @@ html.kiosk, html.kiosk * { cursor: none !important; }
   gap: 2.2cqw;
   overflow-x: hidden;
   overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 .subscreen.no-scroll { overflow: hidden; }
 
@@ -751,6 +753,8 @@ html.kiosk, html.kiosk * { cursor: none !important; }
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   gap: 2cqw;
