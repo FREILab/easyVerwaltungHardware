@@ -12,6 +12,7 @@ Layout gehen — so steht es in der Sicherheitsleitlinie der
 | Bauteil | Fehlerart | Auswirkung ohne Maßnahme | Maßnahme |
 |---|---|---|---|
 | C305/C308 (Y2) | Kurzschluss | Netzspannung auf PE → FI löst aus, Gerät und Maschine sind freigeschaltet | Y2-Klasse: für Netz gegen PE zugelassen (IEC 60384-14) und bauartbedingt offen versagend. Keine berührbaren Teile betroffen, da PE geerdet ist |
+| C330 (Y2) | Kurzschluss | SELV-`GND` wird hart mit `PE` verbunden (keine Netzspannung auf SELV, nur Wegfall der Potentialfreiheit von `GND` gegenüber `PE`) | Y2-Klasse (Würth `890404123001CS`, 1 nF / 300 VAC, IEC 60384-14), bauartbedingt offen versagend; 8-mm-Barriere zur Netzseite bleibt unberührt |
 | F300 (Lastpfad) | Kurzschluss hinter der Sicherung | Prospektiver Strom mehrere hundert Ampere; über dem Ausschaltvermögen bleibt der Lichtbogen stehen → Brandgefahr | Bel 5HT 10-R, Keramik, **1500 A** bei 250 VAC (IEC 60127-2 Blatt 5). Vorher 100 A |
 | F302 (Steuerzweig) | wie oben, MRT trennt nur bis 35 A | wie oben | **R303 begrenzt auf 25 A.** Sicherungswiderstand mit definierter Abschaltcharakteristik, flammgeschützt, versagt offen |
 | C300 (X2) | Entladekette offen | bis 325 V auf den Steckerstiften | 100 nF an der Ausnahmegrenze, Ladung 5,3 mJ. R300/R301/R302 als zweite Ebene: unter 60 V in 0,17 s |

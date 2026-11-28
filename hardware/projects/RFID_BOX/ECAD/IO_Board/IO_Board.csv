@@ -8,6 +8,7 @@
 "C313","1","47uF","","","","${EXCLUDE_FROM_POS_FILES}","aa_Passives:CP_Radial_D6.3mm_H11.0mm_P2.50mm","Mouser","710-860010673012","Digi-Key","732-8664-1-ND","Wurth Elektronik","860010673012"
 "C319,C320,C321,C322","4","33nF","","","","${EXCLUDE_FROM_POS_FILES}","aa_Passives:C_0805_2012Metric","Mouser","81-GRM2165C1H333JA1J","Digi-Key","490-GRM2165C1H333JA01JCT-ND","Murata Electronics","GRM2165C1H333JA01J"
 "C327,C328,C329","3","100nF","","","","${EXCLUDE_FROM_POS_FILES}","aa_Passives:C_0402_1005Metric","Mouser","81-GCM155R71H104KE2J","Digi-Key","490-14514-1-ND","Murata Electronics","GCM155R71H104KE02J"
+"C330","1","1nF","","","","${EXCLUDE_FROM_POS_FILES}","aa_MyParts:C_Rect_L13.5mm_W4.0mm_P10.00mm_FKS3_FKP3_MKS4","Mouser","710-890404123001CS","Digi-Key","732-890404123001CS-ND","Würth Elektronik","890404123001CS"
 "D300","1","BAS16LT1G","","","","${EXCLUDE_FROM_POS_FILES}","aa_MyParts:SOT-23","Mouser","863-BAS16LT1G","Digi-Key","BAS16LT1GOSCT-ND","onsemi","BAS16LT1G"
 "F300","1","10A 250VAC","","","Excluded from board","${EXCLUDE_FROM_POS_FILES}","","Mouser","530-5HT10-R","Digi-Key","5923-5HT10-R-ND","Bel Fuse Inc.","5HT 10-R"
 "F301","1","F_696309001002","","","","${EXCLUDE_FROM_POS_FILES}","aa_MyParts:F_Wurth_WR-FSH_696309001002","Mouser","710-696309001002","Digi-Key","732-11383-ND","Wurth Elektronik","696309001002"

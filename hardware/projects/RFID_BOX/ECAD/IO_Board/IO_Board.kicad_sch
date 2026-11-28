@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "Schematic I/O Board")
-		(date "2026-11-21")
+		(date "2026-11-28")
 		(rev "V1.0")
 		(company "FREILab Freiburg e.V.")
 		(comment 1 "Marius Tetard")
@@ -4210,8 +4210,8 @@
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
+			(on_board no)
+			(in_pos_files no)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "F"
 				(at 2.032 0 90)
@@ -12524,16 +12524,6 @@
 					)
 				)
 			)
-			(property "Tolerance" "2%"
-				(at 2.286 0 90)
-				(show_name no)
-				(do_not_autoplace yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
 			(property "FootprintSymbol" "2512"
 				(at 0 0 90)
 				(show_name no)
@@ -12549,6 +12539,16 @@
 				(show_name no)
 				(do_not_autoplace yes)
 				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Tolerance" "2%"
+				(at 2.286 0 90)
+				(show_name no)
+				(do_not_autoplace yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -12662,7 +12662,7 @@
 					)
 				)
 			)
-			(property "Footprint" "aa_MyParts:R_Axial_DIN0207_L6.3mm_D2.5mm_P15.24mm_Horizontal"
+			(property "Footprint" "aa_MyParts:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical"
 				(at -1.778 0 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -14535,10 +14535,6 @@
 		(uuid "35bd38fb-4310-46ca-97db-3e9b88912b92")
 	)
 	(no_connect
-		(at 304.8 219.71)
-		(uuid "362e139c-ca2b-4c29-ab84-d686858d605a")
-	)
-	(no_connect
 		(at 297.18 148.59)
 		(uuid "3c496afd-3a1b-4d1a-8316-c319bf55ab4f")
 	)
@@ -14565,10 +14561,6 @@
 	(no_connect
 		(at 297.18 166.37)
 		(uuid "a5c2ea62-5520-47ef-bf49-24f6f7f251a8")
-	)
-	(no_connect
-		(at 304.8 232.41)
-		(uuid "be1a9691-8727-4a52-bee7-a70e38cb532f")
 	)
 	(no_connect
 		(at 97.79 214.63)
@@ -15006,16 +14998,6 @@
 			(type default)
 		)
 		(uuid "1b025194-be58-4ce0-a82b-159fab2078c2")
-	)
-	(wire
-		(pts
-			(xy 304.8 232.41) (xy 295.91 232.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1b77c882-5a82-425b-8a20-8832e2ac4bbc")
 	)
 	(wire
 		(pts
@@ -16691,6 +16673,16 @@
 	)
 	(wire
 		(pts
+			(xy 297.18 232.41) (xy 295.91 232.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a52ee670-61e8-4995-9706-680f583ad809")
+	)
+	(wire
+		(pts
 			(xy 243.84 69.85) (xy 243.84 88.9)
 		)
 		(stroke
@@ -16738,6 +16730,16 @@
 			(type default)
 		)
 		(uuid "a7fb6cc0-d8e6-4a4d-8d43-a0147743502b")
+	)
+	(wire
+		(pts
+			(xy 297.18 219.71) (xy 295.91 219.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a90a719e-c699-43fc-a355-399239b703a3")
 	)
 	(wire
 		(pts
@@ -17634,16 +17636,6 @@
 	)
 	(wire
 		(pts
-			(xy 304.8 219.71) (xy 295.91 219.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f73310e6-881a-4bac-a911-6f8f6925cb18")
-	)
-	(wire
-		(pts
 			(xy 251.46 232.41) (xy 255.27 232.41)
 		)
 		(stroke
@@ -17993,7 +17985,7 @@
 		(uuid "e5c150d4-0b82-4a14-a2f6-52315aa0b72a")
 	)
 	(label "PIN_N_nc"
-		(at 295.91 232.41 0)
+		(at 297.18 232.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -18003,7 +17995,7 @@
 		(uuid "e85cc84f-5dcd-4680-88bb-b615019530b4")
 	)
 	(label "PIN_L_nc"
-		(at 295.91 219.71 0)
+		(at 297.18 219.71 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -22979,7 +22971,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2d3cc47a-4589-4d56-84b6-37bb5d1688e4")
@@ -24089,7 +24081,6 @@
 		)
 		(property "FootprintSymbol" "P10"
 			(at 164.084 27.94 90)
-			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -25185,7 +25176,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aa_MyParts:NetTie-2_SMD_Pad0.5mm"
+		(property "Footprint" ""
 			(at 217.17 242.57 0)
 			(hide yes)
 			(show_name no)
@@ -28132,7 +28123,6 @@
 		)
 		(property "FootprintSymbol" "P10"
 			(at 69.85 213.614 90)
-			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -33430,7 +33420,6 @@
 		)
 		(property "FootprintSymbol" "D12.5"
 			(at 153.67 57.404 90)
-			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -40926,7 +40915,6 @@
 		)
 		(property "FootprintSymbol" "D12.5"
 			(at 138.43 57.404 90)
-			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects

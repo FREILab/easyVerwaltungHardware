@@ -275,10 +275,10 @@ Die vollständige Liste steht im Schaltplan und in
 
 ## TODO
 
-- **Review I/O-Board (Marc Ihle) abarbeiten:** 9 offene Punkte dokumentiert
-  in [Review_IO_Board.md](Review_IO_Board.md) (noch nichts umgesetzt) —
-  insbesondere Wichtigkeit 3: Y-Kondensator ≥ 1 nF / 250 VAC zwischen `GND`
-  und `PIN_PE` (#1) sowie Abstand `R302`/`Net-(R301-Pad2)` zu `GND_ISO` (#2).
+- **Delta-Review I/O-Board (Marc Ihle):** Alle 9 Punkte aus
+  [Review_IO_Board.md](Review_IO_Board.md) umgesetzt, Exporte erzeugt und
+  Rückmeldung in [Review_Marc_Ihle.xlsx](Review/Review_Marc_Ihle.xlsx)
+  eingetragen — bereit zur Delta-Review.
 - **Review RFID-Board (Marc Ihle) abarbeiten:** 15 offene Punkte dokumentiert
   in [Review_RFID_Board.md](Review_RFID_Board.md) (noch nichts umgesetzt) —
   insbesondere Wichtigkeit 4: `SPI-MOSI`/`SCK` aus dem Spulenbereich über die
@@ -311,11 +311,9 @@ Die vollständige Liste steht im Schaltplan und in
   Padreihen beider Stecker auf derselben Seite liegen. Gegen die
   Amphenol-Zeichnung prüfen. Pads 15/16 (Lötlaschen) des SFW14S haben keinen
   Pin im Symbol.
-- **K300 prüfen (Marius):** Das Footprint T92S11D12-24 hat je Anschluss
-  zwei Pads. Die Öffner-Pads 3 und 7 trugen auf der Platine die veralteten
-  Netze `PIN_N_nc_1`/`PIN_L_nc_1`. Sie sind jetzt auf `PIN_N_nc`/`PIN_L_nc`
-  zusammengeführt. Prüfen, ob die Öffner-Kontakte unbeschaltet bleiben sollen
-  und ob die Pad-Paare zum Datenblatt passen.
+- **K300 Öffner-Pads 3/7:** `no_connect`-Marker entfernt (waren Ursache für
+  `_1`-Split-Netze mit `duplicate_pad_numbers_are_jumpers`), Zwillingspads 3↔3
+  (`PIN_N_nc`) und 7↔7 (`PIN_L_nc`) per `F.Cu`-Brücke verbunden — DRC sauber.
 - **Entladekette R300–R302 und Spannungsteiler R328–R306–R308** sind je
   3 × Vishay `CRCW1206330KFKEAHP` (1206, 330 kΩ). Die Mittelknoten tragen die
   Netzklasse `BLEEDER_MID` und halten 1,5 mm zum Gegenpol und zur Insel
