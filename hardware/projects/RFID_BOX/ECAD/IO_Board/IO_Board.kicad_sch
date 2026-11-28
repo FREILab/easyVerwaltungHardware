@@ -1722,7 +1722,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "0_Capacitor_other:C_X2_890334023023CS"
+		(symbol "0_Capacitor_other:C_X2_100nF_310VAC"
 			(pin_numbers
 				(hide yes)
 			)
@@ -1865,7 +1865,7 @@
 					)
 				)
 			)
-			(property "Dielectric" "PP"
+			(property "Dielectric" "X2"
 				(at 1.27 -3.048 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -1908,7 +1908,7 @@
 					)
 				)
 			)
-			(symbol "C_X2_890334023023CS_0_1"
+			(symbol "C_X2_100nF_310VAC_0_1"
 				(polyline
 					(pts
 						(xy -2.032 0.762) (xy 2.032 0.762)
@@ -1934,7 +1934,7 @@
 					)
 				)
 			)
-			(symbol "C_X2_890334023023CS_1_1"
+			(symbol "C_X2_100nF_310VAC_1_1"
 				(pin passive line
 					(at 0 3.81 270)
 					(length 2.794)
@@ -1974,7 +1974,248 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "0_Capacitor_other:C_Y2_VY2472M49Y5US63L7"
+		(symbol "0_Capacitor_other:C_Y2_1nF_300VAC"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 2.54 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "1nF"
+				(at 2.54 -0.508 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "aa_MyParts:C_Rect_L13.5mm_W4.0mm_P10.00mm_FKS3_FKP3_MKS4"
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.we-online.com/components/products/datasheet/890404123001CS.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "FILM CAP 1NF 10% 300VAC MKP Y2,"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Würth Elektronik"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "890404123001CS"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "710-890404123001CS"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "732-890404123001CS-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "FootprintSymbol" "P10"
+				(at 1.27 3.556 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Dielectric" "Y2"
+				(at 1.27 -3.048 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Voltage Rating" "300VAC"
+				(at -1.27 -1.27 90)
+				(show_name no)
+				(do_not_autoplace yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_Y2_1nF_300VAC_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Y2_1nF_300VAC_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Capacitor_other:C_Y2_4.7nF_440VAC"
 			(pin_numbers
 				(hide yes)
 			)
@@ -2117,7 +2358,7 @@
 					)
 				)
 			)
-			(property "Dielectric" "Y5U"
+			(property "Dielectric" "Y2"
 				(at 1.27 -3.048 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -2160,7 +2401,7 @@
 					)
 				)
 			)
-			(symbol "C_Y2_VY2472M49Y5US63L7_0_1"
+			(symbol "C_Y2_4.7nF_440VAC_0_1"
 				(polyline
 					(pts
 						(xy -2.032 0.762) (xy 2.032 0.762)
@@ -2186,7 +2427,7 @@
 					)
 				)
 			)
-			(symbol "C_Y2_VY2472M49Y5US63L7_1_1"
+			(symbol "C_Y2_4.7nF_440VAC_1_1"
 				(pin passive line
 					(at 0 3.81 270)
 					(length 2.794)
@@ -13721,19 +13962,9 @@
 		)
 		(uuid "3996db7b-1653-44de-b07b-ffef7ac9da17")
 	)
-	(text "Y2-Capacitors"
-		(exclude_from_sim no)
-		(at 127 63.5 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "3ae99541-2352-4ee4-b219-75fcfd8d8c63")
-	)
 	(text "AC/DC converter\nIn: 85-305VAC\nOut: 24VDC, 420mA, 10W\nEff: 82%\nIso: Class II, 4.2kV I/P-O/P\nProtection: Short-circuit, Overload, Overvoltage"
 		(exclude_from_sim no)
-		(at 134.874 23.876 0)
+		(at 127.254 22.86 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13842,16 +14073,6 @@
 			)
 		)
 		(uuid "c3f4d0ef-a601-4533-97f9-d3917ed720db")
-	)
-	(text "X2-Capacitor\n"
-		(exclude_from_sim no)
-		(at 65.278 196.088 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "cf243a3a-4f67-45b4-8abf-611f09b21d5c")
 	)
 	(junction
 		(at 215.9 44.45)
@@ -15208,6 +15429,16 @@
 	)
 	(wire
 		(pts
+			(xy 156.21 29.21) (xy 156.21 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "38411b8a-ec60-4ee7-b1b0-02b5eca861eb")
+	)
+	(wire
+		(pts
 			(xy 41.91 220.98) (xy 41.91 234.95)
 		)
 		(stroke
@@ -15880,7 +16111,7 @@
 	)
 	(polyline
 		(pts
-			(xy 161.29 39.37) (xy 156.21 34.29)
+			(xy 158.75 41.91) (xy 147.32 30.48)
 		)
 		(stroke
 			(width 0)
@@ -16250,6 +16481,16 @@
 	)
 	(wire
 		(pts
+			(xy 171.45 29.21) (xy 180.34 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90188100-588e-4345-80de-4566936b950c")
+	)
+	(wire
+		(pts
 			(xy 87.63 133.35) (xy 90.17 133.35)
 		)
 		(stroke
@@ -16387,6 +16628,16 @@
 			(type default)
 		)
 		(uuid "a272fffa-2733-4c81-92a5-353fffd692ed")
+	)
+	(wire
+		(pts
+			(xy 180.34 31.75) (xy 180.34 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a2744364-e9e2-41fc-8f20-2c92c91f7061")
 	)
 	(wire
 		(pts
@@ -16720,7 +16971,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 67.31) (xy 137.16 64.77)
+			(xy 137.16 68.58) (xy 137.16 64.77)
 		)
 		(stroke
 			(width 0)
@@ -16893,7 +17144,7 @@
 	)
 	(polyline
 		(pts
-			(xy 113.03 34.29) (xy 156.21 34.29)
+			(xy 104.14 30.48) (xy 147.32 30.48)
 		)
 		(stroke
 			(width 0)
@@ -16983,7 +17234,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 67.31) (xy 152.4 64.77)
+			(xy 152.4 68.58) (xy 152.4 64.77)
 		)
 		(stroke
 			(width 0)
@@ -17360,6 +17611,16 @@
 			(type default)
 		)
 		(uuid "f3a338ea-1d3b-4cd3-a83d-64f32d39c7b6")
+	)
+	(wire
+		(pts
+			(xy 163.83 29.21) (xy 156.21 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4d890ee-02a0-4677-881f-c61d94a8785a")
 	)
 	(wire
 		(pts
@@ -23697,6 +23958,183 @@
 		)
 	)
 	(symbol
+		(lib_id "0_Capacitor_other:C_Y2_1nF_300VAC")
+		(at 167.64 29.21 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "322e3a88-3ec7-439d-bfb2-8e88f977ddcb")
+		(property "Reference" "C330"
+			(at 173.99 23.622 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1nF"
+			(at 173.99 25.654 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "aa_MyParts:C_Rect_L13.5mm_W4.0mm_P10.00mm_FKS3_FKP3_MKS4"
+			(at 171.45 28.2448 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/890404123001CS.pdf"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "FILM CAP 1NF 10% 300VAC MKP Y2,"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Würth Elektronik"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "890404123001CS"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "710-890404123001CS"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "732-890404123001CS-ND"
+			(at 167.64 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FootprintSymbol" "P10"
+			(at 164.084 27.94 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Dielectric" "Y2"
+			(at 170.688 27.94 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Voltage Rating" "300VAC"
+			(at 169.418 30.48 90)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "1"
+			(uuid "3569408f-e19d-4ec1-85a2-c54714269bb5")
+		)
+		(pin "2"
+			(uuid "f37d8975-5bad-4a61-85a0-d1800d18b743")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "C330")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "0_Connector:J_01x14_SFW14S-2STE1LF")
 		(at 397.51 38.1 0)
 		(mirror x)
@@ -27561,7 +27999,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_Capacitor_other:C_X2_890334023023CS")
+		(lib_id "0_Capacitor_other:C_X2_100nF_310VAC")
 		(at 68.58 217.17 0)
 		(unit 1)
 		(body_style 1)
@@ -27694,6 +28132,7 @@
 		)
 		(property "FootprintSymbol" "P10"
 			(at 69.85 213.614 90)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -27702,7 +28141,7 @@
 				)
 			)
 		)
-		(property "Dielectric" "PP"
+		(property "Dielectric" "X2"
 			(at 69.85 220.218 90)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -29734,6 +30173,149 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "R309")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Power:PIN_PE")
+		(at 156.21 30.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6f295777-6996-4b01-a2df-653be93b8352")
+		(property "Reference" "#PWR0360"
+			(at 156.21 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PIN_PE"
+			(at 156.21 34.29 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"PIN_PE\""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" ""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" ""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" ""
+			(at 156.21 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1fa62722-b6af-4402-a961-79f4e8bed2b3")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0360")
 					(unit 1)
 				)
 			)
@@ -32715,7 +33297,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_Capacitor_other:C_Y2_VY2472M49Y5US63L7")
+		(lib_id "0_Capacitor_other:C_Y2_4.7nF_440VAC")
 		(at 152.4 60.96 0)
 		(unit 1)
 		(body_style 1)
@@ -32848,6 +33430,7 @@
 		)
 		(property "FootprintSymbol" "D12.5"
 			(at 153.67 57.404 90)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -32856,7 +33439,7 @@
 				)
 			)
 		)
-		(property "Dielectric" "Y5U"
+		(property "Dielectric" "Y2"
 			(at 153.67 64.008 90)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38087,7 +38670,7 @@
 	)
 	(symbol
 		(lib_id "0_Power:PIN_PE")
-		(at 152.4 67.31 0)
+		(at 152.4 68.58 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -38097,7 +38680,7 @@
 		(dnp no)
 		(uuid "d0b00e0f-c2df-49d5-b04e-f287ecb29c4f")
 		(property "Reference" "#PWR0307"
-			(at 152.4 73.66 0)
+			(at 152.4 74.93 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38108,7 +38691,7 @@
 			)
 		)
 		(property "Value" "PIN_PE"
-			(at 152.4 71.12 0)
+			(at 152.4 72.39 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -38118,7 +38701,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38129,7 +38712,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38140,7 +38723,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"PIN_PE\""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38151,7 +38734,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38162,7 +38745,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38173,7 +38756,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38184,7 +38767,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38195,7 +38778,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -38206,7 +38789,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 152.4 67.31 0)
+			(at 152.4 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -40210,7 +40793,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_Capacitor_other:C_Y2_VY2472M49Y5US63L7")
+		(lib_id "0_Capacitor_other:C_Y2_4.7nF_440VAC")
 		(at 137.16 60.96 0)
 		(unit 1)
 		(body_style 1)
@@ -40343,6 +40926,7 @@
 		)
 		(property "FootprintSymbol" "D12.5"
 			(at 138.43 57.404 90)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -40351,7 +40935,7 @@
 				)
 			)
 		)
-		(property "Dielectric" "Y5U"
+		(property "Dielectric" "Y2"
 			(at 138.43 64.008 90)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -41877,6 +42461,149 @@
 	)
 	(symbol
 		(lib_id "0_Power:GND")
+		(at 180.34 31.75 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f77de9e2-8c8e-483e-87fa-d5acdd21b262")
+		(property "Reference" "#PWR0359"
+			(at 180.34 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 180.34 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" ""
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" ""
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" ""
+			(at 180.34 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f05d0501-fa90-4a1f-aef3-5feb022845c4")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0359")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Power:GND")
 		(at 278.13 35.56 0)
 		(unit 1)
 		(body_style 1)
@@ -42485,7 +43212,7 @@
 	)
 	(symbol
 		(lib_id "0_Power:PIN_PE")
-		(at 137.16 67.31 0)
+		(at 137.16 68.58 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -42495,7 +43222,7 @@
 		(dnp no)
 		(uuid "fd6f9bd9-17c5-41cf-8f1c-b4769adb0cf2")
 		(property "Reference" "#PWR0305"
-			(at 137.16 73.66 0)
+			(at 137.16 74.93 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42506,7 +43233,7 @@
 			)
 		)
 		(property "Value" "PIN_PE"
-			(at 137.16 71.12 0)
+			(at 137.16 72.39 0)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -42516,7 +43243,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42527,7 +43254,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42538,7 +43265,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"PIN_PE\""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42549,7 +43276,7 @@
 			)
 		)
 		(property "Manufacturer" ""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42560,7 +43287,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" ""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42571,7 +43298,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42582,7 +43309,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" ""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42593,7 +43320,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -42604,7 +43331,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" ""
-			(at 137.16 67.31 0)
+			(at 137.16 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)

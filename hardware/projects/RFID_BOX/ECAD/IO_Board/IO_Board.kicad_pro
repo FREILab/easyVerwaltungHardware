@@ -60,11 +60,11 @@
           "hatch_smoothing_level": 0,
           "hatch_smoothing_value": 0.1,
           "hatch_thickness": 1.0,
-          "min_clearance": 0.5,
+          "min_clearance": 0.1,
           "min_island_area": 10.0,
           "min_thickness": 0.25,
-          "pad_connection": 1,
-          "remove_islands": 0,
+          "pad_connection": 2,
+          "remove_islands": 1,
           "thermal_relief_gap": 0.5,
           "thermal_relief_spoke_width": 0.5
         }
@@ -281,7 +281,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": "V1.3"
+      "sch_revision": "V1.0"
     },
     "layer_pairs": [],
     "layer_presets": [
@@ -1440,7 +1440,7 @@
         "uuid": "925169fe-6f55-4c58-8867-9e65957475e7"
       }
     ],
-    "used_designators": "#FLG300-306,#PWR1-2,#PWR101-102,#PWR300-358,BZ1,BZ101,C1,C101,C300-329,D300-302,F1-2,F101-103,F300-303,FB300-308,J1-5,J101-102,J300-302,K1-3,K101-102,K300-303,L1,L101,L300-303,LED1,LED101,NT300,PS1,PS101,PS300,Q300-302,R1,R101,R300-327,RV1,RV101,RV300-301,TH1,TH101,TH300-301,U1-8,U101-108,U300-306,U3?1",
+    "used_designators": "#FLG300-306,#PWR1-2,#PWR101-102,#PWR300-360,BZ1,BZ101,C1,C101,C300-330,D300-302,F1-2,F101-103,F300-303,FB300-308,IC300,J1-5,J101-102,J300-302,K1-3,K101-102,K300-303,L1,L101,L300-303,LED1,LED101,NT300,PS1,PS101,PS300,Q300-302,R1,R101,R300-328,RV1,RV101,RV300-301,TH1,TH101,TH300-301,U1-8,U101-108,U300-306,U3?1",
     "variants": []
   },
   "sheets": [
