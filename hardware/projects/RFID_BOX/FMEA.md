@@ -22,6 +22,7 @@ Layout gehen — so steht es in der Sicherheitsleitlinie der
 | Relaistreiber | beide Schalter durchlegiert | wie oben | Doppelfehler, nicht abgedeckt — Erkennung über die Lastmessung |
 | K300 | Kontakt verschweisst | Schaltausgang bleibt aktiv | Lastmessung als Plausibilitätsprüfung: Strom bei kommandiertem AUS ist ein Fehler. Abschalten nicht möglich, siehe unten |
 | Gate-Pulldown/Pull-up | offen | Gate floatet bei Reset/Boot, Relaiszustand undefiniert | Pulldown R316 an Q301 und R322 an Q302, Pull-up R320 an Q300, alle nahe am Gate; Prüfpunkt im Abnahmetest |
+| Befestigungsschrauben Netzseite (`H1`/`H2`) | Schraubenkopf / Einschmelzmutter drückt auf Lötstopplack über 230-V-/ISO-Kupfer | Kriech-/Kurzschlusspfad über metallische M3-Schraube (auf Bottom ist der 10-mm-Ring bei `PIN_N` / `GND_ISO` eng) | Top-Kupfer > 7,2 mm frei; zusätzlich M3-Nylon-Isolierscheibe (`MP300`/`MP301`, Essentra `16MLSW030070070`, OD 7,0 mm, Dicke 1,4 mm) auf Top unter den Schraubenkopf + Silkscreen-Hinweis `Iso-Washer 1.4mm!` auf Top und Bottom |
 
 Die Erkennung über die Lastmessung funktioniert, weil R307 **vor** dem
 Relais sitzt und in Reihe dazu liegt: bei offenem Relais fliesst kein Strom.

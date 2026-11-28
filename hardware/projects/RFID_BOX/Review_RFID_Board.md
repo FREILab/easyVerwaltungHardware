@@ -4,6 +4,9 @@
 - **Datum:** 22.11.2026 *(im Original-CSV: 22.11.2028; Titel im Original-CSV versehentlich „Review IO_Board“)*
 - **Status:** Offen (noch nichts umgesetzt)
 
+> **BOM-Pflichtpunkt vor Bestellung (nicht vergessen!):**
+> Das **FFC-Verbindungskabel `J102 ↔ J302`** (`GCT 10-14-x-xxxx-C-4-08-4-T`, 14-polig, 1,0 mm Pitch, Länge aus Fusion & Kontaktseite Typ A vs. D gegen Amphenol-Zeichnung prüfen) muss als BOM-only-Bauteil (`on_board no`, `in_bom yes`) auf dem **RFID-Board** angelegt werden, damit es bei der Bestellung mitbestellt wird.
+
 Skala **Wichtigkeit:** `1` = Änderung nice to have … `5` = Änderung absolut notwendig
 
 ## Übersicht

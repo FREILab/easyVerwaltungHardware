@@ -66,7 +66,7 @@ J302-Pin = 15 − J102-Pin.
 | 10 | aux_en | 5 |
 | 11 | relay_en_LS | 4 |
 | 12 | EXT_IO | 3 |
-| 13 | — (Reserve) | 2 |
+| 13 | +24V (Tasterbeleuchtung) | 2 |
 
 Teiler auf dem I/O-Board: V24_SENSE R314 47 kΩ / R315 5,1 kΩ (24 V → 2,35 V),
 V3V3_IO_SENSE R318 / R319 je 10 kΩ (3,3 V → 1,65 V).
@@ -84,7 +84,10 @@ V3V3_IO_SENSE R318 / R319 je 10 kΩ (3,3 V → 1,65 V).
 - UART1 für die Messinsel; UART0 bleibt Konsole an J100.
 - JTAG nur über USB-Serial-JTAG an J400; GPIO 39–42 sind normale GPIOs.
 
-## Offen
+## Hinweise / Firmware
 
-- **Isolator F-Typ:** Wird U301 als ISOW7721FDFMR bestückt, sieht UART1-RX bei
-  `ISO_EN` aus dauerhaft LOW — Empfänger in der Firmware abschalten.
+- **Isolator F-Typ (`U301` = `ISOW7721FDFMR`, umgesetzt):** `R304` ist als
+  Pulldown an `GND` bestückt, die Messinsel startet also erst, wenn die
+  Firmware `UART1_TX` (GPIO 17) auf HIGH setzt und `ISO_EN` (GPIO 5) auf HIGH
+  schaltet. Bei `ISO_EN = 0` sieht `UART1-RX` (GPIO 18) dauerhaft LOW —
+  Empfänger in der Firmware abschalten bzw. nach dem Einschalten flushen.

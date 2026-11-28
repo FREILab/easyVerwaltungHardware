@@ -137,9 +137,9 @@ und teilt sich dort in zwei Pfade:
   IC304 auf dem I/O-Board für die Eingangsseite des Isolators, IC102 auf dem
   MCU-Board für ESP32, NFC-Frontend und Display. Der DC-DC im Isolator zieht
   seinen Strom damit lokal und nicht über 30 cm Kabel. Die 24-V-Schiene
-  versorgt die Relaisspule und bleibt auf dem I/O-Board; zum MCU-Board geht
-  statt der Schiene nur ein Teilersignal zur Überwachung. LED-Leiste und
-  Buzzer laufen direkt auf 5 V.
+  versorgt die Relaisspule und geht zusätzlich über J302 Pin 2 (J102 Pin 13)
+  für beleuchtete Taster zum RFID-Board; zur Überwachung geht außerdem ein
+  Teilersignal (V24_SENSE) hinüber. LED-Leiste und Buzzer laufen direkt auf 5 V.
 - **USB-C:** Das RFID-Board lässt sich auch allein über USB versorgen. VBUS
   (D401) und die 5 V vom Kabel (D100) laufen über je eine Schottky-Diode SS14
   auf +5V; keine Quelle speist in die andere zurück. Die Schiene liegt damit
@@ -183,9 +183,11 @@ Dämpfung. Drei Grenzen gelten dabei:
 
 **Bewusst nicht vorhanden:** eine Kontakt-Schutzbeschaltung am Lastrelais —
 der Node ist Lastschalter, das Entkoppeln der Lastgeräte vom Netz ist nicht
-seine Aufgabe. Und eine Einschaltstrombegrenzung im Lastpfad — den Anlauf
+seine Aufgabe. Eine Einschaltstrombegrenzung im Lastpfad — den Anlauf
 tragen die träge Ausgangssicherung und das Einschaltvermögen von K300
-(30 A, AgCdO-Kontakte).
+(30 A, AgCdO-Kontakte). Ein thermisch geschützter Varistor (ThermoFuse) vor
+RV300 (nicht wirtschaftlich), auftrennbare Netzbrücken (Platzbedarf) und
+dedizierte Testpunkte (bei den Bauteilgrößen und PCBite nicht nötig).
 
 ## Signalfluss
 
@@ -288,37 +290,16 @@ Die vollständige Liste steht im Schaltplan und in
   Gehäuse neben dem Stopp-Taster einplanen und auf dem RFID-Board mit
   Anschluss (z. B. J101 erweitern oder separater Header), Beschaltung analog
   `STOP` (Pull-up, Serienwiderstand, Entprell-Kondensator) und freiem
-  ESP32-GPIO (z. B. GPIO 15) anbinden.
-- RV300 liegt vor F300 und F302 und ist damit ungesichert. Ein Varistor am
-  Lebensdauerende versagt niederohmig; vorgelagert wirkt nur der
-  Leitungsschutzschalter im Werkstattverteiler. Thermisch geschützten
-  Varistor (ThermoFuse) prüfen.
-- **Auftrennbare Netzbrücken** an ausgewählten Stellen der Niederspannung
-  vorsehen, damit sich Zweige zur Inbetriebnahme einzeln zuschalten lassen.
-- **Testpunkte** für die Inbetriebnahme vorsehen. In der Netzdomäne und auf
-  der ISO-Insel nur berührgeschützt zugänglich (U8, U9).
-- **Isolator U301 entscheiden.** Der ISOW7721DFMR ist bei Mouser und
-  Digi-Key auf null, Status trotzdem „Aktiv". Lagernd ist nur der
-  ISOW7721**F**DFMR, dessen Ausgänge bei stromloser Eingangsseite auf LOW
-  statt HIGH gehen. Da `ISO_EN` die Insel im Betrieb abschaltet, sähe die
-  UART des ESP32 dann dauerhaft Break — die Firmware müsste den Empfänger
-  abschalten, solange die Insel aus ist. Entweder das, oder den D-Typ
-  vorbestellen.
-- **Verbindungskabel (FFC, J102 ↔ J302):** Dummy-Bauteil für das Kabel GCT
-  `10-14-x-xxxx-C-4-08-4-T` anlegen; Länge in Fusion bestimmen. Kontaktseite
-  voraussichtlich Typ A (beide Enden gleiche Seite): J302 ist um 180°
-  gedreht, damit das Kabel ohne Verdrehung Pin n auf Pin 15−n legt und die
-  Padreihen beider Stecker auf derselben Seite liegen. Gegen die
-  Amphenol-Zeichnung prüfen. Pads 15/16 (Lötlaschen) des SFW14S haben keinen
-  Pin im Symbol.
-- **K300 Öffner-Pads 3/7:** `no_connect`-Marker entfernt (waren Ursache für
-  `_1`-Split-Netze mit `duplicate_pad_numbers_are_jumpers`), Zwillingspads 3↔3
-  (`PIN_N_nc`) und 7↔7 (`PIN_L_nc`) per `F.Cu`-Brücke verbunden — DRC sauber.
-- **Entladekette R300–R302 und Spannungsteiler R328–R306–R308** sind je
-  3 × Vishay `CRCW1206330KFKEAHP` (1206, 330 kΩ). Die Mittelknoten tragen die
-  Netzklasse `BLEEDER_MID` und halten 1,5 mm zum Gegenpol und zur Insel
-  (Layoutregeln, Abschnitt 3). Teilerverhältnis der Spannungsmessung
-  990 kΩ zu 1 kΩ (R309‖R310).
+  ESP32-GPIO (z. B. GPIO 15) anbinden. Für ggf. beleuchtete 24-V-Taster liegt
+  `+24V` bereits an `J102` Pin 13 (`J302` Pin 2) an.
+- **Verbindungskabel (FFC, J102 ↔ J302) — PFLICHTPUNKT RFID-Board-BOM:**
+  Dummy-Bauteil für das Kabel GCT `10-14-x-xxxx-C-4-08-4-T` auf dem
+  **RFID-Board** in die BOM aufnehmen (nicht vergessen!); Länge in Fusion
+  bestimmen. Kontaktseite voraussichtlich Typ A (beide Enden gleiche Seite):
+  J302 ist um 180° gedreht, damit das Kabel ohne Verdrehung Pin n auf Pin
+  15−n legt und die Padreihen beider Stecker auf derselben Seite liegen.
+  Gegen die Amphenol-Zeichnung prüfen. Pads 15/16 (Lötlaschen) des SFW14S
+  haben keinen Pin im Symbol.
 
 ### Offen aus der Bauteilplanung
 

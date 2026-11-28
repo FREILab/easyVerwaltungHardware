@@ -758,7 +758,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "0_Capacitor_X7R:C_100nF_0603_100V"
+		(symbol "0_Capacitor_X7R:C_100nF_0805_100V"
 			(pin_numbers
 				(hide yes)
 			)
@@ -792,7 +792,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "aa_Passives:C_0603_1608Metric"
+			(property "Footprint" "aa_Passives:C_0805_2012Metric"
 				(at 0.9652 -3.81 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -803,7 +803,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
+			(property "Datasheet" "https://www.we-online.com/components/products/datasheet/885012207128.pdf"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -814,7 +814,7 @@
 					)
 				)
 			)
-			(property "Description" "CAP CER 0.1UF 100V X7R 0603"
+			(property "Description" "CAP CER 0.1UF 100V X7R 0805"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -836,7 +836,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "885012206120"
+			(property "Manufacturer Part Number" "885012207128"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -858,7 +858,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" "710-885012206120"
+			(property "Distributor 1 Order Number" "710-885012207128"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -880,7 +880,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+			(property "Distributor 2 Order Number" "732-12244-1-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -891,7 +891,7 @@
 					)
 				)
 			)
-			(property "FootprintSymbol" "0603"
+			(property "FootprintSymbol" "0805"
 				(at 1.27 3.556 90)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -933,7 +933,7 @@
 					)
 				)
 			)
-			(symbol "C_100nF_0603_100V_0_1"
+			(symbol "C_100nF_0805_100V_0_1"
 				(polyline
 					(pts
 						(xy -2.032 0.762) (xy 2.032 0.762)
@@ -959,7 +959,7 @@
 					)
 				)
 			)
-			(symbol "C_100nF_0603_100V_1_1"
+			(symbol "C_100nF_0805_100V_1_1"
 				(pin passive line
 					(at 0 3.81 270)
 					(length 2.794)
@@ -4906,7 +4906,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "0_IC:IC_ISOW7721DFMR"
+		(symbol "0_IC:IC_ISOW7721FDFMR"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -4923,7 +4923,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "ISOW7721DFMR"
+			(property "Value" "ISOW7721FDFMR"
 				(at 3.81 19.05 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -4979,7 +4979,7 @@
 					)
 				)
 			)
-			(property "Manufacturer Part Number" "ISOW7721DFMR"
+			(property "Manufacturer Part Number" "ISOW7721FDFMR"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -5001,7 +5001,7 @@
 					)
 				)
 			)
-			(property "Distributor 1 Order Number" "595-ISOW7721DFMR"
+			(property "Distributor 1 Order Number" "595-ISOW7721FDFMR"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -5023,7 +5023,7 @@
 					)
 				)
 			)
-			(property "Distributor 2 Order Number" "296-ISOW7721DFMRCT-ND"
+			(property "Distributor 2 Order Number" "296-ISOW7721FDFMRCT-ND"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace yes)
@@ -5056,7 +5056,7 @@
 					)
 				)
 			)
-			(symbol "IC_ISOW7721DFMR_0_1"
+			(symbol "IC_ISOW7721FDFMR_0_1"
 				(polyline
 					(pts
 						(xy -1.905 -5.08) (xy -0.635 -5.715) (xy -0.635 -4.445) (xy -1.905 -5.08)
@@ -5106,7 +5106,7 @@
 					)
 				)
 			)
-			(symbol "IC_ISOW7721DFMR_1_1"
+			(symbol "IC_ISOW7721FDFMR_1_1"
 				(rectangle
 					(start -12.7 17.78)
 					(end 12.7 -17.78)
@@ -7173,6 +7173,458 @@
 								(size 1.27 1.27)
 							)
 						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "0_Mechanic:M_Washer_M3_Nylon"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board no)
+			(in_pos_files no)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "MP"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "M3 Nylon Washer 1.4mm"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5686/16MLSW030070070.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "WASHER SEALING M3 NYLON ID 3.1mm OD 7.0mm T 1.4mm"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Essentra Components"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "16MLSW030070070"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "144-16MLSW030070070"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "RPC9790-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "washer nylon m3 isolation mechanic"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "M_Washer_M3_Nylon_1_0"
+				(polyline
+					(pts
+						(xy -2.3845 -0.2917) (xy -2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy -1.5879 0) (xy -1.4082 -0.3699) (xy -0.7527 -0.6299) (xy 0 -0.6299)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0 1.4042) (xy -1.3169 1.4042) (xy -2.3845 0.864) (xy -2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.6299) (xy 0.5404 -0.5835)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0 -1.0091) (xy -1.3169 -1.0091) (xy -2.3845 -0.4689) (xy -2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0 -1.4983) (xy -1.3169 -1.4983) (xy -2.3845 -0.9581) (xy -2.3845 -0.2917)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.0811 1.024) (xy 0.1616 1.021) (xy 0.2415 1.016) (xy 0.3205 1.009) (xy 0.3986 1.0001) (xy 0.4756 0.9893)
+						(xy 0.5514 0.9766) (xy 0.6258 0.9621) (xy 0.6987 0.9457) (xy 0.77 0.9276) (xy 0.8396 0.9077) (xy 0.9072 0.886)
+						(xy 0.9729 0.8627) (xy 1.0363 0.8377) (xy 1.0975 0.811) (xy 1.1563 0.7827) (xy 1.2122 0.753) (xy 1.2649 0.722)
+						(xy 1.3144 0.6899) (xy 1.3605 0.6567) (xy 1.4033 0.6224) (xy 1.4426 0.5872) (xy 1.4784 0.5511)
+						(xy 1.5108 0.5142) (xy 1.5395 0.4766) (xy 1.5645 0.4382) (xy 1.5757 0.4188) (xy 1.5859 0.3993)
+						(xy 1.5952 0.3796) (xy 1.6035 0.3598) (xy 1.6109 0.3398) (xy 1.6173 0.3198) (xy 1.6228 0.2996)
+						(xy 1.6272 0.2794) (xy 1.6307 0.259) (xy 1.6332 0.2386) (xy 1.6347 0.2181) (xy 1.6352 0.1976)
+						(xy 1.635 0.1851) (xy 1.6345 0.1726) (xy 1.6335 0.1602) (xy 1.6322 0.1477) (xy 1.6306 0.1353)
+						(xy 1.6285 0.1228) (xy 1.6261 0.1104) (xy 1.6233 0.0981) (xy 1.6202 0.0857) (xy 1.6167 0.0734)
+						(xy 1.6128 0.0611) (xy 1.6085 0.0488) (xy 1.6039 0.0365) (xy 1.5989 0.0243) (xy 1.5936 0.0121)
+						(xy 1.5879 0) (xy 1.5487 0.068) (xy 1.4989 0.1333) (xy 1.4391 0.1955) (xy 1.3698 0.2545) (xy 1.2916 0.31)
+						(xy 1.2049 0.3618) (xy 1.1105 0.4098) (xy 1.0088 0.4537) (xy 0.9004 0.4932) (xy 0.7858 0.5281)
+						(xy 0.6656 0.5583) (xy 0.5404 0.5835) (xy 0.4106 0.6035) (xy 0.277 0.618) (xy 0.1399 0.6269) (xy 0 0.6299)
+						(xy -0.1399 0.6269) (xy -0.277 0.618) (xy -0.4106 0.6035) (xy -0.5404 0.5835) (xy -0.6656 0.5583)
+						(xy -0.7858 0.5281) (xy -0.9004 0.4932) (xy -1.0088 0.4537) (xy -1.1105 0.4098) (xy -1.1587 0.3863)
+						(xy -1.205 0.3619) (xy -1.2493 0.3364) (xy -1.2916 0.31) (xy -1.3318 0.2827) (xy -1.3698 0.2545)
+						(xy -1.4056 0.2254) (xy -1.4391 0.1955) (xy -1.4703 0.1648) (xy -1.499 0.1333) (xy -1.5251 0.1011)
+						(xy -1.5487 0.0681) (xy -1.5697 0.0344) (xy -1.5879 0.0001) (xy -1.5936 0.0122) (xy -1.599 0.0244)
+						(xy -1.604 0.0366) (xy -1.6086 0.0489) (xy -1.6128 0.0612) (xy -1.6167 0.0735) (xy -1.6202 0.0858)
+						(xy -1.6234 0.0981) (xy -1.6261 0.1105) (xy -1.6285 0.1229) (xy -1.6306 0.1353) (xy -1.6322 0.1478)
+						(xy -1.6335 0.1602) (xy -1.6345 0.1726) (xy -1.635 0.1851) (xy -1.6352 0.1976) (xy -1.6331 0.2402)
+						(xy -1.6268 0.2822) (xy -1.6164 0.3236) (xy -1.602 0.3643) (xy -1.5837 0.4044) (xy -1.5617 0.4436)
+						(xy -1.536 0.4821) (xy -1.5067 0.5197) (xy -1.4379 0.592) (xy -1.356 0.6602) (xy -1.2618 0.7239)
+						(xy -1.1563 0.7827) (xy -1.0402 0.8361) (xy -0.9143 0.8837) (xy -0.7794 0.9252) (xy -0.6365 0.96)
+						(xy -0.4863 0.9879) (xy -0.3296 1.0082) (xy -0.1672 1.0208) (xy 0 1.0251) (xy 0.0811 1.024)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.5404 -0.5835) (xy 1.0088 -0.4537)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0.9282 1.3094) (xy 0.6429 1.3705) (xy 0.3292 1.4042) (xy 0 1.4042)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0.9282 -0.9143) (xy 0.6429 -0.9753) (xy 0.3292 -1.0091) (xy 0 -1.0091)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0.9282 -1.4035) (xy 0.6429 -1.4646) (xy 0.3292 -1.4983) (xy 0 -1.4983)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.0088 -0.4537) (xy 1.2892 -0.3424) (xy 1.498 -0.1849) (xy 1.5879 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.6861 1.0508) (xy 1.4704 1.16) (xy 1.2134 1.2483) (xy 0.9282 1.3094)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.6861 -0.6557) (xy 1.4704 -0.7649) (xy 1.2134 -0.8532) (xy 0.9282 -0.9143)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.6861 -1.1449) (xy 1.4704 -1.2541) (xy 1.2134 -1.3424) (xy 0.9282 -1.4035)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 2.3845 0.1976) (xy 2.3845 0.5308) (xy 2.1176 0.8324) (xy 1.6861 1.0508)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 2.3845 0.1976) (xy 2.3845 -0.1356) (xy 2.1176 -0.4373) (xy 1.6861 -0.6557)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.3845 -0.2917) (xy 2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 2.3845 -0.2917) (xy 2.3845 -0.6249) (xy 2.1176 -0.9265) (xy 1.6861 -1.1449)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "M_Washer_M3_Nylon_1_1"
+				(polyline
+					(pts
+						(xy -0.0309 1.4041) (xy 0.0001 1.404) (xy 0.1228 1.4025) (xy 0.2439 1.3979) (xy 0.3633 1.3902)
+						(xy 0.4807 1.3797) (xy 0.596 1.3662) (xy 0.7092 1.35) (xy 0.82 1.3311) (xy 0.9282 1.3095) (xy 1.0339 1.2853)
+						(xy 1.1366 1.2587) (xy 1.2364 1.2297) (xy 1.3331 1.1983) (xy 1.4265 1.1647) (xy 1.5165 1.1289)
+						(xy 1.603 1.091) (xy 1.6858 1.0511) (xy 1.7648 1.0092) (xy 1.8397 0.9654) (xy 1.9105 0.9198) (xy 1.977 0.8724)
+						(xy 2.0391 0.8235) (xy 2.0965 0.7729) (xy 2.1492 0.7208) (xy 2.197 0.6673) (xy 2.2397 0.6125)
+						(xy 2.2772 0.5564) (xy 2.294 0.5279) (xy 2.3094 0.4991) (xy 2.3234 0.47) (xy 2.336 0.4407) (xy 2.3472 0.4111)
+						(xy 2.357 0.3812) (xy 2.3653 0.3511) (xy 2.3722 0.3208) (xy 2.3775 0.2903) (xy 2.3814 0.2595)
+						(xy 2.3837 0.2285) (xy 2.3845 0.1974) (xy 2.3845 -0.2915) (xy 2.3837 -0.3226) (xy 2.3814 -0.3535)
+						(xy 2.3775 -0.3843) (xy 2.3722 -0.4148) (xy 2.3653 -0.4451) (xy 2.357 -0.4752) (xy 2.3472 -0.505)
+						(xy 2.336 -0.5346) (xy 2.3094 -0.593) (xy 2.2772 -0.6503) (xy 2.2397 -0.7063) (xy 2.197 -0.7611)
+						(xy 2.1492 -0.8146) (xy 2.0965 -0.8666) (xy 2.0391 -0.9171) (xy 1.977 -0.9661) (xy 1.9105 -1.0134)
+						(xy 1.8397 -1.0589) (xy 1.7648 -1.1027) (xy 1.6858 -1.1446) (xy 1.603 -1.1846) (xy 1.5165 -1.2226)
+						(xy 1.4265 -1.2584) (xy 1.3331 -1.2921) (xy 1.2364 -1.3236) (xy 1.1366 -1.3527) (xy 1.0339 -1.3794)
+						(xy 0.9282 -1.4035) (xy 0.82 -1.4251) (xy 0.7092 -1.4441) (xy 0.596 -1.4603) (xy 0.4807 -1.4737)
+						(xy 0.3633 -1.4843) (xy 0.2439 -1.4919) (xy 0.1228 -1.4965) (xy 0.0001 -1.4981) (xy -0.1226 -1.4965)
+						(xy -0.2437 -1.4919) (xy -0.363 -1.4842) (xy -0.4804 -1.4736) (xy -0.5958 -1.4601) (xy -0.709 -1.4439)
+						(xy -0.8198 -1.4249) (xy -0.9281 -1.4033) (xy -1.0337 -1.3791) (xy -1.1365 -1.3525) (xy -1.2364 -1.3234)
+						(xy -1.3332 -1.292) (xy -1.4267 -1.2584) (xy -1.5168 -1.2226) (xy -1.6033 -1.1846) (xy -1.6861 -1.1447)
+						(xy -1.7651 -1.1028) (xy -1.8401 -1.059) (xy -1.9109 -1.0134) (xy -1.9774 -0.9661) (xy -2.0394 -0.9171)
+						(xy -2.0968 -0.8666) (xy -2.1495 -0.8146) (xy -2.1973 -0.7611) (xy -2.24 -0.7063) (xy -2.2775 -0.6503)
+						(xy -2.3096 -0.593) (xy -2.3363 -0.5346) (xy -2.3572 -0.4752) (xy -2.3724 -0.4148) (xy -2.3816 -0.3535)
+						(xy -2.3847 -0.2915) (xy -2.3847 0) (xy -1.5879 0) (xy -1.5487 -0.068) (xy -1.4989 -0.1333) (xy -1.4391 -0.1955)
+						(xy -1.3698 -0.2545) (xy -1.2915 -0.31) (xy -1.2049 -0.3619) (xy -1.1105 -0.4098) (xy -1.0087 -0.4537)
+						(xy -0.9003 -0.4932) (xy -0.7857 -0.5281) (xy -0.6655 -0.5583) (xy -0.5403 -0.5835) (xy -0.4105 -0.6035)
+						(xy -0.2768 -0.618) (xy -0.1398 -0.6269) (xy 0.0001 -0.6299) (xy 0.0704 -0.6292) (xy 0.14 -0.6269)
+						(xy 0.2088 -0.6232) (xy 0.2769 -0.618) (xy 0.3442 -0.6114) (xy 0.4105 -0.6034) (xy 0.4758 -0.5941)
+						(xy 0.5402 -0.5834) (xy 0.6034 -0.5715) (xy 0.6654 -0.5583) (xy 0.7262 -0.5438) (xy 0.7857 -0.5281)
+						(xy 0.8438 -0.5112) (xy 0.9004 -0.4932) (xy 0.9554 -0.474) (xy 1.0089 -0.4537) (xy 1.0606 -0.4323)
+						(xy 1.1106 -0.4099) (xy 1.1587 -0.3864) (xy 1.205 -0.3619) (xy 1.2493 -0.3364) (xy 1.2915 -0.31)
+						(xy 1.3317 -0.2827) (xy 1.3697 -0.2545) (xy 1.4055 -0.2254) (xy 1.439 -0.1955) (xy 1.4701 -0.1648)
+						(xy 1.4987 -0.1333) (xy 1.5249 -0.101) (xy 1.5485 -0.068) (xy 1.5694 -0.0344) (xy 1.5876 0) (xy 1.5485 0.068)
+						(xy 1.4987 0.1333) (xy 1.4389 0.1955) (xy 1.3696 0.2545) (xy 1.2914 0.31) (xy 1.2048 0.3619) (xy 1.1104 0.4098)
+						(xy 1.0088 0.4537) (xy 0.9004 0.4932) (xy 0.7858 0.5281) (xy 0.6657 0.5583) (xy 0.5405 0.5835)
+						(xy 0.4107 0.6035) (xy 0.2771 0.618) (xy 0.14 0.6269) (xy 0.0001 0.6299) (xy -0.1398 0.6269) (xy -0.2768 0.618)
+						(xy -0.4105 0.6035) (xy -0.5403 0.5835) (xy -0.6655 0.5583) (xy -0.7857 0.5281) (xy -0.9003 0.4932)
+						(xy -1.0087 0.4537) (xy -1.1105 0.4098) (xy -1.1586 0.3863) (xy -1.2049 0.3619) (xy -1.2492 0.3364)
+						(xy -1.2915 0.31) (xy -1.3317 0.2827) (xy -1.3698 0.2545) (xy -1.4056 0.2254) (xy -1.4391 0.1955)
+						(xy -1.4702 0.1648) (xy -1.4989 0.1333) (xy -1.5251 0.101) (xy -1.5487 0.068) (xy -1.5696 0.0343)
+						(xy -1.5879 0) (xy -2.3847 0) (xy -2.3847 0.1974) (xy -2.3817 0.2585) (xy -2.3728 0.3189) (xy -2.3581 0.3784)
+						(xy -2.3378 0.4369) (xy -2.3119 0.4945) (xy -2.2808 0.5509) (xy -2.2444 0.6063) (xy -2.203 0.6604)
+						(xy -2.1055 0.7646) (xy -1.9895 0.8631) (xy -1.8561 0.9553) (xy -1.7065 1.0405) (xy -1.5418 1.1183)
+						(xy -1.3631 1.188) (xy -1.1716 1.249) (xy -0.9684 1.3008) (xy -0.7547 1.3428) (xy -0.5316 1.3744)
+						(xy -0.3003 1.395) (xy -0.0619 1.404) (xy -0.0464 1.4042) (xy -0.0309 1.4041)
+					)
+					(stroke
+						(width -0.0001)
+						(type solid)
+					)
+					(fill
+						(type background)
 					)
 				)
 			)
@@ -13905,6 +14357,458 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "M_Washer_M3_Nylon_1"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board no)
+			(in_pos_files no)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "MP"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "M3 Nylon Washer 1.4mm"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5686/16MLSW030070070.pdf"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "WASHER SEALING M3 NYLON ID 3.1mm OD 7.0mm T 1.4mm"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer" "Essentra Components"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Manufacturer Part Number" "16MLSW030070070"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1" "Mouser"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 1 Order Number" "144-16MLSW030070070"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2" "Digi-Key"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Distributor 2 Order Number" "RPC9790-ND"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace yes)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "washer nylon m3 isolation mechanic"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "M_Washer_M3_Nylon_1_1_0"
+				(polyline
+					(pts
+						(xy -2.3845 -0.2917) (xy -2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy -1.5879 0) (xy -1.4082 -0.3699) (xy -0.7527 -0.6299) (xy 0 -0.6299)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0 1.4042) (xy -1.3169 1.4042) (xy -2.3845 0.864) (xy -2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.6299) (xy 0.5404 -0.5835)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0 -1.0091) (xy -1.3169 -1.0091) (xy -2.3845 -0.4689) (xy -2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0 -1.4983) (xy -1.3169 -1.4983) (xy -2.3845 -0.9581) (xy -2.3845 -0.2917)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.0811 1.024) (xy 0.1616 1.021) (xy 0.2415 1.016) (xy 0.3205 1.009) (xy 0.3986 1.0001) (xy 0.4756 0.9893)
+						(xy 0.5514 0.9766) (xy 0.6258 0.9621) (xy 0.6987 0.9457) (xy 0.77 0.9276) (xy 0.8396 0.9077) (xy 0.9072 0.886)
+						(xy 0.9729 0.8627) (xy 1.0363 0.8377) (xy 1.0975 0.811) (xy 1.1563 0.7827) (xy 1.2122 0.753) (xy 1.2649 0.722)
+						(xy 1.3144 0.6899) (xy 1.3605 0.6567) (xy 1.4033 0.6224) (xy 1.4426 0.5872) (xy 1.4784 0.5511)
+						(xy 1.5108 0.5142) (xy 1.5395 0.4766) (xy 1.5645 0.4382) (xy 1.5757 0.4188) (xy 1.5859 0.3993)
+						(xy 1.5952 0.3796) (xy 1.6035 0.3598) (xy 1.6109 0.3398) (xy 1.6173 0.3198) (xy 1.6228 0.2996)
+						(xy 1.6272 0.2794) (xy 1.6307 0.259) (xy 1.6332 0.2386) (xy 1.6347 0.2181) (xy 1.6352 0.1976)
+						(xy 1.635 0.1851) (xy 1.6345 0.1726) (xy 1.6335 0.1602) (xy 1.6322 0.1477) (xy 1.6306 0.1353)
+						(xy 1.6285 0.1228) (xy 1.6261 0.1104) (xy 1.6233 0.0981) (xy 1.6202 0.0857) (xy 1.6167 0.0734)
+						(xy 1.6128 0.0611) (xy 1.6085 0.0488) (xy 1.6039 0.0365) (xy 1.5989 0.0243) (xy 1.5936 0.0121)
+						(xy 1.5879 0) (xy 1.5487 0.068) (xy 1.4989 0.1333) (xy 1.4391 0.1955) (xy 1.3698 0.2545) (xy 1.2916 0.31)
+						(xy 1.2049 0.3618) (xy 1.1105 0.4098) (xy 1.0088 0.4537) (xy 0.9004 0.4932) (xy 0.7858 0.5281)
+						(xy 0.6656 0.5583) (xy 0.5404 0.5835) (xy 0.4106 0.6035) (xy 0.277 0.618) (xy 0.1399 0.6269) (xy 0 0.6299)
+						(xy -0.1399 0.6269) (xy -0.277 0.618) (xy -0.4106 0.6035) (xy -0.5404 0.5835) (xy -0.6656 0.5583)
+						(xy -0.7858 0.5281) (xy -0.9004 0.4932) (xy -1.0088 0.4537) (xy -1.1105 0.4098) (xy -1.1587 0.3863)
+						(xy -1.205 0.3619) (xy -1.2493 0.3364) (xy -1.2916 0.31) (xy -1.3318 0.2827) (xy -1.3698 0.2545)
+						(xy -1.4056 0.2254) (xy -1.4391 0.1955) (xy -1.4703 0.1648) (xy -1.499 0.1333) (xy -1.5251 0.1011)
+						(xy -1.5487 0.0681) (xy -1.5697 0.0344) (xy -1.5879 0.0001) (xy -1.5936 0.0122) (xy -1.599 0.0244)
+						(xy -1.604 0.0366) (xy -1.6086 0.0489) (xy -1.6128 0.0612) (xy -1.6167 0.0735) (xy -1.6202 0.0858)
+						(xy -1.6234 0.0981) (xy -1.6261 0.1105) (xy -1.6285 0.1229) (xy -1.6306 0.1353) (xy -1.6322 0.1478)
+						(xy -1.6335 0.1602) (xy -1.6345 0.1726) (xy -1.635 0.1851) (xy -1.6352 0.1976) (xy -1.6331 0.2402)
+						(xy -1.6268 0.2822) (xy -1.6164 0.3236) (xy -1.602 0.3643) (xy -1.5837 0.4044) (xy -1.5617 0.4436)
+						(xy -1.536 0.4821) (xy -1.5067 0.5197) (xy -1.4379 0.592) (xy -1.356 0.6602) (xy -1.2618 0.7239)
+						(xy -1.1563 0.7827) (xy -1.0402 0.8361) (xy -0.9143 0.8837) (xy -0.7794 0.9252) (xy -0.6365 0.96)
+						(xy -0.4863 0.9879) (xy -0.3296 1.0082) (xy -0.1672 1.0208) (xy 0 1.0251) (xy 0.0811 1.024)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.5404 -0.5835) (xy 1.0088 -0.4537)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0.9282 1.3094) (xy 0.6429 1.3705) (xy 0.3292 1.4042) (xy 0 1.4042)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0.9282 -0.9143) (xy 0.6429 -0.9753) (xy 0.3292 -1.0091) (xy 0 -1.0091)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 0.9282 -1.4035) (xy 0.6429 -1.4646) (xy 0.3292 -1.4983) (xy 0 -1.4983)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.0088 -0.4537) (xy 1.2892 -0.3424) (xy 1.498 -0.1849) (xy 1.5879 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.6861 1.0508) (xy 1.4704 1.16) (xy 1.2134 1.2483) (xy 0.9282 1.3094)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.6861 -0.6557) (xy 1.4704 -0.7649) (xy 1.2134 -0.8532) (xy 0.9282 -0.9143)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 1.6861 -1.1449) (xy 1.4704 -1.2541) (xy 1.2134 -1.3424) (xy 0.9282 -1.4035)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 2.3845 0.1976) (xy 2.3845 0.5308) (xy 2.1176 0.8324) (xy 1.6861 1.0508)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 2.3845 0.1976) (xy 2.3845 -0.1356) (xy 2.1176 -0.4373) (xy 1.6861 -0.6557)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.3845 -0.2917) (xy 2.3845 0.1976)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(bezier
+					(pts
+						(xy 2.3845 -0.2917) (xy 2.3845 -0.6249) (xy 2.1176 -0.9265) (xy 1.6861 -1.1449)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "M_Washer_M3_Nylon_1_1_1"
+				(polyline
+					(pts
+						(xy -0.0309 1.4041) (xy 0.0001 1.404) (xy 0.1228 1.4025) (xy 0.2439 1.3979) (xy 0.3633 1.3902)
+						(xy 0.4807 1.3797) (xy 0.596 1.3662) (xy 0.7092 1.35) (xy 0.82 1.3311) (xy 0.9282 1.3095) (xy 1.0339 1.2853)
+						(xy 1.1366 1.2587) (xy 1.2364 1.2297) (xy 1.3331 1.1983) (xy 1.4265 1.1647) (xy 1.5165 1.1289)
+						(xy 1.603 1.091) (xy 1.6858 1.0511) (xy 1.7648 1.0092) (xy 1.8397 0.9654) (xy 1.9105 0.9198) (xy 1.977 0.8724)
+						(xy 2.0391 0.8235) (xy 2.0965 0.7729) (xy 2.1492 0.7208) (xy 2.197 0.6673) (xy 2.2397 0.6125)
+						(xy 2.2772 0.5564) (xy 2.294 0.5279) (xy 2.3094 0.4991) (xy 2.3234 0.47) (xy 2.336 0.4407) (xy 2.3472 0.4111)
+						(xy 2.357 0.3812) (xy 2.3653 0.3511) (xy 2.3722 0.3208) (xy 2.3775 0.2903) (xy 2.3814 0.2595)
+						(xy 2.3837 0.2285) (xy 2.3845 0.1974) (xy 2.3845 -0.2915) (xy 2.3837 -0.3226) (xy 2.3814 -0.3535)
+						(xy 2.3775 -0.3843) (xy 2.3722 -0.4148) (xy 2.3653 -0.4451) (xy 2.357 -0.4752) (xy 2.3472 -0.505)
+						(xy 2.336 -0.5346) (xy 2.3094 -0.593) (xy 2.2772 -0.6503) (xy 2.2397 -0.7063) (xy 2.197 -0.7611)
+						(xy 2.1492 -0.8146) (xy 2.0965 -0.8666) (xy 2.0391 -0.9171) (xy 1.977 -0.9661) (xy 1.9105 -1.0134)
+						(xy 1.8397 -1.0589) (xy 1.7648 -1.1027) (xy 1.6858 -1.1446) (xy 1.603 -1.1846) (xy 1.5165 -1.2226)
+						(xy 1.4265 -1.2584) (xy 1.3331 -1.2921) (xy 1.2364 -1.3236) (xy 1.1366 -1.3527) (xy 1.0339 -1.3794)
+						(xy 0.9282 -1.4035) (xy 0.82 -1.4251) (xy 0.7092 -1.4441) (xy 0.596 -1.4603) (xy 0.4807 -1.4737)
+						(xy 0.3633 -1.4843) (xy 0.2439 -1.4919) (xy 0.1228 -1.4965) (xy 0.0001 -1.4981) (xy -0.1226 -1.4965)
+						(xy -0.2437 -1.4919) (xy -0.363 -1.4842) (xy -0.4804 -1.4736) (xy -0.5958 -1.4601) (xy -0.709 -1.4439)
+						(xy -0.8198 -1.4249) (xy -0.9281 -1.4033) (xy -1.0337 -1.3791) (xy -1.1365 -1.3525) (xy -1.2364 -1.3234)
+						(xy -1.3332 -1.292) (xy -1.4267 -1.2584) (xy -1.5168 -1.2226) (xy -1.6033 -1.1846) (xy -1.6861 -1.1447)
+						(xy -1.7651 -1.1028) (xy -1.8401 -1.059) (xy -1.9109 -1.0134) (xy -1.9774 -0.9661) (xy -2.0394 -0.9171)
+						(xy -2.0968 -0.8666) (xy -2.1495 -0.8146) (xy -2.1973 -0.7611) (xy -2.24 -0.7063) (xy -2.2775 -0.6503)
+						(xy -2.3096 -0.593) (xy -2.3363 -0.5346) (xy -2.3572 -0.4752) (xy -2.3724 -0.4148) (xy -2.3816 -0.3535)
+						(xy -2.3847 -0.2915) (xy -2.3847 0) (xy -1.5879 0) (xy -1.5487 -0.068) (xy -1.4989 -0.1333) (xy -1.4391 -0.1955)
+						(xy -1.3698 -0.2545) (xy -1.2915 -0.31) (xy -1.2049 -0.3619) (xy -1.1105 -0.4098) (xy -1.0087 -0.4537)
+						(xy -0.9003 -0.4932) (xy -0.7857 -0.5281) (xy -0.6655 -0.5583) (xy -0.5403 -0.5835) (xy -0.4105 -0.6035)
+						(xy -0.2768 -0.618) (xy -0.1398 -0.6269) (xy 0.0001 -0.6299) (xy 0.0704 -0.6292) (xy 0.14 -0.6269)
+						(xy 0.2088 -0.6232) (xy 0.2769 -0.618) (xy 0.3442 -0.6114) (xy 0.4105 -0.6034) (xy 0.4758 -0.5941)
+						(xy 0.5402 -0.5834) (xy 0.6034 -0.5715) (xy 0.6654 -0.5583) (xy 0.7262 -0.5438) (xy 0.7857 -0.5281)
+						(xy 0.8438 -0.5112) (xy 0.9004 -0.4932) (xy 0.9554 -0.474) (xy 1.0089 -0.4537) (xy 1.0606 -0.4323)
+						(xy 1.1106 -0.4099) (xy 1.1587 -0.3864) (xy 1.205 -0.3619) (xy 1.2493 -0.3364) (xy 1.2915 -0.31)
+						(xy 1.3317 -0.2827) (xy 1.3697 -0.2545) (xy 1.4055 -0.2254) (xy 1.439 -0.1955) (xy 1.4701 -0.1648)
+						(xy 1.4987 -0.1333) (xy 1.5249 -0.101) (xy 1.5485 -0.068) (xy 1.5694 -0.0344) (xy 1.5876 0) (xy 1.5485 0.068)
+						(xy 1.4987 0.1333) (xy 1.4389 0.1955) (xy 1.3696 0.2545) (xy 1.2914 0.31) (xy 1.2048 0.3619) (xy 1.1104 0.4098)
+						(xy 1.0088 0.4537) (xy 0.9004 0.4932) (xy 0.7858 0.5281) (xy 0.6657 0.5583) (xy 0.5405 0.5835)
+						(xy 0.4107 0.6035) (xy 0.2771 0.618) (xy 0.14 0.6269) (xy 0.0001 0.6299) (xy -0.1398 0.6269) (xy -0.2768 0.618)
+						(xy -0.4105 0.6035) (xy -0.5403 0.5835) (xy -0.6655 0.5583) (xy -0.7857 0.5281) (xy -0.9003 0.4932)
+						(xy -1.0087 0.4537) (xy -1.1105 0.4098) (xy -1.1586 0.3863) (xy -1.2049 0.3619) (xy -1.2492 0.3364)
+						(xy -1.2915 0.31) (xy -1.3317 0.2827) (xy -1.3698 0.2545) (xy -1.4056 0.2254) (xy -1.4391 0.1955)
+						(xy -1.4702 0.1648) (xy -1.4989 0.1333) (xy -1.5251 0.101) (xy -1.5487 0.068) (xy -1.5696 0.0343)
+						(xy -1.5879 0) (xy -2.3847 0) (xy -2.3847 0.1974) (xy -2.3817 0.2585) (xy -2.3728 0.3189) (xy -2.3581 0.3784)
+						(xy -2.3378 0.4369) (xy -2.3119 0.4945) (xy -2.2808 0.5509) (xy -2.2444 0.6063) (xy -2.203 0.6604)
+						(xy -2.1055 0.7646) (xy -1.9895 0.8631) (xy -1.8561 0.9553) (xy -1.7065 1.0405) (xy -1.5418 1.1183)
+						(xy -1.3631 1.188) (xy -1.1716 1.249) (xy -0.9684 1.3008) (xy -0.7547 1.3428) (xy -0.5316 1.3744)
+						(xy -0.3003 1.395) (xy -0.0619 1.404) (xy -0.0464 1.4042) (xy -0.0309 1.4041)
+					)
+					(stroke
+						(width -0.0001)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "VIAS -- 20 um barrel plating, dT 5 K. \"per via\" is what one via\ncarries. Derate by 0.7 in dense via fields.\n\nVia | Drill  | Pad     | Aspect | per via\n----|--------|---------|--------|---------\nA   | 0.2 mm | 0.45 mm | 8:1    | 0.839 A\nB   | 0.3 mm | 0.6 mm  | 5.3:1  | 1.126 A\nC   | 0.6 mm | 1.0 mm  | 2.7:1  | 1.861 A\nD   | 1.0 mm | 1.4 mm  | 1.6:1  | 2.695 A"
 		(exclude_from_sim no)
@@ -13982,7 +14886,18 @@
 		)
 		(uuid "519cfdb0-20b6-4962-95c9-77c3d9221abc")
 	)
-	(text "Digital isolator with integrated DC/DC\nIn: 3.3VDC (VDD = VIO)\nOut: 3.3VDC, 60mA, 24mVpp ripple\nCh: 1 forward + 1 reverse, 100Mbps\n    Fail-safe output HIGH (no F suffix)\nEff: 46% @ max load\nIso: Reinforced per VDE 0884-17, 5kVrms/60s\n     1000Vrms working, >8mm creepage/clearance\n     CTI >600V, material group I\nProtection: Soft-start, UVLO, OVP\n            Overload, short-circuit, thermal shutdown\n"
+	(text "Alternative: ISOW7721DFMR"
+		(exclude_from_sim no)
+		(at 181.61 153.67 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "586d13a7-42bb-42fd-9dd9-cf8464269666")
+	)
+	(text "Digital isolator with integrated DC/DC\nIn: 3.3VDC (VDD = VIO)\nOut: 3.3VDC, 60mA, 24mVpp ripple\nCh: 1 forward + 1 reverse, 100Mbps\n    Fail-safe output LOW (F suffix)\nEff: 46% @ max load\nIso: Reinforced per VDE 0884-17, 5kVrms/60s\n     1000Vrms working, >8mm creepage/clearance\n     CTI >600V, material group I\nProtection: Soft-start, UVLO, OVP\n            Overload, short-circuit, thermal shutdown\n"
 		(exclude_from_sim no)
 		(at 137.16 86.614 0)
 		(effects
@@ -14002,7 +14917,7 @@
 		)
 		(uuid "667bdc31-89e4-48f8-9b97-58332acc101a")
 	)
-	(text "CLEARANCE & CREEPAGE -- I/O BOARD 230V\nMaster table, binding for layout and DRC rules.\nBasis: IEC 60664-1, 250 VAC working voltage, OVC II, pollution degree 2\n       (sealed IP64 enclosure), material group IIIa.\nDesign minima in mm, valid for clearance AND creepage, on both layers.\nL / N = mains poles, ISO = measurement island (at N potential via NT300),\nSELV = everything else, PE = protective earth (basic insulation to mains).\n          |    L     |    N     |   ISO    |   SELV   |    PE\n----------|----------|----------|----------|----------|----------\n  L       |   0.5    |   3.0    |   3.0    |   8.0    |   3.0\n  N       |          |   0.5    |   0.5    |   8.0    |   3.0\n  ISO     |          |          |   0.3    |   8.0    |   3.0\n  SELV    |          |          |          |   0.2    |   0.2\n  PE      |          |          |          |          |    --\n  Exception: inside U300 (ISOW7721DFMR) 0.2 mm. The package provides the\n  barrier; its pads across the barrier are 7.25 mm apart."
+	(text "CLEARANCE & CREEPAGE -- I/O BOARD 230V\nMaster table, binding for layout and DRC rules.\nBasis: IEC 60664-1, 250 VAC working voltage, OVC II, pollution degree 2\n       (sealed IP64 enclosure), material group IIIa.\nDesign minima in mm, valid for clearance AND creepage, on both layers.\nL / N = mains poles, ISO = measurement island (at N potential via NT300),\nSELV = everything else, PE = protective earth (basic insulation to mains).\n          |    L     |    N     |   ISO    |   SELV   |    PE\n----------|----------|----------|----------|----------|----------\n  L       |   0.5    |   3.0    |   3.0    |   8.0    |   3.0\n  N       |          |   0.5    |   0.5    |   8.0    |   3.0\n  ISO     |          |          |   0.3    |   8.0    |   3.0\n  SELV    |          |          |          |   0.2    |   0.2\n  PE      |          |          |          |          |    --\n  Exception: inside U301 (ISOW7721FDFMR) 0.2 mm. The package provides the\n  barrier; its pads across the barrier are 7.25 mm apart."
 		(exclude_from_sim no)
 		(at 15.748 262.382 0)
 		(effects
@@ -14013,6 +14928,17 @@
 			(justify left)
 		)
 		(uuid "8d80f9d8-bd93-471b-9d8c-9cd197f0e8e2")
+	)
+	(text "Mechanical (BOM only): 2x M3 insulating washers\nfor critical mains-side mounting screws (Top)"
+		(exclude_from_sim no)
+		(at 357.124 238.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8e5773b4-b4be-42cf-aa19-65846a037008")
 	)
 	(text "GAIN = 16"
 		(exclude_from_sim no)
@@ -14091,12 +15017,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0bb8a8c0-c31b-4872-9e85-f4ace3238d1d")
-	)
-	(junction
-		(at 187.96 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0d3a7385-0eae-43c4-99fe-a439299d9330")
 	)
 	(junction
 		(at 278.13 25.4)
@@ -14357,6 +15277,12 @@
 		(uuid "a25beab5-1aaa-4bf8-9c7b-f4cb40faef74")
 	)
 	(junction
+		(at 354.33 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a2a6d02c-c932-4756-8aff-e270ea6c3cca")
+	)
+	(junction
 		(at 361.95 135.89)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -14569,10 +15495,6 @@
 	(no_connect
 		(at 358.14 160.02)
 		(uuid "ce01a02f-e6d3-484d-8995-63997afce7c2")
-	)
-	(no_connect
-		(at 392.43 50.8)
-		(uuid "d7ba415d-eea2-45ca-86bd-1d33f55246d2")
 	)
 	(no_connect
 		(at 358.14 157.48)
@@ -15251,6 +16173,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 92.71) (xy 187.96 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a6b103d-b0f8-40fc-9c09-cbeb0529d214")
+	)
+	(wire
+		(pts
 			(xy 316.23 97.79) (xy 316.23 95.25)
 		)
 		(stroke
@@ -15431,7 +16363,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 88.9) (xy 185.42 88.9)
+			(xy 185.42 88.9) (xy 199.39 88.9)
 		)
 		(stroke
 			(width 0)
@@ -16153,16 +17085,6 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 95.25) (xy 187.96 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "71c51963-61f3-438d-9b01-8a9c8ad9edfc")
-	)
-	(wire
-		(pts
 			(xy 233.68 232.41) (xy 238.76 232.41)
 		)
 		(stroke
@@ -16283,7 +17205,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 102.87) (xy 187.96 109.22)
+			(xy 187.96 105.41) (xy 187.96 109.22)
 		)
 		(stroke
 			(width 0)
@@ -16390,6 +17312,16 @@
 			(type default)
 		)
 		(uuid "86ccfa4e-c418-4ebe-b934-6c291614f543")
+	)
+	(wire
+		(pts
+			(xy 354.33 50.8) (xy 392.43 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86d9e921-7ebf-4ac8-be91-5072871a3b63")
 	)
 	(wire
 		(pts
@@ -16550,16 +17482,6 @@
 			(type default)
 		)
 		(uuid "9ce91da4-b350-4a9b-b321-ca1c2b6650d6")
-	)
-	(wire
-		(pts
-			(xy 187.96 88.9) (xy 199.39 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9d4e69f9-d9b5-454d-8a7c-ef5b70ce1234")
 	)
 	(wire
 		(pts
@@ -16780,6 +17702,16 @@
 			(type default)
 		)
 		(uuid "ada45854-1369-487e-ad78-337d2c0a08e7")
+	)
+	(wire
+		(pts
+			(xy 187.96 92.71) (xy 187.96 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adaeae4a-87e6-421b-b72d-7f55205551d4")
 	)
 	(wire
 		(pts
@@ -19691,7 +20623,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_Capacitor_X7R:C_100nF_0603_100V")
+		(lib_id "0_Capacitor_X7R:C_100nF_0805_100V")
 		(at 189.23 52.07 0)
 		(unit 1)
 		(body_style 1)
@@ -19724,7 +20656,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "aa_Passives:C_0603_1608Metric"
+		(property "Footprint" "aa_Passives:C_0805_2012Metric"
 			(at 190.1952 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -19735,7 +20667,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.we-online.com/catalog/datasheet/885012206120.pdf"
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/885012207128.pdf"
 			(at 189.23 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -19746,7 +20678,7 @@
 				)
 			)
 		)
-		(property "Description" "CAP CER 0.1UF 100V X7R 0603"
+		(property "Description" "CAP CER 0.1UF 100V X7R 0805"
 			(at 189.23 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -19768,7 +20700,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "885012206120"
+		(property "Manufacturer Part Number" "885012207128"
 			(at 189.23 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -19790,7 +20722,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" "710-885012206120"
+		(property "Distributor 1 Order Number" "710-885012207128"
 			(at 189.23 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -19812,7 +20744,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "732-885012206120CT-ND"
+		(property "Distributor 2 Order Number" "732-12244-1-ND"
 			(at 189.23 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -19823,7 +20755,7 @@
 				)
 			)
 		)
-		(property "FootprintSymbol" "0603"
+		(property "FootprintSymbol" "0805"
 			(at 190.5 48.514 90)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -20047,7 +20979,7 @@
 		)
 	)
 	(symbol
-		(lib_id "0_IC:IC_ISOW7721DFMR")
+		(lib_id "0_IC:IC_ISOW7721FDFMR")
 		(at 167.64 135.89 0)
 		(mirror y)
 		(unit 1)
@@ -20069,7 +21001,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "ISOW7721DFMR"
+		(property "Value" "ISOW7721FDFMR"
 			(at 197.104 151.13 0)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -20125,7 +21057,7 @@
 				)
 			)
 		)
-		(property "Manufacturer Part Number" "ISOW7721DFMR"
+		(property "Manufacturer Part Number" "ISOW7721FDFMR"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -20147,7 +21079,7 @@
 				)
 			)
 		)
-		(property "Distributor 1 Order Number" "595-ISOW7721DFMR"
+		(property "Distributor 1 Order Number" "595-ISOW7721FDFMR"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -20169,7 +21101,7 @@
 				)
 			)
 		)
-		(property "Distributor 2 Order Number" "296-ISOW7721DFMRCT-ND"
+		(property "Distributor 2 Order Number" "296-ISOW7721FDFMRCT-ND"
 			(at 167.64 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -22779,6 +23711,146 @@
 			(project "IO_Board"
 				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
 					(reference "Q302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Mechanic:M_Washer_M3_Nylon")
+		(at 391.16 245.11 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "282a5bbf-6857-4c5a-8d44-19d102ffc627")
+		(property "Reference" "MP301"
+			(at 391.16 241.3 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "M3 Nylon Washer 1.4mm"
+			(at 391.16 248.92 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5686/16MLSW030070070.pdf"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "WASHER SEALING M3 NYLON ID 3.1mm OD 7.0mm T 1.4mm"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Essentra Components"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "16MLSW030070070"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "144-16MLSW030070070"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "RPC9790-ND"
+			(at 391.16 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "MP301")
 					(unit 1)
 				)
 			)
@@ -31964,6 +33036,149 @@
 	)
 	(symbol
 		(lib_id "0_Power:GND")
+		(at 193.04 92.71 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "8190259d-5f5c-4232-8864-27d052d9d9c3")
+		(property "Reference" "#PWR0361"
+			(at 193.04 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 193.04 96.52 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" ""
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" ""
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" ""
+			(at 193.04 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "21fbd599-f16a-4826-86c7-d9039334d398")
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "#PWR0361")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "0_Power:GND")
 		(at 194.31 82.55 0)
 		(unit 1)
 		(body_style 1)
@@ -37243,6 +38458,147 @@
 		)
 	)
 	(symbol
+		(lib_name "M_Washer_M3_Nylon_1")
+		(lib_id "0_Mechanic:M_Washer_M3_Nylon")
+		(at 364.49 245.11 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bdd9ee18-f1c4-40a8-bcc8-2926b081ea9c")
+		(property "Reference" "MP300"
+			(at 364.49 241.3 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "M3 Nylon Washer 1.4mm"
+			(at 364.49 248.92 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5686/16MLSW030070070.pdf"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "WASHER SEALING M3 NYLON ID 3.1mm OD 7.0mm T 1.4mm"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Essentra Components"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Part Number" "16MLSW030070070"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1" "Mouser"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 1 Order Number" "144-16MLSW030070070"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2" "Digi-Key"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Distributor 2 Order Number" "RPC9790-ND"
+			(at 364.49 245.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "IO_Board"
+				(path "/925169fe-6f55-4c58-8867-9e65957475e7"
+					(reference "MP300")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "0_Power:GND")
 		(at 210.82 100.33 0)
 		(unit 1)
@@ -38963,7 +40319,7 @@
 	)
 	(symbol
 		(lib_id "0_Resistor_1%:R_47k_0603")
-		(at 187.96 99.06 0)
+		(at 187.96 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -38974,7 +40330,7 @@
 		(fields_autoplaced yes)
 		(uuid "d2c7e48b-a857-4ca7-8b9a-d3b6be93ef11")
 		(property "Reference" "R304"
-			(at 190.5 97.7899 0)
+			(at 190.5 100.3299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -38985,7 +40341,7 @@
 			)
 		)
 		(property "Value" "47k"
-			(at 190.5 100.3299 90)
+			(at 190.5 102.8699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -38995,7 +40351,7 @@
 			)
 		)
 		(property "Footprint" "aa_Passives:R_0603_1608Metric"
-			(at 186.182 99.06 90)
+			(at 186.182 101.6 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39006,7 +40362,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.vishay.com/docs/28773/crcwce3.pdf"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39017,7 +40373,7 @@
 			)
 		)
 		(property "Description" "RES 47K OHM 1% 1/10W 0603"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39028,7 +40384,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39039,7 +40395,7 @@
 			)
 		)
 		(property "Manufacturer Part Number" "CRCW060347K0FKEAC"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39050,7 +40406,7 @@
 			)
 		)
 		(property "Distributor 1" "Mouser"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39061,7 +40417,7 @@
 			)
 		)
 		(property "Distributor 1 Order Number" "71-CRCW060347K0FKEAC"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39072,7 +40428,7 @@
 			)
 		)
 		(property "Distributor 2" "Digi-Key"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39083,7 +40439,7 @@
 			)
 		)
 		(property "Distributor 2 Order Number" "541-4021-1-ND"
-			(at 187.96 99.06 0)
+			(at 187.96 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39094,7 +40450,7 @@
 			)
 		)
 		(property "FootprintSymbol" "0603"
-			(at 187.96 99.06 90)
+			(at 187.96 101.6 90)
 			(show_name no)
 			(do_not_autoplace yes)
 			(effects
@@ -39104,7 +40460,7 @@
 			)
 		)
 		(property "Power" "100mW"
-			(at 190.246 99.06 90)
+			(at 190.246 101.6 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
@@ -39115,7 +40471,7 @@
 			)
 		)
 		(property "Tolerance" "1%"
-			(at 182.88 99.06 90)
+			(at 182.88 101.6 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace yes)
